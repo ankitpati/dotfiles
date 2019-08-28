@@ -1,0 +1,18 @@
+# Ankit Pati’s Opinionated `.perltidyrc`
+# contact@ankitpati.in
+
+--character-encoding=utf8       # Source MUST be UTF-8 encoded.
+--warning-output                # All errors and warnings.
+--backup-and-modify-in-place    # No `.tdy` files.
+--backup-file-extension='/'     # Delete backup if no errors.
+--weld-nested-containers        # ({ ... })
+--opening-token-right           # Opening braces on same line.
+--paren-tightness=2             # ($value)
+--square-bracket-tightness=2    # [$index]
+--brace-tightness=1             # $ohash{ $ihash{hkey} }
+--block-brace-tightness=0       # grep { /^$regex$/ }
+--tight-secret-operators        # Treat common operator sequences as one.
+--nospace-for-semicolon         # Applies to C-style `for` loops.
+--space-keyword-paren           # grep (/$regex/, ...)
+--space-function-paren          # func ($arg1, ...)
+--trim-pod                      # Remove trailing whitespace from POD.
