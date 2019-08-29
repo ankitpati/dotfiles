@@ -1,0 +1,37 @@
+[user]
+    name = Ankit Pati
+    email = contact@ankitpati.in
+    signingkey = B8BBCEBCBD6C4BF0599C40F9360A96429F7A69DC
+[core]
+    editor = vim
+    pager = diff-so-fancy | less --tabs=4 -RFX
+[diff]
+    tool = vimdiff
+[merge]
+    tool = vimdiff
+[difftool]
+    prompt = false
+[push]
+    default = simple
+[filter "lfs"]
+    required = true
+    clean = git-lfs clean -- %f
+    smudge = git-lfs smudge -- %f
+    process = git-lfs filter-process
+[gpg]
+    program = gpg
+[log]
+    showSignature = true
+[alias]
+    patch = !git --no-pager diff --no-color
+[diff-so-fancy]
+    markEmptyLines = false
+[cola]
+    fontdiff = Ubuntu Mono,12,-1,5,50,0,0,0,0,0
+    tabwidth = 4
+    textwidth = 80
+    linebreak = false
+    blameviewer = git gui blame
+[gui]
+    editor = gvim
+    historybrowser = gitk
