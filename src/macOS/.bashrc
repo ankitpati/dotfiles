@@ -255,6 +255,13 @@ function B-delds
            -print \
            -exec rm -rf {} +
 
+    echo 'Removing broken symlinks...'
+    find "$HOME" -not \( -path "$HOME/Mounts" -prune \) \
+            -type l \
+            ! -exec test -e {} \; \
+            -print \
+            -exec rm -rf {} +
+
     echo 'Removing the QuickLook Cache...' # macOS exclusive
     qlmanage -r cache
 }
