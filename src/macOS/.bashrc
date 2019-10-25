@@ -21,6 +21,7 @@ export MANPATH="$(sanitize_path "$(manpath)")"
 
 export EDITOR='vim'
 export POWERSHELL_TELEMETRY_OPTOUT='1'
+export PYENV_VIRTUALENV_DISABLE_PROMPT='1'
 
 # HH Configuration
 export HISTSIZE=''
@@ -126,10 +127,10 @@ brewsbinpath='/usr/local/sbin'
 test -d "$brewsbinpath" && EXTRA_BINARIES="$brewsbinpath:$EXTRA_BINARIES"
 
 icecreampath='/usr/local/opt/icecream/libexec/icecc/bin'
-#test -d "$icecreampath" && EXTRA_BINARIES="$icecreampath:$EXTRA_BINARIES"
+test -d "$icecreampath" && EXTRA_BINARIES="$icecreampath:$EXTRA_BINARIES"
 
 anacondapath='/usr/local/anaconda3/bin'
-#test -d "$anacondapath" && EXTRA_BINARIES="$anacondapath:$EXTRA_BINARIES"
+test -d "$anacondapath" && EXTRA_BINARIES="$anacondapath:$EXTRA_BINARIES"
 
 oraclepath="$ORACLE_HOME"
 test -d "$oraclepath" && EXTRA_BINARIES="$oraclepath:$EXTRA_BINARIES"
@@ -143,17 +144,21 @@ test -d "$oracleclaspath" && EXTRA_CLASPATH="$oracleclaspath:$EXTRA_CLASPATH"
 flutterpath="$HOME/flutter/bin"
 test -d "$flutterpath" && EXTRA_BINARIES="$flutterpath:$EXTRA_BINARIES"
 
+pyenvpath="$HOME/.pyenv/bin"
+test -d "$pyenvpath" && EXTRA_BINARIES="$pyenvpath:$EXTRA_BINARIES"
+
 # clean and export the fruits of the above labour
 if test "$use_gnu_binaries" = 'true'; then
-    # pyenv
-    test -d "$HOME/.pyenv" && \
-        export PYENV_ROOT="$HOME/.pyenv"
-    eval "$(pyenv init -)"
-
     export PATH="$(sanitize_path "$EXTRA_BINARIES:$PATH")"
     export MANPATH="$(sanitize_path "$EXTRA_MANPAGES:$MANPATH")"
     export DYLD_LIBRARY_PATH="$(sanitize_path "$EXTRA_DYLDPATH:$DYLD_LIBRARY_PATH")"
     export CLASSPATH="$(sanitize_path "$EXTRA_CLASPATH:$CLASSPATH")"
+
+    # pyenv
+    test -d "$HOME/.pyenv" && \
+        eval "$(pyenv init -)" && \
+        eval "$(pyenv virtualenv-init -)" && \
+        test -z "$PYENV_ACTIVATE_SHELL" && pyenv activate ankitpati
 
     # perlbrew
     test -f "$HOME/perl5/perlbrew/etc/bashrc" && \
@@ -161,12 +166,12 @@ if test "$use_gnu_binaries" = 'true'; then
     export PERL_CPANM_OPT='--mirror https://cpan.metacpan.org/'
 
     # CERN Root
-    #test -f '/usr/local/bin/thisroot.sh' && \
-    #   source '/usr/local/bin/thisroot.sh'
+    test -f '/usr/local/bin/thisroot.sh' && \
+       source '/usr/local/bin/thisroot.sh'
 
     # Geant 4
-    #test -f '/usr/local/bin/geant4.sh' && \
-    #   source '/usr/local/bin/geant4.sh'
+    test -f '/usr/local/bin/geant4.sh' && \
+       source '/usr/local/bin/geant4.sh'
 
     # ASDF
     test -f '/usr/local/opt/asdf/asdf.sh' && \
@@ -244,6 +249,22 @@ function docker
         ;;
     esac
 }
+
+# pyenv install 3.8.0 (or whatever)
+#function pyenv
+#{
+#    case "$1" in
+#    'install'|'doctor' )
+#        LDFLAGS='-L/usr/local/opt/openssl@1.1/lib' \
+#        CPPFLAGS='-I/usr/local/opt/openssl@1.1/include' \
+#        PATH="/usr/local/opt/openssl@1.1/bin:$HOME/.pyenv/plugins/pyenv-virtualenv/shims:$HOME/.pyenv/shims:$HOME/.pyenv/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin" \
+#        command pyenv "$@"
+#        ;;
+#    * )
+#        command pyenv "$@"
+#        ;;
+#    esac
+#}
 
 # delete junk files
 function B-delds
