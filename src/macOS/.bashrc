@@ -164,6 +164,7 @@ if test "$use_gnu_binaries" = 'true'; then
     test -f "$HOME/perl5/perlbrew/etc/bashrc" && \
         source "$HOME/perl5/perlbrew/etc/bashrc"
     export PERL_CPANM_OPT='--mirror https://cpan.metacpan.org/'
+    export PERLBREW_CPAN_MIRROR='https://cpan.metacpan.org/'
 
     # CERN Root
     test -f '/usr/local/bin/thisroot.sh' && \
