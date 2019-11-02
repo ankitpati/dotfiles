@@ -20,6 +20,7 @@ set background=dark
 set backspace=2
 set expandtab
 set hlsearch
+set incsearch
 set shiftwidth=4
 set tabstop=4
 
