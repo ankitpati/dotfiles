@@ -295,6 +295,13 @@ function B-clean-cpanm
     rm -rf "$HOME/.cpanm/"{'work/','build.log','latest-build'}
 }
 
+# delete PIP cache
+function B-clean-pip
+{
+    echo 'Removing the PIP Cache...'
+    rm -rf "$HOME/Library/Caches/pip/"
+}
+
 # delete Homebrew and Perlbrew caches
 function B-clean-cache
 {
@@ -305,6 +312,7 @@ function B-clean-cache
     perlbrew clean
 
     B-clean-cpanm
+    B-clean-pip
 }
 
 # compact Homebrew git repositories
