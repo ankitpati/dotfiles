@@ -60,6 +60,9 @@ export XML_CATALOG_FILES='/usr/local/etc/xml/catalog'
 # Wine Freetype Bug
 export FREETYPE_PROPERTIES='truetype:interpreter-version=35'
 
+# Google Cloud SDK
+export CLOUDSDK_CORE_PROJECT=''
+
 # keep macOS Terminal.app from complaining about locales
 export LC_ALL='en_US.UTF-8'
 export LANG='en_US.UTF-8'
@@ -197,6 +200,13 @@ if test "$use_gnu_binaries" = 'true'; then
 
     # colours for `tree`
     command -v dircolors &>/dev/null && eval "$(dircolors -b)"
+
+    # Google Cloud SDK
+    GCLOUD_SDK='/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk'
+    test -f "$GCLOUD_SDK/path.bash.inc" &&\
+        source "$GCLOUD_SDK/path.bash.inc"
+    test -f "$GCLOUD_SDK/completion.bash.inc" && \
+        source "$GCLOUD_SDK/completion.bash.inc"
 
 else
     alias updatedb='/usr/libexec/locate.updatedb' # macOS exclusive
