@@ -194,7 +194,7 @@ if test "$use_gnu_binaries" = 'true'; then
     export PERL5LIB="$(sanitize_path "$HOME/lib/perl5:$PERL5LIB")"
 
     # completion for brewed binaries
-    completions='/usr/local/share/bash-completion/bash_completion'
+    completions='/usr/local/etc/profile.d/bash_completion.sh'
     test -f "$completions" && \
         source "$completions"
 
