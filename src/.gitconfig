@@ -2,6 +2,8 @@
     name = Ankit Pati
     email = contact@ankitpati.in
     signingkey = B8BBCEBCBD6C4BF0599C40F9360A96429F7A69DC
+[commit]
+    gpgsign=false
 [core]
     editor = vim
     pager = diff-so-fancy | less --tabs=4 -RFX
