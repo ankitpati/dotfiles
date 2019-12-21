@@ -8,10 +8,13 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'vim-syntastic/syntastic'
+Plugin 'gregsexton/MatchTag'
 call vundle#end()
 
 filetype plugin indent on
 " End of Vundle Config
+
+runtime macros/matchit.vim
 
 syntax on
 
