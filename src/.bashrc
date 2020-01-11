@@ -13,3 +13,8 @@ test -z "$PYENV_ACTIVATE_SHELL" && pyenv activate ankitpati
 
 # cargo
 export PATH="$(sanitize_path "$HOME/.cargo/bin:$PATH")"
+
+# npm
+export PATH="$(sanitize_path "$NPM_PACKAGES/bin:$PATH")"
+export MANPATH="$(sanitize_path \
+                  "$NPM_PACKAGES/share/man:${MANPATH-$(manpath)}")"
