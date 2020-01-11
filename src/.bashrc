@@ -10,3 +10,6 @@ eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
 export PYENV_VIRTUALENV_DISABLE_PROMPT='1'
 test -z "$PYENV_ACTIVATE_SHELL" && pyenv activate ankitpati
+
+# cargo
+export PATH="$(sanitize_path "$HOME/.cargo/bin:$PATH")"
