@@ -18,6 +18,7 @@ runtime macros/matchit.vim
 
 syntax on
 
+set autoindent
 set nomodeline
 set background=dark
 set backspace=2
