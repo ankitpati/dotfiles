@@ -1,0 +1,7 @@
+html {
+    -webkit-filter: invert(1);
+}
+
+img, video {
+    -webkit-filter: invert(1) !important;
+}
