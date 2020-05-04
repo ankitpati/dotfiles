@@ -8,13 +8,6 @@ export PERL_LOCAL_LIB_ROOT="$(sanitize_path "$HOME/perl5:$PERL_LOCAL_LIB_ROOT")"
 export PERL_MB_OPT="--install_base '$HOME/perl5'"
 export PERL_MM_OPT="INSTALL_BASE=$HOME/perl5"
 
-# pyenv
-export PATH="$(sanitize_path "$HOME/.pyenv/bin:$PATH")"
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
-export PYENV_VIRTUALENV_DISABLE_PROMPT='1'
-test -z "$PYENV_ACTIVATE_SHELL" && pyenv activate ankitpati
-
 # cargo
 export PATH="$(sanitize_path "$HOME/.cargo/bin:$PATH")"
 
