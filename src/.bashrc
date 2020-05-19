@@ -12,6 +12,5 @@ export PERL_MM_OPT="INSTALL_BASE=$HOME/perl5"
 export PATH="$(sanitize_path "$HOME/.cargo/bin:$PATH")"
 
 # npm
+#npm config set prefix "$NPM_PACKAGES"
 export PATH="$(sanitize_path "$NPM_PACKAGES/bin:$PATH")"
-export MANPATH="$(sanitize_path \
-                  "$NPM_PACKAGES/share/man:${MANPATH-$(manpath)}")"
