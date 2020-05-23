@@ -19,12 +19,13 @@ runtime macros/matchit.vim
 syntax on
 
 set autoindent
-set nomodeline
 set background=dark
 set backspace=2
+set belloff=all
 set expandtab
 set hlsearch
 set incsearch
+set nomodeline
 set shiftwidth=4
 set tabstop=4
 
