@@ -6,6 +6,7 @@ set rtp+=~/.vim/bundle/Vundle.vim
 
 call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
+Plugin 'sheerun/vim-polyglot'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'vim-syntastic/syntastic'
 Plugin 'gregsexton/MatchTag'
