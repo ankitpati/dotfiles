@@ -24,6 +24,7 @@ set background=dark
 set backspace=2
 set belloff=all
 set expandtab
+set fileformats=unix
 set hlsearch
 set incsearch
 set nomodeline
