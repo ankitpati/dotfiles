@@ -14,3 +14,6 @@ export PATH="$(sanitize_path "$HOME/.cargo/bin:$PATH")"
 # npm
 #npm config set prefix "$NPM_PACKAGES"
 export PATH="$(sanitize_path "$NPM_PACKAGES/bin:$PATH")"
+
+# android
+export PATH="$(sanitize_path "$HOME/Android/Sdk/platform-tools:$PATH")"
