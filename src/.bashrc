@@ -11,6 +11,9 @@ export PERL_MM_OPT="INSTALL_BASE=$HOME/perl5"
 # cargo
 export PATH="$(sanitize_path "$HOME/.cargo/bin:$PATH")"
 
+# php
+export PATH="$(sanitize_path "$HOME/.composer/vendor/bin:$PATH")"
+
 # npm
 #npm config set prefix "$NPM_PACKAGES"
 export PATH="$(sanitize_path "$NPM_PACKAGES/bin:$PATH")"
