@@ -36,7 +36,7 @@ highlight GitGutterAdd    ctermfg=2
 highlight GitGutterChange ctermfg=3
 highlight GitGutterDelete ctermfg=1
 
-set colorcolumn=81
+set colorcolumn=81,101
 highlight ColorColumn ctermbg=8
 
 set directory=~/.vim/swapfiles//
