@@ -18,5 +18,8 @@ export PATH="$(sanitize_path "$HOME/.composer/vendor/bin:$PATH")"
 #npm config set prefix "$NPM_PACKAGES"
 export PATH="$(sanitize_path "$NPM_PACKAGES/bin:$PATH")"
 
+# SDKMan
+source "$SDKMAN_DIR/bin/sdkman-init.sh"
+
 # android
 export PATH="$(sanitize_path "$HOME/Android/Sdk/platform-tools:$PATH")"
