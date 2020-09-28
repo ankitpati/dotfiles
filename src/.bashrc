@@ -1,4 +1,4 @@
-test -f '/etc/bashrc' && source '/etc/bashrc'
+source '/etc/bashrc'
 export PATH="$(sanitize_path "$HOME/.local/bin:$HOME/bin:$PATH")"
 
 # perl local::lib
