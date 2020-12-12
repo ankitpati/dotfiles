@@ -29,3 +29,5 @@
     markEmptyLines = false
 [advice]
     detachedHead = false
+[pull]
+	rebase = true
