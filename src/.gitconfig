@@ -30,4 +30,4 @@
 [advice]
     detachedHead = false
 [pull]
-	rebase = true
+    rebase = true
