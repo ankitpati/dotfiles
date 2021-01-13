@@ -22,6 +22,8 @@ export PATH="$(sanitize_path "$NPM_PACKAGES/bin:$PATH")"
 source "$SDKMAN_DIR/bin/sdkman-init.sh"
 
 # dart & flutter
+#dart --disable-analytics
+#flutter config --no-analytics
 export PATH="$(sanitize_path "$HOME/snap/flutter/common/flutter/bin:$PATH")"
 
 # android
