@@ -30,6 +30,6 @@
 [advice]
     detachedHead = false
 [pull]
-    rebase = true
+	ff = only
 [receive]
     denyCurrentBranch = updateInstead
