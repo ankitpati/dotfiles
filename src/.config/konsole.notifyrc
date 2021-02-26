@@ -1,0 +1,6 @@
+[Event/BellVisible]
+Action=Sound
+Execute=
+Logfile=
+Sound=Oxygen-Sys-App-Message.ogg
+TTS=

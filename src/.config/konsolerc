@@ -1,0 +1,16 @@
+[Desktop Entry]
+DefaultProfile=ankitpati.profile
+
+[KonsoleWindow]
+RemoveWindowTitleBarAndFrame=true
+ShowMenuBarByDefault=false
+
+[MainWindow]
+MenuBar=Disabled
+State=AAAA/wAAAAD9AAAAAAAAB4AAAAQ4AAAABAAAAAQAAAAIAAAACPwAAAAA
+ToolBarsMovable=Disabled
+
+[TabBar]
+CloseTabButton=None
+CloseTabOnMiddleMouseButton=true
+TabBarPosition=Top
