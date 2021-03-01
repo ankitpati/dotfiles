@@ -13,4 +13,4 @@ ToolBarsMovable=Disabled
 [TabBar]
 CloseTabButton=None
 CloseTabOnMiddleMouseButton=true
-TabBarPosition=Top
+ExpandTabWidth=true
