@@ -79,5 +79,13 @@
         <Action name="select-all" shortcut="Meta+A" />
         <Action name="shrink-font" shortcut="" />
         <Action name="zmodem-upload" shortcut="" />
+        <Action name="sigcont-signal" shortcut="Meta+#" />
+        <Action name="sighup-signal" shortcut="Meta+^" />
+        <Action name="sigint-signal" shortcut="Meta+%" />
+        <Action name="sigkill-signal" shortcut="Meta+(" />
+        <Action name="sigstop-signal" shortcut="Meta+&amp;" />
+        <Action name="sigterm-signal" shortcut="Meta+*" />
+        <Action name="sigusr1-signal" shortcut="Meta+!" />
+        <Action name="sigusr2-signal" shortcut="Meta+@" />
     </ActionProperties>
 </kpartgui>
