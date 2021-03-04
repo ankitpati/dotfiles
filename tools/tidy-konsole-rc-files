@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+me="$(basename "$0")"
+mydir="$(dirname "$0")/"
+
+test "$#" -ne 0 && echo "Usage: $me" && exit 1
+
+tidy -mciq --indent-spaces 4 -w 150 -xml \
+    "$mydir/../src/.local/share/kxmlgui5/konsole/"{konsoleui,sessionui}.rc
