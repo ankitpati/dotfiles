@@ -1,5 +1,6 @@
 global_bashrc='/etc/bashrc'
 test -f "$global_bashrc" && source "$global_bashrc"
+unset global_bashrc
 
 mesg n || true
 
@@ -37,6 +38,7 @@ export MERGE='vimdiff'
 manpath="$MANPATH"
 unset MANPATH
 export MANPATH="$(sanitize_path "$manpath:$(manpath)")"
+unset manpath
 
 alias tree='tree -I ".git|node_modules"'
 alias cpan-outdated='cpan-outdated --mirror="$PERLBREW_CPAN_MIRROR"'
@@ -92,6 +94,7 @@ export PATH="$(sanitize_path "$NPM_PACKAGES/bin:$PATH")"
 # sdkman
 sdkman_init="$SDKMAN_DIR/bin/sdkman-init.sh"
 test -f "$sdkman_init" && source "$sdkman_init"
+unset sdkman_init
 
 # dart & flutter
 #dart --disable-analytics
