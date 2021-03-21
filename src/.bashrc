@@ -1,4 +1,5 @@
-source '/etc/bashrc'
+global_bashrc='/etc/bashrc'
+test -f "$global_bashrc" && source "$global_bashrc"
 
 mesg n || true
 
@@ -89,7 +90,8 @@ export PATH="$(sanitize_path "$HOME/.composer/vendor/bin:$PATH")"
 export PATH="$(sanitize_path "$NPM_PACKAGES/bin:$PATH")"
 
 # sdkman
-source "$SDKMAN_DIR/bin/sdkman-init.sh"
+sdkman_init="$SDKMAN_DIR/bin/sdkman-init.sh"
+test -f "$sdkman_init" && source "$sdkman_init"
 
 # dart & flutter
 #dart --disable-analytics
