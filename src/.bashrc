@@ -66,6 +66,11 @@ function _git_files
 
 export PATH="$(sanitize_path "$HOME/.local/bin:$HOME/bin:$PATH")"
 
+# Only on Debian and derivatives
+test -n "$(grep -i 'debian' < '/etc/os-release')" && \
+    eval "$(SHELL='/bin/sh' lesspipe)" && \
+    eval "$(dircolors -b)"
+
 # perl local::lib
 export PATH="$(sanitize_path "$HOME/perl5/bin:$PATH")"
 export PERL5LIB="$(sanitize_path "$HOME/perl5/lib/perl5:$PERL5LIB")"
