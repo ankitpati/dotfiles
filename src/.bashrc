@@ -23,6 +23,7 @@ export PYENV_ROOT="$HOME/.pyenv/"
 export NPM_PACKAGES="$HOME/.npm/packages/"
 export SDKMAN_DIR="$HOME/.sdkman/"
 export MYPY_CACHE_DIR="$HOME/.mypy_cache/"
+export MYPYPATH="$HOME/.mypy_stubs/"
 export DOTNET_CLI_TELEMETRY_OPTOUT='1'
 export POWERSHELL_TELEMETRY_OPTOUT='1'
 export ANDROID_HOME="$HOME/Android/Sdk/"
