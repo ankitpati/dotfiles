@@ -1,0 +1,16 @@
+from typing import Dict, List, Union
+from datetime import datetime
+
+
+class Cursor:
+    def execute(self, *args: Union[str, Dict[str, datetime]]) -> None: ...
+    def fetchall(self) -> List[str]: ...
+
+
+class Connection:
+    def __init__(self, connection_string: str) -> None: ...
+    def cursor(self) -> Cursor: ...
+
+
+class connect(Connection):
+    def __init__(self, connection_string: str) -> None: ...
