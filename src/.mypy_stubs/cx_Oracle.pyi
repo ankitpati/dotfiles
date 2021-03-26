@@ -1,0 +1,16 @@
+from typing import Union
+from datetime import datetime
+
+
+class Cursor:
+    def execute(self, *args: str, **kwargs: Union[str, datetime]) -> None: ...
+
+
+class Connection:
+    def __init__(self, connection_string: str) -> None: ...
+    def commit(self) -> None: ...
+    def cursor(self) -> Cursor: ...
+
+
+class connect(Connection):
+    def __init__(self, connection_string: str) -> None: ...
