@@ -1,10 +1,10 @@
-from typing import Dict, List, Union
+from typing import Dict, List, Tuple, Union
 from datetime import datetime
 
 
 class Cursor:
     def execute(self, *args: Union[str, Dict[str, datetime]]) -> None: ...
-    def fetchall(self) -> List[str]: ...
+    def fetchall(self) -> List[Tuple[Union[int, float, bool, str, bytes], ...]]: ...
 
 
 class Connection:
