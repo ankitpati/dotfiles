@@ -1,11 +1,13 @@
 from typing import List, Tuple, Union
 from datetime import datetime
 
+Row = Tuple[Union[int, float, bool, str, bytes], ...]
+
 
 class Cursor:
     description: List[Tuple[str, ...]]
     def execute(self, *args: str, **kwargs: Union[str, datetime]) -> None: ...
-    def fetchall(self) -> List[Tuple[Union[int, float, bool, str, bytes], ...]]: ...
+    def fetchall(self) -> List[Row]: ...
 
 
 class Connection:
