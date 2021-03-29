@@ -39,4 +39,6 @@ highlight GitGutterDelete ctermfg=1
 set colorcolumn=81,101
 highlight ColorColumn ctermbg=8
 
+let g:syntastic_python_flake8_args="--ignore=E501"
+
 set directory=~/.vim/swapfiles//
