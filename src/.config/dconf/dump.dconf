@@ -1,3 +1,10 @@
+[ca/desrt/dconf-editor]
+bookmarks=['/org/gnome/desktop/wm/keybindings/']
+show-warning=false
+window-height=500
+window-is-maximized=true
+window-width=540
+
 [com/github/fabiocolacio/marker/preferences/editor]
 auto-indent=true
 highlight-current-line=false
@@ -14,20 +21,59 @@ enable-dark-mode=true
 
 [com/uploadedlobster/peek]
 interface-prefer-dark-theme=true
+keybinding-toggle-recording='<Super>r'
 
 [de/haeckerfelix/Fragments]
 download-folder='/home/ankitpati/Downloads'
 enable-dark-theme=true
 incomplete-folder='/home/ankitpati/.cache/fragments/incomplete_torrents'
 
+[desktop/ibus/panel/emoji]
+favorites=['’', '“', '”', '…', '•', '—', '×', '‘', '‐', '‖', '⌘', '→', '🐯', '🐅']
+hotkey=['<Super>e']
+unicode-hotkey=['<Super>u']
+
+[org/gnome/Characters]
+recent-characters=['₹', '🐯', '🐅', '🗑', '☰', '⋮', '→']
+
+[org/gnome/GPaste]
+growing-lines=true
+history-name='history'
+images-support=false
+launch-ui=''
+make-password=''
+max-history-size=uint64 500
+max-memory-usage=uint64 1024
+max-text-item-size=uint64 2000000
+pop=''
+save-history=true
+show-history=''
+sync-clipboard-to-primary=''
+sync-primary-to-clipboard=''
+track-changes=false
+track-extension-state=true
+trim-items=false
+upload=''
+
+[org/gnome/Music]
+did-initial-state=true
+window-maximized=true
+window-position=[0, 27]
+window-size=[1920, 1006]
+
 [org/gnome/Totem]
 active-plugins=['open-directory', 'media-player-keys', 'autoload-subtitles', 'movie-properties', 'rotation', 'apple-trailers', 'skipto', 'save-file', 'variable-rate', 'screenshot', 'vimeo', 'recent', 'screensaver']
 subtitle-encoding='UTF-8'
+
+[org/gnome/Weather]
+automatic-location=false
 
 [org/gnome/builder]
 night-mode=true
 restore-previous-files=false
 window-maximized=true
+window-position=(0, 27)
+window-size=(1920, 1006)
 
 [org/gnome/builder/build]
 allow-network-when-metered=true
@@ -50,12 +96,34 @@ style-scheme-name='builder-dark'
 [org/gnome/builder/terminal]
 font-name='Source Code Pro 12'
 
+[org/gnome/calculator]
+accuracy=9
+angle-units='degrees'
+base=10
+button-mode='basic'
+number-format='automatic'
+show-thousands=false
+show-zeroes=false
+source-currency=''
+source-units='degree'
+target-currency=''
+target-units='radian'
+window-position=(1039, 681)
+word-size=64
+
 [org/gnome/calendar]
 active-view='month'
 window-maximized=true
+window-position=(0, 27)
+window-size=(1366, 694)
 
 [org/gnome/clocks]
 world-clocks=[{'location': <(uint32 2, <('San Francisco', 'KOAK', false, [(0.65832848982162007, -2.133408063190589)], [(0.65832848982162007, -2.133408063190589)])>)>}, {'location': <(uint32 2, <('Virginia Beach', 'KNTU', true, [(0.64264962119230173, -1.326944735652658)], [(0.64320489769382372, -1.3260659972808639)])>)>}, {'location': <(uint32 2, <('Coordinated Universal Time (UTC)', '@UTC', false, @a(dd) [], @a(dd) [])>)>}, {'location': <(uint32 2, <('Moscow', 'UUWW', true, [(0.97127572873484425, 0.65042604039431762)], [(0.97305983920281813, 0.65651530216830811)])>)>}, {'location': <(uint32 2, <('Seoul', 'RKSS', false, [(0.65537113412387071, 2.2130774915288098)], [(0.65537113412387071, 2.2130774915288098)])>)>}]
+
+[org/gnome/clocks/state/window]
+panel-id='world'
+size=(870, 690)
+state=87168
 
 [org/gnome/deja-dup]
 backend='google'
@@ -170,10 +238,12 @@ search-engines=[('Google', 'https://www.google.com/search?q=%s', '!g')]
 disable-bookmark-editing=false
 
 [org/gnome/epiphany/reader]
-color-scheme='dark'
+color-scheme='light'
 
 [org/gnome/epiphany/state]
 is-maximized=true
+window-position=(0, 0)
+window-size=(0, 0)
 
 [org/gnome/epiphany/web]
 default-zoom-level=1.25
@@ -197,6 +267,7 @@ show-sidebar=false
 sidebar-page='thumbnails'
 sidebar-size=132
 sizing-mode='fit-width'
+window-ratio=(0.96476510067114096, 0.29928741092636579)
 
 [org/gnome/gedit/plugins]
 active-plugins=['spell']
@@ -218,6 +289,48 @@ statusbar-visible=true
 [org/gnome/gedit/state/history-entry]
 replace-with-entry=['    ']
 
+[org/gnome/gitg/preferences/history]
+default-selection='current-branch'
+reference-sort-order='last-activity'
+
+[org/gnome/gitg/preferences/interface]
+enable-monitoring=true
+style-scheme='oblivion'
+
+[org/gnome/gitg/state/commit]
+paned-sidebar-position=200
+
+[org/gnome/gitg/state/history]
+paned-panels-position=349
+paned-sidebar-position=200
+
+[org/gnome/gitg/state/window]
+size=(702, 599)
+state=43908
+
+[org/gnome/gnome-latex]
+latexila-to-gnome-latex-migration-done=true
+
+[org/gnome/gnome-latex/preferences/file-browser]
+current-directory='file:///home/ankitpati'
+
+[org/gnome/gnome-latex/preferences/ui]
+bottom-panel-visible=true
+edit-toolbar-visible=true
+main-toolbar-visible=true
+show-build-badboxes=true
+show-build-warnings=true
+side-panel-component=0
+side-panel-visible=true
+
+[org/gnome/gnome-latex/state/window]
+documents=@as []
+side-panel-size=256
+size=(950, 660)
+state=87168
+structure-paned-position=100
+vertical-paned-position=374
+
 [org/gnome/gnome-system-monitor]
 disks-interval=5000
 graph-update-interval=1000
@@ -227,6 +340,55 @@ show-dependencies=true
 show-whose-processes='user'
 solaris-mode=false
 update-interval=1000
+window-state=(1920, 1006, 0, 27)
+
+[org/gnome/gthumb/gstreamer-tools]
+screenshot-location='file:///home/ankitpati/Pictures'
+use-hardware-acceleration=true
+
+[org/gnome/gthumb/image-print]
+font-name='Cantarell 12'
+footer-font-name='Cantarell Light 11'
+header-font-name='Cantarell Bold 12'
+
+[org/gnome/gthumb/pixbuf-savers/jpeg]
+default-ext='jpeg'
+optimize=true
+progressive=false
+quality=85
+smoothing=0
+
+[org/gnome/gthumb/pixbuf-savers/png]
+compression-level=6
+
+[org/gnome/gthumb/pixbuf-savers/tga]
+rle-compression=true
+
+[org/gnome/gthumb/pixbuf-savers/tiff]
+compression='deflate'
+default-ext='tiff'
+horizontal-resolution=72
+vertical-resolution=72
+
+[org/gnome/gthumb/pixbuf-savers/webp]
+lossless=false
+method=4
+quality=75
+
+[org/gnome/libgnomekbd/preview]
+height=611
+width=1464
+x=240
+y=135
+
+[org/gnome/logs]
+ignore-warning=true
+
+[org/gnome/mutter/wayland/keybindings]
+restore-shortcuts=@as []
+
+[org/gnome/nautilus/compression]
+default-compression-format='zip'
 
 [org/gnome/nautilus/list-view]
 default-column-order=['name', 'size', 'type', 'owner', 'group', 'permissions', 'where', 'date_modified', 'date_modified_with_time', 'date_accessed', 'recency', 'starred', 'detailed_type']
@@ -250,6 +412,8 @@ window-maximized=true
 [org/gnome/rhythmbox]
 display-page-tree-visible=true
 maximized=true
+position=(0, 27)
+size=(1920, 1006)
 
 [org/gnome/rhythmbox/library]
 layout-filename='%tt'
@@ -459,6 +623,14 @@ locations=@av []
 [org/gnome/shell/world-clocks]
 locations=[<(uint32 2, <('San Francisco', 'KOAK', false, [(0.65832848982162007, -2.133408063190589)], [(0.65832848982162007, -2.133408063190589)])>)>, <(uint32 2, <('Virginia Beach', 'KNTU', true, [(0.64264962119230173, -1.326944735652658)], [(0.64320489769382372, -1.3260659972808639)])>)>, <(uint32 2, <('Coordinated Universal Time (UTC)', '@UTC', false, @a(dd) [], @a(dd) [])>)>, <(uint32 2, <('Moscow', 'UUWW', true, [(0.97127572873484425, 0.65042604039431762)], [(0.97305983920281813, 0.65651530216830811)])>)>, <(uint32 2, <('Seoul', 'RKSS', false, [(0.65537113412387071, 2.2130774915288098)], [(0.65537113412387071, 2.2130774915288098)])>)>]
 
+[org/gnome/shotwell/profiles/preferences/window]
+direct-height=768
+direct-maximize=false
+direct-width=1024
+
+[org/gnome/simple-scan]
+document-type='photo'
+
 [org/gnome/system/location]
 enabled=true
 
@@ -508,6 +680,19 @@ title-mode='ignore'
 use-system-font=false
 use-theme-colors=false
 visible-name='Ankit Pati'
+
+[org/gtk/gtk4/settings/file-chooser]
+date-format='regular'
+location-mode='path-bar'
+show-hidden=false
+show-size-column=true
+show-type-column=true
+sidebar-width=167
+sort-column='name'
+sort-directories-first=false
+sort-order='ascending'
+type-format='category'
+window-size=(934, 379)
 
 [org/gtk/settings/emoji-chooser]
 recent-emoji=[(([uint32 128465], 'wastebasket', ':wastebasket:'), uint32 0), (([128039], 'penguin', ':penguin:'), 0), (([128047], 'tiger face', ':tiger:'), 0), (([127470, 127475], 'India', ':flag_in:'), 0)]
