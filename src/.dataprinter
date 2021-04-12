@@ -1,4 +1,2 @@
-{
-    colored => 1,
-    print_escapes => 1,
-}
+colored = 1
+print_escapes = 1
