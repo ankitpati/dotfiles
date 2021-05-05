@@ -1,0 +1,29 @@
+// Merge these values with prefs.js in the Mozilla profile directory.
+
+user_pref("accessibility.force_disabled", 1);
+user_pref("browser.aboutConfig.showWarning", false);
+user_pref("browser.contentblocking.category", "custom");
+user_pref("browser.search.region", "IN");
+user_pref("browser.startup.homepage", "about:home");
+user_pref("browser.tabs.drawInTitlebar", true);
+user_pref("browser.tabs.warnOnClose", false);
+user_pref("browser.uidensity", 1);
+user_pref("datareporting.healthreport.uploadEnabled", false);
+user_pref("devtools.theme", "dark");
+user_pref("extensions.activeThemeID", "firefox-compact-dark@mozilla.org");
+user_pref("gfx.webrender.all", true);
+user_pref("gfx.webrender.enabled", true);
+user_pref("intl.accept_languages", "en-gb,en,hi");
+user_pref("intl.locale.requested", "en-GB,en-US,hi-IN");
+user_pref("intl.regional_prefs.use_os_locales", true);
+user_pref("layers.acceleration.force-enabled", true);
+user_pref("media.eme.enabled", true);
+user_pref("network.cookie.cookieBehavior", 1);
+user_pref("network.dns.echconfig.enabled", true);
+user_pref("network.dns.use_https_rr_as_altsvc", true);
+user_pref("network.trr.uri", "https://dns-family.adguard.com/dns-query");
+user_pref("network.trr.mode", 3);
+user_pref("permissions.default.camera", 2);
+user_pref("permissions.default.desktop-notification", 2);
+user_pref("permissions.default.geo", 2);
+user_pref("permissions.default.microphone", 2);
