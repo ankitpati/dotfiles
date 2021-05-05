@@ -103,5 +103,10 @@ unset sdkman_init
 #flutter config --no-analytics
 export PATH="$(sanitize_path "$HOME/snap/flutter/common/flutter/bin:$PATH")"
 
+# lua
+export LUA_PATH=";;$HOME/.luarocks/share/lua/5.4/?.lua;$HOME/.luarocks/share/lua/5.4/?/init.lua"
+export LUA_CPATH=";;$HOME/.luarocks/lib64/lua/5.4/?.so"
+export PATH="$(sanitize_path "$HOME/.luarocks/bin:$PATH")"
+
 # android
 export PATH="$(sanitize_path "$HOME/Android/Sdk/platform-tools:$PATH")"
