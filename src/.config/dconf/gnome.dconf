@@ -19,6 +19,29 @@ preview-zoom-level=1.2000000000000002
 [com/github/fabiocolacio/marker/preferences/window]
 enable-dark-mode=true
 
+[com/github/johnfactotum/Foliate]
+restore-last-file=false
+
+[com/github/johnfactotum/Foliate/library]
+maximized=true
+
+[com/github/johnfactotum/Foliate/view]
+bg-color='#000'
+enable-footnote=false
+fg-color='#fff'
+invert=true
+layout='scrolled'
+link-color='cornflowerblue'
+prefer-dark-theme=true
+
+[com/github/johnfactotum/Foliate/window-state]
+fullscreen=false
+maximized=true
+
+[com/github/maoschanz/drawing]
+devel-only=false
+maximized=true
+
 [com/uploadedlobster/peek]
 interface-prefer-dark-theme=true
 keybinding-toggle-recording='<Super>r'
@@ -29,12 +52,9 @@ enable-dark-theme=true
 incomplete-folder='/home/ankitpati/.cache/fragments/incomplete_torrents'
 
 [desktop/ibus/panel/emoji]
-favorites=['’', '“', '”', '…', '•', '—', '×', '‘', '‐', '‖', '⌘', '→', '🐯', '🐅']
+favorites=['’', '“', '”', '…', '•', '—', '×', '‘', '‐', '‖', '⌘', '→', '🐯', '🐅', '🦁', '😺', '🐧', '🐪', '❌', '🗸', '∝', '≈', '🗑', '☰', '⋮', '🇮🇳', '₹']
 hotkey=['<Super>e']
 unicode-hotkey=['<Super>u']
-
-[org/gnome/Characters]
-recent-characters=['₹', '🐯', '🐅', '🗑', '☰', '⋮', '→']
 
 [org/gnome/GPaste]
 growing-lines=true
@@ -114,8 +134,6 @@ word-size=64
 [org/gnome/calendar]
 active-view='month'
 window-maximized=true
-window-position=(0, 27)
-window-size=(1366, 694)
 
 [org/gnome/clocks]
 world-clocks=[{'location': <(uint32 2, <('San Francisco', 'KOAK', false, [(0.65832848982162007, -2.133408063190589)], [(0.65832848982162007, -2.133408063190589)])>)>}, {'location': <(uint32 2, <('Virginia Beach', 'KNTU', true, [(0.64264962119230173, -1.326944735652658)], [(0.64320489769382372, -1.3260659972808639)])>)>}, {'location': <(uint32 2, <('Coordinated Universal Time (UTC)', '@UTC', false, @a(dd) [], @a(dd) [])>)>}, {'location': <(uint32 2, <('Moscow', 'UUWW', true, [(0.97127572873484425, 0.65042604039431762)], [(0.97305983920281813, 0.65651530216830811)])>)>}, {'location': <(uint32 2, <('Seoul', 'RKSS', false, [(0.65537113412387071, 2.2130774915288098)], [(0.65537113412387071, 2.2130774915288098)])>)>}]
@@ -154,6 +172,8 @@ xkb-options=['grp:win_space_toggle', 'lv3:ralt_switch']
 [org/gnome/desktop/interface]
 clock-show-date=false
 clock-show-seconds=true
+font-antialiasing='grayscale'
+font-hinting='slight'
 gtk-im-module='ibus'
 gtk-theme='Adwaita-dark'
 
@@ -205,8 +225,8 @@ move-to-workspace-right=['<Shift><Super>s']
 move-to-workspace-up=@as []
 panel-main-menu=@as []
 panel-run-dialog=['<Super>F2']
-switch-applications=['<Super>Tab']
-switch-applications-backward=['<Shift><Super>Tab']
+switch-applications=@as []
+switch-applications-backward=@as []
 switch-group=['<Super>Above_Tab']
 switch-group-backward=['<Shift><Super>Above_Tab']
 switch-panels=['<Super>Escape']
@@ -217,9 +237,14 @@ switch-to-workspace-last=@as []
 switch-to-workspace-left=['<Super>w']
 switch-to-workspace-right=['<Super>s']
 switch-to-workspace-up=@as []
+switch-windows=['<Super>Tab']
+switch-windows-backward=['<Shift><Super>Tab']
 toggle-fullscreen=['<Super>f']
 toggle-maximized=@as []
 unmaximize=['<Super>Down']
+
+[org/gnome/desktop/wm/preferences]
+focus-mode='sloppy'
 
 [org/gnome/eog/ui]
 sidebar=false
@@ -267,7 +292,6 @@ show-sidebar=false
 sidebar-page='thumbnails'
 sidebar-size=132
 sizing-mode='fit-width'
-window-ratio=(0.96476510067114096, 0.29928741092636579)
 
 [org/gnome/gedit/plugins]
 active-plugins=['spell']
@@ -286,8 +310,6 @@ wrap-mode='char'
 show-tabs-mode='auto'
 statusbar-visible=true
 
-[org/gnome/gedit/state/history-entry]
-replace-with-entry=['    ']
 
 [org/gnome/gitg/preferences/history]
 default-selection='current-branch'
@@ -340,7 +362,23 @@ show-dependencies=true
 show-whose-processes='user'
 solaris-mode=false
 update-interval=1000
-window-state=(1920, 1006, 0, 27)
+
+[org/gnome/gthumb/browser]
+fullscreen-sidebar='hidden'
+fullscreen-thumbnails-visible=false
+go-to-last-location=true
+maximized=true
+properties-visible=false
+sidebar-visible=true
+sort-inverse=false
+sort-type='file::mtime'
+statusbar-visible=true
+thumbnail-list-visible=true
+use-startup-location=false
+viewer-sidebar='hidden'
+
+[org/gnome/gthumb/dialogs/messages]
+confirm-deletion=false
 
 [org/gnome/gthumb/gstreamer-tools]
 screenshot-location='file:///home/ankitpati/Pictures'
@@ -383,6 +421,15 @@ y=135
 
 [org/gnome/logs]
 ignore-warning=true
+
+[org/gnome/maps]
+map-type='MapsAerialSource'
+transportation-type='pedestrian'
+window-maximized=true
+zoom-level=8
+
+[org/gnome/mutter]
+workspaces-only-on-primary=true
 
 [org/gnome/mutter/wayland/keybindings]
 restore-shortcuts=@as []
@@ -509,10 +556,6 @@ sleep-inactive-ac-timeout=3600
 sleep-inactive-ac-type='nothing'
 sleep-inactive-battery-type='nothing'
 
-[org/gnome/settings-daemon/plugins/xsettings]
-antialiasing='grayscale'
-hinting='slight'
-
 [org/gnome/shell]
 app-picker-view=uint32 1
 command-history=['r']
@@ -532,11 +575,11 @@ show-indicators=true
 
 [org/gnome/shell/extensions/gsconnect/device/399892048aa1d73d]
 certificate-pem='-----BEGIN CERTIFICATE-----\nMIIC9zCCAd+gAwIBAgIBATANBgkqhkiG9w0BAQsFADA/MRkwFwYDVQQDDBAzOTk4\nOTIwNDhhYTFkNzNkMRQwEgYDVQQLDAtLREUgQ29ubmVjdDEMMAoGA1UECgwDS0RF\nMB4XDTE5MTExNjE4MzAwMFoXDTI5MTExNjE4MzAwMFowPzEZMBcGA1UEAwwQMzk5\nODkyMDQ4YWExZDczZDEUMBIGA1UECwwLS0RFIENvbm5lY3QxDDAKBgNVBAoMA0tE\nRTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAL+RUg+ltL1cYeA0Hdhl\nXGQbO2VLRKSr4y+VrPZ5eLXtE3cMFZnFXRcUD23v3olcc4QL7nD/9NmbGy5WCUqg\n27B3tggv6Y0gBkcGHrqtEVPC2NCwuG9TrLX5bbLa7mIJQZh4LASsFpjHDTBFeKVV\ntHEYiGG2UBvbmvbUqNg335BzEZxRUGHnQ71b58M2QfwsaSN+cUJ9GygwdJEB7PhG\n5CPawKk5A7v4nsYeJpQPcE6nHjiYWmRZQuecgpOq9MLkJrFQdhB4rDrBcDrYxYSx\nq7Fp1qInqMnIOBAHNSGybj9BPaZcqoZWYuuOLKuXs6cAFA1chKt/MfT0i2tIBamk\n5z8CAwEAATANBgkqhkiG9w0BAQsFAAOCAQEAiDSz+RqUpeZOcylPmWdRx4pohGsm\nnbpPQo9d2wS7N8WOkgNZBvZV7BKLjVWwkddWXC1VvOI8plZLKBlPPxEMyOFWSvkl\nOPC2nggcRsGFr4h0dB0GL5euhfSKaNOs6MNgzBDkHuwFSzo2+JZDsM5VbnWa1P8B\n0fRrgo85oLcku1ZRloHiGSdedjKD+sFVnWUUlJ0h4vohWTFgnu6zHpm0Vt0OMqOi\n7RcqaclENv7XWP4ZdQh+7tHdGWgf6j0nKXrKOE9SSfEaJF4icpbxkOKNocCjH5VU\ncKQWiAMJ+Rnj1kuTFJVOazFf3j5NiEQtSv5Q3CoS3OIfeiFZmkdFxWHDxA==\n-----END CERTIFICATE-----\n'
-incoming-capabilities=['kdeconnect.battery.request', 'kdeconnect.bigscreen.stt', 'kdeconnect.clipboard', 'kdeconnect.clipboard.connect', 'kdeconnect.contacts.request_all_uids_timestamps', 'kdeconnect.contacts.request_vcards_by_uid', 'kdeconnect.findmyphone.request', 'kdeconnect.mousepad.keyboardstate', 'kdeconnect.mousepad.request', 'kdeconnect.mpris', 'kdeconnect.mpris.request', 'kdeconnect.notification', 'kdeconnect.notification.action', 'kdeconnect.notification.reply', 'kdeconnect.notification.request', 'kdeconnect.photo.request', 'kdeconnect.ping', 'kdeconnect.runcommand', 'kdeconnect.sftp.request', 'kdeconnect.share.request', 'kdeconnect.share.request.update', 'kdeconnect.sms.request', 'kdeconnect.sms.request_attachment', 'kdeconnect.sms.request_conversation', 'kdeconnect.sms.request_conversations', 'kdeconnect.systemvolume', 'kdeconnect.telephony.request', 'kdeconnect.telephony.request_mute']
+incoming-capabilities=['kdeconnect.battery.request', 'kdeconnect.bigscreen.stt', 'kdeconnect.clipboard', 'kdeconnect.clipboard.connect', 'kdeconnect.connectivity_report.request', 'kdeconnect.contacts.request_all_uids_timestamps', 'kdeconnect.contacts.request_vcards_by_uid', 'kdeconnect.findmyphone.request', 'kdeconnect.mousepad.keyboardstate', 'kdeconnect.mousepad.request', 'kdeconnect.mpris', 'kdeconnect.mpris.request', 'kdeconnect.notification', 'kdeconnect.notification.action', 'kdeconnect.notification.reply', 'kdeconnect.notification.request', 'kdeconnect.photo.request', 'kdeconnect.ping', 'kdeconnect.runcommand', 'kdeconnect.sftp.request', 'kdeconnect.share.request', 'kdeconnect.share.request.update', 'kdeconnect.sms.request', 'kdeconnect.sms.request_attachment', 'kdeconnect.sms.request_conversation', 'kdeconnect.sms.request_conversations', 'kdeconnect.systemvolume', 'kdeconnect.telephony.request', 'kdeconnect.telephony.request_mute']
 keybindings=@a{ss} {}
 last-connection='lan://192.168.0.152:1716'
 name='boronS6L'
-outgoing-capabilities=['kdeconnect.battery', 'kdeconnect.bigscreen.stt', 'kdeconnect.clipboard', 'kdeconnect.clipboard.connect', 'kdeconnect.contacts.response_uids_timestamps', 'kdeconnect.contacts.response_vcards', 'kdeconnect.findmyphone.request', 'kdeconnect.mousepad.echo', 'kdeconnect.mousepad.keyboardstate', 'kdeconnect.mousepad.request', 'kdeconnect.mpris', 'kdeconnect.mpris.request', 'kdeconnect.notification', 'kdeconnect.notification.request', 'kdeconnect.photo', 'kdeconnect.ping', 'kdeconnect.presenter', 'kdeconnect.runcommand.request', 'kdeconnect.sftp', 'kdeconnect.share.request', 'kdeconnect.sms.attachment_file', 'kdeconnect.sms.messages', 'kdeconnect.systemvolume.request', 'kdeconnect.telephony']
+outgoing-capabilities=['kdeconnect.battery', 'kdeconnect.bigscreen.stt', 'kdeconnect.clipboard', 'kdeconnect.clipboard.connect', 'kdeconnect.connectivity_report', 'kdeconnect.contacts.response_uids_timestamps', 'kdeconnect.contacts.response_vcards', 'kdeconnect.findmyphone.request', 'kdeconnect.mousepad.echo', 'kdeconnect.mousepad.keyboardstate', 'kdeconnect.mousepad.request', 'kdeconnect.mpris', 'kdeconnect.mpris.request', 'kdeconnect.notification', 'kdeconnect.notification.request', 'kdeconnect.photo', 'kdeconnect.ping', 'kdeconnect.presenter', 'kdeconnect.runcommand.request', 'kdeconnect.sftp', 'kdeconnect.share.request', 'kdeconnect.sms.attachment_file', 'kdeconnect.sms.messages', 'kdeconnect.systemvolume.request', 'kdeconnect.telephony']
 paired=true
 supported-plugins=['battery', 'clipboard', 'contacts', 'findmyphone', 'mousepad', 'mpris', 'notification', 'photo', 'ping', 'presenter', 'runcommand', 'sftp', 'share', 'sms', 'systemvolume', 'telephony']
 type='tablet'
@@ -556,10 +599,10 @@ ringing-pause=true
 
 [org/gnome/shell/extensions/gsconnect/device/9e3aed2643606382]
 certificate-pem='-----BEGIN CERTIFICATE-----\nMIIC9zCCAd+gAwIBAgIBATANBgkqhkiG9w0BAQsFADA/MRkwFwYDVQQDDBA5ZTNh\nZWQyNjQzNjA2MzgyMRQwEgYDVQQLDAtLREUgQ29ubmVjdDEMMAoGA1UECgwDS0RF\nMB4XDTE5MDYwNjA1NTU0N1oXDTI5MDYwNjA1NTU0N1owPzEZMBcGA1UEAwwQOWUz\nYWVkMjY0MzYwNjM4MjEUMBIGA1UECwwLS0RFIENvbm5lY3QxDDAKBgNVBAoMA0tE\nRTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAPasKOf5GfqBBR3c10xK\n9mpRm6zyN9IxLecs0/eMLq5Xjn1rRaxaFj09BRaRLa4R9Onh2PULIRu0As2bJGMs\nGDVTuHtlIEH0AahvfDrMgnK8cbsn147mJlIa1LN+SjqDg3YiOkgV6rPbZkCBnRr9\nFHMMcYqOVSH7TH+KW/7xkPSVGVjtfEnl4kYuXYXq+kH5aK8PC/kvj9J/WVRT3HuZ\nYjn/CT/djxIXrjUBIG4ms+vyn+8VV8zvOQF/6zEx+C+4YmdqeFn8DINwm1DN1pEu\nsnj0UFm7W5m6RzeUMoEdSbZw/p5AeSzVfNUFG/oWv7hx5QTr2mUiBLMv8wit8KMg\nJFkCAwEAATANBgkqhkiG9w0BAQsFAAOCAQEA0G0lk6W02Q5+FlOS+KLfZuZkrqvn\n5dWM6H/gEmu0qBntLYThFPSgffW161GGDLwttX8QeV/JEhmFtW9KSNBA/q3y95bU\nZ48z3xsSO/lYrSmwXBPnO2oMPXSsEMl24SZ7K0HX/Ry/wrToY7iC9GL9sfpGbBIy\nVnXBUZ2Ah2BsZqmJhUQMFwk1hWZjhplI+GaezJBwJLNmuVvrMo5UHJ13wIduaOu3\nJzEjyRpvuxCSz13xxZq+fYwUqvXYRCPYOfCxocsdkQbyQEUEfZ7IM8e4+vhgksKZ\nuVRs7I/HORj/8ccK8HdaGpE6OYY3R91+iUC5IC53X3KnsZkekpoZCgP4bg==\n-----END CERTIFICATE-----\n'
-incoming-capabilities=['kdeconnect.battery.request', 'kdeconnect.bigscreen.stt', 'kdeconnect.clipboard', 'kdeconnect.clipboard.connect', 'kdeconnect.contacts.request_all_uids_timestamps', 'kdeconnect.contacts.request_vcards_by_uid', 'kdeconnect.findmyphone.request', 'kdeconnect.mousepad.keyboardstate', 'kdeconnect.mousepad.request', 'kdeconnect.mpris', 'kdeconnect.mpris.request', 'kdeconnect.notification', 'kdeconnect.notification.action', 'kdeconnect.notification.reply', 'kdeconnect.notification.request', 'kdeconnect.photo.request', 'kdeconnect.ping', 'kdeconnect.runcommand', 'kdeconnect.sftp.request', 'kdeconnect.share.request', 'kdeconnect.share.request.update', 'kdeconnect.sms.request', 'kdeconnect.sms.request_attachment', 'kdeconnect.sms.request_conversation', 'kdeconnect.sms.request_conversations', 'kdeconnect.systemvolume', 'kdeconnect.telephony.request', 'kdeconnect.telephony.request_mute']
+incoming-capabilities=['kdeconnect.battery.request', 'kdeconnect.bigscreen.stt', 'kdeconnect.clipboard', 'kdeconnect.clipboard.connect', 'kdeconnect.connectivity_report.request', 'kdeconnect.contacts.request_all_uids_timestamps', 'kdeconnect.contacts.request_vcards_by_uid', 'kdeconnect.findmyphone.request', 'kdeconnect.mousepad.keyboardstate', 'kdeconnect.mousepad.request', 'kdeconnect.mpris', 'kdeconnect.mpris.request', 'kdeconnect.notification', 'kdeconnect.notification.action', 'kdeconnect.notification.reply', 'kdeconnect.notification.request', 'kdeconnect.photo.request', 'kdeconnect.ping', 'kdeconnect.runcommand', 'kdeconnect.sftp.request', 'kdeconnect.share.request', 'kdeconnect.share.request.update', 'kdeconnect.sms.request', 'kdeconnect.sms.request_attachment', 'kdeconnect.sms.request_conversation', 'kdeconnect.sms.request_conversations', 'kdeconnect.systemvolume', 'kdeconnect.telephony.request', 'kdeconnect.telephony.request_mute']
 last-connection='lan://192.168.0.151:1716'
 name='boronM30S'
-outgoing-capabilities=['kdeconnect.battery', 'kdeconnect.bigscreen.stt', 'kdeconnect.clipboard', 'kdeconnect.clipboard.connect', 'kdeconnect.contacts.response_uids_timestamps', 'kdeconnect.contacts.response_vcards', 'kdeconnect.findmyphone.request', 'kdeconnect.mousepad.echo', 'kdeconnect.mousepad.keyboardstate', 'kdeconnect.mousepad.request', 'kdeconnect.mpris', 'kdeconnect.mpris.request', 'kdeconnect.notification', 'kdeconnect.notification.request', 'kdeconnect.photo', 'kdeconnect.ping', 'kdeconnect.presenter', 'kdeconnect.runcommand.request', 'kdeconnect.sftp', 'kdeconnect.share.request', 'kdeconnect.sms.attachment_file', 'kdeconnect.sms.messages', 'kdeconnect.systemvolume.request', 'kdeconnect.telephony']
+outgoing-capabilities=['kdeconnect.battery', 'kdeconnect.bigscreen.stt', 'kdeconnect.clipboard', 'kdeconnect.clipboard.connect', 'kdeconnect.connectivity_report', 'kdeconnect.contacts.response_uids_timestamps', 'kdeconnect.contacts.response_vcards', 'kdeconnect.findmyphone.request', 'kdeconnect.mousepad.echo', 'kdeconnect.mousepad.keyboardstate', 'kdeconnect.mousepad.request', 'kdeconnect.mpris', 'kdeconnect.mpris.request', 'kdeconnect.notification', 'kdeconnect.notification.request', 'kdeconnect.photo', 'kdeconnect.ping', 'kdeconnect.presenter', 'kdeconnect.runcommand.request', 'kdeconnect.sftp', 'kdeconnect.share.request', 'kdeconnect.sms.attachment_file', 'kdeconnect.sms.messages', 'kdeconnect.systemvolume.request', 'kdeconnect.telephony']
 paired=true
 supported-plugins=['battery', 'clipboard', 'contacts', 'findmyphone', 'mousepad', 'mpris', 'notification', 'photo', 'ping', 'presenter', 'runcommand', 'sftp', 'share', 'sms', 'systemvolume', 'telephony']
 type='phone'
@@ -681,6 +724,13 @@ use-system-font=false
 use-theme-colors=false
 visible-name='Ankit Pati'
 
+[org/gnome/tweaks]
+show-extensions-notice=false
+
+[org/gtk/Demo4]
+fullscreen=false
+maximized=true
+
 [org/gtk/gtk4/settings/file-chooser]
 date-format='regular'
 location-mode='path-bar'
@@ -692,10 +742,6 @@ sort-column='name'
 sort-directories-first=false
 sort-order='ascending'
 type-format='category'
-window-size=(934, 379)
-
-[org/gtk/settings/emoji-chooser]
-recent-emoji=[(([uint32 128465], 'wastebasket', ':wastebasket:'), uint32 0), (([128039], 'penguin', ':penguin:'), 0), (([128047], 'tiger face', ':tiger:'), 0), (([127470, 127475], 'India', ':flag_in:'), 0)]
 
 [org/gtk/settings/file-chooser]
 date-format='regular'
@@ -708,12 +754,6 @@ sort-column='modified'
 sort-directories-first=true
 sort-order='descending'
 type-format='category'
-window-position=(359, 183)
-window-size=(1203, 694)
-
-[org/virt-manager/virt-manager]
-manager-window-height=1016
-manager-window-width=1920
 
 [org/virt-manager/virt-manager/confirm]
 delete-storage=false
