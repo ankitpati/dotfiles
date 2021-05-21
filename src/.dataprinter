@@ -1,2 +1,5 @@
 colored = 1
 print_escapes = 1
+string_max = 0
+array_max = 0
+hash_max = 0
