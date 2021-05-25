@@ -42,3 +42,8 @@ highlight ColorColumn ctermbg=8
 let g:syntastic_python_flake8_args="--ignore=E501"
 
 set directory=~/.vim/swapfiles//
+
+augroup vimrc
+    autocmd!
+    autocmd BufNew,BufRead * :syntax sync fromstart
+augroup end
