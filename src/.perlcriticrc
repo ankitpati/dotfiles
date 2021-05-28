@@ -1,0 +1,42 @@
+allow-unsafe = 0
+force = 1
+severity = brutal
+verbose = 11
+
+[InputOutput::ProhibitBacktickOperators]
+only_in_void_context = 1
+
+[-BuiltinFunctions::RequireBlockGrep]
+[-BuiltinFunctions::RequireBlockMap]
+[-ControlStructures::ProhibitCascadingIfElse]
+[-ControlStructures::ProhibitDeepNests]
+[-ControlStructures::ProhibitPostfixControls]
+[-ControlStructures::ProhibitUnlessBlocks]
+[-ControlStructures::ProhibitUntilBlocks]
+[-ControlStructures::ProhibitYadaOperator]
+[-InputOutput::ProhibitExplicitStdin]
+[-InputOutput::RequireBracedFileHandleWithPrint]
+[-InputOutput::RequireCheckedSyscalls]
+[-Miscellanea::ProhibitTies]
+[-References::ProhibitDoubleSigils]
+[-RegularExpressions::ProhibitEscapedMetacharacters]
+[-RegularExpressions::ProhibitFixedStringMatches]
+[-RegularExpressions::RequireBracesForMultiline]
+[-RegularExpressions::RequireDotMatchAnything]
+[-RegularExpressions::RequireExtendedFormatting]
+[-RegularExpressions::RequireLineBoundaryMatching]
+[-Subroutines::ProhibitAmpersandSigils]
+[-Subroutines::ProhibitManyArgs]
+[-Subroutines::ProhibitSubroutinePrototypes]
+[-ValuesAndExpressions::ProhibitConstantPragma]
+[-ValuesAndExpressions::ProhibitEmptyQuotes]
+[-ValuesAndExpressions::ProhibitLeadingZeros]
+[-ValuesAndExpressions::ProhibitLongChainsOfMethodCalls]
+[-ValuesAndExpressions::ProhibitMagicNumbers]
+[-ValuesAndExpressions::ProhibitNoisyQuotes]
+[-ValuesAndExpressions::ProhibitVersionStrings]
+[-ValuesAndExpressions::RequireInterpolationOfMetachars]
+[-Variables::ProhibitLocalVars]
+[-Variables::ProhibitMatchVars]
+[-Variables::ProhibitPunctuationVars]
+[-Variables::RequireInitializationForLocalVars]
