@@ -19,6 +19,7 @@ function sanitize_path
 export PERL_CPANM_OPT='--mirror https://cpan.metacpan.org/'
 export PERLBREW_CPAN_MIRROR='https://cpan.metacpan.org/'
 export PERL5LIB="$HOME/lib/perl5/"
+export PERLCRITIC="$HOME/.perlcriticrc"
 export PYENV_ROOT="$HOME/.pyenv/"
 export NPM_PACKAGES="$HOME/.npm/packages/"
 export SDKMAN_DIR="$HOME/.sdkman/"
