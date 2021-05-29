@@ -78,8 +78,6 @@ upload=''
 [org/gnome/Music]
 did-initial-state=true
 window-maximized=true
-window-position=[0, 27]
-window-size=[1920, 1006]
 
 [org/gnome/Totem]
 active-plugins=['open-directory', 'media-player-keys', 'autoload-subtitles', 'movie-properties', 'rotation', 'apple-trailers', 'skipto', 'save-file', 'variable-rate', 'screenshot', 'vimeo', 'recent', 'screensaver']
@@ -92,8 +90,6 @@ automatic-location=false
 night-mode=true
 restore-previous-files=false
 window-maximized=true
-window-position=(0, 27)
-window-size=(1920, 1006)
 
 [org/gnome/builder/build]
 allow-network-when-metered=true
@@ -128,7 +124,6 @@ source-currency=''
 source-units='degree'
 target-currency=''
 target-units='radian'
-window-position=(1039, 681)
 word-size=64
 
 [org/gnome/calendar]
@@ -140,8 +135,6 @@ world-clocks=[{'location': <(uint32 2, <('San Francisco', 'KOAK', false, [(0.658
 
 [org/gnome/clocks/state/window]
 panel-id='world'
-size=(870, 690)
-state=87168
 
 [org/gnome/deja-dup]
 backend='google'
@@ -227,8 +220,8 @@ panel-main-menu=@as []
 panel-run-dialog=['<Super>F2']
 switch-applications=@as []
 switch-applications-backward=@as []
-switch-group=[]
-switch-group-backward=[]
+switch-group=@as []
+switch-group-backward=@as []
 switch-panels=['<Super>Escape']
 switch-panels-backward=['<Shift><Super>Escape']
 switch-to-workspace-1=@as []
@@ -254,26 +247,28 @@ background-color='rgb(0,0,0)'
 use-background-color=true
 
 [org/gnome/epiphany]
+active-clear-data-items=511
 ask-for-default=false
+content-filters=['https://easylist-downloads.adblockplus.org/abp-filters-anti-cv.txt', 'https://easylist-downloads.adblockplus.org/antiadblockfilters.txt', 'https://easylist-downloads.adblockplus.org/easylist.txt', 'https://easylist-downloads.adblockplus.org/easyprivacy.txt', 'https://easylist-downloads.adblockplus.org/i_dont_care_about_cookies.txt', 'https://easylist.to/easylist/fanboy-annoyance.txt', 'https://raw.githubusercontent.com/hoshsadiq/adblock-nocoin-list/master/nocoin.txt']
 default-search-engine='Google'
-restore-session-policy='crashed'
+restore-session-policy='never'
 search-engines=[('Google', 'https://www.google.com/search?q=%s', '!g')]
+use-google-search-suggestions=true
 
 [org/gnome/epiphany/lockdown]
 disable-bookmark-editing=false
 
 [org/gnome/epiphany/reader]
-color-scheme='light'
+color-scheme='dark'
 
 [org/gnome/epiphany/state]
 is-maximized=true
-window-position=(0, 0)
-window-size=(0, 0)
 
 [org/gnome/epiphany/web]
 default-zoom-level=1.25
 enable-mouse-gestures=true
-enable-user-css=true
+enable-user-css=false
+hardware-acceleration-policy='always'
 language=['system', 'hi-IN']
 last-download-directory='/home/ankitpati/Downloads'
 remember-passwords=false
@@ -290,7 +285,6 @@ fullscreen=false
 inverted-colors=true
 show-sidebar=false
 sidebar-page='thumbnails'
-sidebar-size=132
 sizing-mode='fit-width'
 
 [org/gnome/gedit/plugins]
@@ -319,17 +313,6 @@ reference-sort-order='last-activity'
 enable-monitoring=true
 style-scheme='oblivion'
 
-[org/gnome/gitg/state/commit]
-paned-sidebar-position=200
-
-[org/gnome/gitg/state/history]
-paned-panels-position=349
-paned-sidebar-position=200
-
-[org/gnome/gitg/state/window]
-size=(702, 599)
-state=43908
-
 [org/gnome/gnome-latex]
 latexila-to-gnome-latex-migration-done=true
 
@@ -344,14 +327,6 @@ show-build-badboxes=true
 show-build-warnings=true
 side-panel-component=0
 side-panel-visible=true
-
-[org/gnome/gnome-latex/state/window]
-documents=@as []
-side-panel-size=256
-size=(950, 660)
-state=87168
-structure-paned-position=100
-vertical-paned-position=374
 
 [org/gnome/gnome-system-monitor]
 disks-interval=5000
@@ -459,8 +434,6 @@ window-maximized=true
 [org/gnome/rhythmbox]
 display-page-tree-visible=true
 maximized=true
-position=(0, 27)
-size=(1920, 1006)
 
 [org/gnome/rhythmbox/library]
 layout-filename='%tt'
@@ -497,9 +470,6 @@ scrobbling-enabled=true
 
 [org/gnome/rhythmbox/plugins/audioscrobbler/Libre.fm]
 scrobbling-enabled=true
-
-[org/gnome/rhythmbox/plugins/grilo/source]
-paned-position=252
 
 [org/gnome/rhythmbox/plugins/iradio]
 initial-stations-loaded=true
@@ -650,7 +620,6 @@ window-maximized=true
 
 [org/gnome/shell/extensions/gsconnect/preferences]
 window-maximized=true
-window-size=(685, 440)
 
 [org/gnome/shell/keybindings]
 focus-active-notification=@as []
@@ -764,9 +733,6 @@ unapplied-dev=true
 [org/virt-manager/virt-manager/connections]
 autoconnect=['qemu:///system']
 uris=['qemu:///system']
-
-[org/virt-manager/virt-manager/conns/qemu:system]
-window-size=(800, 600)
 
 [org/virt-manager/virt-manager/console]
 auto-redirect=false
