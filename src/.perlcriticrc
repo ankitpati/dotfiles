@@ -18,6 +18,7 @@ only_in_void_context = 1
 [-InputOutput::RequireBracedFileHandleWithPrint]
 [-InputOutput::RequireCheckedSyscalls]
 [-Miscellanea::ProhibitTies]
+[-NamingConventions::ProhibitAmbiguousNames]
 [-References::ProhibitDoubleSigils]
 [-RegularExpressions::ProhibitEscapedMetacharacters]
 [-RegularExpressions::ProhibitFixedStringMatches]
