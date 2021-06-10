@@ -803,7 +803,6 @@ nmcli radio wifi on
 npm cache clean --force
 npm config set prefix "$NPM_PACKAGES"
 npm install -g @angular/cli
-npm install -g @reduxjs/toolkit
 npm install -g appium
 npm install -g asar
 npm install -g depcheck
@@ -811,18 +810,13 @@ npm install -g ember-cli
 npm install -g eslint
 npm install -g frida
 npm install -g generator-code
-npm install -g jquery
 npm install -g js-beautify
-npm install -g latest-version-cli
-npm install -g leaflet
-npm install -g markdownlint
 npm install -g markdownlint-cli
 npm install -g npm
 npm install -g npm-check-updates
 npm install -g ovsx
 npm install -g prettier
 npm install -g snyk
-npm install -g spectron
 npm install -g svgo
 npm install -g typescript
 npm install -g vsce
