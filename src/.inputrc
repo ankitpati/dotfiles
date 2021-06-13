@@ -1,4 +1,9 @@
+set editing-mode vi
 $include /etc/inputrc
 
 set bell-style none
-set colored-stats on
+set colored-completion-prefix
+set colored-stats
+set completion-query-items -1
+set echo-control-characters off
+set mark-symlinked-directories
