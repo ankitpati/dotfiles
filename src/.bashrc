@@ -66,11 +66,6 @@ function _git_publish
     _git_branch
 }
 
-function _git_files
-{
-    _git_branch
-}
-
 export PATH="$(sanitize_path "$HOME/.local/bin:$HOME/bin:$PATH")"
 
 # Only on Debian and derivatives
