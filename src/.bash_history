@@ -932,7 +932,7 @@ wappalyzer https://ankitpati.in | jq .
 whatchanged origin/development..
 while :; do virsh -c qemu:///system send-key Windows-10 KEY_J; sleep 120; done
 while :; do xdotool mousemove --sync 1000 10 sleep 0.5 mousemove restore; sleep 120; done
-while read -r directory; do find "$(case "$directory" in -*) echo -n ./ ;; esac; echo "$directory")" \( -type f -exec ls -lt {} \; -exec md5sum {} \; \) -o \( -type d -exec ls -ltd {} \; -exec echo 'directory ' {} \; \); done < directory-list.txt
+while read -r directory; do find "$(case "$directory" in -*) printf '%s' ./ ;; esac; printf '%s' "$directory")" \( -type f -exec ls -lt -- {} \; -exec md5sum -- {} \; \) -o \( -type d -exec ls -ltd -- {} \; -exec printf '%s%s' 'directory ' {} \; \); done < directory-list.txt
 write ankitpati :1
 write ankitpati tty4
 xclip < ~/.ssh/id_rsa.pub
