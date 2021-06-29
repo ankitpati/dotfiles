@@ -16,7 +16,7 @@ function sanitize_path
                  | sed 's_//*_/_g'
 }
 
-export PERL_CPANM_OPT='--mirror https://cpan.metacpan.org/'
+export PERL_CPANM_OPT='--from https://cpan.metacpan.org/'
 export PERLBREW_CPAN_MIRROR='https://cpan.metacpan.org/'
 export PERL5LIB="$HOME/lib/perl5/"
 export PERLCRITIC="$HOME/.perlcriticrc"
