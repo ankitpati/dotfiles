@@ -36,9 +36,11 @@ set synmaxcol=0
 set tabstop=4
 set updatetime=250
 
+" GitGutter Config
 highlight GitGutterAdd    ctermfg=2
 highlight GitGutterChange ctermfg=3
 highlight GitGutterDelete ctermfg=1
+" End of GitGutter Config
 
 highlight ColorColumn ctermbg=8
 
