@@ -69,7 +69,7 @@ function _git_publish
 export PATH="$(sanitize_path "$HOME/.local/bin:$HOME/bin:$PATH")"
 
 # Only on Debian and derivatives
-test -n "$(grep -i 'debian' < '/etc/os-release')" && \
+test -n "$(grep -i 'debian' '/etc/os-release')" && \
     eval "$(SHELL='/bin/sh' lesspipe)" && \
     eval "$(dircolors -b)"
 
