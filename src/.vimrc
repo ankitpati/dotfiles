@@ -31,6 +31,7 @@ set nomodeline
 set redrawtime=10000
 set shiftwidth=4
 set tabstop=4
+set synmaxcol=0
 
 set updatetime=250
 highlight GitGutterAdd    ctermfg=2
