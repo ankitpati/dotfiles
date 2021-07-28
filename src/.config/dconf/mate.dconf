@@ -1,3 +1,9 @@
+[ca/desrt/dconf-editor]
+show-warning=false
+
+[com/solus-project/brisk-menu]
+label-visible=false
+
 [org/ayatana/indicator/datetime]
 show-day=false
 show-events=false
@@ -115,7 +121,7 @@ toplevel-id='top'
 applet-iid='AppmenuAppletFactory::AppmenuApplet'
 object-type='applet'
 panel-right-stick=false
-position=71
+position=30
 toplevel-id='top'
 
 [org/mate/panel/objects/show-desktop]
