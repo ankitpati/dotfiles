@@ -16,8 +16,12 @@ suppress-logout-restart-shutdown=true
 suppress-shutdown-menuitem=true
 user-show-menu=false
 
+[org/mate/caja/desktop]
+home-icon-visible=false
+
 [org/mate/caja/list-view]
 default-visible-columns=['name', 'size', 'type', 'date_modified', 'octal_permissions']
+default-zoom-level='small'
 
 [org/mate/caja/preferences]
 confirm-trash=false
@@ -75,6 +79,7 @@ show-hidden-apps=true
 
 [org/mate/desktop/sound]
 event-sounds=true
+input-feedback-sounds=false
 theme-name='Yaru'
 
 [org/mate/hud]
@@ -85,6 +90,10 @@ action-double-click-titlebar='toggle_maximize'
 auto-raise-delay=500
 button-layout='close,minimize,maximize:'
 theme='Yaru-MATE-dark'
+
+[org/mate/maximus]
+no-maximize=false
+undecorate=true
 
 [org/mate/notification-daemon]
 popup-location='top_right'
