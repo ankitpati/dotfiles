@@ -1,6 +1,6 @@
-global_bashrc='/etc/bashrc'
-test -f "$global_bashrc" && source "$global_bashrc"
-unset global_bashrc
+global_profile='/etc/profile'
+test -f "$global_profile" && source "$global_profile"
+unset global_profile
 
 mesg n || true
 
