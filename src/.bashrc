@@ -34,7 +34,8 @@ shopt -s histappend
 export HISTSIZE=''
 export HISTFILESIZE=''
 export HISTCONTROL='ignoreboth'
-export PROMPT_COMMAND="history -a; history -n; $PROMPT_COMMAND"
+test -z "$(echo "$PROMPT_COMMAND" | grep '\bhistory\b')" && \
+    export PROMPT_COMMAND="history -a; history -n; $PROMPT_COMMAND"
 
 export EDITOR='vim'
 export MERGE='vimdiff'
