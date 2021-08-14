@@ -45,6 +45,15 @@ unset MANPATH
 export MANPATH="$(sanitize_path "$manpath:$(manpath)")"
 unset manpath
 
+alias egrep='grep -E'
+alias fgrep='grep -F'
+alias grepp='grep -P'
+alias grep='grep --color=auto'
+alias l='ls -CF'
+alias l.='ls -d .*'
+alias la='ls -A'
+alias ll='ls -alF'
+alias ls='ls --color=auto'
 alias tree='tree -I ".git|node_modules"'
 alias cpan-outdated='cpan-outdated --mirror="$PERLBREW_CPAN_MIRROR"'
 alias podchecker='podchecker -warnings -warnings -warnings'
