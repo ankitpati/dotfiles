@@ -24,10 +24,10 @@
 
     runtime macros/matchit.vim
 
-    let g:blamer_date_format='%A, %d %B %Y, %H:%M:%S %Z'
+    let g:blamer_date_format='%Y-%m-%dT%H:%M:%S%Z'
     let g:blamer_delay=300
     let g:blamer_enabled=1
-    let g:blamer_template='<committer-mail> • <committer-time> • <summary>'
+    let g:blamer_template='<committer-mail> <committer-time> <summary>'
     let g:syntastic_python_flake8_args="--ignore=E501"
 " End of Plugin Config
 
