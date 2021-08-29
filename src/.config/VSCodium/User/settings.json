@@ -71,5 +71,7 @@
     },
     "gitlens.currentLine.pullRequests.enabled": false,
     "gitlens.codeLens.enabled": false,
-    "gitlens.statusBar.enabled": false
+    "gitlens.statusBar.enabled": false,
+    "gitlens.currentLine.format": "${email} ${date} ${message|50?}",
+    "gitlens.currentLine.dateFormat": "YYYY-MM-DDTHH:mm:ssZZ"
 }
