@@ -55,7 +55,6 @@
         "containers",
         "blocks"
     ],
-    "gitlens.currentLine.enabled": false,
     "gitlens.hovers.currentLine.over": "line",
     "gitlens.statusBar.reduceFlicker": true,
     "screencastMode.fontSize": 48,
@@ -63,5 +62,14 @@
     "workbench.startupEditor": "newUntitledFile",
     "svg.completion.showAdvanced": true,
     "svg.preview.mode": "svg",
-    "workbench.editor.untitled.hint": "hidden"
+    "workbench.editor.untitled.hint": "hidden",
+    "files.exclude": {
+        "**/.classpath": true,
+        "**/.project": true,
+        "**/.settings": true,
+        "**/.factorypath": true
+    },
+    "gitlens.currentLine.pullRequests.enabled": false,
+    "gitlens.codeLens.enabled": false,
+    "gitlens.statusBar.enabled": false
 }
