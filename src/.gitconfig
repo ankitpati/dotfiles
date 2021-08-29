@@ -1,35 +1,35 @@
-[user]
-    name = Ankit Pati
-    email = contact@ankitpati.in
-    signingkey = B8BBCEBCBD6C4BF0599C40F9360A96429F7A69DC
+[advice]
+    detachedHead = false
+[alias]
+    patch = !git --no-pager diff --no-color
 [commit]
     gpgsign = false
 [core]
     editor = vim
-    pager = diff-so-fancy | less --tabs=4 -RFX
-#   pager = delta
+    pager = delta
+#   pager = diff-so-fancy | less --tabs=4 -RFX
+[diff-so-fancy]
+    markEmptyLines = false
 [diff]
-    tool = vimdiff
-[merge]
     tool = vimdiff
 [difftool]
     prompt = false
 [filter "lfs"]
-    required = true
     clean = git-lfs clean -- %f
-    smudge = git-lfs smudge -- %f
     process = git-lfs filter-process
+    required = true
+    smudge = git-lfs smudge -- %f
 [gpg]
     program = gpg2
 [log]
     showSignature = false
-[alias]
-    patch = !git --no-pager diff --no-color
-[diff-so-fancy]
-    markEmptyLines = false
-[advice]
-    detachedHead = false
+[merge]
+    tool = vimdiff
 [pull]
     ff = only
 [receive]
     denyCurrentBranch = updateInstead
+[user]
+    email = contact@ankitpati.in
+    name = Ankit Pati
+    signingkey = B8BBCEBCBD6C4BF0599C40F9360A96429F7A69DC
