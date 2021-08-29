@@ -7,6 +7,7 @@
 
     call vundle#begin()
     Plugin 'VundleVim/Vundle.vim'
+    Plugin 'APZelos/blamer.nvim'
     Plugin 'airblade/vim-gitgutter'
     Plugin 'gregsexton/MatchTag'
     Plugin 'sheerun/vim-polyglot'
@@ -16,12 +17,17 @@
     filetype plugin indent on
     " End of Vundle Config
 
+    highlight Blamer          ctermfg=lightgray
     highlight GitGutterAdd    ctermfg=2
     highlight GitGutterChange ctermfg=3
     highlight GitGutterDelete ctermfg=1
 
     runtime macros/matchit.vim
 
+    let g:blamer_date_format='%A, %d %B %Y, %H:%M:%S %Z'
+    let g:blamer_delay=300
+    let g:blamer_enabled=1
+    let g:blamer_template='<committer-mail> • <committer-time> • <summary>'
     let g:syntastic_python_flake8_args="--ignore=E501"
 " End of Plugin Config
 
