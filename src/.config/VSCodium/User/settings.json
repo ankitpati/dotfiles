@@ -41,7 +41,9 @@
     "telemetry.enableTelemetry": false,
     "vim.debug.silent": true,
     "vim.hlsearch": true,
+    "vim.ignorecase": false,
     "vim.incsearch": true,
+    "vim.surround": false,
     "vim.useCtrlKeys": true,
     "markdown.preview.fontFamily": "'Ubuntu'",
     "markdown.preview.linkify": false,
@@ -55,8 +57,12 @@
         "containers",
         "blocks"
     ],
+    "gitlens.codeLens.enabled": false,
+    "gitlens.currentLine.dateFormat": "YYYY-MM-DDTHH:mm:ssZZ",
+    "gitlens.currentLine.format": "${email} ${date} ${message|50?}",
+    "gitlens.currentLine.pullRequests.enabled": false,
     "gitlens.hovers.currentLine.over": "line",
-    "gitlens.statusBar.reduceFlicker": true,
+    "gitlens.statusBar.enabled": false,
     "screencastMode.fontSize": 48,
     "editor.minimap.enabled": false,
     "workbench.startupEditor": "newUntitledFile",
@@ -68,10 +74,5 @@
         "**/.project": true,
         "**/.settings": true,
         "**/.factorypath": true
-    },
-    "gitlens.currentLine.pullRequests.enabled": false,
-    "gitlens.codeLens.enabled": false,
-    "gitlens.statusBar.enabled": false,
-    "gitlens.currentLine.format": "${email} ${date} ${message|50?}",
-    "gitlens.currentLine.dateFormat": "YYYY-MM-DDTHH:mm:ssZZ"
+    }
 }
