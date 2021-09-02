@@ -18,9 +18,9 @@
     " End of Vundle Config
 
     highlight Blamer          ctermfg=lightgray
-    highlight GitGutterAdd    ctermfg=2
-    highlight GitGutterChange ctermfg=3
-    highlight GitGutterDelete ctermfg=1
+    highlight GitGutterAdd    ctermfg=darkgreen
+    highlight GitGutterChange ctermfg=darkyellow
+    highlight GitGutterDelete ctermfg=darkred
 
     runtime macros/matchit.vim
 
@@ -35,7 +35,7 @@
 
 syntax on
 
-highlight ColorColumn ctermbg=8
+highlight ColorColumn ctermbg=darkgray
 
 set autoindent
 set background=dark
