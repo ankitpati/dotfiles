@@ -36,6 +36,9 @@
 syntax on
 
 highlight ColorColumn ctermbg=darkgray
+highlight StatusLine ctermbg=darkgray ctermfg=black
+highlight StatusLineNC ctermbg=darkgray ctermfg=black
+highlight VertSplit ctermbg=darkgray ctermfg=black
 
 set autoindent
 set background=dark
