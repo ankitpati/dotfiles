@@ -1,20 +1,19 @@
+set nocompatible
+
 " Plugin Config
     " Vundle Config
-        set nocompatible
         filetype off
 
         set rtp+=~/.vim/bundle/Vundle.vim
 
         call vundle#begin()
-        Plugin 'VundleVim/Vundle.vim'
-        Plugin 'APZelos/blamer.nvim'
-        Plugin 'airblade/vim-gitgutter'
-        Plugin 'gregsexton/MatchTag'
-        Plugin 'sheerun/vim-polyglot'
-        Plugin 'vim-syntastic/syntastic'
+            Plugin 'VundleVim/Vundle.vim'
+            Plugin 'APZelos/blamer.nvim'
+            Plugin 'airblade/vim-gitgutter'
+            Plugin 'gregsexton/MatchTag'
+            Plugin 'sheerun/vim-polyglot'
+            Plugin 'vim-syntastic/syntastic'
         call vundle#end()
-
-        filetype plugin indent on
     " End of Vundle Config
 
     highlight Blamer          ctermfg=lightgray
@@ -34,6 +33,7 @@
 " End of Plugin Config
 
 syntax on
+filetype plugin indent on
 
 highlight ColorColumn ctermbg=darkgray
 highlight StatusLine ctermbg=darkgray ctermfg=black
