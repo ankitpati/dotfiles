@@ -1,20 +1,13 @@
 set nocompatible
 
 " Plugin Config
-    " Vundle Config
-        filetype off
-
-        set rtp+=~/.vim/bundle/Vundle.vim
-
-        call vundle#begin()
-            Plugin 'VundleVim/Vundle.vim'
-            Plugin 'APZelos/blamer.nvim'
-            Plugin 'airblade/vim-gitgutter'
-            Plugin 'gregsexton/MatchTag'
-            Plugin 'sheerun/vim-polyglot'
-            Plugin 'vim-syntastic/syntastic'
-        call vundle#end()
-    " End of Vundle Config
+    call plug#begin()
+        Plug 'APZelos/blamer.nvim'
+        Plug 'airblade/vim-gitgutter'
+        Plug 'gregsexton/MatchTag'
+        Plug 'sheerun/vim-polyglot'
+        Plug 'vim-syntastic/syntastic'
+    call plug#end()
 
     highlight Blamer          ctermfg=lightgray
     highlight GitGutterAdd    ctermfg=darkgreen
