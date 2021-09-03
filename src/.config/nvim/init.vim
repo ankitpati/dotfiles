@@ -32,6 +32,9 @@ filetype plugin indent on
 highlight ColorColumn ctermbg=darkgray
 highlight StatusLine ctermbg=darkgray ctermfg=black
 highlight StatusLineNC ctermbg=darkgray ctermfg=black
+highlight TabLine cterm=strikethrough ctermbg=black
+highlight TabLineFill ctermfg=black
+highlight TabLineSel ctermbg=black
 highlight VertSplit ctermbg=darkgray ctermfg=black
 
 set autoindent
