@@ -1,15 +1,13 @@
 set nocompatible
 
 " Plugin Config
-    " Vim-Plug Config
-        call plug#begin()
+    call plug#begin()
         Plug 'APZelos/blamer.nvim'
         Plug 'airblade/vim-gitgutter'
         Plug 'gregsexton/MatchTag'
         Plug 'sheerun/vim-polyglot'
         Plug 'vim-syntastic/syntastic'
-        call plug#end()
-    " End of Vim-Plug Config
+    call plug#end()
 
     highlight Blamer          ctermfg=lightgray
     highlight GitGutterAdd    ctermfg=darkgreen
@@ -51,7 +49,7 @@ set synmaxcol=0
 set tabstop=4
 set updatetime=250
 
-augroup nvimrc
+augroup vimrc
     autocmd!
     autocmd BufNew,BufRead * :syntax sync fromstart
 augroup end
