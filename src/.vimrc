@@ -4,6 +4,7 @@ set nocompatible
     call plug#begin()
         Plug 'APZelos/blamer.nvim'
         Plug 'airblade/vim-gitgutter'
+        Plug 'godlygeek/tabular'
         Plug 'gregsexton/MatchTag'
         Plug 'sheerun/vim-polyglot'
         Plug 'vim-syntastic/syntastic'
