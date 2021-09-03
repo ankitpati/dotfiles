@@ -1,17 +1,14 @@
+set nocompatible
+
 " Plugin Config
     " Vim-Plug Config
-        set nocompatible
-        filetype off
-
-        call plug#begin(stdpath('data') . '/plugged')
+        call plug#begin()
         Plug 'APZelos/blamer.nvim'
         Plug 'airblade/vim-gitgutter'
         Plug 'gregsexton/MatchTag'
         Plug 'sheerun/vim-polyglot'
         Plug 'vim-syntastic/syntastic'
         call plug#end()
-
-        filetype plugin indent on
     " End of Vim-Plug Config
 
     highlight Blamer          ctermfg=lightgray
@@ -31,6 +28,7 @@
 " End of Plugin Config
 
 syntax on
+filetype plugin indent on
 
 highlight ColorColumn ctermbg=darkgray
 highlight StatusLine ctermbg=darkgray ctermfg=black
