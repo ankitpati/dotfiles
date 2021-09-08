@@ -3,6 +3,8 @@ all: install
 install:
 	cp -r src/. "$$HOME"/
 	rm -rf "$$HOME"/macOS/
-	mkdir -p "$$HOME"/.vim/bundle "$$HOME"/.vim/swapfiles
-	git clone https://github.com/VundleVim/Vundle.vim.git "$$HOME"/.vim/bundle/Vundle.vim/
-	vim +PluginUpdate +qa
+	mkdir -p "$$HOME"/.vim/autoload/ "$$HOME"/.vim/swapfiles/
+	git clone --depth 1 https://github.com/junegunn/vim-plug.git
+	mv vim-plug/plug.vim "$$HOME"/.vim/autoload/
+	rm -rf vim-plug/
+	vim +PlugUpdate +qa
