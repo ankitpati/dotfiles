@@ -905,6 +905,7 @@ sudo bash -c 'rfkill unblock bluetooth; systemctl restart bluetooth.service'
 sudo bash -c 'systemctl stop libvirtd.socket; systemctl stop libvirtd.service'
 systemctl list-units --type=service --state=active
 systemctl list-units --type=service --state=running
+timedatectl set-timezone Asia/Kolkata
 toolbox create
 toolbox enter
 toolbox list
