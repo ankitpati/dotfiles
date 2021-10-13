@@ -94,6 +94,9 @@ export PERL_MM_OPT="INSTALL_BASE=$HOME/perl5"
 # cargo
 export PATH="$(sanitize_path "$HOME/.cargo/bin:$PATH")"
 
+# go
+export PATH="$(sanitize_path "$HOME/go/bin:$PATH")"
+
 # php
 export PATH="$(sanitize_path "$HOME/.composer/vendor/bin:$PATH")"
 
