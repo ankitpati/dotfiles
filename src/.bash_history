@@ -8,6 +8,7 @@ advzip --recompress -4 --iter 1000 filename.zip
 aria2c -c -x 16 'https://ankitpati.in/filename.br'
 brotli -d filename.br
 brotli filename
+browserslist 'last 1 Chrome versions'
 cargo install cargo-update
 cargo install shellharden
 codium --install-extension ankitpati.vscodium-amoled --force
@@ -18,6 +19,7 @@ codium --install-extension vscjava.vscode-java-debug --force
 codium --install-extension vscodevim.vim --force
 codium --list-extensions
 convert ./*.jpg output.pdf
+copyq info
 cpan-outdated -p | xargs cpanm; echo $?; pip list --outdated --format=freeze | cut -d= -f1 | grep -Ev '^(GDAL|python-poppler-qt5|slip|wxPython)$' | xargs pip install --user -U; echo $?; mypy --install-types; echo $?; cargo install-update -a; echo $?; npm update -g; echo $?; sdk selfupdate; echo $?; sdk update; echo $?; for java_sdk in $(grep '^sdk install ' ~/.bash_history | cut -d' ' -f3 | sort -u); do sdk upgrade "$java_sdk"; done; find ~/.sdkman/ -type f \( -name '*.exe' -o -name '*.bat' \) -delete; vim +PlugUpgrade +PlugUpdate +qa; nvim +PlugUpgrade +PlugUpdate +qa; for codext in $(codium --list-extensions); do codium --install-extension "$codext" --force; done; echo $?; flutter upgrade; echo $?; flutter doctor -v; echo $?; tldr --update; echo $?
 cpanm App::cpanoutdated
 cpanm Data::Printer
@@ -28,6 +30,7 @@ cpanm Imager::File::PNG
 cpanm Minion
 cpanm Module::Signature
 cpanm Mojolicious
+cpanm Neovim::Ext
 cpanm Net::DNS::Native
 cpanm PDF::Create
 cpanm Parallel::ForkManager
@@ -45,8 +48,9 @@ cpanm XML::SAX::Expat
 dart --disable-analytics
 date +%F
 date +%s
-date -d@'1619533275'
+date -d@1619533275
 dconf dump / > dump.dconf
+dd if=/dev/urandom count=1 2>/dev/null | git hash-object --stdin
 diff HEAD~1 --name-only
 difftool branchname -- filename
 dnf config-manager --add-repo 'https://brave-browser-rpm-release.s3.brave.com/x86_64/'
@@ -69,6 +73,7 @@ dnf install abiword
 dnf install abootimg
 dnf install ack
 dnf install advancecomp
+dnf install aegisub
 dnf install aircrack-ng
 dnf install aireplay-ng
 dnf install android-tools
@@ -76,13 +81,16 @@ dnf install ant
 dnf install apache-ivy
 dnf install apostrophe
 dnf install ardour5
+dnf install arduino
 dnf install aria2
+dnf install asciinema
 dnf install astyle
 dnf install audacity
-dnf install awscli
 dnf install b43-tools
+dnf install banner
 dnf install bash-completion
 dnf install bat
+dnf install below
 dnf install binwalk
 dnf install bison
 dnf install black
@@ -116,6 +124,7 @@ dnf install cura
 dnf install curlpp
 dnf install curlpp-devel
 dnf install cvs
+dnf install d-feet
 dnf install darktable
 dnf install darktable-tools-noise
 dnf install dconf-editor
@@ -138,11 +147,14 @@ dnf install epiphany
 dnf install espeak
 dnf install etherape
 dnf install ettercap
+dnf install exa
 dnf install expat-devel
 dnf install falkon
+dnf install fd-find
 dnf install fdupes
 dnf install fedy
 dnf install ffms2-devel
+dnf install figlet
 dnf install fish
 dnf install flac
 dnf install flameshot
@@ -151,12 +163,14 @@ dnf install flowblade
 dnf install fmpp
 dnf install foliate
 dnf install fonts-tweak-tool
+dnf install foot
 dnf install fragments
 dnf install freecad
 dnf install freetiger
 dnf install freeze
 dnf install fritzing
 dnf install fuse-sshfs
+dnf install gaupol
 dnf install gcc-c++
 dnf install gdal
 dnf install gdal-\*
@@ -195,16 +209,21 @@ dnf install glade3
 dnf install glib2-devel
 dnf install glmark2
 dnf install gnome-builder
+dnf install gnome-chess
 dnf install gnome-extensions-app
 dnf install gnome-feeds
 dnf install gnome-firmware
 dnf install gnome-latex
 dnf install gnome-music
+dnf install gnome-network-displays
 dnf install gnome-sharp
 dnf install gnome-shell-extension-gpaste
 dnf install gnome-shell-extension-gsconnect
 dnf install gnome-sound-recorder
+dnf install gnome-subtitles
 dnf install gnome-tweaks
+dnf install gns3-gui
+dnf install gns3-server
 dnf install gnucobol
 dnf install gnumeric
 dnf install go-avif
@@ -241,6 +260,7 @@ dnf install gstreamer1-plugins-ugly-free
 dnf install gthumb
 dnf install gtk3-devel
 dnf install gtk4-devel
+dnf install gtypist
 dnf install guvcview
 dnf install gwenview
 dnf install gydl
@@ -251,6 +271,7 @@ dnf install heaptrack
 dnf install heimdall
 dnf install heimdall-frontend
 dnf install hercules
+dnf install htop
 dnf install httpie
 dnf install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-32.noarch.rpm
 dnf install https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-32.noarch.rpm
@@ -270,33 +291,45 @@ dnf install jq
 dnf install kate
 dnf install kdenlive
 dnf install kdiagram
+dnf install kexi
 dnf install kile
 dnf install kitty
+dnf install klavaro
 dnf install kmod-nvidia
 dnf install kmod-wl
 dnf install kolourpaint
 dnf install konqueror
 dnf install konsole
+dnf install krb5-devel
 dnf install krename
 dnf install krita
 dnf install krop
 dnf install kruler
+dnf install ktouch
+dnf install ldns-utils
 dnf install lensfun
 dnf install libaom
 dnf install libaom-devel
 dnf install libcurl-devel
 dnf install libdvdcss
 dnf install libffi-devel
+dnf install libimobiledevice
+dnf install libimobiledevice-devel
+dnf install libimobiledevice-utils
 dnf install librecad
 dnf install libreoffice-draw
 dnf install librsvg2-devel
 dnf install librsvg2-tools
 dnf install librsync-devel
+dnf install libstdc++-docs
+dnf install libusb-devel
+dnf install libusbx-devel
 dnf install libva-utils
 dnf install libva-vdpau-driver
 dnf install libvirt
 dnf install libvirt-devel
 dnf install linode-cli
+dnf install litecli
 dnf install lldb
 dnf install llvm-devel
 dnf install lm_sensors
@@ -313,6 +346,7 @@ dnf install marker
 dnf install masscan
 dnf install mathjax
 dnf install maven
+dnf install maxima
 dnf install meld
 dnf install mesa-libGLU
 dnf install mesa-libGLU-devel
@@ -327,9 +361,11 @@ dnf install mypaint
 dnf install nasm
 dnf install nautilus-gsconnect
 dnf install nautilus-image-converter
+dnf install ncdu
 dnf install ncurses-libs.i686
 dnf install neofetch
 dnf install neovim
+dnf install neovim-qt
 dnf install ngspice
 dnf install nmap
 dnf install nodejs-svgo
@@ -338,6 +374,7 @@ dnf install oathtool
 dnf install obs-studio
 dnf install ocrmypdf
 dnf install octave
+dnf install okteta
 dnf install okular
 dnf install olive
 dnf install openconnect
@@ -370,6 +407,9 @@ dnf install perl-Task-Kensho
 dnf install perl-Task-Kensho-\*
 dnf install perl-aliased
 dnf install perl-hivex
+dnf install perl-pod2pdf
+dnf install perl-podlators
+dnf install perl-podlinkcheck
 dnf install perl\(Algorithm::Diff\)
 dnf install perl\(App::Ack\)
 dnf install perl\(Browser::Open\)
@@ -459,6 +499,7 @@ dnf install perl\(XML::SAX\)
 dnf install perl\(XML::Writer\)
 dnf install perl\(YAML::LibYAML\)
 dnf install perl\(YAML\)
+dnf install perl\(utf8::all\)
 dnf install perlbrew
 dnf install php
 dnf install php-pear
@@ -496,8 +537,12 @@ dnf install podman-docker
 dnf install poppler-qt5-devel
 dnf install postgresql
 dnf install postgresql-server
+dnf install postgresql-upgrade
+dnf install postgresql-upgrade-devel
 dnf install powerline-fonts
+dnf install prettyping
 dnf install procinfo
+dnf install pspg
 dnf install psutils
 dnf install psutils-perl
 dnf install pwgen
@@ -506,6 +551,7 @@ dnf install pypy
 dnf install pypy-devel
 dnf install pypy3
 dnf install pypy3-devel
+dnf install python-neovim
 dnf install python3-autopep8
 dnf install python3-basemap
 dnf install python3-botocore
@@ -555,7 +601,6 @@ dnf install qemu-kvm
 dnf install qgis
 dnf install qgis-grass
 dnf install qpdf
-dnf install qt-avif-image-plugin
 dnf install quearcode
 dnf install qwinff
 dnf install rakudo
@@ -567,6 +612,7 @@ dnf install recorder
 dnf install redis
 dnf install remmina
 dnf install reptyr
+dnf install retext
 dnf install rhythmbox-alternative-toolbar
 dnf install ripgrep
 dnf install rlwrap
@@ -603,6 +649,7 @@ dnf install stardict-dic-hi
 dnf install stellarium
 dnf install stow
 dnf install strace
+dnf install subtitleeditor
 dnf install sunflow
 dnf install sushi
 dnf install svg2svgt
@@ -622,9 +669,11 @@ dnf install tidy
 dnf install tigervnc
 dnf install tlp
 dnf install tmate
+dnf install tokei
 dnf install toolbox
 dnf install transmission
 dnf install tweak
+dnf install typespeed
 dnf install umbrello
 dnf install umlgraph
 dnf install uncrustify
@@ -634,7 +683,6 @@ dnf install unpaper
 dnf install vala
 dnf install valgrind
 dnf install vdpauinfo
-dnf install vidcutter
 dnf install vim-enhanced
 dnf install vlc
 dnf install vlc-extras
@@ -665,8 +713,7 @@ dnf needs-restarting
 dnf remove \*-blivet
 dnf remove abcli
 dnf remove abrt
-dnf remove bat
-dnf remove broadcom-wl
+dnf remove awscli
 dnf remove csstidy
 dnf remove docker
 dnf remove fedora-chromium-config
@@ -688,10 +735,31 @@ dnf remove virtualbox-guest-additions
 dnf repolist all
 echo $LINES $COLUMNS
 echo 'Subject: Hello' | sendmail -v contact@ankitpati.in
+ember build
+ember build --environment=production
+ember clean
+ember generate component component-name
+ember generate route route-name
+ember generate template template-name
+ember help generate
+ember install ember-cli-eslint
+ember lint
+ember new my-app --lang en
+ember run
+ember serve
+ember server
+ember test
+ember test --server
+enca --list languages
+enca filename
 errno --list
+eslint --fix filename.js
+eslint filename.js
+exa
 exec su - ankitpati
 exec sudo -u ankitpati -i
 exiftool -p '$XResolution,$YResolution' filename.jpg
+factor 1849
 fallocate -l 100M hundred-MiB-file
 fallocate -l 1K one-kb-file
 fallocate -l 4M four-MiB-file
@@ -701,10 +769,16 @@ fastboot oem get_unlock_data
 fastboot oem unlock
 fastboot reboot recovery
 fc-cache -fv
+fc-list
+fcrackzip
+fd path/to/file
+fd path/to/file -p
 fdupes -r .
 fdupes -rN .
 fdupes -rNd .
 fdupes .
+figlet Type your message here.
+file -i filename
 firewall-cmd --list-all
 firewall-cmd --list-ports
 firewall-cmd --list-services
@@ -728,11 +802,25 @@ flatpak uninstall --unused
 flatpak uninstall org.freedesktop.Platform.GL.nvidia-465-24-02
 flutter config --no-analytics
 flutter doctor -v
+foremost
 fpaste filename.txt
 free -h
 fuser -v 8080/tcp
+fzf
 gcc -march=native -Q --help=target
 git branch --format='%(refname:short)' | while read -r branch; do git checkout "$branch" || break; git rebase origin/main || break; done
+git branch -vv
+git fetch origin pull/1000/HEAD:local-branch-name # for GitHub
+git log --pretty=email
+git log --pretty=format:%ae | sort -u | cut -d@ -f2- | sort -u
+git log --pretty=fuller
+git log --show-signature
+git show --format= --name-only
+git show --show-signature
+git show -U100
+go get github.com/ericchiang/pup
+go get png2svg
+go-avif
 gpg2 --decrypt data.gpg
 gpg2 --decrypt data.gpg --output data
 gpg2 --edit-key contact@ankitpati.in
@@ -763,18 +851,32 @@ hdparm --user-master m --security-unlock SecretPassword /dev/sdb
 hdparm --user-master u --security-disable SecretPassword /dev/sdb
 hdparm --user-master u --security-unlock SecretPassword /dev/sdb
 hdparm -I /dev/sdb
+hexdump -C filename.dat
+hg clone 'https://foss.heptapod.net/pypy/pypy' pypy
 hostnamectl set-hostname boronHostname
 html-beautify -f filename.html
 http 'https://ankitpati.in/filename.txt'; exec cat
+http_this --port 7009
+hunspell -l
+hwloc-ls
 identify -format '%x,%y\n' filename.png
+ideviceinfo
+idevicepair
+inxi
 ip a
 ip a show enp0s20u3
 ip addr
+ip route
 ipcrm shm 262162
 ipcs -l
 ipcs -m
 ipcs -s
+iw dev wlp2s0
+iw dev wlp2s0 info
+iwconfig
+journalctl
 journalctl -f -o cat "$(which gnome-shell)"
+jq -S --indent 4 . < filename.json
 jq . < filename.json
 js-beautify filename.js
 jsonlint filename.json
@@ -782,17 +884,41 @@ jsonlint-php filename.json
 jupyter notebook password
 jupyter serverextension enable --py jupyterlab
 kate-syntax-highlighter -t 'Vim Dark' filename.pl > filename.html
+keytool -printcert -file cert.pem
 latest-version asar
 latest-version spectron
-log --pretty=format:%ae | sort -u | cut -d@ -f2- | sort -u
+limitcpu
+loginctl list-sessions
+loginctl show-session
+loginctl show-session 2 -p Type
+lsattr filename
+lsblk
+lscpu
+lsdev
+lshw
+lsmod
+lsof
+lspci
+lstopo
+lsusb
+luarocks completion bash
+luarocks install --local dump
+luarocks path
+luarocks show dump
 markdownlint '**/*.md' 2> errors.txt
 merge --ff-only branchname
 merge-base HEAD branchname
 meson x --buildtype release --strip -Db_lto=true
 mogrify -format jpg ./*.png
+mojo version
 msfconsole
 msfdb stop
 namei -om /bin/perl6
+nc -lp 5432
+ncdu
+neofetch
+ng new my-app
+ng serve -o
 nmap --privileged -sS --send-eth -Pn -n 10.10.10.0/24 -p 22
 nmcli connection down id connectionId
 nmcli connection show
@@ -808,20 +934,28 @@ nmcli radio wifi on
 npm cache clean --force
 npm config set prefix "$NPM_PACKAGES"
 npm install -g @angular/cli
+npm install -g @reduxjs/toolkit
 npm install -g appium
 npm install -g asar
+npm install -g browserslist
 npm install -g depcheck
 npm install -g ember-cli
 npm install -g eslint
 npm install -g frida
 npm install -g generator-code
+npm install -g jquery
 npm install -g js-beautify
+npm install -g latest-version-cli
+npm install -g leaflet
+npm install -g markdownlint
 npm install -g markdownlint-cli
+npm install -g neovim
 npm install -g npm
 npm install -g npm-check-updates
 npm install -g ovsx
 npm install -g prettier
 npm install -g snyk
+npm install -g spectron
 npm install -g svgo
 npm install -g typescript
 npm install -g vsce
@@ -829,6 +963,11 @@ npm install -g wappalyzer
 npm install -g yo
 npx asar
 nvidia-smi
+objdump -R elf-binary-filename
+objdump -S elf-binary-filename
+objdump -d elf-binary-filename
+objdump -g elf-binary-filename
+objdump -r elf-binary-filename
 openfortivpn fortigate.ankitpati.in -u ankitpati -p SecretPassword -o 012345
 optipng -o7 filename.png
 ovsx create-namespace ankitpati --pat SecretPersonalAccessToken
@@ -843,10 +982,18 @@ pactl list sinks
 passwd postgres
 patch filename.c filename.c.patch
 pavumeter --record
+perl -MModule::CoreList -E 'say Module::CoreList->find_modules(qr/path/i)'
+perl -MModule::CoreList -E 'say Module::CoreList->first_release(q{File::Path})'
+perl -dE 0
+perl -pi -E 'chomp if eof' filename.txt
 perlbrew list-modules
 perlbrew upgrade-perl
+pidof -s chrome
+pidof chrome
+ping -s 1500 ankitpati.in
 pip install cx_Oracle
 pip install data-science-types
+pip install endgame
 pip install frida
 pip install frida-tools
 pip install guiscrcpy
@@ -854,6 +1001,7 @@ pip install gunicorn
 pip install imblearn
 pip install jupyterlab
 pip install meson
+pip install mvt
 pip install pycairo
 pip install pycurl
 pip install pyment
@@ -869,21 +1017,55 @@ pip install wheel
 pip install wxPython
 pip install xgboost
 pkmon
+plackup -L Shotgun filename.psgi
+plackup -r filename.psgi
+plackup filename.psgi
+plasma-nm
+pod2pdf path/to/Perl/Module.pm > Perl-Module-docs.pdf
+podchecker path/to/Perl/Module.pm
+podlinkcheck path/to/Perl/Module.pm
+podlint path/to/Perl/Module.pm
+podman images
+podman info
+podman inspect -l
+podman list
+podman ps
+podman pull fedora
+podman pull fedora-toolbox
+podman pull registry.fedoraproject.org/f34
+podman rmi 536f3995adeb
+podman stop fedora-toolbox-33
 potrace filename.png
 prettier -w filename.css
 prettier -w filename.html
 prettier -w filename.js
+prettyping google.com
+pup 'css-selector' < filename.html
+pup --color < filename.html
+pylint --py3k path/to/python/file.py
+pyment -w path/to/python/file.py
+python -m pdb filename.py
+python -m timeit '"-".join(str(n) for n in range(100))'
 qemu-img convert filename.vmdk filename.qcow2
+raku -E 'say "hello"'
+readelf -x .rodata elf-binary-filename
+rename -n 's/^\d+_\d+_0(\d)_[^a-z]+_(\w+)\.mp4$/$1. $2.mp4/' -- *
+resolvectl flush-caches
 resolvectl query ankitpati.in
 restorecon -rvn /etc/X11/xorg.conf.d/
 rg -- '^(<<<<|====|>>>>)'
 rg -F -- '$_ =~ '
+rg -L search-string
+rlwrap raku
 rpm2cpio filename.rpm | cpio -idmv
 rpmconf -a -f vimdiff
 rpmconf -c
 scour filename.svg filename-scour.svg -v --no-renderer-workaround --strip-xml-prolog --remove-titles --remove-descriptions --remove-metadata --remove-descriptive-elements --enable-comment-stripping --disable-embed-rasters --enable-viewboxing --indent=none --no-line-breaks --strip-xml-space --enable-id-stripping --shorten-ids
 scrcpy --force-adb-forward -b 1000
 scrcpy -b 1000
+script -T timing script
+scriptreplay -t timing script
+scriptreplay typescript
 sdk install btrace
 sdk install gradle
 sdk install groovy
@@ -891,18 +1073,29 @@ sdk install kotlin
 sdk install maven
 sdk install sbt
 sdk install visualvm
-show --format= --name-only
+sed -E 's/ /\n/g' < /proc/cmdline
+sed -i -E 's|#!/usr/bin/octave -q|#!/usr/bin/env -S octave -q|g' -- *.m
+sha256sum -c filename-CHECKSUM
+sloccount .
 snap install flutter --classic
+snap list
+snyk auth
+speedtest-cli
 sqlformat -k upper -i lower -r --indent_width 4 --indent_columns -s --comma_first True filename.sql
+sqlite3 filename.sqlite
 ss -tulpn
 ssh -L 8080:/tmp/sockname.sock ssh.ankitpati.in
 ssh -o ClearAllForwardings=yes ssh.ankitpati.in
 ssh-copy-id -o PasswordAuthentication=yes ssh.ankitpati.in
-strace -e open programname programargs
+stat -c '%w' filename
+strace -e open -o programname.strace programname programargs
 strace programname 2> programname.strace
 sudo bash -c 'dnf upgrade --refresh; snap refresh; flatpak update; pkcon refresh force; pkcon update; fwupdmgr get-updates; fwupdmgr upgrade; chmod 750 /usr/bin/nmap /usr/sbin/etherape; chown root:wireshark /usr/bin/nmap /usr/sbin/etherape; setcap cap_net_raw,cap_net_admin,cap_net_bind_service+eip /usr/bin/nmap cap_net_raw,cap_net_admin,cap_net_bind_service+eip /usr/sbin/etherape'
 sudo bash -c 'rfkill unblock bluetooth; systemctl restart bluetooth.service'
 sudo bash -c 'systemctl stop libvirtd.socket; systemctl stop libvirtd.service'
+svg2png filename.svg
+systemctl edit --user --force --full filename.service
+systemctl edit --user filename.service
 systemctl list-units --type=service --state=active
 systemctl list-units --type=service --state=running
 timedatectl set-timezone Asia/Kolkata
@@ -915,14 +1108,22 @@ toolbox rm fedora-toolbox-34
 toolbox rmi --all
 tree -L 2
 tree -a
+tweak filename.txt
+typespeed
 uname -a
 uname -r
+unix2dos filename.txt
 update-alternatives --config java
 update-alternatives --config javac
 update-alternatives --set editor /bin/vim
 updatedb
+uprecord
+uptime
+usb-devices
 usermod -aG libvirt ankitpati
 usermod -aG wireshark ankitpati
+vdpauinfo
+vim -- $(rg '^(<<<<<<< HEAD|=======|>>>>>>> [[:xdigit:]]+ .*)$' | cut -d: -f1 | sort -u)
 virsh -c qemu:///system list --all
 virsh -c qemu:///system send-key Windows-10 --codeset win32 37
 virsh -c qemu:///system send-key Windows-10 --codeset win32 KEY_J
@@ -935,6 +1136,7 @@ virsh qemu-monitor-command info version
 virsh send-key Windows-10 --codeset xt 37
 virsh send-key dom --codeset xt 37
 wappalyzer https://ankitpati.in | jq .
+wget 'https://www.toptal.com/developers/gitignore/api/java,netbeans,eclipse,jetbrains,android,androidstudio' -O .gitignore
 whatchanged origin/development..
 while :; do virsh -c qemu:///system send-key Windows-10 KEY_J; sleep 120; done
 while :; do xdotool mousemove --sync 1000 10 sleep 0.5 mousemove restore; sleep 120; done
@@ -942,6 +1144,13 @@ while read -r directory; do find "$(case "$directory" in -*) printf '%s' ./ ;; e
 write ankitpati :1
 write ankitpati tty4
 xclip < ~/.ssh/id_rsa.pub
+xclip < ~/Code/ankitpati.in/public/gpg.asc
+xclip-copyfile filename
+xdg-open .
+xdg-open filename
+xdotool click --repeat 5 1
 xz -v9e filename.tar
 yapf filename.py | sponge bmark.py
-zbarimg filename.jpg
+youtube-dl 'https://www.youtube.com/watch?v=VIDEO_ID' -F
+youtube-dl 'https://www.youtube.com/watch?v=VIDEO_ID' -f 248
+zbarimg filename.jpg > filename.dat
