@@ -35,6 +35,7 @@ export PROMPT_COMMAND='history -a; history -n;'
 # Brew Prevent Time-Consuming Activities
 export HOMEBREW_NO_BOTTLE_SOURCE_FALLBACK='1'
 export HOMEBREW_NO_AUTO_UPDATE='1'
+export HOMEBREW_NO_ANALYTICS='1'
 
 # RLWrap
 export RLWRAP_HOME="$HOME/.rlwrap"
