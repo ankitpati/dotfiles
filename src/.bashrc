@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 global_profile='/etc/profile'
 test -f "$global_profile" && source "$global_profile"
 unset global_profile

@@ -1,4 +1,4 @@
-# first line
+#!/usr/bin/env bash
 adb logcat --pid="$(adb shell pidof -s in.ankitpati.gparse | cut -d' ' -f1)"
 adb logcat -c && adb logcat > current.log
 adb shell pm grant com.oasisfeng.island android.permission.GET_APP_OPS_STATS
