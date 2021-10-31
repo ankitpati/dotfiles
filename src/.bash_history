@@ -6,11 +6,145 @@ adb shell pm list packages
 adb uninstall com.markany.aegis.gt
 advzip --recompress -4 --iter 1000 filename.zip
 aria2c -c -x 16 'https://ankitpati.in/filename.br'
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+brew analytics off
+brew doctor
+brew install advancecomp
+brew install ant
+brew install aria2
+brew install arp-scan
+brew install arping
+brew install astyle
+brew install automake
+brew install base64
+brew install basex
+brew install bash
+brew install bash-completion@2
+brew install bat
+brew install binutils
+brew install bison
+brew install byacc
+brew install bzip2
+brew install checkbashisms
+brew install checkstyle
+brew install chrome-cli
+brew install chrome-export
+brew install clang-format
+brew install cmake
+brew install coreutils
+brew install cscope
+brew install curl
+brew install ddrescue
+brew install diffutils
+brew install dnstracer
+brew install docker-completion
+brew install dos2unix
+brew install dyld-headers
+brew install dylibbundler
+brew install eslint
+brew install file-formula
+brew install findutils
+brew install firebase-cli
+brew install flex
+brew install gawk
+brew install git
+brew install git-delta
+brew install git-lfs
+brew install gitg
+brew install gnu-getopt
+brew install gnu-indent
+brew install gnu-sed
+brew install gnu-tar
+brew install gnu-time
+brew install gnu-units
+brew install gnu-which
+brew install gnupg
+brew install go
+brew install google-cloud-sdk
+brew install google-java-format
+brew install gpatch
+brew install grc
+brew install grep
+brew install groff
+brew install grpc
+brew install gzip
+brew install hping
+brew install htop
+brew install httrack
+brew install inetutils
+brew install iproute2mac
+brew install ipv6calc
+brew install irssi
+brew install iterm2
+brew install ivy
+brew install jq
+brew install jsonlint
+brew install k6
+brew install kotlin
+brew install less
+brew install libressl
+brew install libtermkey
+brew install libvterm
+brew install lsof
+brew install lsusb
+brew install lz4
+brew install lzip
+brew install m4
+brew install maccy
+brew install make
+brew install man-db
+brew install masscan
+brew install maven
+brew install maven-completion
+brew install mdcat
+brew install minikube
+brew install moreutils
+brew install mosh
+brew install neofetch
+brew install netcat
+brew install nmap
+brew install openssh
+brew install p4
+brew install p4v
+brew install pip-completion
+brew install proguard
+brew install pwgen
+brew install quip
+brew install rakudo
+brew install ripgrep-all
+brew install rlwrap
+brew install rust
+brew install rustc-completion
+brew install sha3sum
+brew install shellcheck
+brew install shellharden
+brew install sloc
+brew install socat
+brew install ssdeep
+brew install ssh-copy-id
+brew install tcpdump
+brew install tcpreplay
+brew install tcptrace
+brew install tcptraceroute
+brew install tealdeer
+brew install tmux
+brew install tree
+brew install uncrustify
+brew install unzip
+brew install util-linux
+brew install vim
+brew install watch
+brew install wget
+brew install whois
+brew install with-readline
+brew install zip
+brew install zlib
 brotli -d filename.br
 brotli filename
 browserslist 'last 1 Chrome versions'
 cargo install cargo-update
 cargo install shellharden
+chsh -s /usr/local/bin/bash
 codium --install-extension ankitpati.vscodium-amoled --force
 codium --install-extension eamodio.gitlens --force
 codium --install-extension jock.svg --force
@@ -779,6 +913,7 @@ fdupes -rNd .
 fdupes .
 figlet Type your message here.
 file -i filename
+find . -type f -exec chmod 0600 {} + -exec dos2unix {} +
 firewall-cmd --list-all
 firewall-cmd --list-ports
 firewall-cmd --list-services
@@ -874,6 +1009,10 @@ ipcs -s
 iw dev wlp2s0
 iw dev wlp2s0 info
 iwconfig
+jamf enroll -prompt
+jamf manage
+jamf policy
+jamf recon
 journalctl
 journalctl -f -o cat "$(which gnome-shell)"
 jq -S --indent 4 . < filename.json
@@ -887,7 +1026,11 @@ kate-syntax-highlighter -t 'Vim Dark' filename.pl > filename.html
 keytool -printcert -file cert.pem
 latest-version asar
 latest-version spectron
+launchctl list
+launchctl load /System/Library/LaunchDaemons/ssh.plist
+launchctl unload /System/Library/LaunchDaemons/ssh.plist
 limitcpu
+locate --statistics
 loginctl list-sessions
 loginctl show-session
 loginctl show-session 2 -p Type
@@ -972,6 +1115,11 @@ openfortivpn fortigate.ankitpati.in -u ankitpati -p SecretPassword -o 012345
 optipng -o7 filename.png
 ovsx create-namespace ankitpati --pat SecretPersonalAccessToken
 ovsx publish --pat SecretPersonalAccessToken
+p4 client
+p4 login
+p4 sync //path/to/directory/...
+p4 sync //path/to/file
+p4 trust
 package-cleanup
 package-cleanup --dupes
 package-cleanup --leaves
@@ -1080,6 +1228,7 @@ sloccount .
 snap install flutter --classic
 snap list
 snyk auth
+spctl developer-mode enable-terminal
 speedtest-cli
 sqlformat -k upper -i lower -r --indent_width 4 --indent_columns -s --comma_first True filename.sql
 sqlite3 filename.sqlite
@@ -1146,6 +1295,7 @@ write ankitpati tty4
 xclip < ~/.ssh/id_rsa.pub
 xclip < ~/Code/ankitpati.in/public/gpg.asc
 xclip-copyfile filename
+xcodebuild -license
 xdg-open .
 xdg-open filename
 xdotool click --repeat 5 1
