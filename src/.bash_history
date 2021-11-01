@@ -139,6 +139,8 @@ brew install whois
 brew install with-readline
 brew install zip
 brew install zlib
+brew shellenv
+brew update; brew upgrade; vim +PlugUpdate
 brotli -d filename.br
 brotli filename
 browserslist 'last 1 Chrome versions'
@@ -946,6 +948,7 @@ gcc -march=native -Q --help=target
 git branch --format='%(refname:short)' | while read -r branch; do git checkout "$branch" || break; git rebase origin/main || break; done
 git branch -vv
 git fetch origin pull/1000/HEAD:local-branch-name # for GitHub
+git lfs install
 git log --pretty=email
 git log --pretty=format:%ae | sort -u | cut -d@ -f2- | sort -u
 git log --pretty=fuller
