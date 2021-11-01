@@ -8,6 +8,7 @@ advzip --recompress -4 --iter 1000 filename.zip
 aria2c -c -x 16 'https://ankitpati.in/filename.br'
 bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 brew analytics off
+brew autoremove -n
 brew doctor
 brew install advancecomp
 brew install ant
@@ -107,6 +108,7 @@ brew install openssh
 brew install p4
 brew install p4v
 brew install pip-completion
+brew install proctools
 brew install proguard
 brew install pwgen
 brew install quip
@@ -1037,6 +1039,7 @@ locate --statistics
 loginctl list-sessions
 loginctl show-session
 loginctl show-session 2 -p Type
+ls /usr/local/bin/g* | rev | cut -d/ -f1 | rev | cut -dg -f2- | xargs -r which 2>/dev/null | grep -v '^/usr/local/' | rev | cut -d/ -f1 | rev | while read -r binary; do echo "/usr/local/bin/g$binary"; done | xargs -r ls -l | rev | cut -d/ -f4 | rev | sort -u
 lsattr filename
 lsblk
 lscpu
@@ -1059,6 +1062,8 @@ mogrify -format jpg ./*.png
 mojo version
 msfconsole
 msfdb stop
+mvn --encrypt-master-password "$(openssl rand -base64 35)"
+mvn --encrypt-password 'maven-server-password'
 namei -om /bin/perl6
 nc -lp 5432
 ncdu
