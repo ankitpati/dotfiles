@@ -1,1 +1,1 @@
-db = connect("localhost/admin", "ankitpati", "password");
+db = connect("localhost/admin", "username", "password");
