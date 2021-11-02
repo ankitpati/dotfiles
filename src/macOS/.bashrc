@@ -162,7 +162,7 @@ if test "$use_gnu_binaries" = 'true'; then
     test -d "$HOME/.pyenv" && \
         eval "$(pyenv init -)" && \
         eval "$(pyenv virtualenv-init -)" && \
-        test -z "$PYENV_ACTIVATE_SHELL" && pyenv activate ankitpati
+        test -z "$PYENV_ACTIVATE_SHELL" && pyenv activate "$USER"
 
     # perlbrew
     test -f "$HOME/perl5/perlbrew/etc/bashrc" && \
