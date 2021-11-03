@@ -187,6 +187,7 @@ cpanm WWW::Mechanize::Chrome
 cpanm XML::Bare
 cpanm XML::Parser
 cpanm XML::SAX::Expat
+curl https://github.com/web-flow.gpg | gpg --import
 dart --disable-analytics
 date +%F
 date +%s
@@ -954,12 +955,13 @@ fzf
 gcc -march=native -Q --help=target
 git branch --format='%(refname:short)' | while read -r branch; do git checkout "$branch" || break; git rebase origin/main || break; done
 git branch -vv
+git commit --amend -S --no-edit
 git fetch origin pull/1000/HEAD:local-branch-name # for GitHub
 git lfs install
 git log --pretty=email
 git log --pretty=format:%ae | sort -u | cut -d@ -f2- | sort -u
-git log --pretty=fuller
-git log --show-signature
+git log --pretty=fuller --show-signature
+git log -p
 git rebase branch-name --exec 'git commit --amend --author="Ankit Pati <contact@ankitpati.in>" --no-edit'
 git show --format= --name-only
 git show --show-signature
