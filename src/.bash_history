@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+GIT_COMMITTER_EMAIL='contact@ankitpati.in' git rebase branch-name --exec 'git commit --amend --author="Ankit Pati <contact@ankitpati.in>" --no-edit'
 adb logcat --pid="$(adb shell pidof -s in.ankitpati.gparse | cut -d' ' -f1)"
 adb logcat -c && adb logcat > current.log
 adb shell pm grant com.oasisfeng.island android.permission.GET_APP_OPS_STATS
@@ -101,6 +102,7 @@ brew install mdcat
 brew install minikube
 brew install moreutils
 brew install mosh
+brew install ncdu
 brew install neofetch
 brew install netcat
 brew install nmap
@@ -142,12 +144,13 @@ brew install with-readline
 brew install zip
 brew install zlib
 brew shellenv
-brew update; brew upgrade; vim +PlugUpdate
+brew update; brew upgrade; vim +PlugUpdate; tldr --update
 brotli -d filename.br
 brotli filename
 browserslist 'last 1 Chrome versions'
 cargo install cargo-update
 cargo install shellharden
+chmod 644 ~/.p4trust
 chsh -s /usr/local/bin/bash
 codium --install-extension ankitpati.vscodium-amoled --force
 codium --install-extension eamodio.gitlens --force
@@ -895,6 +898,7 @@ eslint --fix filename.js
 eslint filename.js
 exa
 exec su - ankitpati
+exec sudo -i
 exec sudo -u ankitpati -i
 exiftool -p '$XResolution,$YResolution' filename.jpg
 factor 1849
@@ -955,12 +959,16 @@ git log --pretty=email
 git log --pretty=format:%ae | sort -u | cut -d@ -f2- | sort -u
 git log --pretty=fuller
 git log --show-signature
+git rebase branch-name --exec 'git commit --amend --author="Ankit Pati <contact@ankitpati.in>" --no-edit'
 git show --format= --name-only
 git show --show-signature
 git show -U100
 go get github.com/ericchiang/pup
 go get png2svg
 go-avif
+gpg2 --armor --export contact@ankitpati.in | pbcopy
+gpg2 --armor --export contact@ankitpati.in | xclip
+gpg2 --armor --export-secret-keys contact@ankitpati.in > privkey.gpg.asc
 gpg2 --decrypt data.gpg
 gpg2 --decrypt data.gpg --output data
 gpg2 --edit-key contact@ankitpati.in
@@ -968,10 +976,10 @@ gpg2 --encrypt --sign --recipient contact@ankitpati.in filename.br
 gpg2 --export -a 'Ankit Pati' > pubkey.asc
 gpg2 --export-secret-keys contact@ankitpati.in > privkey.gpg
 gpg2 --fingerprint contact@ankitpati.in
-gpg2 --gen-key
+gpg2 --full-generate-key
 gpg2 --import filename.asc
 gpg2 --keyid-format long --list-keys contact@ankitpati.in
-gpg2 --list-keys
+gpg2 --list-keys --keyid-format long
 gpg2 --list-secret-keys
 gpg2 --locate-keys contact@ankitpati.in
 gpg2 --recv-keys 'B8BB CEBC BD6C 4BF0 599C 40F9 360A 9642 9F7A 69DC'
@@ -1039,6 +1047,7 @@ locate --statistics
 loginctl list-sessions
 loginctl show-session
 loginctl show-session 2 -p Type
+ls /Library/Launch{Agents,Daemons}
 ls /usr/local/bin/g* | rev | cut -d/ -f1 | rev | cut -dg -f2- | xargs -r which 2>/dev/null | grep -v '^/usr/local/' | rev | cut -d/ -f1 | rev | while read -r binary; do echo "/usr/local/bin/g$binary"; done | xargs -r ls -l | rev | cut -d/ -f4 | rev | sort -u
 lsattr filename
 lsblk
@@ -1138,6 +1147,7 @@ pactl list sinks
 passwd postgres
 patch filename.c filename.c.patch
 pavumeter --record
+pbcopy < ~/.ssh/id_ed25519.pub
 perl -MModule::CoreList -E 'say Module::CoreList->find_modules(qr/path/i)'
 perl -MModule::CoreList -E 'say Module::CoreList->first_release(q{File::Path})'
 perl -dE 0
@@ -1244,6 +1254,8 @@ ss -tulpn
 ssh -L 8080:/tmp/sockname.sock ssh.ankitpati.in
 ssh -o ClearAllForwardings=yes ssh.ankitpati.in
 ssh-copy-id -o PasswordAuthentication=yes ssh.ankitpati.in
+ssh-keygen -l -v -f ~/.ssh/id_ed25519.pub
+ssh-keygen -t ed25519
 stat -c '%w' filename
 strace -e open -o programname.strace programname programargs
 strace programname 2> programname.strace
@@ -1281,6 +1293,7 @@ usermod -aG libvirt ankitpati
 usermod -aG wireshark ankitpati
 vdpauinfo
 vim -- $(rg '^(<<<<<<< HEAD|=======|>>>>>>> [[:xdigit:]]+ .*)$' | cut -d: -f1 | sort -u)
+vim /etc/shells
 virsh -c qemu:///system list --all
 virsh -c qemu:///system send-key Windows-10 --codeset win32 37
 virsh -c qemu:///system send-key Windows-10 --codeset win32 KEY_J
