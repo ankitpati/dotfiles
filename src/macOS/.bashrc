@@ -111,6 +111,7 @@ for gnuitem in \
     libxslt \
     subversion \
     expat \
+    ruby \
     bzip2 \
     unzip \
     zip \
