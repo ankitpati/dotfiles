@@ -799,6 +799,8 @@
 	<true/>
 	<key>SeparateWindowTitlePerTab</key>
 	<false/>
+	<key>ShowFullScreenTabBar</key>
+	<false/>
 	<key>ShowPaneTitles</key>
 	<false/>
 	<key>SoundForEsc</key>
@@ -812,7 +814,7 @@
 	<key>TabsHaveCloseButton</key>
 	<false/>
 	<key>ThreeFingerEmulates</key>
-	<true/>
+	<false/>
 	<key>TmuxUsesDedicatedProfile</key>
 	<false/>
 	<key>TmuxWarnBeforePausing</key>
@@ -842,6 +844,8 @@
 	<false/>
 	<key>WindowNumber</key>
 	<false/>
+	<key>findMode_iTerm</key>
+	<integer>0</integer>
 	<key>kCPKSelectionViewPreferredModeKey</key>
 	<integer>0</integer>
 	<key>kCPKSelectionViewShowHSBTextFieldsKey</key>
