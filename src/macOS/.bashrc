@@ -1,36 +1,45 @@
 #!/usr/bin/env bash
 
 # Source global definitions
-test -f '/etc/profile' && source '/etc/profile'
-test -f '/etc/bashrc'  && source '/etc/bashrc'
+global_profile='/etc/profile'
+test -f "$global_profile" && source "$global_profile"
+unset global_profile
 
 # GRC Colourification
 grc_bashrc='/usr/local/etc/grc.bashrc'
 test -f "$grc_bashrc" && source "$grc_bashrc"
+unset grc_bashrc
 
-# utility function to sanitize PATH-like specifications
 function sanitize_path
 {
-    # Do not allow repeated elements, repeated, starting, or ending `:`.
+    # Utility function to sanitize PATH-like specifications.
+    # Do not allow
+    # 1. repeated elements,
+    # 2. repeated, starting, or ending `:`, and
+    # 3. repeated `/`.
     echo -n "$1" | awk -v 'RS=:' -v 'ORS=:' '!seen[$0]++' \
-                 | sed 's/::*/:/g' | sed 's/^://' | sed 's/:$//'
+                 | sed 's/::*/:/g' | sed 's/^://' | sed 's/:$//' \
+                 | sed 's_//*_/_g'
 }
 
 # Ensure `source`s below this see the correct `$MANPATH`.
-export MANPATH="$(sanitize_path "$(manpath)")"
+manpath="$MANPATH"
+unset MANPATH
+export MANPATH="$(sanitize_path "$manpath:$(manpath)")"
+unset manpath
 
 export EDITOR='vim'
+export MERGE='vimdiff'
+export DOTNET_CLI_TELEMETRY_OPTOUT='1'
 export POWERSHELL_TELEMETRY_OPTOUT='1'
-export PYENV_VIRTUALENV_DISABLE_PROMPT='1'
 
-# HH Configuration
+# History Configuration
+shopt -s histappend
 export HISTSIZE=''
-export HISTCONTROL='ignorespace:ignoredups'
-export HH_CONFIG='hicolor'
-export PROMPT_COMMAND='history -a; history -n;'
-[[ "$-" =~ .*i.* ]] && \
-    bind '"\C-r": "\C-a hh -- \C-j"' && \
-    bind '"\C-xk": "\C-a hh -k \C-j"'
+export HISTFILESIZE=''
+export HISTCONTROL='ignoreboth'
+test -z "$(echo "$PROMPT_COMMAND" | grep '\bhistory\b')" && \
+    export PROMPT_COMMAND="history -a; history -n; $PROMPT_COMMAND"
 
 # Brew Prevent Time-Consuming Activities
 export HOMEBREW_NO_BOTTLE_SOURCE_FALLBACK='1'
@@ -41,6 +50,16 @@ export HOMEBREW_NO_ANALYTICS='1'
 export RLWRAP_HOME="$HOME/.rlwrap"
 export RLWRAP_EDITOR="vim '+call cursor(%L,%C)'"
 
+# Mypy (Python static typing)
+export MYPYPATH="$HOME/.mypy_stubs/"
+export MYPY_CACHE_DIR="$HOME/.mypy_cache/"
+
+# Perlcritic
+export PERLCRITIC="$HOME/.perlcriticrc"
+
+# ripgrep
+export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
+
 # Oracle Database
 export ORACLE_HOME='/Library/Oracle/instantclient_12_2'
 export ORACLE_SID='XE'
@@ -49,7 +68,6 @@ export ORACLE_SID='XE'
 export PGDATA='/usr/local/var/postgres'
 
 # Perforce
-export P4PORT='ssl:host.tld:1666'
 export P4EDITOR='vim'
 
 # JBOSS
@@ -64,10 +82,6 @@ export FREETYPE_PROPERTIES='truetype:interpreter-version=35'
 # Google Cloud SDK
 export CLOUDSDK_CORE_PROJECT=''
 
-# keep macOS Terminal.app from complaining about locales
-export LC_ALL='en_US.UTF-8'
-export LANG='en_US.UTF-8'
-
 # get the superior versions of common binaries
 EXTRA_BINARIES=''
 EXTRA_MANPAGES=''
@@ -78,15 +92,57 @@ EXTRA_CLASPATH=''
 use_gnu_binaries='true'
 
 # keep more important items after less important ones
-for gnuitem in 'wildfly-as' 'artifactory' 'sphinx-doc' 'jpeg-turbo' 'sqlite' \
-               'icu4c' 'openldap' 'cython' 'opencolorio' 'libxml2' 'texinfo' \
-               'apr-util' 'apr' 'libarchive' 'mozjpeg' 'libxslt' \
-               'subversion' 'expat' 'bzip2' 'unzip' 'zip' 'file-formula' \
-               'krb5' 'qt' 'libpcap' 'e2fsprogs' \
-               'gnu-units' 'gnu-sed' 'gnu-tar' \
-               'libressl' 'gnu-getopt' 'gettext' 'ncurses' 'flex' 'bison' \
-               'curl' 'make' 'grep' 'ed' 'binutils' 'findutils' 'coreutils'
-             # 'tcl-tk' 'ccache'
+for gnuitem in \
+    wildfly-as \
+    artifactory \
+    sphinx-doc \
+    jpeg-turbo \
+    sqlite \
+    icu4c \
+    openldap \
+    cython \
+    opencolorio \
+    libxml2 \
+    texinfo \
+    apr-util \
+    apr \
+    libarchive \
+    mozjpeg \
+    libxslt \
+    subversion \
+    expat \
+    bzip2 \
+    unzip \
+    zip \
+    file-formula \
+    krb5 \
+    qt \
+    libpcap \
+    e2fsprogs \
+    gnu-which \
+    gnu-indent \
+    gnu-units \
+    gnu-time \
+    gnu-sed \
+    gnu-tar \
+    libressl \
+    gnu-getopt \
+    gettext \
+    ncurses \
+    libtool \
+    flex \
+    bison \
+    curl \
+    make \
+    grep \
+    ed \
+    man-db \
+    util-linux \
+    inetutils \
+    binutils \
+    findutils \
+    coreutils \
+;
 do
     # BSD-shadowing versions of g-prefixed items
     gnupath="/usr/local/opt/$gnuitem/libexec/gnubin"
@@ -159,6 +215,8 @@ if test "$use_gnu_binaries" = 'true'; then
     export CLASSPATH="$(sanitize_path "$EXTRA_CLASPATH:$CLASSPATH")"
 
     # pyenv
+    export PYENV_ROOT="$HOME/.pyenv/"
+    export PYENV_VIRTUALENV_DISABLE_PROMPT='1'
     test -d "$HOME/.pyenv" && \
         eval "$(pyenv init -)" && \
         eval "$(pyenv virtualenv-init -)" && \
@@ -167,8 +225,42 @@ if test "$use_gnu_binaries" = 'true'; then
     # perlbrew
     test -f "$HOME/perl5/perlbrew/etc/bashrc" && \
         source "$HOME/perl5/perlbrew/etc/bashrc"
-    export PERL_CPANM_OPT='--mirror https://cpan.metacpan.org/'
-    export PERLBREW_CPAN_MIRROR='https://cpan.metacpan.org/'
+    export PERL_CPANM_OPT='--from https://www.cpan.org/ --verify'
+    export PERLBREW_CPAN_MIRROR='https://www.cpan.org/'
+
+    # perl local::lib
+    export PATH="$(sanitize_path "$HOME/perl5/bin:$PATH")"
+    export PERL5LIB="$(sanitize_path "$HOME/perl5/lib/perl5:$PERL5LIB")"
+    export PERL_LOCAL_LIB_ROOT="$(sanitize_path "$HOME/perl5:$PERL_LOCAL_LIB_ROOT")"
+    export PERL_MB_OPT="--install_base '$HOME/perl5'"
+    export PERL_MM_OPT="INSTALL_BASE=$HOME/perl5"
+
+    # cargo
+    export PATH="$(sanitize_path "$HOME/.cargo/bin:$PATH")"
+
+    # go
+    export PATH="$(sanitize_path "$HOME/go/bin:$PATH")"
+
+    # php
+    export PATH="$(sanitize_path "$HOME/.composer/vendor/bin:$PATH")"
+
+    # npm
+    export NPM_PACKAGES="$HOME/.npm/packages/"
+    #npm config set prefix "$NPM_PACKAGES"
+    export PATH="$(sanitize_path "$NPM_PACKAGES/bin:$PATH")"
+
+    # sdkman
+    export SDKMAN_DIR="$HOME/.sdkman/"
+    sdkman_init="$SDKMAN_DIR/bin/sdkman-init.sh"
+    test -f "$sdkman_init" && source "$sdkman_init"
+    unset sdkman_init
+
+    # lua
+    lua_version='5.4' # TODO: automate this
+    export LUA_PATH=";;$HOME/.luarocks/share/lua/$lua_version/?.lua;$HOME/.luarocks/share/lua/$lua_version/?/init.lua"
+    export LUA_CPATH=";;$HOME/.luarocks/lib64/lua/$lua_version/?.so"
+    export PATH="$(sanitize_path "$HOME/.luarocks/bin:$PATH")"
+    unset lua_version
 
     # CERN Root
     test -f '/usr/local/bin/thisroot.sh' && \
@@ -186,13 +278,13 @@ if test "$use_gnu_binaries" = 'true'; then
     test -f "$HOME/.opam/opam-init/init.sh" && \
         source "$HOME/.opam/opam-init/init.sh"
 
-    export PATH="$(sanitize_path "$HOME/bin:$HOME/go/bin:$PATH")"
-    export MANPATH="$(sanitize_path "$HOME/man:$MANPATH")"
+    export PATH="$(sanitize_path "$HOME/bin:$HOME/.local/bin:$PATH")"
+    export MANPATH="$(sanitize_path "$HOME/man:$HOME/.local/share/man:$MANPATH")"
     export PKG_CONFIG_PATH="$(sanitize_path "$EXTRA_PKGPATHS")"
-    export DYLD_LIBRARY_PATH="$(sanitize_path "$HOME/lib:$DYLD_LIBRARY_PATH")"
-    export CLASSPATH="$(sanitize_path "$HOME/jar:$CLASSPATH")"
+    export DYLD_LIBRARY_PATH="$(sanitize_path "$HOME/lib:$HOME/.local/lib:$DYLD_LIBRARY_PATH")"
+    export CLASSPATH="$(sanitize_path "$HOME/jar:$HOME/.local/jar:$CLASSPATH")"
 
-    export PERL5LIB="$(sanitize_path "$HOME/lib/perl5:$PERL5LIB")"
+    export PERL5LIB="$(sanitize_path "$HOME/.local/lib/perl5:$PERL5LIB")"
 
     # completion for brewed binaries
     completions='/usr/local/etc/profile.d/bash_completion.sh'
@@ -209,30 +301,32 @@ if test "$use_gnu_binaries" = 'true'; then
     test -f "$GCLOUD_SDK/completion.bash.inc" && \
         source "$GCLOUD_SDK/completion.bash.inc"
 
+    alias egrep='grep -E'
+    alias fgrep='grep -F'
+    alias grepp='grep -P'
+    alias grep='grep --color=auto'
+    alias l='ls -CF'
+    alias l.='ls -d .*'
+    alias la='ls -A'
+    alias ll='ls -alF'
+    alias ls='ls --color=auto'
+    alias ncdu='ncdu --color dark'
+    alias tree='tree -I ".git|node_modules"'
+    alias cpan-outdated='cpan-outdated --mirror="$PERLBREW_CPAN_MIRROR"'
+    alias podchecker='podchecker -warnings -warnings -warnings'
+    alias bat='bat --paging=never --style=plain --wrap=never --'
+    alias tohex="hexdump -ve '1/1 \"%.2x\" '"
+    alias unchomp='sed -i -e \$a\\ '
+    alias ssh='exec ssh'
+    alias telnet='exec telnet'
+    alias mosh='exec mosh'
+    alias git-sh='exec git-sh'
+    alias ssh-copy-id='ssh-copy-id -oPasswordAuthentication=yes'
+    alias brew-cu='brew cu --no-brew-update'
+
 else
     alias updatedb='/usr/libexec/locate.updatedb' # macOS exclusive
 fi
-
-alias egrep='egrep --color=auto'
-alias fgrep='fgrep --color=auto'
-alias grepp='grep --color=auto -P'
-alias grep='grep --color=auto'
-alias l='ls -CF'
-alias l.='ls -d .* --color=auto'
-alias la='ls -A'
-alias ll='ls -alF'
-alias ls='ls --color=auto'
-alias tree='tree -I .git'
-alias podchecker='podchecker -warnings -warnings -warnings'
-alias bat='bat --paging=never --style=plain --wrap=never --'
-alias tohex="hexdump -ve '1/1 \"%.2x\" '"
-alias unchomp='sed -i -e \$a\\ '
-alias ssh='exec ssh'
-alias telnet='exec telnet'
-alias mosh='exec mosh'
-alias git-sh='exec git-sh'
-alias ssh-copy-id='ssh-copy-id -oPasswordAuthentication=yes'
-alias brew-cu='brew cu --no-brew-update'
 
 alias B-nagios-start='nagios /usr/local/etc/nagios/nagios.cfg'
 alias B-rsyslog-start='rsyslogd -f /usr/local/etc/rsyslog.conf -i
@@ -350,16 +444,6 @@ function B-clean-all
 
 # Autocompletion for custom git commands
 function _git_pick
-{
-    _git_branch
-}
-
-function _git_publish
-{
-    _git_branch
-}
-
-function _git_files
 {
     _git_branch
 }
