@@ -11,6 +11,7 @@ bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/in
 brew analytics off
 brew autoremove -n
 brew doctor
+brew install ack
 brew install advancecomp
 brew install ant
 brew install aria2
