@@ -116,9 +116,11 @@ unset sdkman_init
 export PATH="$(sanitize_path "$HOME/snap/flutter/common/flutter/bin:$PATH")"
 
 # lua
-export LUA_PATH=";;$HOME/.luarocks/share/lua/5.4/?.lua;$HOME/.luarocks/share/lua/5.4/?/init.lua"
-export LUA_CPATH=";;$HOME/.luarocks/lib64/lua/5.4/?.so"
+lua_version='5.4' # TODO: automate this
+export LUA_PATH=";;$HOME/.luarocks/share/lua/$lua_version/?.lua;$HOME/.luarocks/share/lua/$lua_version/?/init.lua"
+export LUA_CPATH=";;$HOME/.luarocks/lib64/lua/$lua_version/?.so"
 export PATH="$(sanitize_path "$HOME/.luarocks/bin:$PATH")"
+unset lua_version
 
 # android
 export PATH="$(sanitize_path "$HOME/Android/Sdk/platform-tools:$PATH")"
