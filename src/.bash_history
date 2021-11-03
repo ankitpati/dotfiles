@@ -1313,7 +1313,7 @@ while :; do xdotool mousemove --sync 1000 10 sleep 0.5 mousemove restore; sleep 
 while read -r directory; do find "$(case "$directory" in -*) printf '%s' ./ ;; esac; printf '%s' "$directory")" \( -type f -exec ls -lt -- {} \; -exec md5sum -- {} \; \) -o \( -type d -exec ls -ltd -- {} \; -exec printf '%s%s' 'directory ' {} \; \); done < directory-list.txt
 write ankitpati :1
 write ankitpati tty4
-xclip < ~/.ssh/id_rsa.pub
+xclip < ~/.ssh/id_ed25519.pub
 xclip < ~/Code/ankitpati.in/public/gpg.asc
 xclip-copyfile filename
 xcodebuild -license
