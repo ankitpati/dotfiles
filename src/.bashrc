@@ -78,7 +78,7 @@ function _git_publish
     _git_branch
 }
 
-export PATH="$(sanitize_path "$HOME/.local/bin:$HOME/bin:$PATH")"
+export PATH="$(sanitize_path "$HOME/bin:$HOME/.local/bin:$PATH")"
 
 # Only on Debian and derivatives
 test -n "$(grep -i 'debian' '/etc/os-release')" && \
