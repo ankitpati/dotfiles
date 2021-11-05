@@ -6,6 +6,9 @@ adb shell pm grant com.oasisfeng.island android.permission.GET_APP_OPS_STATS
 adb shell pm list packages
 adb uninstall com.markany.aegis.gt
 advzip --recompress -4 --iter 1000 filename.zip
+age --decrypt -i ~/.age/key.txt -o plain.txt cipher.txt.age
+age -R ~/.age/machine.recipient -o cipher.txt.age plain.txt
+age-keygen -o ~/.age/key.txt
 aria2c -c -x 16 'https://ankitpati.in/filename.br'
 bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 brew analytics off
@@ -13,6 +16,7 @@ brew autoremove -n
 brew doctor
 brew install ack
 brew install advancecomp
+brew install age
 brew install ant
 brew install aria2
 brew install arp-scan
