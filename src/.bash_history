@@ -129,6 +129,7 @@ brew install shellcheck
 brew install shellharden
 brew install sloc
 brew install socat
+brew install speedtest-cli
 brew install ssdeep
 brew install ssh-copy-id
 brew install tcpdump
@@ -927,6 +928,8 @@ fdupes -rNd .
 fdupes .
 figlet Type your message here.
 file -i filename
+find . -not -group ankitpati
+find . -not -user ankitpati
 find . -type f -exec chmod 0600 {} + -exec dos2unix {} +
 firewall-cmd --list-all
 firewall-cmd --list-ports
@@ -1226,6 +1229,7 @@ rename -n 's/^\d+_\d+_0(\d)_[^a-z]+_(\w+)\.mp4$/$1. $2.mp4/' -- *
 resolvectl flush-caches
 resolvectl query ankitpati.in
 restorecon -rvn /etc/X11/xorg.conf.d/
+rg '^p4 sync ' ~/.bash_history | cut -d' ' -f3- | sort -u | while read -r p4dir; do p4 sync "$p4dir"; done
 rg -- '^(<<<<|====|>>>>)'
 rg -F -- '$_ =~ '
 rg -L search-string
