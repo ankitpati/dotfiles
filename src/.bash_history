@@ -39,6 +39,7 @@ brew install chrome-export
 brew install clang-format
 brew install cmake
 brew install coreutils
+brew install cpanminus
 brew install cscope
 brew install curl
 brew install ddrescue
@@ -150,6 +151,7 @@ brew install with-readline
 brew install zip
 brew install zlib
 brew shellenv
+brew update; brew upgrade; cpan-outdated --exclude-core -p | xargs cpanm; tldr --update; vim +PlugUpdate
 brew update; brew upgrade; vim +PlugUpdate; tldr --update
 brotli -d filename.br
 brotli filename
@@ -172,6 +174,8 @@ cpanm App::cpanoutdated
 cpanm Data::Printer
 cpanm Future::AsyncAwait
 cpanm GraphViz2::Parse::ISA
+cpanm IO::Socket::SSL
+cpanm IPC::Run
 cpanm IPC::Shareable
 cpanm Imager::File::PNG
 cpanm Minion
@@ -1053,6 +1057,7 @@ launchctl list
 launchctl load /System/Library/LaunchDaemons/ssh.plist
 launchctl unload /System/Library/LaunchDaemons/ssh.plist
 limitcpu
+ln -s /usr/local/opt/openssl@1.1/ /usr/local/opt/openssl # macOS
 locate --statistics
 loginctl list-sessions
 loginctl show-session
