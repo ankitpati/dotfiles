@@ -36,6 +36,7 @@ brew install checkbashisms
 brew install checkstyle
 brew install chrome-cli
 brew install chrome-export
+brew install chromedriver
 brew install clang-format
 brew install cmake
 brew install coreutils
@@ -47,6 +48,7 @@ brew install diffutils
 brew install dnstracer
 brew install docker-completion
 brew install dos2unix
+brew install doxygen
 brew install dyld-headers
 brew install dylibbundler
 brew install eslint
@@ -71,6 +73,7 @@ brew install go
 brew install google-cloud-sdk
 brew install google-java-format
 brew install gpatch
+brew install graphviz
 brew install grc
 brew install grep
 brew install groff
@@ -108,6 +111,7 @@ brew install mdcat
 brew install minikube
 brew install moreutils
 brew install mosh
+brew install mscgen
 brew install ncdu
 brew install neofetch
 brew install netcat
@@ -119,6 +123,7 @@ brew install pip-completion
 brew install proctools
 brew install proguard
 brew install pwgen
+brew install qemu
 brew install quip
 brew install rakudo
 brew install ripgrep-all
