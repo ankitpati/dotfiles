@@ -130,10 +130,11 @@ brew install ripgrep-all
 brew install rlwrap
 brew install rust
 brew install rustc-completion
+brew install semgrep
 brew install sha3sum
 brew install shellcheck
 brew install shellharden
-brew install sloc
+brew install sloccount
 brew install socat
 brew install speedtest-cli
 brew install ssdeep
@@ -153,11 +154,13 @@ brew install watch
 brew install wget
 brew install whois
 brew install with-readline
+brew install yq
 brew install zip
 brew install zlib
 brew shellenv
 brew update; brew upgrade; cpan-outdated --exclude-core -p | xargs cpanm; tldr --update; vim +PlugUpdate
 brew update; brew upgrade; vim +PlugUpdate; tldr --update
+brew-list-deps
 brotli -d filename.br
 brotli filename
 browserslist 'last 1 Chrome versions'
