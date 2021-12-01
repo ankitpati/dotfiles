@@ -79,9 +79,6 @@ export XML_CATALOG_FILES='/usr/local/etc/xml/catalog'
 # Wine Freetype Bug
 export FREETYPE_PROPERTIES='truetype:interpreter-version=35'
 
-# Google Cloud SDK
-export CLOUDSDK_CORE_PROJECT=''
-
 # get the superior versions of common binaries
 EXTRA_BINARIES=''
 EXTRA_MANPAGES=''
