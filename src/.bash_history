@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+./.venv/bin/activate
 GIT_COMMITTER_EMAIL='contact@ankitpati.in' git rebase branch-name --exec 'git commit --amend --author="Ankit Pati <contact@ankitpati.in>" --no-edit'
 adb logcat --pid="$(adb shell pidof -s in.ankitpati.gparse | cut -d' ' -f1)"
 adb logcat -c && adb logcat > current.log
@@ -13,7 +14,9 @@ aria2c -c -x 16 'https://ankitpati.in/filename.br'
 bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 brew analytics off
 brew autoremove -n
+brew developer --verbose state
 brew doctor
+brew help developer
 brew install ack
 brew install advancecomp
 brew install age
@@ -23,10 +26,12 @@ brew install arp-scan
 brew install arping
 brew install astyle
 brew install automake
+brew install awscli
 brew install base64
 brew install basex
 brew install bash
 brew install bash-completion@2
+brew install bash_unit
 brew install bat
 brew install binutils
 brew install bison
@@ -37,6 +42,7 @@ brew install checkstyle
 brew install chrome-cli
 brew install chrome-export
 brew install chromedriver
+brew install chromium
 brew install clang-format
 brew install cmake
 brew install coreutils
@@ -56,11 +62,14 @@ brew install file-formula
 brew install findutils
 brew install firebase-cli
 brew install flex
+brew install forcecli
 brew install gawk
 brew install git
 brew install git-delta
 brew install git-lfs
+brew install git-sizer
 brew install gitg
+brew install gitleaks
 brew install gnu-getopt
 brew install gnu-indent
 brew install gnu-sed
@@ -86,6 +95,7 @@ brew install inetutils
 brew install iproute2mac
 brew install ipv6calc
 brew install irssi
+brew install istioctl
 brew install iterm2
 brew install ivy
 brew install jq
@@ -120,9 +130,11 @@ brew install openssh
 brew install p4
 brew install p4v
 brew install pip-completion
+brew install prettier
 brew install proctools
 brew install proguard
 brew install pwgen
+brew install pyright
 brew install qemu
 brew install quip
 brew install rakudo
@@ -134,6 +146,7 @@ brew install semgrep
 brew install sha3sum
 brew install shellcheck
 brew install shellharden
+brew install shfmt
 brew install sloccount
 brew install socat
 brew install speedtest-cli
@@ -144,6 +157,11 @@ brew install tcpreplay
 brew install tcptrace
 brew install tcptraceroute
 brew install tealdeer
+brew install terraform
+brew install terraform_landscape
+brew install terraformer
+brew install terraforming
+brew install tfsec
 brew install tmux
 brew install tree
 brew install uncrustify
@@ -211,6 +229,7 @@ date +%s
 date -d@1619533275
 dconf dump / > dump.dconf
 dd if=/dev/urandom count=1 2>/dev/null | git hash-object --stdin
+deactivate
 diff HEAD~1 --name-only
 difftool branchname -- filename
 dnf config-manager --add-repo 'https://brave-browser-rpm-release.s3.brave.com/x86_64/'
@@ -972,6 +991,19 @@ free -h
 fuser -v 8080/tcp
 fzf
 gcc -march=native -Q --help=target
+gcloud auth application-default login
+gcloud auth list
+gcloud auth login
+gcloud components update
+gcloud compute zones list
+gcloud compute zones list --project=project-id
+gcloud config configurations list
+gcloud config list
+gcloud config set project project-id
+gcloud config unset project
+gcloud info
+gcloud projects list
+gcloud version
 git branch --format='%(refname:short)' | while read -r branch; do git checkout "$branch" || break; git rebase origin/main || break; done
 git branch -vv
 git commit --amend -S --no-edit
@@ -1180,6 +1212,7 @@ perlbrew upgrade-perl
 pidof -s chrome
 pidof chrome
 ping -s 1500 ankitpati.in
+pip install -r requirements.txt
 pip install cx_Oracle
 pip install data-science-types
 pip install endgame
@@ -1235,6 +1268,7 @@ pylint --py3k path/to/python/file.py
 pyment -w path/to/python/file.py
 python -m pdb filename.py
 python -m timeit '"-".join(str(n) for n in range(100))'
+python -m venv .venv
 qemu-img convert filename.vmdk filename.qcow2
 raku -E 'say "hello"'
 readelf -x .rodata elf-binary-filename
@@ -1247,6 +1281,8 @@ rg -- '^(<<<<|====|>>>>)'
 rg -F -- '$_ =~ '
 rg -L search-string
 rlwrap raku
+rpg 100 | sed -E 's/[^A-Za-z0-9!@#$%^*_=+;:]/=/g'
+rpg 100 | sed -E 's/\//-/g'
 rpm2cpio filename.rpm | cpio -idmv
 rpmconf -a -f vimdiff
 rpmconf -c
@@ -1291,6 +1327,12 @@ systemctl edit --user --force --full filename.service
 systemctl edit --user filename.service
 systemctl list-units --type=service --state=active
 systemctl list-units --type=service --state=running
+terraform apply
+terraform fmt
+terraform init
+terraform plan
+terraform refresh
+terraform validate
 timedatectl set-timezone Asia/Kolkata
 toolbox create
 toolbox enter
