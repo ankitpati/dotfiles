@@ -164,6 +164,7 @@ brew install terraforming
 brew install tfsec
 brew install tmux
 brew install tree
+brew install ugrep
 brew install uncrustify
 brew install unzip
 brew install util-linux
@@ -1343,6 +1344,8 @@ tree -L 2
 tree -a
 tweak filename.txt
 typespeed
+ugrep -Q
+ugrep -Q -.
 uname -a
 uname -r
 unix2dos filename.txt
