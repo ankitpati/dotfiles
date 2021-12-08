@@ -50,6 +50,7 @@ brew install cpanminus
 brew install cscope
 brew install curl
 brew install ddrescue
+brew install diffoscope
 brew install diffutils
 brew install dnstracer
 brew install docker-completion
@@ -101,6 +102,7 @@ brew install ivy
 brew install jq
 brew install jsonlint
 brew install k6
+brew install k9s
 brew install kotlin
 brew install less
 brew install libressl
@@ -1041,6 +1043,7 @@ gpg2 --with-fingerprint filename.gpg
 gpg2 -c --no-symkey-cache filename.br
 gradle
 gradle --stop
+grep -E "^($(tail -n +2 brew-deps.csv | cut -d, -f1 | comm -23 - brew-install-list.txt | paste -sd'|'))" brew-deps.csv | grep -v ,
 gsettings set org.gnome.shell.app-switcher current-workspace-only true
 guiscrcpy
 guiscrcpy config -r
@@ -1118,6 +1121,7 @@ luarocks install --local dump
 luarocks path
 luarocks show dump
 markdownlint '**/*.md' 2> errors.txt
+mdfind -name '.csv'
 merge --ff-only branchname
 merge-base HEAD branchname
 meson x --buildtype release --strip -Db_lto=true
@@ -1134,6 +1138,7 @@ neofetch
 ng new my-app
 ng serve -o
 nmap --privileged -sS --send-eth -Pn -n 10.10.10.0/24 -p 22
+nmap -n -sn 10.10.10.0/24
 nmcli connection down id connectionId
 nmcli connection show
 nmcli connection show --active
@@ -1326,6 +1331,7 @@ systemctl edit --user --force --full filename.service
 systemctl edit --user filename.service
 systemctl list-units --type=service --state=active
 systemctl list-units --type=service --state=running
+tail -n +2 brew-deps.csv | cut -d, -f1 | comm -23 - brew-install-list.txt | while read -r brew_formula; do grep "^$brew_formula" brew-deps.csv; done
 terraform apply
 terraform fmt
 terraform init
@@ -1372,6 +1378,9 @@ virsh qemu-monitor-command info
 virsh qemu-monitor-command info version
 virsh send-key Windows-10 --codeset xt 37
 virsh send-key dom --codeset xt 37
+vmrun getGuestIPAddress ~/Virtual\ Machines.localized/vm_name.vmwarevm/vm_name.vmx
+vmrun list
+vmrun start ~/Virtual\ Machines.localized/vm_name.vmwarevm/ nogui
 wappalyzer https://ankitpati.in | jq .
 wget 'https://www.toptal.com/developers/gitignore/api/java,netbeans,eclipse,jetbrains,android,androidstudio' -O .gitignore
 whatchanged origin/development..
