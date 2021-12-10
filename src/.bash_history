@@ -48,6 +48,7 @@ brew install cmake
 brew install coreutils
 brew install cpanminus
 brew install cscope
+brew install csvprintf
 brew install curl
 brew install ddrescue
 brew install diffoscope
@@ -82,6 +83,7 @@ brew install gnupg
 brew install go
 brew install google-cloud-sdk
 brew install google-java-format
+brew install gosec
 brew install gpatch
 brew install graphviz
 brew install grc
@@ -163,6 +165,7 @@ brew install terraform
 brew install terraform_landscape
 brew install terraformer
 brew install terraforming
+brew install tflint
 brew install tfsec
 brew install tmux
 brew install tree
@@ -232,6 +235,7 @@ date -d@1619533275
 dconf dump / > dump.dconf
 dd if=/dev/urandom count=1 2>/dev/null | git hash-object --stdin
 deactivate
+defaults write com.jetbrains.intellij ApplePressAndHoldEnabled -bool false
 diff HEAD~1 --name-only
 difftool branchname -- filename
 dnf config-manager --add-repo 'https://brave-browser-rpm-release.s3.brave.com/x86_64/'
