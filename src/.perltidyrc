@@ -1,18 +1,44 @@
 # Ankit Pati’s Opinionated `.perltidyrc`
 # contact@ankitpati.in
 
---character-encoding=utf8       # Source MUST be UTF-8 encoded.
---warning-output                # All errors and warnings.
---backup-and-modify-in-place    # No `.tdy` files.
---backup-file-extension='/'     # Delete backup if no errors.
---weld-nested-containers        # ({ ... })
---opening-token-right           # Opening braces on same line.
---paren-tightness=2             # ($value)
---square-bracket-tightness=2    # [$index]
---brace-tightness=1             # $ohash{ $ihash{hkey} }
---block-brace-tightness=0       # grep { /^$regex$/ }
---tight-secret-operators        # Treat common operator sequences as one.
---nospace-for-semicolon         # Applies to C-style `for` loops.
---space-keyword-paren           # grep (/$regex/, ...)
---space-function-paren          # func ($arg1, ...)
---trim-pod                      # Remove trailing whitespace from POD.
+# Encoding
+--character-encoding=utf8           # Source MUST be UTF-8 encoded.
+--use-unicode-gcstring              # Handle wide-display characters.
+
+# Warnings
+--standard-error-output             # Errors to STDERR instead of disk file.
+--warning-output                    # All errors and warnings.
+
+# Disk Files
+--backup-and-modify-in-place        # No `.tdy` files.
+--backup-file-extension='/'         # Delete backup if no errors.
+--output-line-ending=unix           # Line-endings MUST be LF.
+
+# Formatting
+--block-brace-tightness=0           # grep { /^$regex$/ }
+--brace-tightness=1                 # $ohash{ $ihash{hkey} }
+--cuddled-else                      # } else {
+--noblanks-before-comments          # Don’t add blank line before comment.
+--nospace-for-semicolon             # Applies to C-style `for` loops.
+--opening-brace-always-on-right     # if ($longer_than_80) {
+--opening-token-right               # Opening braces on same line.
+--paren-tightness=2                 # ($value)
+--space-backslash-quote=0           # $s_ref = \'hello'
+--space-function-paren              # func ($arg1, ...)
+--space-keyword-paren               # grep (/$regex/, ...)
+--space-prototype-paren=2           # sub func ();
+--square-bracket-tightness=2        # [$index]
+--tight-secret-operators            # Treat common operator sequences as one.
+--weld-nested-containers            # ({ ... })
+
+# Indentation
+--continuation-indentation=4        # 4-space indent if breaking long lines.
+--extended-continuation-indentation # Better nested indentation.
+--nooutdent-labels                  # Don’t unindent labels.
+--nooutdent-long-comments           # Don’t unindent long comments.
+--nooutdent-long-lines              # Don’t unindent long lines.
+
+# Miscellaneous
+--converge                          # Iterate until convergence.
+--nocode-skipping                   # Don’t skip parsing marked code.
+--trim-pod                          # Remove trailing whitespace from POD.
