@@ -41,7 +41,7 @@ set autoindent
 set background=dark
 set backspace=2
 set belloff=all
-set colorcolumn=81,101
+set colorcolumn=73,81,101,121
 set expandtab
 set fileformats=unix
 set hlsearch
