@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-./.venv/bin/activate
 GIT_COMMITTER_EMAIL='contact@ankitpati.in' git rebase branch-name --exec 'git commit --amend --author="Ankit Pati <contact@ankitpati.in>" --no-edit'
 adb logcat --pid="$(adb shell pidof -s in.ankitpati.gparse | cut -d' ' -f1)"
 adb logcat -c && adb logcat > current.log
@@ -123,6 +122,7 @@ brew install maven
 brew install maven-completion
 brew install mdcat
 brew install minikube
+brew install minio-mc
 brew install moreutils
 brew install mosh
 brew install mscgen
@@ -130,6 +130,7 @@ brew install ncdu
 brew install neofetch
 brew install netcat
 brew install nmap
+brew install ocrmypdf
 brew install openssh
 brew install p4
 brew install p4v
@@ -162,11 +163,14 @@ brew install tcptrace
 brew install tcptraceroute
 brew install tealdeer
 brew install terraform
+brew install terraform-rover
 brew install terraform_landscape
 brew install terraformer
 brew install terraforming
 brew install tflint
+brew install tfmigrate
 brew install tfsec
+brew install tika
 brew install tmux
 brew install tree
 brew install ugrep
@@ -1274,6 +1278,8 @@ pup 'css-selector' < filename.html
 pup --color < filename.html
 pylint --py3k path/to/python/file.py
 pyment -w path/to/python/file.py
+python -m pdb <(echo 'import sys; print(sys.path);')
+python -m pdb <(echo)
 python -m pdb filename.py
 python -m timeit '"-".join(str(n) for n in range(100))'
 python -m venv .venv
@@ -1314,8 +1320,9 @@ sloccount .
 snap install flutter --classic
 snap list
 snyk auth
+source ./.venv/bin/activate
 spctl developer-mode enable-terminal
-speedtest-cli
+speedtest
 sqlformat -k upper -i lower -r --indent_width 4 --indent_columns -s --comma_first True filename.sql
 sqlite3 filename.sqlite
 ss -tulpn
@@ -1391,6 +1398,7 @@ whatchanged origin/development..
 while :; do virsh -c qemu:///system send-key Windows-10 KEY_J; sleep 120; done
 while :; do xdotool mousemove --sync 1000 10 sleep 0.5 mousemove restore; sleep 120; done
 while read -r directory; do find "$(case "$directory" in -*) printf '%s' ./ ;; esac; printf '%s' "$directory")" \( -type f -exec ls -lt -- {} \; -exec md5sum -- {} \; \) -o \( -type d -exec ls -ltd -- {} \; -exec printf '%s%s' 'directory ' {} \; \); done < directory-list.txt
+while read -r gitdir; do cd "$gitdir/"; git pull; cd ..; done < <(ls)
 write ankitpati :1
 write ankitpati tty4
 xclip < ~/.ssh/id_ed25519.pub
