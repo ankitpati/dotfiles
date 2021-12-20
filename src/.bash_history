@@ -132,6 +132,7 @@ brew install netcat
 brew install nmap
 brew install ocrmypdf
 brew install openssh
+brew install oq
 brew install p4
 brew install p4v
 brew install pip-completion
@@ -178,6 +179,7 @@ brew install uncrustify
 brew install unzip
 brew install util-linux
 brew install vim
+brew install vscodium
 brew install watch
 brew install wget
 brew install whois
@@ -186,7 +188,7 @@ brew install yq
 brew install zip
 brew install zlib
 brew shellenv
-brew update; brew upgrade; cpan-outdated --exclude-core -p | xargs cpanm; gcloud components update; tldr --update; vim +PlugUpdate
+brew update; brew upgrade; cpan-outdated --exclude-core -p | xargs cpanm; gcloud components update; tldr --update; for codext in $(codium --list-extensions); do codium --install-extension "$codext" --force; done; vim +PlugUpdate
 brew-list-deps
 brotli -d filename.br
 brotli filename
@@ -1055,6 +1057,7 @@ grep -E "^($(tail -n +2 brew-deps.csv | cut -d, -f1 | comm -23 - brew-install-li
 gsettings set org.gnome.shell.app-switcher current-workspace-only true
 guiscrcpy
 guiscrcpy config -r
+hash
 hash -r
 hash perl
 hdparm --security-unlock SecretPassword /dev/sdb
