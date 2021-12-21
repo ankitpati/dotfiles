@@ -1298,6 +1298,7 @@ rg -- '^(<<<<|====|>>>>)'
 rg -F -- '$_ =~ '
 rg -L search-string
 rlwrap raku
+rm -rf /Users/Shared/*Relocated\ Items*/
 rpg 100 | sed -E 's/[^A-Za-z0-9!@#$%^*_=+;:]/=/g'
 rpg 100 | sed -E 's/\//-/g'
 rpm2cpio filename.rpm | cpio -idmv
@@ -1348,6 +1349,7 @@ systemctl list-units --type=service --state=running
 tail -n +2 brew-deps.csv | cut -d, -f1 | comm -23 - brew-install-list.txt | while read -r brew_formula; do grep "^$brew_formula" brew-deps.csv; done
 terraform apply
 terraform fmt
+terraform graph | apdot -Tpng | imgcat
 terraform init
 terraform plan
 terraform refresh
