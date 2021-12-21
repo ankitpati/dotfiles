@@ -242,6 +242,7 @@ dconf dump / > dump.dconf
 dd if=/dev/urandom count=1 2>/dev/null | git hash-object --stdin
 deactivate
 defaults write com.jetbrains.intellij ApplePressAndHoldEnabled -bool false
+defaults write com.visualstudio.code.oss ApplePressAndHoldEnabled -bool false
 diff HEAD~1 --name-only
 difftool branchname -- filename
 dnf config-manager --add-repo 'https://brave-browser-rpm-release.s3.brave.com/x86_64/'
@@ -1028,6 +1029,7 @@ git rebase branch-name --exec 'git commit --amend --author="Ankit Pati <contact@
 git show --format= --name-only
 git show --show-signature
 git show -U100
+git submodule update --init
 go get github.com/ericchiang/pup
 go get png2svg
 go-avif
