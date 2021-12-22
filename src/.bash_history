@@ -156,8 +156,10 @@ brew install shfmt
 brew install sloccount
 brew install socat
 brew install speedtest-cli
+brew install sqlfluff
 brew install ssdeep
 brew install ssh-copy-id
+brew install sslscan
 brew install tcpdump
 brew install tcpreplay
 brew install tcptrace
@@ -1202,6 +1204,7 @@ objdump -g elf-binary-filename
 objdump -r elf-binary-filename
 openfortivpn fortigate.ankitpati.in -u ankitpati -p SecretPassword -o 012345
 optipng -o7 filename.png
+osascript -e 'id of app "VSCodium"'
 ovsx create-namespace ankitpati --pat SecretPersonalAccessToken
 ovsx publish --pat SecretPersonalAccessToken
 p4 client
