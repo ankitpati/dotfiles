@@ -68,6 +68,13 @@ alias mosh='exec mosh'
 alias git-sh='exec git-sh'
 alias ssh-copy-id='ssh-copy-id -oPasswordAuthentication=yes'
 
+# prepend old binaries to PATH
+function B-oldbin
+{
+    export PATH="$(sanitize_path "$HOME/oldbin:$PATH")"
+    hash -r
+}
+
 function _git_pick
 {
     _git_branch
