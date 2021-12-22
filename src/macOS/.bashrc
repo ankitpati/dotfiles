@@ -443,6 +443,13 @@ function B-clean-all
     cbh
 }
 
+# prepend old binaries to PATH
+function B-oldbin
+{
+    export PATH="$(sanitize_path "$HOME/oldbin:$PATH")"
+    hash -r
+}
+
 # Autocompletion for custom git commands
 function _git_pick
 {
