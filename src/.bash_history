@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 GIT_COMMITTER_EMAIL='contact@ankitpati.in' git rebase branch-name --exec 'git commit --amend --author="Ankit Pati <contact@ankitpati.in>" --no-edit'
+ack '(?<=^B: ).*$'
 adb logcat --pid="$(adb shell pidof -s in.ankitpati.gparse | cut -d' ' -f1)"
 adb logcat -c && adb logcat > current.log
 adb shell pm grant com.oasisfeng.island android.permission.GET_APP_OPS_STATS
@@ -206,6 +207,8 @@ codium --install-extension redhat.java --force
 codium --install-extension vscjava.vscode-java-debug --force
 codium --install-extension vscodevim.vim --force
 codium --list-extensions
+command -V command
+command -v gnome-shell
 convert ./*.jpg output.pdf
 copyq info
 cpan-outdated -p | xargs cpanm; echo $?; pip list --outdated --format=freeze | cut -d= -f1 | grep -Ev '^(GDAL|python-poppler-qt5|slip|wxPython)$' | xargs pip install --user -U; echo $?; mypy --install-types; echo $?; cargo install-update -a; echo $?; npm update -g; echo $?; sdk selfupdate; echo $?; sdk update; echo $?; for java_sdk in $(grep '^sdk install ' ~/.bash_history | cut -d' ' -f3 | sort -u); do sdk upgrade "$java_sdk"; done; find ~/.sdkman/ -type f \( -name '*.exe' -o -name '*.bat' \) -delete; vim +PlugUpgrade +PlugUpdate +qa; nvim +PlugUpgrade +PlugUpdate +qa; for codext in $(codium --list-extensions); do codium --install-extension "$codext" --force; done; echo $?; flutter upgrade; echo $?; flutter doctor -v; echo $?; gcloud components update; echo $?; tldr --update; echo $?
@@ -1355,7 +1358,9 @@ tail -n +2 brew-deps.csv | cut -d, -f1 | comm -23 - brew-install-list.txt | whil
 terraform apply
 terraform fmt
 terraform graph | apdot -Tpng | imgcat
+terraform graph | apdot -Tsvg > filename.svg
 terraform init
+terraform init -verify-plugins=false
 terraform plan
 terraform refresh
 terraform validate
