@@ -1,0 +1,52 @@
+# Viminfo version
+|1,4
+
+# Value of 'encoding' when this file was written
+*encoding=utf-8
+
+# hlsearch on (H) or off (h):
+~h
+
+# Last Search Pattern:
+
+# Last Substitute Search Pattern:
+
+# Last Substitute String:
+
+# Command Line History (newest to oldest):
+|2,0,0,,"%s/\\s\\+$//"
+|2,0,0,,"%s/\\s\\+/ /g"
+|2,0,0,,"%s/\\s\\+/\\r/g"
+|2,0,0,,"%s/^.\\{-};//"
+|2,0,0,,"%s/^\\(\\(\\w\\|-\\|@\\)\\+\\)$/\\1,/"
+|2,0,0,,"%s/^\\(\\S\\+\\) /\\1,/"
+|2,0,0,,"%s/^\\(\\S\\+\\)$/\\1,/"
+|2,0,0,,"%s/^\\(|\\d,\\d,\\)\\d\\+,/\\10,/"
+|2,0,0,,"%s/^\\s\\+//"
+|2,0,0,,"'<,'>Tab /\\\\"
+|2,0,0,,"e filename.c"
+|2,0,0,,"set nopaste"
+|2,0,0,,"set paste"
+|2,0,0,,"set syntax?"
+|2,0,0,,"version"
+|2,0,0,,"vs filename.c"
+
+# Search String History (newest to oldest):
+|2,1,0,47,"^\\(<<<<<<<\\|=======\\|>>>>>>>\\)"
+
+# Expression History (newest to oldest):
+
+# Input Line History (newest to oldest):
+
+# Debug Line History (newest to oldest):
+
+# Registers:
+
+# global variables:
+
+# File marks:
+
+# Jumplist (newest first):
+
+# History of marks within files (newest to oldest):
+
