@@ -50,6 +50,7 @@ brew install cpanminus
 brew install cscope
 brew install csvprintf
 brew install curl
+brew install datree
 brew install ddrescue
 brew install diffoscope
 brew install diffutils
@@ -65,6 +66,7 @@ brew install findutils
 brew install firebase-cli
 brew install flex
 brew install forcecli
+brew install fselect
 brew install gawk
 brew install git
 brew install git-delta
