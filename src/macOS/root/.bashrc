@@ -143,6 +143,9 @@ test -d "$brewbinpath" && EXTRA_BINARIES="$brewbinpath:$EXTRA_BINARIES"
 brewsbinpath='/usr/local/sbin'
 test -d "$brewsbinpath" && EXTRA_BINARIES="$brewsbinpath:$EXTRA_BINARIES"
 
+vmwarefusionpath='/Applications/VMware Fusion.app/Contents/Library'
+test -d "$vmwarefusionpath" && EXTRA_BINARIES="$vmwarefusionpath:$EXTRA_BINARIES"
+
 # clean and export the fruits of the above labour
 if test "$use_gnu_binaries" = 'true'; then
     admin_user_home='/Users/ankitpati'
@@ -188,11 +191,17 @@ if test "$use_gnu_binaries" = 'true'; then
     alias mosh='exec mosh'
     alias git-sh='exec git-sh'
     alias ssh-copy-id='ssh-copy-id -oPasswordAuthentication=yes'
-    alias brew-cu='brew cu --no-brew-update'
 
 else
     alias updatedb='/usr/libexec/locate.updatedb' # macOS exclusive
 fi
+
+# prepend old binaries to PATH
+function B-oldbin
+{
+    export PATH="$(sanitize_path "$HOME/oldbin:$PATH")"
+    hash -r
+}
 
 # Autocompletion for custom git commands
 function _git_pick
