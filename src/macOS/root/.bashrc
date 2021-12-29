@@ -10,6 +10,9 @@ global_profile='/etc/profile'
 test -f "$global_profile" && source "$global_profile"
 unset global_profile
 
+# `brew` “cowardly refuses to run as root,” so hard-coding is necessary here.
+brew_prefix='/usr/local'
+
 function sanitize_path
 {
     # Utility function to sanitize PATH-like specifications.
@@ -54,6 +57,7 @@ use_gnu_binaries='true'
 for gnuitem in \
     wildfly-as \
     artifactory \
+    swift \
     sphinx-doc \
     jpeg-turbo \
     sqlite \
@@ -71,6 +75,7 @@ for gnuitem in \
     subversion \
     expat \
     ruby \
+    ssh-copy-id \
     bzip2 \
     unzip \
     zip \
@@ -90,13 +95,19 @@ for gnuitem in \
     gettext \
     ncurses \
     libtool \
+    rpcgen \
+    unifdef \
     flex \
     bison \
     curl \
+    bc \
     make \
     grep \
     ed \
+    m4 \
     man-db \
+    gcc \
+    lsof \
     util-linux \
     inetutils \
     binutils \
@@ -105,46 +116,43 @@ for gnuitem in \
 ;
 do
     # BSD-shadowing versions of g-prefixed items
-    gnupath="/usr/local/opt/$gnuitem/libexec/gnubin"
+    gnupath="$brew_prefix/opt/$gnuitem/libexec/gnubin"
     test -d "$gnupath" && EXTRA_BINARIES="$gnupath:$EXTRA_BINARIES"
 
     # some items prefer not to use `gnu` in their paths
-    gnupath="/usr/local/opt/$gnuitem/libexec/bin"
+    gnupath="$brew_prefix/opt/$gnuitem/libexec/bin"
     test -d "$gnupath" && EXTRA_BINARIES="$gnupath:$EXTRA_BINARIES"
 
     # some items, especially the non-g-prefixed ones, require different paths
-    gnupath="/usr/local/opt/$gnuitem/bin"
+    gnupath="$brew_prefix/opt/$gnuitem/bin"
     test -d "$gnupath" && EXTRA_BINARIES="$gnupath:$EXTRA_BINARIES"
 
     # some items install sbins
-    gnupath="/usr/local/opt/$gnuitem/sbin"
+    gnupath="$brew_prefix/opt/$gnuitem/sbin"
     test -d "$gnupath" && EXTRA_BINARIES="$gnupath:$EXTRA_BINARIES"
 
     # manpages for the commands
-    manpath="/usr/local/opt/$gnuitem/libexec/gnuman"
+    manpath="$brew_prefix/opt/$gnuitem/libexec/gnuman"
     test -d "$manpath" && EXTRA_MANPAGES="$manpath:$EXTRA_MANPAGES"
 
     # different standards for different packages
-    manpath="/usr/local/opt/$gnuitem/libexec/man"
+    manpath="$brew_prefix/opt/$gnuitem/libexec/man"
     test -d "$manpath" && EXTRA_MANPAGES="$manpath:$EXTRA_MANPAGES"
 
     # some manpages are at a different location
-    manpath="/usr/local/opt/$gnuitem/share/man"
+    manpath="$brew_prefix/opt/$gnuitem/share/man"
     test -d "$manpath" && EXTRA_MANPAGES="$manpath:$EXTRA_MANPAGES"
 
     # pkg-config for some tools
-    pkgpath="/usr/local/opt/$gnuitem/lib/pkgconfig"
+    pkgpath="$brew_prefix/opt/$gnuitem/lib/pkgconfig"
     test -d "$pkgpath" && EXTRA_PKGPATHS="$pkgpath:$EXTRA_PKGPATHS"
 done
 
-brewbinpath='/usr/local/bin'
+brewbinpath="$brew_prefix/bin"
 test -d "$brewbinpath" && EXTRA_BINARIES="$brewbinpath:$EXTRA_BINARIES"
 
-brewsbinpath='/usr/local/sbin'
+brewsbinpath="$brew_prefix/sbin"
 test -d "$brewsbinpath" && EXTRA_BINARIES="$brewsbinpath:$EXTRA_BINARIES"
-
-vmwarefusionpath='/Applications/VMware Fusion.app/Contents/Library'
-test -d "$vmwarefusionpath" && EXTRA_BINARIES="$vmwarefusionpath:$EXTRA_BINARIES"
 
 # clean and export the fruits of the above labour
 if test "$use_gnu_binaries" = 'true'; then
@@ -163,7 +171,7 @@ if test "$use_gnu_binaries" = 'true'; then
     export PKG_CONFIG_PATH="$(sanitize_path "$EXTRA_PKGPATHS")"
 
     # completion for brewed binaries
-    completions='/usr/local/etc/profile.d/bash_completion.sh'
+    completions="$brew_prefix/etc/profile.d/bash_completion.sh"
     test -f "$completions" && \
         source "$completions"
 
@@ -208,3 +216,5 @@ function _git_pick
 {
     _git_branch
 }
+
+unset brew_prefix
