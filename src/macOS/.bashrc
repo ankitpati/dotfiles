@@ -92,6 +92,7 @@ use_gnu_binaries='true'
 for gnuitem in \
     wildfly-as \
     artifactory \
+    swift \
     sphinx-doc \
     jpeg-turbo \
     sqlite \
@@ -109,6 +110,7 @@ for gnuitem in \
     subversion \
     expat \
     ruby \
+    ssh-copy-id \
     bzip2 \
     unzip \
     zip \
@@ -128,13 +130,19 @@ for gnuitem in \
     gettext \
     ncurses \
     libtool \
+    rpcgen \
+    unifdef \
     flex \
     bison \
     curl \
+    bc \
     make \
     grep \
     ed \
+    m4 \
     man-db \
+    gcc \
+    lsof \
     util-linux \
     inetutils \
     binutils \
