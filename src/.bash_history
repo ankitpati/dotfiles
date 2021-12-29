@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+( unalias -a; comm -12 <(hash -r; ls {,/usr}/{,s}bin/ | xargs command -V 2>/dev/null | grep -Ev ' is (/usr/local/|a shell (builtin|keyword))' | cut -d' ' -f1 | sort -u) <(ls "$(brew --prefix)/Homebrew/Library/Taps/homebrew/homebrew-core/Formula/" | rev | cut -d. -f2- | rev | sort -u) )
 GIT_COMMITTER_EMAIL='contact@ankitpati.in' git rebase branch-name --exec 'git commit --amend --author="Ankit Pati <contact@ankitpati.in>" --no-edit'
 ack '(?<=^B: ).*$'
 adb logcat --pid="$(adb shell pidof -s in.ankitpati.gparse | cut -d' ' -f1)"
@@ -12,10 +13,12 @@ age -R ~/.age/machine.recipient -o cipher.txt.age plain.txt
 age-keygen -o ~/.age/key.txt
 aria2c -c -x 16 'https://ankitpati.in/filename.br'
 bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+brew --prefix
 brew analytics off
 brew autoremove -n
 brew developer --verbose state
 brew doctor
+brew help --prefix
 brew help developer
 brew install ack
 brew install advancecomp
@@ -33,6 +36,7 @@ brew install bash
 brew install bash-completion@2
 brew install bash_unit
 brew install bat
+brew install bc
 brew install binutils
 brew install bison
 brew install byacc
@@ -50,9 +54,11 @@ brew install cpanminus
 brew install cscope
 brew install csvprintf
 brew install curl
+brew install dash
 brew install datree
 brew install ddrescue
 brew install diffoscope
+brew install diffstat
 brew install diffutils
 brew install dnstracer
 brew install docker-completion
@@ -60,7 +66,9 @@ brew install dos2unix
 brew install doxygen
 brew install dyld-headers
 brew install dylibbundler
+brew install ed
 brew install eslint
+brew install expect
 brew install file-formula
 brew install findutils
 brew install firebase-cli
@@ -68,6 +76,7 @@ brew install flex
 brew install forcecli
 brew install fselect
 brew install gawk
+brew install gcc
 brew install git
 brew install git-delta
 brew install git-lfs
@@ -87,6 +96,7 @@ brew install google-cloud-sdk
 brew install google-java-format
 brew install gosec
 brew install gpatch
+brew install gperf
 brew install graphviz
 brew install grc
 brew install grep
@@ -95,6 +105,7 @@ brew install grpc
 brew install gzip
 brew install hping
 brew install htop
+brew install httpd
 brew install httrack
 brew install inetutils
 brew install iproute2mac
@@ -108,6 +119,7 @@ brew install jsonlint
 brew install k6
 brew install k9s
 brew install kotlin
+brew install ksh
 brew install less
 brew install libressl
 brew install libtermkey
@@ -120,15 +132,18 @@ brew install m4
 brew install maccy
 brew install make
 brew install man-db
+brew install mandoc
 brew install masscan
 brew install maven
 brew install maven-completion
 brew install mdcat
+brew install mg
 brew install minikube
 brew install minio-mc
 brew install moreutils
 brew install mosh
 brew install mscgen
+brew install nano
 brew install ncdu
 brew install neofetch
 brew install netcat
@@ -138,6 +153,7 @@ brew install openssh
 brew install oq
 brew install p4
 brew install p4v
+brew install php
 brew install pip-completion
 brew install prettier
 brew install proctools
@@ -149,8 +165,12 @@ brew install quip
 brew install rakudo
 brew install ripgrep-all
 brew install rlwrap
+brew install rmlint
+brew install rpcgen
+brew install rsync
 brew install rust
 brew install rustc-completion
+brew install screen
 brew install semgrep
 brew install sha3sum
 brew install shellcheck
@@ -163,10 +183,12 @@ brew install sqlfluff
 brew install ssdeep
 brew install ssh-copy-id
 brew install sslscan
+brew install swift
 brew install tcpdump
 brew install tcpreplay
 brew install tcptrace
 brew install tcptraceroute
+brew install tcsh
 brew install tealdeer
 brew install terraform
 brew install terraform-rover
@@ -181,6 +203,8 @@ brew install tmux
 brew install tree
 brew install ugrep
 brew install uncrustify
+brew install unifdef
+brew install universal-ctags
 brew install unzip
 brew install util-linux
 brew install vim
@@ -189,9 +213,12 @@ brew install watch
 brew install wget
 brew install whois
 brew install with-readline
+brew install yamllint
 brew install yq
 brew install zip
 brew install zlib
+brew install zsh
+brew services info --all
 brew shellenv
 brew update; brew upgrade; cpan-outdated --exclude-core -p | xargs cpanm; gcloud components update; tldr --update; for codext in $(codium --list-extensions); do codium --install-extension "$codext" --force; done; vim +PlugUpdate
 brew-list-deps
@@ -1142,6 +1169,7 @@ luarocks path
 luarocks show dump
 markdownlint '**/*.md' 2> errors.txt
 mdfind -name '.csv'
+mdfind -name 'log4j' | ack -i '(?<!\.)2\..*\.jar$'
 merge --ff-only branchname
 merge-base HEAD branchname
 meson x --buildtype release --strip -Db_lto=true
@@ -1303,8 +1331,7 @@ rename -n 's/^\d+_\d+_0(\d)_[^a-z]+_(\w+)\.mp4$/$1. $2.mp4/' -- *
 resolvectl flush-caches
 resolvectl query ankitpati.in
 restorecon -rvn /etc/X11/xorg.conf.d/
-rg '^p4 sync ' ~/.bash_history | cut -d' ' -f3- | sort -u | while read -r p4dir; do p4 sync "$p4dir"; done
-rg -- '^(<<<<|====|>>>>)'
+grep '^p4 sync ' ~/.bash_history | cut -d' ' -f3- | sort -u | while read -r p4dir; do p4 sync "$p4dir"; done
 rg -F -- '$_ =~ '
 rg -L search-string
 rlwrap raku
@@ -1393,7 +1420,7 @@ usb-devices
 usermod -aG libvirt ankitpati
 usermod -aG wireshark ankitpati
 vdpauinfo
-vim -- $(rg '^(<<<<<<< HEAD|=======|>>>>>>> [[:xdigit:]]+ .*)$' | cut -d: -f1 | sort -u)
+vim -- $(grep -E '^(<<<<<<< HEAD|=======|>>>>>>> [[:xdigit:]]+ .*)$' -lr . | sort -u)
 vim /etc/shells
 virsh -c qemu:///system list --all
 virsh -c qemu:///system send-key Windows-10 --codeset win32 37
