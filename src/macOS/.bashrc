@@ -5,8 +5,10 @@ global_profile='/etc/profile'
 test -f "$global_profile" && source "$global_profile"
 unset global_profile
 
+brew_prefix="$(brew --prefix)"
+
 # GRC Colourification
-grc_bashrc='/usr/local/etc/grc.bashrc'
+grc_bashrc="$brew_prefix/etc/grc.bashrc"
 test -f "$grc_bashrc" && source "$grc_bashrc"
 unset grc_bashrc
 
@@ -65,16 +67,16 @@ export ORACLE_HOME='/Library/Oracle/instantclient_12_2'
 export ORACLE_SID='XE'
 
 # PostgreSQL
-export PGDATA='/usr/local/var/postgres'
+export PGDATA="$brew_prefix/var/postgres"
 
 # Perforce
 export P4EDITOR='vim'
 
 # JBOSS
-export JBOSS_HOME='/usr/local/opt/wildfly-as/libexec'
+export JBOSS_HOME="$brew_prefix/opt/wildfly-as/libexec"
 
 # DocBook Catalogs
-export XML_CATALOG_FILES='/usr/local/etc/xml/catalog'
+export XML_CATALOG_FILES="$brew_prefix/etc/xml/catalog"
 
 # Wine Freetype Bug
 export FREETYPE_PROPERTIES='truetype:interpreter-version=35'
@@ -151,51 +153,51 @@ for gnuitem in \
 ;
 do
     # BSD-shadowing versions of g-prefixed items
-    gnupath="/usr/local/opt/$gnuitem/libexec/gnubin"
+    gnupath="$brew_prefix/opt/$gnuitem/libexec/gnubin"
     test -d "$gnupath" && EXTRA_BINARIES="$gnupath:$EXTRA_BINARIES"
 
     # some items prefer not to use `gnu` in their paths
-    gnupath="/usr/local/opt/$gnuitem/libexec/bin"
+    gnupath="$brew_prefix/opt/$gnuitem/libexec/bin"
     test -d "$gnupath" && EXTRA_BINARIES="$gnupath:$EXTRA_BINARIES"
 
     # some items, especially the non-g-prefixed ones, require different paths
-    gnupath="/usr/local/opt/$gnuitem/bin"
+    gnupath="$brew_prefix/opt/$gnuitem/bin"
     test -d "$gnupath" && EXTRA_BINARIES="$gnupath:$EXTRA_BINARIES"
 
     # some items install sbins
-    gnupath="/usr/local/opt/$gnuitem/sbin"
+    gnupath="$brew_prefix/opt/$gnuitem/sbin"
     test -d "$gnupath" && EXTRA_BINARIES="$gnupath:$EXTRA_BINARIES"
 
     # manpages for the commands
-    manpath="/usr/local/opt/$gnuitem/libexec/gnuman"
+    manpath="$brew_prefix/opt/$gnuitem/libexec/gnuman"
     test -d "$manpath" && EXTRA_MANPAGES="$manpath:$EXTRA_MANPAGES"
 
     # different standards for different packages
-    manpath="/usr/local/opt/$gnuitem/libexec/man"
+    manpath="$brew_prefix/opt/$gnuitem/libexec/man"
     test -d "$manpath" && EXTRA_MANPAGES="$manpath:$EXTRA_MANPAGES"
 
     # some manpages are at a different location
-    manpath="/usr/local/opt/$gnuitem/share/man"
+    manpath="$brew_prefix/opt/$gnuitem/share/man"
     test -d "$manpath" && EXTRA_MANPAGES="$manpath:$EXTRA_MANPAGES"
 
     # pkg-config for some tools
-    pkgpath="/usr/local/opt/$gnuitem/lib/pkgconfig"
+    pkgpath="$brew_prefix/opt/$gnuitem/lib/pkgconfig"
     test -d "$pkgpath" && EXTRA_PKGPATHS="$pkgpath:$EXTRA_PKGPATHS"
 done
 
-pypypath='/usr/local/share/pypy' # Keep at end to avoid overwriting CPython.
+pypypath="$brew_prefix/share/pypy" # Keep at end to avoid overwriting CPython.
 test -d "$pypypath" && EXTRA_BINARIES="$EXTRA_BINARIES:$pypypath"
 
-brewbinpath='/usr/local/bin'
+brewbinpath="$brew_prefix/bin"
 test -d "$brewbinpath" && EXTRA_BINARIES="$brewbinpath:$EXTRA_BINARIES"
 
-brewsbinpath='/usr/local/sbin'
+brewsbinpath="$brew_prefix/sbin"
 test -d "$brewsbinpath" && EXTRA_BINARIES="$brewsbinpath:$EXTRA_BINARIES"
 
-icecreampath='/usr/local/opt/icecream/libexec/icecc/bin'
+icecreampath="$brew_prefix/opt/icecream/libexec/icecc/bin"
 test -d "$icecreampath" && EXTRA_BINARIES="$icecreampath:$EXTRA_BINARIES"
 
-anacondapath='/usr/local/anaconda3/bin'
+anacondapath="$brew_prefix/anaconda3/bin"
 test -d "$anacondapath" && EXTRA_BINARIES="$anacondapath:$EXTRA_BINARIES"
 
 oraclepath="$ORACLE_HOME"
@@ -269,16 +271,16 @@ if test "$use_gnu_binaries" = 'true'; then
     unset lua_version
 
     # CERN Root
-    test -f '/usr/local/bin/thisroot.sh' && \
-       source '/usr/local/bin/thisroot.sh'
+    test -f "$brew_prefix/bin/thisroot.sh" && \
+       source "$brew_prefix/bin/thisroot.sh"
 
     # Geant 4
-    test -f '/usr/local/bin/geant4.sh' && \
-       source '/usr/local/bin/geant4.sh'
+    test -f "$brew_prefix/bin/geant4.sh" && \
+       source "$brew_prefix/bin/geant4.sh"
 
     # ASDF
-    test -f '/usr/local/opt/asdf/asdf.sh' && \
-        source '/usr/local/opt/asdf/asdf.sh'
+    test -f "$brew_prefix/opt/asdf/asdf.sh" && \
+        source "$brew_prefix/opt/asdf/asdf.sh"
 
     # OPAM
     test -f "$HOME/.opam/opam-init/init.sh" && \
@@ -293,7 +295,7 @@ if test "$use_gnu_binaries" = 'true'; then
     export PERL5LIB="$(sanitize_path "$HOME/.local/lib/perl5:$PERL5LIB")"
 
     # completion for brewed binaries
-    completions='/usr/local/etc/profile.d/bash_completion.sh'
+    completions="$brew_prefix/etc/profile.d/bash_completion.sh"
     test -f "$completions" && \
         source "$completions"
 
@@ -301,7 +303,7 @@ if test "$use_gnu_binaries" = 'true'; then
     command -v dircolors &>/dev/null && eval "$(dircolors -b)"
 
     # Google Cloud SDK
-    GCLOUD_SDK='/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk'
+    GCLOUD_SDK="$brew_prefix/Caskroom/google-cloud-sdk/latest/google-cloud-sdk"
     test -f "$GCLOUD_SDK/path.bash.inc" &&\
         source "$GCLOUD_SDK/path.bash.inc"
     test -f "$GCLOUD_SDK/completion.bash.inc" && \
@@ -334,19 +336,19 @@ else
     alias updatedb='/usr/libexec/locate.updatedb' # macOS exclusive
 fi
 
-alias B-nagios-start='nagios /usr/local/etc/nagios/nagios.cfg'
-alias B-rsyslog-start='rsyslogd -f /usr/local/etc/rsyslog.conf -i
-                           /usr/local/var/run/rsyslogd.pid'
-alias B-influx-start='influxd -config /usr/local/etc/influxdb.conf'
-alias B-redis-start='redis-server /usr/local/etc/redis.conf'
-alias B-mongo-start='mongod --config /usr/local/etc/mongod.conf --auth
-                        &>/dev/null &'
-alias B-grafana-start='grafana-server
-                --config=/usr/local/etc/grafana/grafana.ini
-                --homepath /usr/local/share/grafana
-                cfg:default.paths.logs=/usr/local/var/log/grafana
-                cfg:default.paths.data=/usr/local/var/lib/grafana
-                cfg:default.paths.plugins=/usr/local/var/lib/grafana/plugins'
+alias B-nagios-start="nagios $brew_prefix/etc/nagios/nagios.cfg"
+alias B-rsyslog-start="rsyslogd -f $brew_prefix/etc/rsyslog.conf -i
+                           $brew_prefix/var/run/rsyslogd.pid"
+alias B-influx-start="influxd -config $brew_prefix/etc/influxdb.conf"
+alias B-redis-start="redis-server $brew_prefix/etc/redis.conf"
+alias B-mongo-start="mongod --config $brew_prefix/etc/mongod.conf --auth
+                        &>/dev/null &"
+alias B-grafana-start="grafana-server
+                --config=$brew_prefix/etc/grafana/grafana.ini
+                --homepath $brew_prefix/share/grafana
+                cfg:default.paths.logs=$brew_prefix/var/log/grafana
+                cfg:default.paths.data=$brew_prefix/var/lib/grafana
+                cfg:default.paths.plugins=$brew_prefix/var/lib/grafana/plugins"
 
 # exec docker exec
 function docker
@@ -367,9 +369,9 @@ function docker
 #{
 #    case "$1" in
 #    'install'|'doctor' )
-#        LDFLAGS='-L/usr/local/opt/openssl@1.1/lib' \
-#        CPPFLAGS='-I/usr/local/opt/openssl@1.1/include' \
-#        PATH="/usr/local/opt/openssl@1.1/bin:$HOME/.pyenv/plugins/pyenv-virtualenv/shims:$HOME/.pyenv/shims:$HOME/.pyenv/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin" \
+#        LDFLAGS="-L$brew_prefix/opt/openssl@1.1/lib" \
+#        CPPFLAGS="-I$brew_prefix/opt/openssl@1.1/include" \
+#        PATH="$brew_prefix/opt/openssl@1.1/bin:$HOME/.pyenv/plugins/pyenv-virtualenv/shims:$HOME/.pyenv/shims:$HOME/.pyenv/bin:/usr/bin:/bin:/usr/sbin:/sbin:$brew_prefix/bin" \
 #        command pyenv "$@"
 #        ;;
 #    * )
@@ -430,8 +432,8 @@ function B-clean-cache
 function B-brew-compact
 {
     echo 'Running `git cleanup` on Homebrew...'
-    for brewtap in '/usr/local/Homebrew' \
-                   '/usr/local/Homebrew/Library/Taps/'*/*
+    for brewtap in "$brew_prefix/Homebrew" \
+                   "$brew_prefix/Homebrew/Library/Taps/"*/*
     do
         git -C "$brewtap" cleanup
     done
