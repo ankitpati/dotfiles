@@ -207,9 +207,6 @@ test -d "$oracledyldpath" && EXTRA_DYLDPATH="$oracledyldpath:$EXTRA_DYLDPATH"
 oracleclaspath="$ORACLE_HOME"
 test -d "$oracleclaspath" && EXTRA_CLASPATH="$oracleclaspath:$EXTRA_CLASPATH"
 
-vmwarefusionpath='/Applications/VMware Fusion.app/Contents/Library'
-test -d "$vmwarefusionpath" && EXTRA_BINARIES="$vmwarefusionpath:$EXTRA_BINARIES"
-
 flutterpath="$HOME/flutter/bin"
 test -d "$flutterpath" && EXTRA_BINARIES="$flutterpath:$EXTRA_BINARIES"
 
