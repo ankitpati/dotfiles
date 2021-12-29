@@ -467,3 +467,5 @@ function _git_pick
 alias S-ora-tns-yasql='yasql user/pass@tns'
 alias S-ora-tns-rqlplus='rlwrap sqlplus user/pass@tns'
 alias S-ora-tns-sqlplus='sqlplus user/pass@tns'
+
+unset brew_prefix
