@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-( unalias -a; comm -12 <(hash -r; ls {,/usr}/{,s}bin/ | xargs command -V 2>/dev/null | grep -Ev ' is (/usr/local/|a shell (builtin|keyword))' | cut -d' ' -f1 | sort -u) <(ls "$(brew --prefix)/Homebrew/Library/Taps/homebrew/homebrew-core/Formula/" | rev | cut -d. -f2- | rev | sort -u) )
+( unalias -a; comm -12 <(hash -r; ls {,/usr}/{,s}bin/ | xargs command -V 2>/dev/null | grep -Ev " is ($(brew --prefix)/|a shell (builtin|keyword))" | cut -d' ' -f1 | sort -u) <(ls "$(brew --prefix)/Homebrew/Library/Taps/homebrew/homebrew-core/Formula/" | rev | cut -d. -f2- | rev | sort -u) )
 GIT_COMMITTER_EMAIL='contact@ankitpati.in' git rebase branch-name --exec 'git commit --amend --author="Ankit Pati <contact@ankitpati.in>" --no-edit'
 ack '(?<=^B: ).*$'
 adb logcat --pid="$(adb shell pidof -s in.ankitpati.gparse | cut -d' ' -f1)"
@@ -228,7 +228,7 @@ browserslist 'last 1 Chrome versions'
 cargo install cargo-update
 cargo install shellharden
 chmod 644 ~/.p4trust
-chsh -s /usr/local/bin/bash
+chsh -s "$(brew --prefix)/bin/bash"
 codium --install-extension ankitpati.vscodium-amoled --force
 codium --install-extension eamodio.gitlens --force
 codium --install-extension jock.svg --force
@@ -275,6 +275,7 @@ date -d@1619533275
 dconf dump / > dump.dconf
 dd if=/dev/urandom count=1 2>/dev/null | git hash-object --stdin
 deactivate
+declare -p | grep '^declare -- '
 defaults write com.jetbrains.intellij ApplePressAndHoldEnabled -bool false
 defaults write com.visualstudio.code.oss ApplePressAndHoldEnabled -bool false
 diff HEAD~1 --name-only
@@ -1089,6 +1090,7 @@ gpg2 --with-fingerprint filename.gpg
 gpg2 -c --no-symkey-cache filename.br
 gradle
 gradle --stop
+grep '^p4 sync ' ~/.bash_history | cut -d' ' -f3- | sort -u | while read -r p4dir; do p4 sync "$p4dir"; done
 grep -E "^($(tail -n +2 brew-deps.csv | cut -d, -f1 | comm -23 - brew-install-list.txt | paste -sd'|'))" brew-deps.csv | grep -v ,
 gsettings set org.gnome.shell.app-switcher current-workspace-only true
 guiscrcpy
@@ -1146,13 +1148,13 @@ launchctl list
 launchctl load /System/Library/LaunchDaemons/ssh.plist
 launchctl unload /System/Library/LaunchDaemons/ssh.plist
 limitcpu
-ln -s /usr/local/opt/openssl@1.1/ /usr/local/opt/openssl # macOS
+ln -s "$(brew --prefix)/opt/openssl@1.1/" "$(brew --prefix)/opt/openssl"
 locate --statistics
 loginctl list-sessions
 loginctl show-session
 loginctl show-session 2 -p Type
+ls "$(brew --prefix)/bin/g"* | rev | cut -d/ -f1 | rev | cut -dg -f2- | xargs -r which 2>/dev/null | grep -v "^$(brew --prefix)/" | rev | cut -d/ -f1 | rev | while read -r binary; do echo "$(brew --prefix)/bin/g$binary"; done | xargs -r ls -l | rev | cut -d/ -f4 | rev | sort -u
 ls /Library/Launch{Agents,Daemons}
-ls /usr/local/bin/g* | rev | cut -d/ -f1 | rev | cut -dg -f2- | xargs -r which 2>/dev/null | grep -v '^/usr/local/' | rev | cut -d/ -f1 | rev | while read -r binary; do echo "/usr/local/bin/g$binary"; done | xargs -r ls -l | rev | cut -d/ -f4 | rev | sort -u
 lsattr filename
 lsblk
 lscpu
@@ -1331,7 +1333,6 @@ rename -n 's/^\d+_\d+_0(\d)_[^a-z]+_(\w+)\.mp4$/$1. $2.mp4/' -- *
 resolvectl flush-caches
 resolvectl query ankitpati.in
 restorecon -rvn /etc/X11/xorg.conf.d/
-grep '^p4 sync ' ~/.bash_history | cut -d' ' -f3- | sort -u | while read -r p4dir; do p4 sync "$p4dir"; done
 rg -F -- '$_ =~ '
 rg -L search-string
 rlwrap raku
@@ -1420,7 +1421,7 @@ usb-devices
 usermod -aG libvirt ankitpati
 usermod -aG wireshark ankitpati
 vdpauinfo
-vim -- $(grep -E '^(<<<<<<< HEAD|=======|>>>>>>> [[:xdigit:]]+ .*)$' -lr . | sort -u)
+vim -- $(grep -Elr -- '^(<<<<<<< HEAD|=======|>>>>>>> [[:xdigit:]]+ .*)$' | sort -u)
 vim /etc/shells
 virsh -c qemu:///system list --all
 virsh -c qemu:///system send-key Windows-10 --codeset win32 37
