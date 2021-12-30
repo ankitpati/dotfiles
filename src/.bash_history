@@ -1155,6 +1155,7 @@ loginctl show-session
 loginctl show-session 2 -p Type
 ls "$(brew --prefix)/bin/g"* | rev | cut -d/ -f1 | rev | cut -dg -f2- | xargs -r which 2>/dev/null | grep -v "^$(brew --prefix)/" | rev | cut -d/ -f1 | rev | while read -r binary; do echo "$(brew --prefix)/bin/g$binary"; done | xargs -r ls -l | rev | cut -d/ -f4 | rev | sort -u
 ls /Library/Launch{Agents,Daemons}
+ls ~/Library/Application\ Support/VSCodium/User/settings.json
 lsattr filename
 lsblk
 lscpu
