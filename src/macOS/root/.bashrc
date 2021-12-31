@@ -214,7 +214,7 @@ B-oldbin()
 # Autocompletion for custom git commands
 _git_pick()
 {
-    _git_branch
+    _git_cherry_pick
 }
 
 unset brew_prefix
