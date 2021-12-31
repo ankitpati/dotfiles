@@ -1,0 +1,25 @@
+# .shellcheckrc
+
+# ~~~~ WARNING for Developers of the `dotfiles` Repo Only ~~~~
+#
+# `shellcheck` checks `$PWD` & each parent directory until it finds a
+# `.shellcheckrc` file. That means changes made to this file will override
+# `~/.shellcheckrc` within this repo.
+#
+# The overriding is complete, and isn’t just a merge. `~/.shellcheckrc` will be
+# COMPLETELY ignored. Bearing this in mind makes development on this file
+# easier.
+
+external-sources=true
+
+enable=check-set-e-suppressed
+enable=check-unassigned-uppercase
+enable=deprecate-which
+enable=quote-safe-variables
+enable=require-double-brackets
+
+disable=SC1090
+disable=SC1091
+disable=SC2016
+disable=SC2139
+disable=SC2155
