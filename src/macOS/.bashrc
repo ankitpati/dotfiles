@@ -1,17 +1,5 @@
 #!/usr/bin/env bash
 
-# Source global definitions
-global_profile='/etc/profile'
-test -f "$global_profile" && source "$global_profile"
-unset global_profile
-
-brew_prefix="$(brew --prefix)"
-
-# GRC Colourification
-grc_bashrc="$brew_prefix/etc/grc.bashrc"
-test -f "$grc_bashrc" && source "$grc_bashrc"
-unset grc_bashrc
-
 sanitize_path()
 {
     # Utility function to sanitize PATH-like specifications.
@@ -24,331 +12,346 @@ sanitize_path()
                  | sed 's_//*_/_g'
 }
 
-# Ensure `source`s below this see the correct `$MANPATH`.
-manpath="$MANPATH"
-unset MANPATH
-export MANPATH="$(sanitize_path "$manpath:$(manpath)")"
-unset manpath
+main()
+{
+    # Source global definitions
+    local global_profile='/etc/profile'
+    test -f "$global_profile" && source "$global_profile"
 
-export EDITOR='vim'
-export MERGE='vimdiff'
-export DOTNET_CLI_TELEMETRY_OPTOUT='1'
-export POWERSHELL_TELEMETRY_OPTOUT='1'
+    local brew_prefix="$(brew --prefix)"
 
-# History Configuration
-shopt -s histappend
-export HISTSIZE=''
-export HISTFILESIZE=''
-export HISTCONTROL='ignoreboth'
-test -z "$(echo "$PROMPT_COMMAND" | grep '\bhistory\b')" && \
-    export PROMPT_COMMAND="history -a; history -n; $PROMPT_COMMAND"
+    # GRC Colourification
+    local grc_bashrc="$brew_prefix/etc/grc.bashrc"
+    test -f "$grc_bashrc" && source "$grc_bashrc"
 
-# Brew Prevent Time-Consuming Activities
-export HOMEBREW_NO_BOTTLE_SOURCE_FALLBACK='1'
-export HOMEBREW_NO_AUTO_UPDATE='1'
-export HOMEBREW_NO_ANALYTICS='1'
+    # Ensure `source`s below this see the correct `$MANPATH`.
+    local manpath="$MANPATH"
+    unset MANPATH
+    export MANPATH="$(sanitize_path "$manpath:$(manpath)")"
 
-# RLWrap
-export RLWRAP_HOME="$HOME/.rlwrap"
-export RLWRAP_EDITOR="vim '+call cursor(%L,%C)'"
+    export EDITOR='vim'
+    export MERGE='vimdiff'
+    export DOTNET_CLI_TELEMETRY_OPTOUT='1'
+    export POWERSHELL_TELEMETRY_OPTOUT='1'
 
-# Mypy (Python static typing)
-export MYPYPATH="$HOME/.mypy_stubs/"
-export MYPY_CACHE_DIR="$HOME/.mypy_cache/"
+    # History Configuration
+    shopt -s histappend
+    export HISTSIZE=''
+    export HISTFILESIZE=''
+    export HISTCONTROL='ignoreboth'
+    test -z "$(echo "$PROMPT_COMMAND" | grep '\bhistory\b')" && \
+        export PROMPT_COMMAND="history -a; history -n; $PROMPT_COMMAND"
 
-# Perlcritic
-export PERLCRITIC="$HOME/.perlcriticrc"
+    # Brew Prevent Time-Consuming Activities
+    export HOMEBREW_NO_BOTTLE_SOURCE_FALLBACK='1'
+    export HOMEBREW_NO_AUTO_UPDATE='1'
+    export HOMEBREW_NO_ANALYTICS='1'
 
-# ripgrep
-export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
+    # RLWrap
+    export RLWRAP_HOME="$HOME/.rlwrap"
+    export RLWRAP_EDITOR="vim '+call cursor(%L,%C)'"
 
-# Oracle Database
-export ORACLE_HOME='/Library/Oracle/instantclient_12_2'
-export ORACLE_SID='XE'
+    # Mypy (Python static typing)
+    export MYPYPATH="$HOME/.mypy_stubs/"
+    export MYPY_CACHE_DIR="$HOME/.mypy_cache/"
 
-# PostgreSQL
-export PGDATA="$brew_prefix/var/postgres"
+    # Perlcritic
+    export PERLCRITIC="$HOME/.perlcriticrc"
 
-# Perforce
-export P4EDITOR='vim'
+    # ripgrep
+    export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
 
-# JBOSS
-export JBOSS_HOME="$brew_prefix/opt/wildfly-as/libexec"
+    # Oracle Database
+    export ORACLE_HOME='/Library/Oracle/instantclient_12_2'
+    export ORACLE_SID='XE'
 
-# DocBook Catalogs
-export XML_CATALOG_FILES="$brew_prefix/etc/xml/catalog"
+    # PostgreSQL
+    export PGDATA="$brew_prefix/var/postgres"
 
-# Wine Freetype Bug
-export FREETYPE_PROPERTIES='truetype:interpreter-version=35'
+    # Perforce
+    export P4EDITOR='vim'
 
-# get the superior versions of common binaries
-EXTRA_BINARIES=''
-EXTRA_MANPAGES=''
-EXTRA_PKGPATHS=''
-EXTRA_DYLDPATH=''
-EXTRA_CLASPATH=''
+    # JBOSS
+    export JBOSS_HOME="$brew_prefix/opt/wildfly-as/libexec"
 
-use_gnu_binaries='true'
+    # DocBook Catalogs
+    export XML_CATALOG_FILES="$brew_prefix/etc/xml/catalog"
 
-# keep more important items after less important ones
-for gnuitem in \
-    wildfly-as \
-    artifactory \
-    swift \
-    sphinx-doc \
-    jpeg-turbo \
-    sqlite \
-    icu4c \
-    openldap \
-    cython \
-    opencolorio \
-    libxml2 \
-    texinfo \
-    apr-util \
-    apr \
-    libarchive \
-    mozjpeg \
-    libxslt \
-    subversion \
-    expat \
-    ruby \
-    ssh-copy-id \
-    bzip2 \
-    unzip \
-    zip \
-    file-formula \
-    krb5 \
-    qt \
-    libpcap \
-    e2fsprogs \
-    gnu-which \
-    gnu-indent \
-    gnu-units \
-    gnu-time \
-    gnu-sed \
-    gnu-tar \
-    libressl \
-    gnu-getopt \
-    gettext \
-    ncurses \
-    libtool \
-    rpcgen \
-    unifdef \
-    flex \
-    bison \
-    curl \
-    bc \
-    make \
-    grep \
-    ed \
-    m4 \
-    man-db \
-    gcc \
-    lsof \
-    util-linux \
-    inetutils \
-    binutils \
-    findutils \
-    coreutils \
-;
-do
-    # BSD-shadowing versions of g-prefixed items
-    gnupath="$brew_prefix/opt/$gnuitem/libexec/gnubin"
-    test -d "$gnupath" && EXTRA_BINARIES="$gnupath:$EXTRA_BINARIES"
+    # Wine Freetype Bug
+    export FREETYPE_PROPERTIES='truetype:interpreter-version=35'
 
-    # some items prefer not to use `gnu` in their paths
-    gnupath="$brew_prefix/opt/$gnuitem/libexec/bin"
-    test -d "$gnupath" && EXTRA_BINARIES="$gnupath:$EXTRA_BINARIES"
+    # get the superior versions of common binaries
+    local EXTRA_BINARIES=''
+    local EXTRA_MANPAGES=''
+    local EXTRA_PKGPATHS=''
+    local EXTRA_DYLDPATH=''
+    local EXTRA_CLASPATH=''
 
-    # some items, especially the non-g-prefixed ones, require different paths
-    gnupath="$brew_prefix/opt/$gnuitem/bin"
-    test -d "$gnupath" && EXTRA_BINARIES="$gnupath:$EXTRA_BINARIES"
+    local use_gnu_binaries='true'
 
-    # some items install sbins
-    gnupath="$brew_prefix/opt/$gnuitem/sbin"
-    test -d "$gnupath" && EXTRA_BINARIES="$gnupath:$EXTRA_BINARIES"
+    # keep more important items after less important ones
+    for gnuitem in \
+        wildfly-as \
+        artifactory \
+        swift \
+        sphinx-doc \
+        jpeg-turbo \
+        sqlite \
+        icu4c \
+        openldap \
+        cython \
+        opencolorio \
+        libxml2 \
+        texinfo \
+        apr-util \
+        apr \
+        libarchive \
+        mozjpeg \
+        libxslt \
+        subversion \
+        expat \
+        ruby \
+        ssh-copy-id \
+        bzip2 \
+        unzip \
+        zip \
+        file-formula \
+        krb5 \
+        qt \
+        libpcap \
+        e2fsprogs \
+        gnu-which \
+        gnu-indent \
+        gnu-units \
+        gnu-time \
+        gnu-sed \
+        gnu-tar \
+        libressl \
+        gnu-getopt \
+        gettext \
+        ncurses \
+        libtool \
+        rpcgen \
+        unifdef \
+        flex \
+        bison \
+        curl \
+        bc \
+        make \
+        grep \
+        ed \
+        m4 \
+        man-db \
+        gcc \
+        lsof \
+        util-linux \
+        inetutils \
+        binutils \
+        findutils \
+        coreutils \
+    ;
+    do
+        # BSD-shadowing versions of g-prefixed items
+        local gnupath="$brew_prefix/opt/$gnuitem/libexec/gnubin"
+        test -d "$gnupath" && EXTRA_BINARIES="$gnupath:$EXTRA_BINARIES"
 
-    # manpages for the commands
-    manpath="$brew_prefix/opt/$gnuitem/libexec/gnuman"
-    test -d "$manpath" && EXTRA_MANPAGES="$manpath:$EXTRA_MANPAGES"
+        # some items prefer not to use `gnu` in their paths
+        local gnupath="$brew_prefix/opt/$gnuitem/libexec/bin"
+        test -d "$gnupath" && EXTRA_BINARIES="$gnupath:$EXTRA_BINARIES"
 
-    # different standards for different packages
-    manpath="$brew_prefix/opt/$gnuitem/libexec/man"
-    test -d "$manpath" && EXTRA_MANPAGES="$manpath:$EXTRA_MANPAGES"
+        # some items, especially the non-g-prefixed ones, require different paths
+        local gnupath="$brew_prefix/opt/$gnuitem/bin"
+        test -d "$gnupath" && EXTRA_BINARIES="$gnupath:$EXTRA_BINARIES"
 
-    # some manpages are at a different location
-    manpath="$brew_prefix/opt/$gnuitem/share/man"
-    test -d "$manpath" && EXTRA_MANPAGES="$manpath:$EXTRA_MANPAGES"
+        # some items install sbins
+        local gnupath="$brew_prefix/opt/$gnuitem/sbin"
+        test -d "$gnupath" && EXTRA_BINARIES="$gnupath:$EXTRA_BINARIES"
 
-    # pkg-config for some tools
-    pkgpath="$brew_prefix/opt/$gnuitem/lib/pkgconfig"
-    test -d "$pkgpath" && EXTRA_PKGPATHS="$pkgpath:$EXTRA_PKGPATHS"
-done
+        # manpages for the commands
+        local manpath="$brew_prefix/opt/$gnuitem/libexec/gnuman"
+        test -d "$manpath" && EXTRA_MANPAGES="$manpath:$EXTRA_MANPAGES"
 
-pypypath="$brew_prefix/share/pypy" # Keep at end to avoid overwriting CPython.
-test -d "$pypypath" && EXTRA_BINARIES="$EXTRA_BINARIES:$pypypath"
+        # different standards for different packages
+        local manpath="$brew_prefix/opt/$gnuitem/libexec/man"
+        test -d "$manpath" && EXTRA_MANPAGES="$manpath:$EXTRA_MANPAGES"
 
-brewbinpath="$brew_prefix/bin"
-test -d "$brewbinpath" && EXTRA_BINARIES="$brewbinpath:$EXTRA_BINARIES"
+        # some manpages are at a different location
+        local manpath="$brew_prefix/opt/$gnuitem/share/man"
+        test -d "$manpath" && EXTRA_MANPAGES="$manpath:$EXTRA_MANPAGES"
 
-brewsbinpath="$brew_prefix/sbin"
-test -d "$brewsbinpath" && EXTRA_BINARIES="$brewsbinpath:$EXTRA_BINARIES"
+        # pkg-config for some tools
+        local pkgpath="$brew_prefix/opt/$gnuitem/lib/pkgconfig"
+        test -d "$pkgpath" && EXTRA_PKGPATHS="$pkgpath:$EXTRA_PKGPATHS"
+    done
 
-icecreampath="$brew_prefix/opt/icecream/libexec/icecc/bin"
-test -d "$icecreampath" && EXTRA_BINARIES="$icecreampath:$EXTRA_BINARIES"
+    local pypypath="$brew_prefix/share/pypy" # Keep at end to avoid overwriting CPython.
+    test -d "$pypypath" && EXTRA_BINARIES="$EXTRA_BINARIES:$pypypath"
 
-anacondapath="$brew_prefix/anaconda3/bin"
-test -d "$anacondapath" && EXTRA_BINARIES="$anacondapath:$EXTRA_BINARIES"
+    local brewbinpath="$brew_prefix/bin"
+    test -d "$brewbinpath" && EXTRA_BINARIES="$brewbinpath:$EXTRA_BINARIES"
 
-oraclepath="$ORACLE_HOME"
-test -d "$oraclepath" && EXTRA_BINARIES="$oraclepath:$EXTRA_BINARIES"
+    local brewsbinpath="$brew_prefix/sbin"
+    test -d "$brewsbinpath" && EXTRA_BINARIES="$brewsbinpath:$EXTRA_BINARIES"
 
-oracledyldpath="$ORACLE_HOME"
-test -d "$oracledyldpath" && EXTRA_DYLDPATH="$oracledyldpath:$EXTRA_DYLDPATH"
+    local icecreampath="$brew_prefix/opt/icecream/libexec/icecc/bin"
+    test -d "$icecreampath" && EXTRA_BINARIES="$icecreampath:$EXTRA_BINARIES"
 
-oracleclaspath="$ORACLE_HOME"
-test -d "$oracleclaspath" && EXTRA_CLASPATH="$oracleclaspath:$EXTRA_CLASPATH"
+    local anacondapath="$brew_prefix/anaconda3/bin"
+    test -d "$anacondapath" && EXTRA_BINARIES="$anacondapath:$EXTRA_BINARIES"
 
-flutterpath="$HOME/flutter/bin"
-test -d "$flutterpath" && EXTRA_BINARIES="$flutterpath:$EXTRA_BINARIES"
+    local oraclepath="$ORACLE_HOME"
+    test -d "$oraclepath" && EXTRA_BINARIES="$oraclepath:$EXTRA_BINARIES"
 
-pyenvpath="$HOME/.pyenv/bin"
-test -d "$pyenvpath" && EXTRA_BINARIES="$pyenvpath:$EXTRA_BINARIES"
+    local oracledyldpath="$ORACLE_HOME"
+    test -d "$oracledyldpath" && EXTRA_DYLDPATH="$oracledyldpath:$EXTRA_DYLDPATH"
 
-# clean and export the fruits of the above labour
-if test "$use_gnu_binaries" = 'true'; then
-    export PATH="$(sanitize_path "$EXTRA_BINARIES:$PATH")"
-    export MANPATH="$(sanitize_path "$EXTRA_MANPAGES:$MANPATH")"
-    export DYLD_LIBRARY_PATH="$(sanitize_path "$EXTRA_DYLDPATH:$DYLD_LIBRARY_PATH")"
-    export CLASSPATH="$(sanitize_path "$EXTRA_CLASPATH:$CLASSPATH")"
+    local oracleclaspath="$ORACLE_HOME"
+    test -d "$oracleclaspath" && EXTRA_CLASPATH="$oracleclaspath:$EXTRA_CLASPATH"
 
-    # pyenv
-    export PYENV_ROOT="$HOME/.pyenv/"
-    export PYENV_VIRTUALENV_DISABLE_PROMPT='1'
-    test -d "$HOME/.pyenv" && \
-        eval "$(pyenv init -)" && \
-        eval "$(pyenv virtualenv-init -)" && \
-        test -z "$PYENV_ACTIVATE_SHELL" && pyenv activate "$USER"
+    local flutterpath="$HOME/flutter/bin"
+    test -d "$flutterpath" && EXTRA_BINARIES="$flutterpath:$EXTRA_BINARIES"
 
-    # perlbrew
-    test -f "$HOME/perl5/perlbrew/etc/bashrc" && \
-        source "$HOME/perl5/perlbrew/etc/bashrc"
-    export PERL_CPANM_OPT='--from https://www.cpan.org/ --verify'
-    export PERLBREW_CPAN_MIRROR='https://www.cpan.org/'
+    local pyenvpath="$HOME/.pyenv/bin"
+    test -d "$pyenvpath" && EXTRA_BINARIES="$pyenvpath:$EXTRA_BINARIES"
 
-    # perl local::lib
-    export PATH="$(sanitize_path "$HOME/perl5/bin:$PATH")"
-    export PERL5LIB="$(sanitize_path "$HOME/perl5/lib/perl5:$PERL5LIB")"
-    export PERL_LOCAL_LIB_ROOT="$(sanitize_path "$HOME/perl5:$PERL_LOCAL_LIB_ROOT")"
-    export PERL_MB_OPT="--install_base '$HOME/perl5'"
-    export PERL_MM_OPT="INSTALL_BASE=$HOME/perl5"
+    # clean and export the fruits of the above labour
+    if test "$use_gnu_binaries" = 'true'; then
+        export PATH="$(sanitize_path "$EXTRA_BINARIES:$PATH")"
+        export MANPATH="$(sanitize_path "$EXTRA_MANPAGES:$MANPATH")"
+        export DYLD_LIBRARY_PATH="$(sanitize_path "$EXTRA_DYLDPATH:$DYLD_LIBRARY_PATH")"
+        export CLASSPATH="$(sanitize_path "$EXTRA_CLASPATH:$CLASSPATH")"
 
-    # cargo
-    export PATH="$(sanitize_path "$HOME/.cargo/bin:$PATH")"
+        # pyenv
+        export PYENV_ROOT="$HOME/.pyenv/"
+        export PYENV_VIRTUALENV_DISABLE_PROMPT='1'
+        test -d "$HOME/.pyenv" && \
+            eval "$(pyenv init -)" && \
+            eval "$(pyenv virtualenv-init -)" && \
+            test -z "$PYENV_ACTIVATE_SHELL" && pyenv activate "$USER"
 
-    # go
-    export PATH="$(sanitize_path "$HOME/go/bin:$PATH")"
+        # perlbrew
+        test -f "$HOME/perl5/perlbrew/etc/bashrc" && \
+            source "$HOME/perl5/perlbrew/etc/bashrc"
+        export PERL_CPANM_OPT='--from https://www.cpan.org/ --verify'
+        export PERLBREW_CPAN_MIRROR='https://www.cpan.org/'
 
-    # php
-    export PATH="$(sanitize_path "$HOME/.composer/vendor/bin:$PATH")"
+        # perl local::lib
+        export PATH="$(sanitize_path "$HOME/perl5/bin:$PATH")"
+        export PERL5LIB="$(sanitize_path "$HOME/perl5/lib/perl5:$PERL5LIB")"
+        export PERL_LOCAL_LIB_ROOT="$(sanitize_path "$HOME/perl5:$PERL_LOCAL_LIB_ROOT")"
+        export PERL_MB_OPT="--install_base '$HOME/perl5'"
+        export PERL_MM_OPT="INSTALL_BASE=$HOME/perl5"
 
-    # npm
-    export NPM_PACKAGES="$HOME/.npm/packages/"
-    #npm config set prefix "$NPM_PACKAGES"
-    export PATH="$(sanitize_path "$NPM_PACKAGES/bin:$PATH")"
+        # cargo
+        export PATH="$(sanitize_path "$HOME/.cargo/bin:$PATH")"
 
-    # sdkman
-    export SDKMAN_DIR="$HOME/.sdkman/"
-    sdkman_init="$SDKMAN_DIR/bin/sdkman-init.sh"
-    test -f "$sdkman_init" && source "$sdkman_init"
-    unset sdkman_init
+        # go
+        export PATH="$(sanitize_path "$HOME/go/bin:$PATH")"
 
-    # lua
-    lua_version='5.4' # TODO: automate this
-    export LUA_PATH=";;$HOME/.luarocks/share/lua/$lua_version/?.lua;$HOME/.luarocks/share/lua/$lua_version/?/init.lua"
-    export LUA_CPATH=";;$HOME/.luarocks/lib64/lua/$lua_version/?.so"
-    export PATH="$(sanitize_path "$HOME/.luarocks/bin:$PATH")"
-    unset lua_version
+        # php
+        export PATH="$(sanitize_path "$HOME/.composer/vendor/bin:$PATH")"
 
-    # CERN Root
-    test -f "$brew_prefix/bin/thisroot.sh" && \
-       source "$brew_prefix/bin/thisroot.sh"
+        # npm
+        export NPM_PACKAGES="$HOME/.npm/packages/"
+        #npm config set prefix "$NPM_PACKAGES"
+        export PATH="$(sanitize_path "$NPM_PACKAGES/bin:$PATH")"
 
-    # Geant 4
-    test -f "$brew_prefix/bin/geant4.sh" && \
-       source "$brew_prefix/bin/geant4.sh"
+        # sdkman
+        export SDKMAN_DIR="$HOME/.sdkman/"
+        local sdkman_init="$SDKMAN_DIR/bin/sdkman-init.sh"
+        test -f "$sdkman_init" && source "$sdkman_init"
 
-    # ASDF
-    test -f "$brew_prefix/opt/asdf/asdf.sh" && \
-        source "$brew_prefix/opt/asdf/asdf.sh"
+        # lua
+        local lua_version='5.4' # TODO: automate this
+        export LUA_PATH=";;$HOME/.luarocks/share/lua/$lua_version/?.lua;$HOME/.luarocks/share/lua/$lua_version/?/init.lua"
+        export LUA_CPATH=";;$HOME/.luarocks/lib64/lua/$lua_version/?.so"
+        export PATH="$(sanitize_path "$HOME/.luarocks/bin:$PATH")"
 
-    # OPAM
-    test -f "$HOME/.opam/opam-init/init.sh" && \
-        source "$HOME/.opam/opam-init/init.sh"
+        # CERN Root
+        test -f "$brew_prefix/bin/thisroot.sh" && \
+           source "$brew_prefix/bin/thisroot.sh"
 
-    export PATH="$(sanitize_path "$HOME/bin:$HOME/.local/bin:$PATH")"
-    export MANPATH="$(sanitize_path "$HOME/man:$HOME/.local/share/man:$MANPATH")"
-    export PKG_CONFIG_PATH="$(sanitize_path "$EXTRA_PKGPATHS")"
-    export DYLD_LIBRARY_PATH="$(sanitize_path "$HOME/lib:$HOME/.local/lib:$DYLD_LIBRARY_PATH")"
-    export CLASSPATH="$(sanitize_path "$HOME/jar:$HOME/.local/jar:$CLASSPATH")"
+        # Geant 4
+        test -f "$brew_prefix/bin/geant4.sh" && \
+           source "$brew_prefix/bin/geant4.sh"
 
-    export PERL5LIB="$(sanitize_path "$HOME/.local/lib/perl5:$PERL5LIB")"
+        # ASDF
+        test -f "$brew_prefix/opt/asdf/asdf.sh" && \
+            source "$brew_prefix/opt/asdf/asdf.sh"
 
-    # completion for brewed binaries
-    completions="$brew_prefix/etc/profile.d/bash_completion.sh"
-    test -f "$completions" && \
-        source "$completions"
+        # OPAM
+        test -f "$HOME/.opam/opam-init/init.sh" && \
+            source "$HOME/.opam/opam-init/init.sh"
 
-    # colours for `tree`
-    command -v dircolors &>/dev/null && eval "$(dircolors -b)"
+        export PATH="$(sanitize_path "$HOME/bin:$HOME/.local/bin:$PATH")"
+        export MANPATH="$(sanitize_path "$HOME/man:$HOME/.local/share/man:$MANPATH")"
+        export PKG_CONFIG_PATH="$(sanitize_path "$EXTRA_PKGPATHS")"
+        export DYLD_LIBRARY_PATH="$(sanitize_path "$HOME/lib:$HOME/.local/lib:$DYLD_LIBRARY_PATH")"
+        export CLASSPATH="$(sanitize_path "$HOME/jar:$HOME/.local/jar:$CLASSPATH")"
 
-    # Google Cloud SDK
-    GCLOUD_SDK="$brew_prefix/Caskroom/google-cloud-sdk/latest/google-cloud-sdk"
-    test -f "$GCLOUD_SDK/path.bash.inc" &&\
-        source "$GCLOUD_SDK/path.bash.inc"
-    test -f "$GCLOUD_SDK/completion.bash.inc" && \
-        source "$GCLOUD_SDK/completion.bash.inc"
+        export PERL5LIB="$(sanitize_path "$HOME/.local/lib/perl5:$PERL5LIB")"
 
-    alias egrep='grep -E'
-    alias fgrep='grep -F'
-    alias grepp='grep -P'
-    alias grep='grep --color=auto'
-    alias l='ls -CF'
-    alias l.='ls -d .*'
-    alias la='ls -A'
-    alias ll='ls -alF'
-    alias ls='ls --color=auto'
-    alias ncdu='ncdu --color dark'
-    alias tree='tree -I ".git|node_modules"'
-    alias cpan-outdated='cpan-outdated --mirror="$PERLBREW_CPAN_MIRROR"'
-    alias podchecker='podchecker -warnings -warnings -warnings'
-    alias bat='bat --paging=never --style=plain --wrap=never --'
-    alias tohex="hexdump -ve '1/1 \"%.2x\" '"
-    alias unchomp='sed -i -e \$a\\ '
-    alias ssh='exec ssh'
-    alias telnet='exec telnet'
-    alias mosh='exec mosh'
-    alias git-sh='exec git-sh'
-    alias ssh-copy-id='ssh-copy-id -oPasswordAuthentication=yes'
-    alias brew-cu='brew cu --no-brew-update'
+        # completion for brewed binaries
+        local completions="$brew_prefix/etc/profile.d/bash_completion.sh"
+        test -f "$completions" && \
+            source "$completions"
 
-else
-    alias updatedb='/usr/libexec/locate.updatedb' # macOS exclusive
-fi
+        # colours for `tree`
+        command -v dircolors &>/dev/null && eval "$(dircolors -b)"
 
-alias B-nagios-start="nagios $brew_prefix/etc/nagios/nagios.cfg"
-alias B-rsyslog-start="rsyslogd -f $brew_prefix/etc/rsyslog.conf -i
-                           $brew_prefix/var/run/rsyslogd.pid"
-alias B-influx-start="influxd -config $brew_prefix/etc/influxdb.conf"
-alias B-redis-start="redis-server $brew_prefix/etc/redis.conf"
-alias B-mongo-start="mongod --config $brew_prefix/etc/mongod.conf --auth
-                        &>/dev/null &"
-alias B-grafana-start="grafana-server
-                --config=$brew_prefix/etc/grafana/grafana.ini
-                --homepath $brew_prefix/share/grafana
-                cfg:default.paths.logs=$brew_prefix/var/log/grafana
-                cfg:default.paths.data=$brew_prefix/var/lib/grafana
-                cfg:default.paths.plugins=$brew_prefix/var/lib/grafana/plugins"
+        # Google Cloud SDK
+        local gcloud_sdk="$brew_prefix/Caskroom/google-cloud-sdk/latest/google-cloud-sdk"
+        test -f "$gcloud_sdk/path.bash.inc" &&\
+            source "$gcloud_sdk/path.bash.inc"
+        test -f "$gcloud_sdk/completion.bash.inc" && \
+            source "$gcloud_sdk/completion.bash.inc"
+
+        alias egrep='grep -E'
+        alias fgrep='grep -F'
+        alias grepp='grep -P'
+        alias grep='grep --color=auto'
+        alias l='ls -CF'
+        alias l.='ls -d .*'
+        alias la='ls -A'
+        alias ll='ls -alF'
+        alias ls='ls --color=auto'
+        alias ncdu='ncdu --color dark'
+        alias tree='tree -I ".git|node_modules"'
+        alias cpan-outdated='cpan-outdated --mirror="$PERLBREW_CPAN_MIRROR"'
+        alias podchecker='podchecker -warnings -warnings -warnings'
+        alias bat='bat --paging=never --style=plain --wrap=never --'
+        alias tohex="hexdump -ve '1/1 \"%.2x\" '"
+        alias unchomp='sed -i -e \$a\\ '
+        alias ssh='exec ssh'
+        alias telnet='exec telnet'
+        alias mosh='exec mosh'
+        alias git-sh='exec git-sh'
+        alias ssh-copy-id='ssh-copy-id -oPasswordAuthentication=yes'
+        alias brew-cu='brew cu --no-brew-update'
+
+    else
+        alias updatedb='/usr/libexec/locate.updatedb' # macOS exclusive
+    fi
+
+    alias B-nagios-start="nagios $brew_prefix/etc/nagios/nagios.cfg"
+    alias B-rsyslog-start="rsyslogd -f $brew_prefix/etc/rsyslog.conf -i
+                               $brew_prefix/var/run/rsyslogd.pid"
+    alias B-influx-start="influxd -config $brew_prefix/etc/influxdb.conf"
+    alias B-redis-start="redis-server $brew_prefix/etc/redis.conf"
+    alias B-mongo-start="mongod --config $brew_prefix/etc/mongod.conf --auth
+                            &>/dev/null &"
+    alias B-grafana-start="grafana-server
+                    --config=$brew_prefix/etc/grafana/grafana.ini
+                    --homepath $brew_prefix/share/grafana
+                    cfg:default.paths.logs=$brew_prefix/var/log/grafana
+                    cfg:default.paths.data=$brew_prefix/var/lib/grafana
+                    cfg:default.paths.plugins=$brew_prefix/var/lib/grafana/plugins"
+
+    # Oracle DB connections
+    alias S-ora-tns-yasql='yasql user/pass@tns'
+    alias S-ora-tns-rqlplus='rlwrap sqlplus user/pass@tns'
+    alias S-ora-tns-sqlplus='sqlplus user/pass@tns'
+}
 
 # exec docker exec
 docker()
@@ -457,15 +460,12 @@ B-oldbin()
     hash -r
 }
 
-# Autocompletion for custom git commands
+# autocompletion for custom git commands
 _git_pick()
 {
     _git_cherry_pick
 }
 
-# Oracle DB connections
-alias S-ora-tns-yasql='yasql user/pass@tns'
-alias S-ora-tns-rqlplus='rlwrap sqlplus user/pass@tns'
-alias S-ora-tns-sqlplus='sqlplus user/pass@tns'
-
-unset brew_prefix
+# invoke `main` & cleanup
+main
+unset -f main
