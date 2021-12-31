@@ -224,6 +224,7 @@ main()
         # pyenv
         export PYENV_ROOT="$HOME/.pyenv/"
         export PYENV_VIRTUALENV_DISABLE_PROMPT='1'
+        # shellcheck disable=SC2154
         test -d "$HOME/.pyenv" && \
             eval "$(pyenv init -)" && \
             eval "$(pyenv virtualenv-init -)" && \
@@ -321,6 +322,7 @@ main()
         alias podchecker='podchecker -warnings -warnings -warnings'
         alias bat='bat --paging=never --style=plain --wrap=never --'
         alias tohex="hexdump -ve '1/1 \"%.2x\" '"
+        # shellcheck disable=SC2154
         alias unchomp='sed -i -e \$a\\ '
         alias ssh='exec ssh'
         alias telnet='exec telnet'
