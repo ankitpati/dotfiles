@@ -13,7 +13,7 @@ unset global_profile
 # `brew` “cowardly refuses to run as root,” so hard-coding is necessary here.
 brew_prefix='/usr/local'
 
-function sanitize_path
+sanitize_path()
 {
     # Utility function to sanitize PATH-like specifications.
     # Do not allow
@@ -205,14 +205,14 @@ else
 fi
 
 # prepend old binaries to PATH
-function B-oldbin
+B-oldbin()
 {
     export PATH="$(sanitize_path "$HOME/oldbin:$PATH")"
     hash -r
 }
 
 # Autocompletion for custom git commands
-function _git_pick
+_git_pick()
 {
     _git_branch
 }

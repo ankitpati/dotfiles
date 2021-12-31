@@ -12,7 +12,7 @@ grc_bashrc="$brew_prefix/etc/grc.bashrc"
 test -f "$grc_bashrc" && source "$grc_bashrc"
 unset grc_bashrc
 
-function sanitize_path
+sanitize_path()
 {
     # Utility function to sanitize PATH-like specifications.
     # Do not allow
@@ -351,7 +351,7 @@ alias B-grafana-start="grafana-server
                 cfg:default.paths.plugins=$brew_prefix/var/lib/grafana/plugins"
 
 # exec docker exec
-function docker
+docker()
 {
     case "$1" in
     'exec' )
@@ -365,7 +365,7 @@ function docker
 }
 
 # pyenv install 3.8.0 (or whatever)
-#function pyenv
+#pyenv()
 #{
 #    case "$1" in
 #    'install'|'doctor' )
@@ -381,7 +381,7 @@ function docker
 #}
 
 # delete junk files
-function B-delds
+B-delds()
 {
     echo 'Removing the following files...'
     find "$HOME" -not \( -path "$HOME/Mounts" -prune \) \
@@ -402,21 +402,21 @@ function B-delds
 }
 
 # delete CPANM cache
-function B-clean-cpanm
+B-clean-cpanm()
 {
     echo 'Removing the CPANM Work Cache...'
     rm -rf "$HOME/.cpanm/"{'work/','build.log','latest-build'}
 }
 
 # delete PIP cache
-function B-clean-pip
+B-clean-pip()
 {
     echo 'Removing the PIP Cache...'
     rm -rf "$HOME/Library/Caches/pip/"
 }
 
 # delete Homebrew and Perlbrew caches
-function B-clean-cache
+B-clean-cache()
 {
     echo 'Removing the Homebrew Build Cache...'
     brew cleanup --prune=0
@@ -429,7 +429,7 @@ function B-clean-cache
 }
 
 # compact Homebrew git repositories
-function B-brew-compact
+B-brew-compact()
 {
     echo 'Running `git cleanup` on Homebrew...'
     for brewtap in "$brew_prefix/Homebrew" \
@@ -440,7 +440,7 @@ function B-brew-compact
 }
 
 # clean all the things!
-function B-clean-all
+B-clean-all()
 {
     B-delds
     B-clean-cache
@@ -451,14 +451,14 @@ function B-clean-all
 }
 
 # prepend old binaries to PATH
-function B-oldbin
+B-oldbin()
 {
     export PATH="$(sanitize_path "$HOME/oldbin:$PATH")"
     hash -r
 }
 
 # Autocompletion for custom git commands
-function _git_pick
+_git_pick()
 {
     _git_branch
 }

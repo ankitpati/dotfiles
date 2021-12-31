@@ -5,7 +5,7 @@ unset global_profile
 
 mesg n || true
 
-function sanitize_path
+sanitize_path()
 {
     # Utility function to sanitize PATH-like specifications.
     # Do not allow
@@ -69,18 +69,18 @@ alias git-sh='exec git-sh'
 alias ssh-copy-id='ssh-copy-id -oPasswordAuthentication=yes'
 
 # prepend old binaries to PATH
-function B-oldbin
+B-oldbin()
 {
     export PATH="$(sanitize_path "$HOME/oldbin:$PATH")"
     hash -r
 }
 
-function _git_pick
+_git_pick()
 {
     _git_branch
 }
 
-function _git_publish
+_git_publish()
 {
     _git_branch
 }
