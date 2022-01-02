@@ -203,6 +203,7 @@ main()
     local use_gnu_binaries='true'
 
     # keep more important items after less important ones
+    local gnuitem
     for gnuitem in \
         wildfly-as \
         artifactory \
