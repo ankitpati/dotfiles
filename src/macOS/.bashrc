@@ -194,11 +194,11 @@ main()
     export FREETYPE_PROPERTIES='truetype:interpreter-version=35'
 
     # get the superior versions of common binaries
-    local EXTRA_BINARIES=''
-    local EXTRA_MANPAGES=''
-    local EXTRA_PKGPATHS=''
-    local EXTRA_DYLDPATH=''
-    local EXTRA_CLASPATH=''
+    local extra_binaries=''
+    local extra_manpages=''
+    local extra_pkgpaths=''
+    local extra_dyldpath=''
+    local extra_claspath=''
 
     local use_gnu_binaries='true'
 
@@ -267,73 +267,73 @@ main()
     do
         # BSD-shadowing versions of g-prefixed items
         local gnupath="$brew_prefix/opt/$gnuitem/libexec/gnubin"
-        test -d "$gnupath" && EXTRA_BINARIES="$gnupath:$EXTRA_BINARIES"
+        test -d "$gnupath" && extra_binaries="$gnupath:$extra_binaries"
 
         # some items prefer not to use `gnu` in their paths
         local gnupath="$brew_prefix/opt/$gnuitem/libexec/bin"
-        test -d "$gnupath" && EXTRA_BINARIES="$gnupath:$EXTRA_BINARIES"
+        test -d "$gnupath" && extra_binaries="$gnupath:$extra_binaries"
 
         # some items, especially the non-g-prefixed ones, require different paths
         local gnupath="$brew_prefix/opt/$gnuitem/bin"
-        test -d "$gnupath" && EXTRA_BINARIES="$gnupath:$EXTRA_BINARIES"
+        test -d "$gnupath" && extra_binaries="$gnupath:$extra_binaries"
 
         # some items install sbins
         local gnupath="$brew_prefix/opt/$gnuitem/sbin"
-        test -d "$gnupath" && EXTRA_BINARIES="$gnupath:$EXTRA_BINARIES"
+        test -d "$gnupath" && extra_binaries="$gnupath:$extra_binaries"
 
         # manpages for the commands
         local manpath="$brew_prefix/opt/$gnuitem/libexec/gnuman"
-        test -d "$manpath" && EXTRA_MANPAGES="$manpath:$EXTRA_MANPAGES"
+        test -d "$manpath" && extra_manpages="$manpath:$extra_manpages"
 
         # different standards for different packages
         local manpath="$brew_prefix/opt/$gnuitem/libexec/man"
-        test -d "$manpath" && EXTRA_MANPAGES="$manpath:$EXTRA_MANPAGES"
+        test -d "$manpath" && extra_manpages="$manpath:$extra_manpages"
 
         # some manpages are at a different location
         local manpath="$brew_prefix/opt/$gnuitem/share/man"
-        test -d "$manpath" && EXTRA_MANPAGES="$manpath:$EXTRA_MANPAGES"
+        test -d "$manpath" && extra_manpages="$manpath:$extra_manpages"
 
         # pkg-config for some tools
         local pkgpath="$brew_prefix/opt/$gnuitem/lib/pkgconfig"
-        test -d "$pkgpath" && EXTRA_PKGPATHS="$pkgpath:$EXTRA_PKGPATHS"
+        test -d "$pkgpath" && extra_pkgpaths="$pkgpath:$extra_pkgpaths"
     done
 
     local pypypath="$brew_prefix/share/pypy" # Keep at end to avoid overwriting CPython.
-    test -d "$pypypath" && EXTRA_BINARIES="$EXTRA_BINARIES:$pypypath"
+    test -d "$pypypath" && extra_binaries="$extra_binaries:$pypypath"
 
     local brewbinpath="$brew_prefix/bin"
-    test -d "$brewbinpath" && EXTRA_BINARIES="$brewbinpath:$EXTRA_BINARIES"
+    test -d "$brewbinpath" && extra_binaries="$brewbinpath:$extra_binaries"
 
     local brewsbinpath="$brew_prefix/sbin"
-    test -d "$brewsbinpath" && EXTRA_BINARIES="$brewsbinpath:$EXTRA_BINARIES"
+    test -d "$brewsbinpath" && extra_binaries="$brewsbinpath:$extra_binaries"
 
     local icecreampath="$brew_prefix/opt/icecream/libexec/icecc/bin"
-    test -d "$icecreampath" && EXTRA_BINARIES="$icecreampath:$EXTRA_BINARIES"
+    test -d "$icecreampath" && extra_binaries="$icecreampath:$extra_binaries"
 
     local anacondapath="$brew_prefix/anaconda3/bin"
-    test -d "$anacondapath" && EXTRA_BINARIES="$anacondapath:$EXTRA_BINARIES"
+    test -d "$anacondapath" && extra_binaries="$anacondapath:$extra_binaries"
 
     local oraclepath="$ORACLE_HOME"
-    test -d "$oraclepath" && EXTRA_BINARIES="$oraclepath:$EXTRA_BINARIES"
+    test -d "$oraclepath" && extra_binaries="$oraclepath:$extra_binaries"
 
     local oracledyldpath="$ORACLE_HOME"
-    test -d "$oracledyldpath" && EXTRA_DYLDPATH="$oracledyldpath:$EXTRA_DYLDPATH"
+    test -d "$oracledyldpath" && extra_dyldpath="$oracledyldpath:$extra_dyldpath"
 
     local oracleclaspath="$ORACLE_HOME"
-    test -d "$oracleclaspath" && EXTRA_CLASPATH="$oracleclaspath:$EXTRA_CLASPATH"
+    test -d "$oracleclaspath" && extra_claspath="$oracleclaspath:$extra_claspath"
 
     local flutterpath="$HOME/flutter/bin"
-    test -d "$flutterpath" && EXTRA_BINARIES="$flutterpath:$EXTRA_BINARIES"
+    test -d "$flutterpath" && extra_binaries="$flutterpath:$extra_binaries"
 
     local pyenvpath="$HOME/.pyenv/bin"
-    test -d "$pyenvpath" && EXTRA_BINARIES="$pyenvpath:$EXTRA_BINARIES"
+    test -d "$pyenvpath" && extra_binaries="$pyenvpath:$extra_binaries"
 
     # clean and export the fruits of the above labour
     if test "$use_gnu_binaries" = 'true'; then
-        export PATH="$(sanitize_path "$EXTRA_BINARIES:$PATH")"
-        export MANPATH="$(sanitize_path "$EXTRA_MANPAGES:$MANPATH")"
-        export DYLD_LIBRARY_PATH="$(sanitize_path "$EXTRA_DYLDPATH:$DYLD_LIBRARY_PATH")"
-        export CLASSPATH="$(sanitize_path "$EXTRA_CLASPATH:$CLASSPATH")"
+        export PATH="$(sanitize_path "$extra_binaries:$PATH")"
+        export MANPATH="$(sanitize_path "$extra_manpages:$MANPATH")"
+        export DYLD_LIBRARY_PATH="$(sanitize_path "$extra_dyldpath:$DYLD_LIBRARY_PATH")"
+        export CLASSPATH="$(sanitize_path "$extra_claspath:$CLASSPATH")"
 
         # pyenv
         export PYENV_ROOT="$HOME/.pyenv/"
@@ -400,7 +400,7 @@ main()
 
         export PATH="$(sanitize_path "$HOME/bin:$HOME/.local/bin:$PATH")"
         export MANPATH="$(sanitize_path "$HOME/man:$HOME/.local/share/man:$MANPATH")"
-        export PKG_CONFIG_PATH="$(sanitize_path "$EXTRA_PKGPATHS")"
+        export PKG_CONFIG_PATH="$(sanitize_path "$extra_pkgpaths")"
         export DYLD_LIBRARY_PATH="$(sanitize_path "$HOME/lib:$HOME/.local/lib:$DYLD_LIBRARY_PATH")"
         export CLASSPATH="$(sanitize_path "$HOME/jar:$HOME/.local/jar:$CLASSPATH")"
 
