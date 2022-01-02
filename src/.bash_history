@@ -220,6 +220,7 @@ brew install zlib
 brew install zsh
 brew services info --all
 brew shellenv
+brew uninstall --zap lesspipe
 brew update; brew upgrade; cpan-outdated --exclude-core -p | xargs cpanm; gcloud components update; tldr --update; for codext in $(codium --list-extensions); do codium --install-extension "$codext" --force; done; vim +PlugUpdate
 brew-list-deps
 brotli -d filename.br
