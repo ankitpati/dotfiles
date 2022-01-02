@@ -12,6 +12,119 @@ sanitize_path()
                  | sed 's_//*_/_g'
 }
 
+# exec docker exec
+docker()
+{
+    case "$1" in
+    'exec' )
+        shift
+        exec docker exec "$@"
+        ;;
+    * )
+        command docker "$@"
+        ;;
+    esac
+}
+
+# pyenv install 3.8.0 (or whatever)
+#pyenv()
+#{
+#    case "$1" in
+#    'install'|'doctor' )
+#        LDFLAGS="-L$brew_prefix/opt/openssl@1.1/lib" \
+#        CPPFLAGS="-I$brew_prefix/opt/openssl@1.1/include" \
+#        PATH="$brew_prefix/opt/openssl@1.1/bin:$HOME/.pyenv/plugins/pyenv-virtualenv/shims:$HOME/.pyenv/shims:$HOME/.pyenv/bin:/usr/bin:/bin:/usr/sbin:/sbin:$brew_prefix/bin" \
+#        command pyenv "$@"
+#        ;;
+#    * )
+#        command pyenv "$@"
+#        ;;
+#    esac
+#}
+
+# delete junk files
+B-delds()
+{
+    echo 'Removing the following files...'
+    find "$HOME" -not \( -path "$HOME/Mounts" -prune \) \
+           -regextype egrep \
+           -regex '.*(\.(DS_Store|AppleDouble|AppleDesktop)|Thumbs\.db)$' \
+           -print \
+           -exec rm -rf {} +
+
+    echo 'Removing broken symlinks...'
+    find "$HOME" -not \( -path "$HOME/Mounts" -prune \) \
+            -type l \
+            ! -exec test -e {} \; \
+            -print \
+            -exec rm -rf {} +
+
+    echo 'Removing the QuickLook Cache...' # macOS exclusive
+    qlmanage -r cache
+}
+
+# delete CPANM cache
+B-clean-cpanm()
+{
+    echo 'Removing the CPANM Work Cache...'
+    rm -rf "$HOME/.cpanm/"{'work/','build.log','latest-build'}
+}
+
+# delete PIP cache
+B-clean-pip()
+{
+    echo 'Removing the PIP Cache...'
+    rm -rf "$HOME/Library/Caches/pip/"
+}
+
+# delete Homebrew and Perlbrew caches
+B-clean-cache()
+{
+    echo 'Removing the Homebrew Build Cache...'
+    brew cleanup --prune=0
+
+    echo 'Removing the Perlbrew Build Cache...'
+    perlbrew clean
+
+    B-clean-cpanm
+    B-clean-pip
+}
+
+# compact Homebrew git repositories
+B-brew-compact()
+{
+    echo 'Running `git cleanup` on Homebrew...'
+    for brewtap in "$brew_prefix/Homebrew" \
+                   "$brew_prefix/Homebrew/Library/Taps/"*/*
+    do
+        git -C "$brewtap" cleanup
+    done
+}
+
+# clean all the things!
+B-clean-all()
+{
+    B-delds
+    B-clean-cache
+    B-brew-compact
+
+    echo 'Compacting Bash History...'
+    cbh
+}
+
+# prepend old binaries to PATH
+B-oldbin()
+{
+    export PATH="$(sanitize_path "$HOME/oldbin:$PATH")"
+    hash -r
+}
+
+# autocompletion for custom git commands
+_git_pick()
+{
+    _git_cherry_pick
+}
+
 main()
 {
     # Source global definitions
@@ -353,119 +466,8 @@ main()
     alias S-ora-tns-yasql='yasql user/pass@tns'
     alias S-ora-tns-rqlplus='rlwrap sqlplus user/pass@tns'
     alias S-ora-tns-sqlplus='sqlplus user/pass@tns'
-}
 
-# exec docker exec
-docker()
-{
-    case "$1" in
-    'exec' )
-        shift
-        exec docker exec "$@"
-        ;;
-    * )
-        command docker "$@"
-        ;;
-    esac
-}
-
-# pyenv install 3.8.0 (or whatever)
-#pyenv()
-#{
-#    case "$1" in
-#    'install'|'doctor' )
-#        LDFLAGS="-L$brew_prefix/opt/openssl@1.1/lib" \
-#        CPPFLAGS="-I$brew_prefix/opt/openssl@1.1/include" \
-#        PATH="$brew_prefix/opt/openssl@1.1/bin:$HOME/.pyenv/plugins/pyenv-virtualenv/shims:$HOME/.pyenv/shims:$HOME/.pyenv/bin:/usr/bin:/bin:/usr/sbin:/sbin:$brew_prefix/bin" \
-#        command pyenv "$@"
-#        ;;
-#    * )
-#        command pyenv "$@"
-#        ;;
-#    esac
-#}
-
-# delete junk files
-B-delds()
-{
-    echo 'Removing the following files...'
-    find "$HOME" -not \( -path "$HOME/Mounts" -prune \) \
-           -regextype egrep \
-           -regex '.*(\.(DS_Store|AppleDouble|AppleDesktop)|Thumbs\.db)$' \
-           -print \
-           -exec rm -rf {} +
-
-    echo 'Removing broken symlinks...'
-    find "$HOME" -not \( -path "$HOME/Mounts" -prune \) \
-            -type l \
-            ! -exec test -e {} \; \
-            -print \
-            -exec rm -rf {} +
-
-    echo 'Removing the QuickLook Cache...' # macOS exclusive
-    qlmanage -r cache
-}
-
-# delete CPANM cache
-B-clean-cpanm()
-{
-    echo 'Removing the CPANM Work Cache...'
-    rm -rf "$HOME/.cpanm/"{'work/','build.log','latest-build'}
-}
-
-# delete PIP cache
-B-clean-pip()
-{
-    echo 'Removing the PIP Cache...'
-    rm -rf "$HOME/Library/Caches/pip/"
-}
-
-# delete Homebrew and Perlbrew caches
-B-clean-cache()
-{
-    echo 'Removing the Homebrew Build Cache...'
-    brew cleanup --prune=0
-
-    echo 'Removing the Perlbrew Build Cache...'
-    perlbrew clean
-
-    B-clean-cpanm
-    B-clean-pip
-}
-
-# compact Homebrew git repositories
-B-brew-compact()
-{
-    echo 'Running `git cleanup` on Homebrew...'
-    for brewtap in "$brew_prefix/Homebrew" \
-                   "$brew_prefix/Homebrew/Library/Taps/"*/*
-    do
-        git -C "$brewtap" cleanup
-    done
-}
-
-# clean all the things!
-B-clean-all()
-{
-    B-delds
-    B-clean-cache
-    B-brew-compact
-
-    echo 'Compacting Bash History...'
-    cbh
-}
-
-# prepend old binaries to PATH
-B-oldbin()
-{
-    export PATH="$(sanitize_path "$HOME/oldbin:$PATH")"
-    hash -r
-}
-
-# autocompletion for custom git commands
-_git_pick()
-{
-    _git_cherry_pick
+    return 0
 }
 
 # invoke `main` & cleanup
