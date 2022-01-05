@@ -1245,7 +1245,15 @@ osascript -e 'id of app "VSCodium"'
 ovsx create-namespace ankitpati --pat SecretPersonalAccessToken
 ovsx publish --pat SecretPersonalAccessToken
 p4 client
+p4 client -o
+p4 dirs -H //depot/\*
+p4 dirs //depot/\*
+p4 dirs //depot/t\*
+p4 help sizes
 p4 login
+p4 opened
+p4 set
+p4 sizes -sh //depot/directory/...
 p4 sync //path/to/directory/...
 p4 sync //path/to/file
 p4 trust
@@ -1260,6 +1268,7 @@ passwd postgres
 patch filename.c filename.c.patch
 pavumeter --record
 pbcopy < ~/.ssh/id_ed25519.pub
+perforce_dir=//depot/directory; p4 dirs "$perforce_dir/*"; p4 sizes -sh "$perforce_dir/..."
 perl -MModule::CoreList -E 'say Module::CoreList->find_modules(qr/path/i)'
 perl -MModule::CoreList -E 'say Module::CoreList->first_release(q{File::Path})'
 perl -dE 0
