@@ -1254,8 +1254,8 @@ p4 login
 p4 opened
 p4 set
 p4 sizes -sh //depot/directory/...
-p4 sync //path/to/directory/...
-p4 sync //path/to/file
+p4 sync //depot/directory/...
+p4 sync //depot/directory/file
 p4 trust
 package-cleanup
 package-cleanup --dupes
