@@ -72,6 +72,7 @@ brew install expect
 brew install file-formula
 brew install findutils
 brew install firebase-cli
+brew install fits
 brew install flex
 brew install forcecli
 brew install fselect
@@ -134,6 +135,7 @@ brew install make
 brew install man-db
 brew install mandoc
 brew install masscan
+brew install mat2
 brew install maven
 brew install maven-completion
 brew install mdcat
@@ -195,6 +197,7 @@ brew install terraform-rover
 brew install terraform_landscape
 brew install terraformer
 brew install terraforming
+brew install terrascan
 brew install tflint
 brew install tfmigrate
 brew install tfsec
@@ -1065,6 +1068,7 @@ git rebase branch-name --exec 'git commit --amend --author="Ankit Pati <contact@
 git show --format= --name-only
 git show --show-signature
 git show -U100
+git submodule update
 git submodule update --init
 go get github.com/ericchiang/pup
 go get png2svg
