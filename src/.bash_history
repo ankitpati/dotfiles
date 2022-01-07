@@ -1057,6 +1057,7 @@ gcloud projects list
 gcloud version
 git branch --format='%(refname:short)' | while read -r branch; do git checkout "$branch" || break; git rebase origin/main || break; done
 git branch -vv
+git cherry-pick branchname~2..branchname
 git commit --amend -S --no-edit
 git fetch origin pull/1000/HEAD:local-branch-name # for GitHub
 git lfs install
@@ -1064,7 +1065,10 @@ git log --pretty=email
 git log --pretty=format:%ae | sort -u | cut -d@ -f2- | sort -u
 git log --pretty=fuller --show-signature
 git log -p
+git merge --ff-only branchname
+git merge-base HEAD branchname
 git rebase branch-name --exec 'git commit --amend --author="Ankit Pati <contact@ankitpati.in>" --no-edit'
+git restore filename
 git show --format= --name-only
 git show --show-signature
 git show -U100
@@ -1178,8 +1182,6 @@ luarocks show dump
 markdownlint '**/*.md' 2> errors.txt
 mdfind -name '.csv'
 mdfind -name 'log4j' | ack -i '(?<!\.)2\..*\.jar$'
-merge --ff-only branchname
-merge-base HEAD branchname
 meson x --buildtype release --strip -Db_lto=true
 mogrify -format jpg ./*.png
 mojo version
