@@ -26,22 +26,6 @@ docker()
     esac
 }
 
-# pyenv install 3.8.0 (or whatever)
-#pyenv()
-#{
-#    case "$1" in
-#    'install'|'doctor' )
-#        LDFLAGS="-L$brew_prefix/opt/openssl@1.1/lib" \
-#        CPPFLAGS="-I$brew_prefix/opt/openssl@1.1/include" \
-#        PATH="$brew_prefix/opt/openssl@1.1/bin:$HOME/.pyenv/plugins/pyenv-virtualenv/shims:$HOME/.pyenv/shims:$HOME/.pyenv/bin:/usr/bin:/bin:/usr/sbin:/sbin:$brew_prefix/bin" \
-#        command pyenv "$@"
-#        ;;
-#    * )
-#        command pyenv "$@"
-#        ;;
-#    esac
-#}
-
 # delete junk files
 B-delds()
 {
