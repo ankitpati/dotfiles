@@ -61,6 +61,7 @@ alias cpan-outdated='cpan-outdated --mirror="$PERLBREW_CPAN_MIRROR"'
 alias podchecker='podchecker -warnings -warnings -warnings'
 alias bat='bat --paging=never --style=plain --wrap=never --'
 alias tohex="hexdump -ve '1/1 \"%.2x\" '"
+# shellcheck disable=SC2154
 alias unchomp='sed -i -e \$a\\ '
 alias ssh='exec ssh'
 alias telnet='exec telnet'
