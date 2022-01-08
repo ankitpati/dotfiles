@@ -75,16 +75,6 @@ B-oldbin()
     hash -r
 }
 
-_git_pick()
-{
-    _git_cherry_pick
-}
-
-_git_publish()
-{
-    _git_branch
-}
-
 export PATH="$(sanitize_path "$HOME/bin:$HOME/.local/bin:$PATH")"
 
 # Only on Debian and derivatives

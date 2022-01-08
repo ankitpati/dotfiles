@@ -119,12 +119,6 @@ B-oldbin()
     hash -r
 }
 
-# autocompletion for custom git commands
-_git_pick()
-{
-    _git_cherry_pick
-}
-
 main()
 {
     # Source global definitions

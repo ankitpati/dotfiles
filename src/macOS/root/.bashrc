@@ -19,12 +19,6 @@ B-oldbin()
     hash -r
 }
 
-# autocompletion for custom git commands
-_git_pick()
-{
-    _git_cherry_pick
-}
-
 main()
 {
     # Clear out `$PATH` before sourcing `/etc/profile` for root. This is necessary
