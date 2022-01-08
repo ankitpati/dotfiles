@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 ( unalias -a; comm -12 <(hash -r; ls {,/usr}/{,s}bin/ | xargs command -V 2>/dev/null | grep -Ev " is ($(brew --prefix)/|a shell (builtin|keyword))" | cut -d' ' -f1 | sort -u) <(ls "$(brew --prefix)/Homebrew/Library/Taps/homebrew/homebrew-core/Formula/" | rev | cut -d. -f2- | rev | sort -u) )
 GIT_COMMITTER_EMAIL='contact@ankitpati.in' git rebase branch-name --exec 'git commit --amend --author="Ankit Pati <contact@ankitpati.in>" --no-edit'
+LESS='-I' git log
 ack '(?<=^B: ).*$'
 adb logcat --pid="$(adb shell pidof -s in.ankitpati.gparse | cut -d' ' -f1)"
 adb logcat -c && adb logcat > current.log
@@ -13,6 +14,7 @@ age -R ~/.age/machine.recipient -o cipher.txt.age plain.txt
 age-keygen -o ~/.age/key.txt
 aria2c -c -x 16 'https://ankitpati.in/filename.br'
 bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+bind -P
 brew --prefix
 brew analytics off
 brew autoremove -n
@@ -271,6 +273,9 @@ cpanm WWW::Mechanize::Chrome
 cpanm XML::Bare
 cpanm XML::Parser
 cpanm XML::SAX::Expat
+crontab -e
+curl 'https://example.org/untrustworthy.dat'; exec cat
+curl 'https://ident.me'; echo; exec cat
 curl https://github.com/web-flow.gpg | gpg --import
 dart --disable-analytics
 date +%F
@@ -282,8 +287,14 @@ deactivate
 declare -p | grep '^declare -- '
 defaults write com.jetbrains.intellij ApplePressAndHoldEnabled -bool false
 defaults write com.visualstudio.code.oss ApplePressAndHoldEnabled -bool false
+df -h
+df -i
 diff HEAD~1 --name-only
 difftool branchname -- filename
+dig -t ANY google.com
+dig -x 172.30.83.9
+dig -x ankitpati.in
+dig ankitpati.in
 dnf config-manager --add-repo 'https://brave-browser-rpm-release.s3.brave.com/x86_64/'
 dnf copr enable kwizart/fedy
 dnf copr enable zeno/scrcpy
@@ -1042,7 +1053,7 @@ fpaste filename.txt
 free -h
 fuser -v 8080/tcp
 fzf
-gcc -march=native -Q --help=target
+gcc -march=native -Q --help=target | grep -E -- '-m(arch|tune)='
 gcloud auth application-default login
 gcloud auth list
 gcloud auth login
@@ -1055,12 +1066,16 @@ gcloud config unset project
 gcloud info
 gcloud projects list
 gcloud version
+git add -p
 git branch --format='%(refname:short)' | while read -r branch; do git checkout "$branch" || break; git rebase origin/main || break; done
 git branch -vv
+git checkout -p
 git cherry-pick branchname~2..branchname
 git commit --amend -S --no-edit
+git config --show-origin credential.helper
 git fetch origin pull/1000/HEAD:local-branch-name # for GitHub
 git lfs install
+git log --follow -- filename
 git log --pretty=email
 git log --pretty=format:%ae | sort -u | cut -d@ -f2- | sort -u
 git log --pretty=fuller --show-signature
@@ -1074,6 +1089,7 @@ git show --show-signature
 git show -U100
 git submodule update
 git submodule update --init
+gjs-console
 go get github.com/ericchiang/pup
 go get png2svg
 go-avif
@@ -1115,12 +1131,15 @@ hdparm --user-master u --security-unlock SecretPassword /dev/sdb
 hdparm -I /dev/sdb
 hexdump -C filename.dat
 hg clone 'https://foss.heptapod.net/pypy/pypy' pypy
+hostname -I
 hostnamectl set-hostname boronHostname
 html-beautify -f filename.html
 http 'https://ankitpati.in/filename.txt'; exec cat
 http_this --port 7009
 hunspell -l
 hwloc-ls
+i2cdetect -l
+id -u
 identify -format '%x,%y\n' filename.png
 ideviceinfo
 idevicepair
@@ -1149,6 +1168,7 @@ jsonlint filename.json
 jsonlint-php filename.json
 jupyter notebook password
 jupyter serverextension enable --py jupyterlab
+kate-syntax-highlighter --list-themes
 kate-syntax-highlighter -t 'Vim Dark' filename.pl > filename.html
 keytool -printcert -file cert.pem
 latest-version asar
@@ -1183,6 +1203,7 @@ markdownlint '**/*.md' 2> errors.txt
 mdfind -name '.csv'
 mdfind -name 'log4j' | ack -i '(?<!\.)2\..*\.jar$'
 meson x --buildtype release --strip -Db_lto=true
+modinfo -F version nvidia
 mogrify -format jpg ./*.png
 mojo version
 msfconsole
@@ -1246,6 +1267,11 @@ objdump -d elf-binary-filename
 objdump -g elf-binary-filename
 objdump -r elf-binary-filename
 openfortivpn fortigate.ankitpati.in -u ankitpati -p SecretPassword -o 012345
+openssl list -digest-algorithms
+openssl req -x509 -days 36500 -new -key id_rsa -out id_rsa.x509
+openssl s_client -connect ankitpati.in:443
+openssl x509 -in ankitpati.pem -text
+openssl x509 -in ankitpati.pem -text -noout
 optipng -o7 filename.png
 osascript -e 'id of app "VSCodium"'
 ovsx create-namespace ankitpati --pat SecretPersonalAccessToken
