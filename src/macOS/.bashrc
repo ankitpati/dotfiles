@@ -159,9 +159,6 @@ main()
     # PostgreSQL
     export PGDATA="$brew_prefix/var/postgres"
 
-    # Perforce
-    export P4EDITOR='vim'
-
     # JBOSS
     export JBOSS_HOME="$brew_prefix/opt/wildfly-as/libexec"
 
