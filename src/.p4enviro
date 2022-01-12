@@ -1,0 +1,4 @@
+P4CLIENT=ankitpati
+P4EDITOR=vim
+P4PORT=ssl:p4.example.org:1666
+P4USER=ankitpati
