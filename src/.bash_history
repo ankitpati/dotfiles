@@ -43,6 +43,7 @@ brew install binutils
 brew install bison
 brew install byacc
 brew install bzip2
+brew install certigo
 brew install checkbashisms
 brew install checkstyle
 brew install chrome-cli
@@ -66,6 +67,7 @@ brew install dnstracer
 brew install docker-completion
 brew install dos2unix
 brew install doxygen
+brew install driftctl
 brew install dyld-headers
 brew install dylibbundler
 brew install ed
@@ -1178,6 +1180,7 @@ launchctl load /System/Library/LaunchDaemons/ssh.plist
 launchctl unload /System/Library/LaunchDaemons/ssh.plist
 limitcpu
 ln -s "$(brew --prefix)/opt/openssl@1.1/" "$(brew --prefix)/opt/openssl"
+ln -sfn "$(brew --prefix)/opt/openjdk/libexec/openjdk.jdk" /Library/Java/JavaVirtualMachines/openjdk.jdk
 locate --statistics
 loginctl list-sessions
 loginctl show-session
