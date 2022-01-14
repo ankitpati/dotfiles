@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 ( unalias -a; comm -12 <(hash -r; ls {,/usr}/{,s}bin/ | xargs command -V 2>/dev/null | grep -Ev " is ($(brew --prefix)/|a shell (builtin|keyword))" | cut -d' ' -f1 | sort -u) <(ls "$(brew --prefix)/Homebrew/Library/Taps/homebrew/homebrew-core/Formula/" | rev | cut -d. -f2- | rev | sort -u) )
+/usr/libexec/java_home
+/usr/libexec/java_home -V
+/usr/libexec/java_home -v 1.8
 GIT_COMMITTER_EMAIL='contact@ankitpati.in' git rebase branch-name --exec 'git commit --amend --author="Ankit Pati <contact@ankitpati.in>" --no-edit'
 LESS='-I' git log
 ack '(?<=^B: ).*$'
@@ -60,6 +63,7 @@ brew install curl
 brew install dash
 brew install datree
 brew install ddrescue
+brew install devspace
 brew install diffoscope
 brew install diffstat
 brew install diffutils
@@ -71,6 +75,7 @@ brew install driftctl
 brew install dyld-headers
 brew install dylibbundler
 brew install ed
+brew install eksctl
 brew install eslint
 brew install expect
 brew install file-formula
@@ -205,6 +210,7 @@ brew install terrascan
 brew install tflint
 brew install tfmigrate
 brew install tfsec
+brew install tfupdate
 brew install tika
 brew install tmux
 brew install tree
@@ -1004,6 +1010,7 @@ exec su - ankitpati
 exec sudo -i
 exec sudo -u ankitpati -i
 exiftool -p '$XResolution,$YResolution' filename.jpg
+export JAVA_HOME="$(/usr/libexec/java_home -v 1.8)"
 factor 1849
 fallocate -l 100M hundred-MiB-file
 fallocate -l 1K one-kb-file
@@ -1078,9 +1085,9 @@ git config --show-origin credential.helper
 git fetch origin pull/1000/HEAD:local-branch-name # for GitHub
 git lfs install
 git log --follow -- filename
+git log --graph --pretty=fuller --show-signature
 git log --pretty=email
 git log --pretty=format:%ae | sort -u | cut -d@ -f2- | sort -u
-git log --pretty=fuller --show-signature
 git log -p
 git merge --ff-only branchname
 git merge-base HEAD branchname
@@ -1286,6 +1293,8 @@ p4 dirs //depot/\*
 p4 dirs //depot/t\*
 p4 help sizes
 p4 login
+p4 monitor show
+p4 monitor terminate 1234
 p4 opened
 p4 set
 p4 sizes -sh //depot/directory/...
