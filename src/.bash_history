@@ -143,6 +143,7 @@ brew install maccy
 brew install make
 brew install man-db
 brew install mandoc
+brew install marp-cli
 brew install masscan
 brew install mat2
 brew install maven
@@ -172,7 +173,6 @@ brew install proguard
 brew install pwgen
 brew install pyright
 brew install qemu
-brew install quip
 brew install rakudo
 brew install ripgrep-all
 brew install rlwrap
@@ -181,6 +181,7 @@ brew install rpcgen
 brew install rsync
 brew install rust
 brew install rustc-completion
+brew install scorecard
 brew install screen
 brew install semgrep
 brew install sha3sum
@@ -234,7 +235,7 @@ brew install zsh
 brew services info --all
 brew shellenv
 brew uninstall --zap lesspipe
-brew update; brew upgrade; cpan-outdated --exclude-core -p | xargs cpanm; gcloud components update; tldr --update; for codext in $(codium --list-extensions); do codium --install-extension "$codext" --force; done; vim +PlugUpdate
+brew update; brew upgrade; cpan-outdated --exclude-core -p | xargs cpanm; gcloud components update; tldr --update; for codext in $(codium --list-extensions); do codium --install-extension "$codext" --force; done; vim +PlugUpdate; softwareupdate -l
 brew-list-deps
 brotli -d filename.br
 brotli filename
@@ -1293,6 +1294,7 @@ p4 dirs //depot/\*
 p4 dirs //depot/t\*
 p4 help sizes
 p4 login
+p4 login -as
 p4 monitor show
 p4 monitor terminate 1234
 p4 opened
