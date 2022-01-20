@@ -82,6 +82,7 @@ brew install file-formula
 brew install findutils
 brew install firebase-cli
 brew install fits
+brew install flake8
 brew install flex
 brew install forcecli
 brew install fselect
@@ -155,6 +156,7 @@ brew install minio-mc
 brew install moreutils
 brew install mosh
 brew install mscgen
+brew install mypy
 brew install nano
 brew install ncdu
 brew install neofetch
@@ -235,6 +237,7 @@ brew install zsh
 brew services info --all
 brew shellenv
 brew uninstall --zap lesspipe
+brew uninstall --zap quip
 brew update; brew upgrade; cpan-outdated --exclude-core -p | xargs cpanm; gcloud components update; tldr --update; for codext in $(codium --list-extensions); do codium --install-extension "$codext" --force; done; vim +PlugUpdate; softwareupdate -l
 brew-list-deps
 brotli -d filename.br
