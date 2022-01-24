@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 ( unalias -a; comm -12 <(hash -r; ls {,/usr}/{,s}bin/ | xargs command -V 2>/dev/null | grep -Ev " is ($(brew --prefix)/|a shell (builtin|keyword))" | cut -d' ' -f1 | sort -u) <(ls "$(brew --prefix)/Homebrew/Library/Taps/homebrew/homebrew-core/Formula/" | rev | cut -d. -f2- | rev | sort -u) )
+/bin/ls -l@
 /usr/libexec/java_home
 /usr/libexec/java_home -V
 /usr/libexec/java_home -v 1.8
@@ -116,6 +117,7 @@ brew install grpc
 brew install gzip
 brew install hping
 brew install htop
+brew install http-prompt
 brew install httpd
 brew install httrack
 brew install inetutils
@@ -1143,6 +1145,7 @@ hdparm --user-master u --security-disable SecretPassword /dev/sdb
 hdparm --user-master u --security-unlock SecretPassword /dev/sdb
 hdparm -I /dev/sdb
 hexdump -C filename.dat
+hexdump -C ~/Applications/Chrome\ Apps.localized/Icon$'\r'/..namedfork/rsrc
 hg clone 'https://foss.heptapod.net/pypy/pypy' pypy
 hostname -I
 hostnamectl set-hostname boronHostname
@@ -1222,7 +1225,7 @@ mogrify -format jpg ./*.png
 mojo version
 msfconsole
 msfdb stop
-mvn --encrypt-master-password "$(openssl rand -base64 35)"
+mvn --encrypt-master-password 'maven-master-password'
 mvn --encrypt-password 'maven-server-password'
 namei -om /bin/perl6
 nc -lp 5432
@@ -1281,8 +1284,13 @@ objdump -d elf-binary-filename
 objdump -g elf-binary-filename
 objdump -r elf-binary-filename
 openfortivpn fortigate.ankitpati.in -u ankitpati -p SecretPassword -o 012345
-openssl list -digest-algorithms
+openssl asn1parse -in openssl.key
+openssl genpkey -algorithm RSA -aes128 -out openssl.key
+openssl pkcs8 -in openssl.key | openssl pkcs8 -topk8 -v2 aes128 -out openssl.key
+openssl pkey -aes128 -in openssl.key -text
 openssl req -x509 -days 36500 -new -key id_rsa -out id_rsa.x509
+openssl rsa -in openssl.key -pubout -out openssl.pub
+openssl rsa -in openssl.key -text -noout
 openssl s_client -connect ankitpati.in:443
 openssl x509 -in ankitpati.pem -text
 openssl x509 -in ankitpati.pem -text -noout
@@ -1486,6 +1494,9 @@ usermod -aG libvirt ankitpati
 usermod -aG wireshark ankitpati
 vdpauinfo
 vim -- $(grep -Elr -- '^(<<<<<<< HEAD|=======|>>>>>>> [[:xdigit:]]+ .*)$' | sort -u)
+vim -i NONE -u NONE ~/.viminfo
+vim -i NONE ~/.viminfo
+vim -u NONE ~/.viminfo
 vim /etc/shells
 virsh -c qemu:///system list --all
 virsh -c qemu:///system send-key Windows-10 --codeset win32 37
@@ -1510,6 +1521,8 @@ while read -r directory; do find "$(case "$directory" in -*) printf '%s' ./ ;; e
 while read -r gitdir; do cd "$gitdir/"; git pull; cd ..; done < <(ls)
 write ankitpati :1
 write ankitpati tty4
+xattr -l filename
+xattr filename
 xclip < ~/.ssh/id_ed25519.pub
 xclip < ~/Code/ankitpati.in/public/gpg.asc
 xclip-copyfile filename
