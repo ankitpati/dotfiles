@@ -240,7 +240,6 @@ brew services info --all
 brew shellenv
 brew uninstall --zap lesspipe
 brew uninstall --zap quip
-brew update; brew upgrade; cpan-outdated --exclude-core -p | xargs cpanm; gcloud components update; tldr --update; for codext in $(codium --list-extensions); do codium --install-extension "$codext" --force; done; vim +PlugUpdate; softwareupdate -l
 brew-list-deps
 brotli -d filename.br
 brotli filename
@@ -1304,6 +1303,7 @@ p4 dirs -H //depot/\*
 p4 dirs //depot/\*
 p4 dirs //depot/t\*
 p4 help sizes
+p4 info
 p4 login
 p4 login -as
 p4 monitor show
@@ -1431,6 +1431,7 @@ sloccount .
 snap install flutter --classic
 snap list
 snyk auth
+softwareupdate -i -a; brew update; brew upgrade; cpan-outdated --exclude-core -p | xargs cpanm; gcloud components update; tldr --update; for codext in $(codium --list-extensions); do codium --install-extension "$codext" --force; done; vim +PlugUpdate
 source ./.venv/bin/activate
 spctl developer-mode enable-terminal
 speedtest
@@ -1526,6 +1527,7 @@ xattr filename
 xclip < ~/.ssh/id_ed25519.pub
 xclip < ~/Code/ankitpati.in/public/gpg.asc
 xclip-copyfile filename
+xcode-select --install
 xcodebuild -license
 xdg-open .
 xdg-open filename
