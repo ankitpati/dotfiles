@@ -115,6 +115,7 @@ brew install grep
 brew install groff
 brew install grpc
 brew install gzip
+brew install helm
 brew install hping
 brew install htop
 brew install http-prompt
@@ -178,6 +179,7 @@ brew install pwgen
 brew install pyright
 brew install qemu
 brew install rakudo
+brew install reorder-python-imports
 brew install ripgrep-all
 brew install rlwrap
 brew install rmlint
@@ -228,6 +230,7 @@ brew install util-linux
 brew install vim
 brew install vscodium
 brew install watch
+brew install watchexec
 brew install wget
 brew install whois
 brew install with-readline
