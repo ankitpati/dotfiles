@@ -124,6 +124,7 @@ brew install httrack
 brew install inetutils
 brew install iproute2mac
 brew install ipv6calc
+brew install iredis
 brew install irssi
 brew install istioctl
 brew install iterm2
@@ -311,6 +312,7 @@ dig -t ANY google.com
 dig -x 172.30.83.9
 dig -x ankitpati.in
 dig ankitpati.in
+dirs -v
 dnf config-manager --add-repo 'https://brave-browser-rpm-release.s3.brave.com/x86_64/'
 dnf copr enable kwizart/fedy
 dnf copr enable zeno/scrcpy
@@ -1134,6 +1136,7 @@ gradle
 gradle --stop
 grep '^p4 sync ' ~/.bash_history | cut -d' ' -f3- | sort -u | while read -r p4dir; do p4 sync "$p4dir"; done
 grep -E "^($(tail -n +2 brew-deps.csv | cut -d, -f1 | comm -23 - brew-install-list.txt | paste -sd'|'))" brew-deps.csv | grep -v ,
+grep -l search-string -r . | xargs -o vim
 gsettings set org.gnome.shell.app-switcher current-workspace-only true
 guiscrcpy
 guiscrcpy config -r
@@ -1384,6 +1387,7 @@ podman pull fedora-toolbox
 podman pull registry.fedoraproject.org/f34
 podman rmi 536f3995adeb
 podman stop fedora-toolbox-33
+popd
 potrace filename.png
 prettier -w filename.css
 prettier -w filename.html
@@ -1391,6 +1395,7 @@ prettier -w filename.js
 prettyping google.com
 pup 'css-selector' < filename.html
 pup --color < filename.html
+pushd path/to/directory/
 pylint --py3k path/to/python/file.py
 pyment -w path/to/python/file.py
 python -m pdb <(echo 'import sys; print(sys.path);')
