@@ -1,11 +1,12 @@
 #!/usr/bin/env bash
+( GIT_COMMITTER_EMAIL='contact@ankitpati.in' git rebase branch-name --exec 'git commit --amend --author="Ankit Pati <contact@ankitpati.in>" --no-edit' )
+( LESS='-I' git log )
+( perforce_dir=//depot/directory; p4 dirs "$perforce_dir/*"; p4 sizes -sh "$perforce_dir/..." )
 ( unalias -a; comm -12 <(hash -r; ls {,/usr}/{,s}bin/ | xargs command -V 2>/dev/null | grep -Ev " is ($(brew --prefix)/|a shell (builtin|keyword))" | cut -d' ' -f1 | sort -u) <(ls "$(brew --prefix)/Homebrew/Library/Taps/homebrew/homebrew-core/Formula/" | rev | cut -d. -f2- | rev | sort -u) )
 /bin/ls -l@
 /usr/libexec/java_home
 /usr/libexec/java_home -V
 /usr/libexec/java_home -v 1.8
-GIT_COMMITTER_EMAIL='contact@ankitpati.in' git rebase branch-name --exec 'git commit --amend --author="Ankit Pati <contact@ankitpati.in>" --no-edit'
-LESS='-I' git log
 ack '(?<=^B: ).*$'
 adb logcat --pid="$(adb shell pidof -s in.ankitpati.gparse | cut -d' ' -f1)"
 adb logcat -c && adb logcat > current.log
@@ -1339,7 +1340,6 @@ passwd postgres
 patch filename.c filename.c.patch
 pavumeter --record
 pbcopy < ~/.ssh/id_ed25519.pub
-perforce_dir=//depot/directory; p4 dirs "$perforce_dir/*"; p4 sizes -sh "$perforce_dir/..."
 perl -MModule::CoreList -E 'say Module::CoreList->find_modules(qr/path/i)'
 perl -MModule::CoreList -E 'say Module::CoreList->first_release(q{File::Path})'
 perl -dE 0
