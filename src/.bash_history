@@ -135,6 +135,7 @@ brew install k6
 brew install k9s
 brew install kotlin
 brew install ksh
+brew install lastpass-cli
 brew install less
 brew install libressl
 brew install libtermkey
@@ -1204,6 +1205,11 @@ locate --statistics
 loginctl list-sessions
 loginctl show-session
 loginctl show-session 2 -p Type
+lpass --help
+lpass login contact@ankitpati.in
+lpass ls
+lpass show --password unique_name
+lpass show --username unique_name
 ls "$(brew --prefix)/bin/g"* | rev | cut -d/ -f1 | rev | cut -dg -f2- | xargs -r which 2>/dev/null | grep -v "^$(brew --prefix)/" | rev | cut -d/ -f1 | rev | while read -r binary; do echo "$(brew --prefix)/bin/g$binary"; done | xargs -r ls -l | rev | cut -d/ -f4 | rev | sort -u
 ls /Library/Launch{Agents,Daemons}
 ls ~/Library/Application\ Support/VSCodium/User/settings.json
