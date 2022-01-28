@@ -994,6 +994,7 @@ dnf remove qt-avif-image-plugin
 dnf remove vidcutter
 dnf remove virtualbox-guest-additions
 dnf repolist all
+echo "$(lpass show --password perforce)" | p4 login
 echo $LINES $COLUMNS
 echo 'Subject: Hello' | sendmail -v contact@ankitpati.in
 ember build
