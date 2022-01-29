@@ -35,6 +35,7 @@ brew install aria2
 brew install arp-scan
 brew install arping
 brew install astyle
+brew install atlas
 brew install automake
 brew install awscli
 brew install base64
@@ -1208,6 +1209,7 @@ loginctl list-sessions
 loginctl show-session
 loginctl show-session 2 -p Type
 lpass --help
+lpass edit --password unique_name
 lpass login contact@ankitpati.in
 lpass ls
 lpass show --password unique_name
