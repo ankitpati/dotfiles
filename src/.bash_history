@@ -47,6 +47,7 @@ brew install bat
 brew install bc
 brew install binutils
 brew install bison
+brew install black
 brew install byacc
 brew install bzip2
 brew install certigo
@@ -137,6 +138,7 @@ brew install k6
 brew install k9s
 brew install kotlin
 brew install ksh
+brew install kubergrunt
 brew install lastpass-cli
 brew install less
 brew install libressl
@@ -1510,6 +1512,12 @@ uptime
 usb-devices
 usermod -aG libvirt ankitpati
 usermod -aG wireshark ankitpati
+vctl kind
+vctl ps -a
+vctl system start
+vctl version
+vctl volume
+vctl volume prune
 vdpauinfo
 vim -- $(grep -Elr -- '^(<<<<<<< HEAD|=======|>>>>>>> [[:xdigit:]]+ .*)$' | sort -u)
 vim -i NONE -u NONE ~/.viminfo
