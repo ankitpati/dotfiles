@@ -1479,6 +1479,7 @@ systemctl edit --user --force --full filename.service
 systemctl edit --user filename.service
 systemctl list-units --type=service --state=active
 systemctl list-units --type=service --state=running
+systemd-analyze cat-config systemd/resolved.conf
 tail -n +2 brew-deps.csv | cut -d, -f1 | comm -23 - brew-install-list.txt | while read -r brew_formula; do grep "^$brew_formula" brew-deps.csv; done
 terraform apply
 terraform fmt
