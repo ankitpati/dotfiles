@@ -2,6 +2,7 @@
 ( GIT_COMMITTER_EMAIL='contact@ankitpati.in' git rebase branch-name --exec 'git commit --amend --author="Ankit Pati <contact@ankitpati.in>" --no-edit' )
 ( LESS='-I' git log )
 ( perforce_dir=//depot/directory; p4 dirs "$perforce_dir/*"; p4 sizes -sh "$perforce_dir/..." )
+( ssh_private_key_file=id_ed25519; ssh-keygen -l -v -f "$ssh_private_key_file" && ssh-keygen -y -f "$ssh_private_key_file" && cat "$ssh_private_key_file" )
 ( unalias -a; comm -12 <(hash -r; ls {,/usr}/{,s}bin/ | xargs command -V 2>/dev/null | grep -Ev " is ($(brew --prefix)/|a shell (builtin|keyword))" | cut -d' ' -f1 | sort -u) <(ls "$(brew --prefix)/Homebrew/Library/Taps/homebrew/homebrew-core/Formula/" | rev | cut -d. -f2- | rev | sort -u) )
 /bin/ls -l@
 /usr/libexec/java_home
@@ -1214,8 +1215,10 @@ lpass --help
 lpass edit --password unique_name
 lpass login contact@ankitpati.in
 lpass ls
+lpass show --field='Public Key' unique_name
 lpass show --password unique_name
 lpass show --username unique_name
+lpass show unique_name
 ls "$(brew --prefix)/bin/g"* | rev | cut -d/ -f1 | rev | cut -dg -f2- | xargs -r which 2>/dev/null | grep -v "^$(brew --prefix)/" | rev | cut -d/ -f1 | rev | while read -r binary; do echo "$(brew --prefix)/bin/g$binary"; done | xargs -r ls -l | rev | cut -d/ -f4 | rev | sort -u
 ls /Library/Launch{Agents,Daemons}
 ls ~/Library/Application\ Support/VSCodium/User/settings.json
@@ -1460,8 +1463,10 @@ ss -tulpn
 ssh -L 8080:/tmp/sockname.sock ssh.ankitpati.in
 ssh -o ClearAllForwardings=yes ssh.ankitpati.in
 ssh-copy-id -o PasswordAuthentication=yes ssh.ankitpati.in
+ssh-keygen -l -v -f ~/.ssh/id_ed25519
 ssh-keygen -l -v -f ~/.ssh/id_ed25519.pub
 ssh-keygen -t ed25519
+ssh-keygen -y -f ~/.ssh/id_ed25519
 stat -c '%w' filename
 strace -e open -o programname.strace programname programargs
 strace programname 2> programname.strace
