@@ -1353,6 +1353,7 @@ perl -dE 0
 perl -pi -E 'chomp if eof' filename.txt
 perlbrew list-modules
 perlbrew upgrade-perl
+pgrep -x chrome
 pidof -s chrome
 pidof chrome
 ping -s 1500 ankitpati.in
@@ -1382,6 +1383,7 @@ pip install voila
 pip install wheel
 pip install wxPython
 pip install xgboost
+pkill -x chrome
 pkmon
 plackup -L Shotgun filename.psgi
 plackup -r filename.psgi
