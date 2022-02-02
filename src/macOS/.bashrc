@@ -12,20 +12,6 @@ sanitize_path()
                  | sed 's_//*_/_g'
 }
 
-# exec docker exec
-docker()
-{
-    case "$1" in
-    'exec' )
-        shift
-        exec docker exec "$@"
-        ;;
-    * )
-        command docker "$@"
-        ;;
-    esac
-}
-
 # delete junk files
 B-delds()
 {
