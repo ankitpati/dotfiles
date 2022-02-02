@@ -289,6 +289,9 @@ main()
     local pyenvpath="$HOME/.pyenv/bin"
     test -d "$pyenvpath" && extra_binaries="$pyenvpath:$extra_binaries"
 
+    local vctlpath="$HOME/.vctl/bin"
+    test -d "$vctlpath" && extra_binaries="$vctlpath:$extra_binaries"
+
     # clean and export the fruits of the above labour
     if test "$use_gnu_binaries" = 'true'; then
         export PATH="$(sanitize_path "$extra_binaries:$PATH")"
