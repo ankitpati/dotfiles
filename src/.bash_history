@@ -1520,9 +1520,17 @@ uptime
 usb-devices
 usermod -aG libvirt ankitpati
 usermod -aG wireshark ankitpati
+vctl images -a
+vctl images -d
 vctl kind
 vctl ps -a
+vctl pull rockylinux
+vctl rm -a
+vctl rmi -a
+vctl run -it rockylinux bash
+vctl system info
 vctl system start
+vctl system stop
 vctl version
 vctl volume
 vctl volume prune
