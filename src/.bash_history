@@ -1334,6 +1334,7 @@ p4 monitor terminate 1234
 p4 opened
 p4 set
 p4 sizes -sh //depot/directory/...
+p4 status
 p4 sync //depot/directory/...
 p4 sync //depot/directory/...#none
 p4 sync //depot/directory/file
