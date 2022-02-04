@@ -226,6 +226,7 @@ brew install tfmigrate
 brew install tfsec
 brew install tfupdate
 brew install tika
+brew install timg
 brew install tmux
 brew install tree
 brew install ugrep
@@ -999,7 +1000,6 @@ dnf remove qt-avif-image-plugin
 dnf remove vidcutter
 dnf remove virtualbox-guest-additions
 dnf repolist all
-echo "$(lpass show --password perforce)" | p4 login
 echo $LINES $COLUMNS
 echo 'Subject: Hello' | sendmail -v contact@ankitpati.in
 ember build
@@ -1143,6 +1143,7 @@ gradle
 gradle --stop
 grep '^p4 sync ' ~/.bash_history | cut -d' ' -f3- | sort -u | while read -r p4dir; do p4 sync "$p4dir"; done
 grep -E "^($(tail -n +2 brew-deps.csv | cut -d, -f1 | comm -23 - brew-install-list.txt | paste -sd'|'))" brew-deps.csv | grep -v ,
+grep -Elr -- '^(<<<<<<< HEAD|=======|>>>>>>> [[:xdigit:]]+ .*)$' | sort -u | xargs -o vim
 grep -l search-string -r . | xargs -o vim
 gsettings set org.gnome.shell.app-switcher current-workspace-only true
 guiscrcpy
@@ -1216,6 +1217,7 @@ lpass edit --password unique_name
 lpass login contact@ankitpati.in
 lpass ls
 lpass show --field='Public Key' unique_name
+lpass show --password perforce | p4 login
 lpass show --password unique_name
 lpass show --username unique_name
 lpass show unique_name
@@ -1228,7 +1230,7 @@ lscpu
 lsdev
 lshw
 lsmod
-lsof
+lsof -PiTCP -sTCP:LISTEN
 lspci
 lstopo
 lsusb
@@ -1485,7 +1487,7 @@ systemd-analyze cat-config systemd/resolved.conf
 tail -n +2 brew-deps.csv | cut -d, -f1 | comm -23 - brew-install-list.txt | while read -r brew_formula; do grep "^$brew_formula" brew-deps.csv; done
 terraform apply
 terraform fmt
-terraform graph | apdot -Tpng | imgcat
+terraform graph | apdot -Tpng | timg -
 terraform graph | apdot -Tsvg > filename.svg
 terraform init
 terraform init -verify-plugins=false
@@ -1535,7 +1537,6 @@ vctl version
 vctl volume
 vctl volume prune
 vdpauinfo
-vim -- $(grep -Elr -- '^(<<<<<<< HEAD|=======|>>>>>>> [[:xdigit:]]+ .*)$' | sort -u)
 vim -i NONE -u NONE ~/.viminfo
 vim -i NONE ~/.viminfo
 vim -u NONE ~/.viminfo
@@ -1560,7 +1561,7 @@ whatchanged origin/development..
 while :; do virsh -c qemu:///system send-key Windows-10 KEY_J; sleep 120; done
 while :; do xdotool mousemove --sync 1000 10 sleep 0.5 mousemove restore; sleep 120; done
 while read -r directory; do find "$(case "$directory" in -*) printf '%s' ./ ;; esac; printf '%s' "$directory")" \( -type f -exec ls -lt -- {} \; -exec md5sum -- {} \; \) -o \( -type d -exec ls -ltd -- {} \; -exec printf '%s%s' 'directory ' {} \; \); done < directory-list.txt
-while read -r gitdir; do cd "$gitdir/"; git pull; cd ..; done < <(ls)
+while read -r gitdir; do ( cd "$gitdir/"; git pull ) done < <(ls)
 write ankitpati :1
 write ankitpati tty4
 xattr -l filename
