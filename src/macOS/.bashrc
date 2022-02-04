@@ -346,6 +346,9 @@ main()
         export LUA_CPATH=";;$HOME/.luarocks/lib64/lua/$lua_version/?.so"
         export PATH="$(sanitize_path "$HOME/.luarocks/bin:$PATH")"
 
+        # Kubernetes kind
+        eval "$(kind completion bash)"
+
         # CERN Root
         test -f "$brew_prefix/bin/thisroot.sh" && \
            source "$brew_prefix/bin/thisroot.sh"
