@@ -1000,7 +1000,7 @@ dnf remove qt-avif-image-plugin
 dnf remove vidcutter
 dnf remove virtualbox-guest-additions
 dnf repolist all
-echo $LINES $COLUMNS
+echo "$LINES" "$COLUMNS"
 echo 'Subject: Hello' | sendmail -v contact@ankitpati.in
 ember build
 ember build --environment=production
