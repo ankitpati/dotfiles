@@ -18,6 +18,7 @@ advzip --recompress -4 --iter 1000 filename.zip
 age --decrypt -i ~/.age/key.txt -o plain.txt cipher.txt.age
 age -R ~/.age/machine.recipient -o cipher.txt.age plain.txt
 age-keygen -o ~/.age/key.txt
+apdot filename.dot -Tpng | timg -
 aria2c -c -x 16 'https://ankitpati.in/filename.br'
 bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 bind -P
@@ -28,6 +29,7 @@ brew developer --verbose state
 brew doctor
 brew help --prefix
 brew help developer
+brew install --cask docker
 brew install ack
 brew install advancecomp
 brew install age
@@ -59,6 +61,7 @@ brew install chrome-export
 brew install chromedriver
 brew install chromium
 brew install clang-format
+brew install clusterctl
 brew install cmake
 brew install coreutils
 brew install cpanminus
@@ -137,7 +140,9 @@ brew install jq
 brew install jsonlint
 brew install k6
 brew install k9s
+brew install kind
 brew install kotlin
+brew install krew
 brew install ksh
 brew install kubergrunt
 brew install lastpass-cli
@@ -250,6 +255,7 @@ brew install zsh
 brew services info --all
 brew shellenv
 brew uninstall --zap lesspipe
+brew uninstall --zap llvm
 brew uninstall --zap quip
 brew-list-deps
 brotli -d filename.br
@@ -1000,6 +1006,10 @@ dnf remove qt-avif-image-plugin
 dnf remove vidcutter
 dnf remove virtualbox-guest-additions
 dnf repolist all
+docker images -a
+docker inspect tender_chatterjee
+docker ps -a
+docker run -it oraclelinux:8 bash
 echo "$LINES" "$COLUMNS"
 echo 'Subject: Hello' | sendmail -v contact@ankitpati.in
 ember build
@@ -1143,6 +1153,7 @@ gradle
 gradle --stop
 grep '^p4 sync ' ~/.bash_history | cut -d' ' -f3- | sort -u | while read -r p4dir; do p4 sync "$p4dir"; done
 grep -E "^($(tail -n +2 brew-deps.csv | cut -d, -f1 | comm -23 - brew-install-list.txt | paste -sd'|'))" brew-deps.csv | grep -v ,
+grep -E '^\s+keg_only' -r "$(brew --prefix)/Homebrew/Library/Taps/homebrew/homebrew-core/Formula/"
 grep -Elr -- '^(<<<<<<< HEAD|=======|>>>>>>> [[:xdigit:]]+ .*)$' | sort -u | xargs -o vim
 grep -l search-string -r . | xargs -o vim
 gsettings set org.gnome.shell.app-switcher current-workspace-only true
@@ -1200,6 +1211,20 @@ jupyter serverextension enable --py jupyterlab
 kate-syntax-highlighter --list-themes
 kate-syntax-highlighter -t 'Vim Dark' filename.pl > filename.html
 keytool -printcert -file cert.pem
+kind create cluster
+kind delete cluster
+kind get clusters
+kind get kubeconfig
+kind get nodes
+kind version
+kubectl cluster-info --context docker-desktop
+kubectl cluster-info --context kind-kind
+kubectl cluster-info --context kind-kind dump
+kubectl config view
+kubectl get nodes
+kubectl get pods -A
+kubectl get svc -A
+kubectl version
 latest-version asar
 latest-version spectron
 launchctl list
@@ -1217,6 +1242,7 @@ lpass edit --password unique_name
 lpass login contact@ankitpati.in
 lpass ls
 lpass show --field='Public Key' unique_name
+lpass show --password docker_personal_access_token | docker login -u "$(lpass show --username docker_personal_access_token)" --password-stdin
 lpass show --password perforce | p4 login
 lpass show --password unique_name
 lpass show --username unique_name
@@ -1525,10 +1551,12 @@ usermod -aG libvirt ankitpati
 usermod -aG wireshark ankitpati
 vctl images -a
 vctl images -d
+vctl inspect rockylinux-12ef
 vctl kind
 vctl ps -a
 vctl pull rockylinux
 vctl rm -a
+vctl rm rockylinux-12ef
 vctl rmi -a
 vctl run -it rockylinux bash
 vctl system info
