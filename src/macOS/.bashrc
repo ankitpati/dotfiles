@@ -289,8 +289,8 @@ main()
     local pyenvpath="$HOME/.pyenv/bin"
     test -d "$pyenvpath" && extra_binaries="$pyenvpath:$extra_binaries"
 
-    local vctlpath="$HOME/.vctl/bin"
-    test -d "$vctlpath" && extra_binaries="$vctlpath:$extra_binaries"
+    #local vctlpath="$HOME/.vctl/bin"
+    #test -d "$vctlpath" && extra_binaries="$vctlpath:$extra_binaries"
 
     # clean and export the fruits of the above labour
     if test "$use_gnu_binaries" = 'true'; then
@@ -347,7 +347,7 @@ main()
         export PATH="$(sanitize_path "$HOME/.luarocks/bin:$PATH")"
 
         # Kubernetes kind
-        eval "$(kind completion bash)"
+        command -v kind &>/dev/null && eval "$(kind completion bash)"
 
         # CERN Root
         test -f "$brew_prefix/bin/thisroot.sh" && \
