@@ -75,6 +75,7 @@ brew install devspace
 brew install diffoscope
 brew install diffstat
 brew install diffutils
+brew install dnscontrol
 brew install dnstracer
 brew install docker-completion
 brew install dos2unix
