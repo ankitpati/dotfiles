@@ -255,6 +255,7 @@ brew install zlib
 brew install zsh
 brew services info --all
 brew shellenv
+brew uninstall --zap evince
 brew uninstall --zap lesspipe
 brew uninstall --zap llvm
 brew uninstall --zap quip
