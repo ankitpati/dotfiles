@@ -1010,8 +1010,15 @@ dnf remove virtualbox-guest-additions
 dnf repolist all
 docker images -a
 docker inspect tender_chatterjee
+docker network ls -q | xargs -r docker network inspect -v
 docker ps -a
+docker pull fedora
+docker pull oraclelinux:8
+docker pull ubuntu:rolling
+docker run -it fedora bash
 docker run -it oraclelinux:8 bash
+docker run -it ubuntu:rolling bash
+docker system info
 echo "$LINES" "$COLUMNS"
 echo 'Subject: Hello' | sendmail -v contact@ankitpati.in
 ember build
