@@ -214,6 +214,7 @@ brew install sqlfluff
 brew install ssdeep
 brew install ssh-copy-id
 brew install sslscan
+brew install stylua
 brew install swift
 brew install tcpdump
 brew install tcpreplay
