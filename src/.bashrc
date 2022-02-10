@@ -89,7 +89,7 @@ main()
     export PATH="$(sanitize_path "$HOME/bin:$HOME/.local/bin:$PATH")"
 
     # Only on Debian and derivatives
-    test -n "$(grep -i 'debian' '/etc/os-release')" && \
+    test -n "$(command grep -i 'debian' '/etc/os-release')" && \
         source <(SHELL='/bin/sh' lesspipe) && \
         source <(dircolors -b)
 
