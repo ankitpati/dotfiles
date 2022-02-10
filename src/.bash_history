@@ -40,6 +40,7 @@ brew install arping
 brew install astyle
 brew install atlas
 brew install automake
+brew install aws-cdk
 brew install awscli
 brew install base64
 brew install basex
@@ -112,6 +113,7 @@ brew install gnu-units
 brew install gnu-which
 brew install gnupg
 brew install go
+brew install google-chrome
 brew install google-cloud-sdk
 brew install google-java-format
 brew install gosec
@@ -124,6 +126,7 @@ brew install groff
 brew install grpc
 brew install gzip
 brew install helm
+brew install howdoi
 brew install hping
 brew install htop
 brew install http-prompt
@@ -137,6 +140,7 @@ brew install irssi
 brew install istioctl
 brew install iterm2
 brew install ivy
+brew install jfrog-cli
 brew install jq
 brew install jsonlint
 brew install k6
@@ -145,6 +149,7 @@ brew install kind
 brew install kotlin
 brew install krew
 brew install ksh
+brew install kubecfg
 brew install kubergrunt
 brew install lastpass-cli
 brew install less
@@ -178,8 +183,10 @@ brew install ncdu
 brew install neofetch
 brew install netcat
 brew install nmap
+brew install numdiff
 brew install ocrmypdf
 brew install openssh
+brew install openstackclient
 brew install oq
 brew install p4
 brew install p4v
@@ -188,11 +195,14 @@ brew install pip-completion
 brew install prettier
 brew install proctools
 brew install proguard
+brew install proselint
 brew install pwgen
 brew install pyright
+brew install pywhat
 brew install qemu
 brew install rakudo
 brew install reorder-python-imports
+brew install richmd
 brew install ripgrep-all
 brew install rlwrap
 brew install rmlint
@@ -207,6 +217,7 @@ brew install sha3sum
 brew install shellcheck
 brew install shellharden
 brew install shfmt
+brew install slack
 brew install sloccount
 brew install socat
 brew install speedtest-cli
@@ -246,6 +257,7 @@ brew install vim
 brew install vscodium
 brew install watch
 brew install watchexec
+brew install webex-meetings
 brew install wget
 brew install whois
 brew install with-readline
@@ -254,6 +266,7 @@ brew install yq
 brew install zip
 brew install zlib
 brew install zsh
+brew reinstall --cask vscodium
 brew services info --all
 brew shellenv
 brew uninstall --zap evince
@@ -1202,6 +1215,11 @@ ipcrm shm 262162
 ipcs -l
 ipcs -m
 ipcs -s
+istioctl --help
+istioctl analyze --help
+istioctl analyze --namespace namespace
+istioctl analyze -A
+istioctl version
 iw dev wlp2s0
 iw dev wlp2s0 info
 iwconfig
@@ -1221,19 +1239,28 @@ jupyter serverextension enable --py jupyterlab
 kate-syntax-highlighter --list-themes
 kate-syntax-highlighter -t 'Vim Dark' filename.pl > filename.html
 keytool -printcert -file cert.pem
+kind --help
+kind create --help
 kind create cluster
+kind delete --help
 kind delete cluster
+kind delete cluster --help
+kind delete cluster --name cluster-name
 kind get clusters
 kind get kubeconfig
 kind get nodes
 kind version
+kubectl --help
+kubectl -n namespace get pods
 kubectl cluster-info --context docker-desktop
 kubectl cluster-info --context kind-kind
 kubectl cluster-info --context kind-kind dump
+kubectl config --help
 kubectl config view
 kubectl get nodes
 kubectl get pods -A
 kubectl get svc -A
+kubectl options
 kubectl version
 latest-version asar
 latest-version spectron
@@ -1522,13 +1549,14 @@ systemctl list-units --type=service --state=active
 systemctl list-units --type=service --state=running
 systemd-analyze cat-config systemd/resolved.conf
 tail -n +2 brew-deps.csv | cut -d, -f1 | comm -23 - brew-install-list.txt | while read -r brew_formula; do grep "^$brew_formula" brew-deps.csv; done
-terraform apply
+terraform apply tfplan
 terraform fmt
 terraform graph | apdot -Tpng | timg -
 terraform graph | apdot -Tsvg > filename.svg
 terraform init
 terraform init -verify-plugins=false
-terraform plan
+terraform plan --out tfplan
+terraform plan --out tfplan --target module.vpc
 terraform refresh
 terraform validate
 timedatectl set-timezone Asia/Kolkata
