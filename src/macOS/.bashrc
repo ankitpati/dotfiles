@@ -301,7 +301,6 @@ main()
 
         # pyenv
         export PYENV_ROOT="$HOME/.pyenv/"
-        export PYENV_VIRTUALENV_DISABLE_PROMPT='1'
         # shellcheck disable=SC2154
         test -d "$HOME/.pyenv" && \
             source <(pyenv init -) && \
