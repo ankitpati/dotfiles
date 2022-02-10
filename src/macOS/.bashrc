@@ -304,8 +304,8 @@ main()
         export PYENV_VIRTUALENV_DISABLE_PROMPT='1'
         # shellcheck disable=SC2154
         test -d "$HOME/.pyenv" && \
-            eval "$(pyenv init -)" && \
-            eval "$(pyenv virtualenv-init -)" && \
+            source <(pyenv init -) && \
+            source <(pyenv virtualenv-init -) && \
             test -z "$PYENV_ACTIVATE_SHELL" && pyenv activate "$USER"
 
         # perlbrew
@@ -346,9 +346,6 @@ main()
         export LUA_CPATH=";;$HOME/.luarocks/lib64/lua/$lua_version/?.so"
         export PATH="$(sanitize_path "$HOME/.luarocks/bin:$PATH")"
 
-        # Kubernetes kind
-        command -v kind &>/dev/null && eval "$(kind completion bash)"
-
         # CERN Root
         test -f "$brew_prefix/bin/thisroot.sh" && \
            source "$brew_prefix/bin/thisroot.sh"
@@ -379,7 +376,7 @@ main()
             source "$completions"
 
         # colours for `tree`
-        command -v dircolors &>/dev/null && eval "$(dircolors -b)"
+        command -v dircolors &>/dev/null && source <(dircolors -b)
 
         # Google Cloud SDK
         local gcloud_sdk="$brew_prefix/Caskroom/google-cloud-sdk/latest/google-cloud-sdk"

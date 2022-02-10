@@ -185,7 +185,7 @@ main()
             source "$completions"
 
         # colours for `tree`
-        command -v dircolors &>/dev/null && eval "$(dircolors -b)"
+        command -v dircolors &>/dev/null && source <(dircolors -b)
 
         alias egrep='grep -E'
         alias fgrep='grep -F'

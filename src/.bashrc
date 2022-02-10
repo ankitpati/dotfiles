@@ -90,8 +90,8 @@ main()
 
     # Only on Debian and derivatives
     test -n "$(grep -i 'debian' '/etc/os-release')" && \
-        eval "$(SHELL='/bin/sh' lesspipe)" && \
-        eval "$(dircolors -b)"
+        source <(SHELL='/bin/sh' lesspipe) && \
+        source <(dircolors -b)
 
     # perl local::lib
     export PATH="$(sanitize_path "$HOME/perl5/bin:$PATH")"
