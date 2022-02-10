@@ -54,6 +54,7 @@ brew install bison
 brew install black
 brew install byacc
 brew install bzip2
+brew install cdk8s
 brew install certigo
 brew install checkbashisms
 brew install checkstyle
@@ -217,6 +218,7 @@ brew install sha3sum
 brew install shellcheck
 brew install shellharden
 brew install shfmt
+brew install skaffold
 brew install slack
 brew install sloccount
 brew install socat
