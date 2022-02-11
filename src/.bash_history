@@ -263,6 +263,7 @@ brew install webex-meetings
 brew install wget
 brew install whois
 brew install with-readline
+brew install xidel
 brew install yamllint
 brew install yq
 brew install zip
