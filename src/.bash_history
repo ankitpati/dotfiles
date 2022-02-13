@@ -22,6 +22,7 @@ apdot filename.dot -Tpng | timg -
 aria2c -c -x 16 'https://ankitpati.in/filename.br'
 bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 bash -c 'dscacheutil -flushcache; killall -HUP mDNSResponder'
+bat --style changes filename.pl
 bind -P
 brew --prefix
 brew analytics off
@@ -143,6 +144,7 @@ brew install istioctl
 brew install iterm2
 brew install ivy
 brew install jfrog-cli
+brew install jless
 brew install jq
 brew install jsonlint
 brew install k6
@@ -236,6 +238,7 @@ brew install tcptrace
 brew install tcptraceroute
 brew install tcsh
 brew install tealdeer
+brew install terminal-notifier
 brew install terraform
 brew install terraform-rover
 brew install terraform_landscape
@@ -270,13 +273,20 @@ brew install yq
 brew install zip
 brew install zlib
 brew install zsh
+brew leaves --installed-as-dependency
+brew leaves --installed-on-request
+brew missing
 brew reinstall --cask vscodium
+brew search --fedora perl-Mojolicious
+brew search --ubuntu libmojolicious-perl
 brew services info --all
 brew shellenv
 brew uninstall --zap evince
 brew uninstall --zap lesspipe
 brew uninstall --zap llvm
 brew uninstall --zap quip
+brew uses curl
+brew which-formula sponge
 brew-list-deps
 brotli -d filename.br
 brotli filename
@@ -292,6 +302,7 @@ codium --install-extension redhat.java --force
 codium --install-extension vscjava.vscode-java-debug --force
 codium --install-extension vscodevim.vim --force
 codium --list-extensions
+comm -23 <(grep -P '^brew install (?!--cask )' ~/Code/Dotfiles/src/.bash_history | cut -d' ' -f3) <(brew leaves --installed-on-request)
 command -V command
 command -v gnome-shell
 convert ./*.jpg output.pdf
@@ -1039,6 +1050,7 @@ docker run -it ubuntu:rolling bash
 docker system info
 echo "$LINES" "$COLUMNS"
 echo 'Subject: Hello' | sendmail -v contact@ankitpati.in
+echo 'macOS Notification Text' | terminal-notifier
 ember build
 ember build --environment=production
 ember clean
