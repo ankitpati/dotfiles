@@ -200,7 +200,6 @@ main()
         alias tree='tree -I ".git|node_modules"'
         alias cpan-outdated='cpan-outdated --mirror="https://www.cpan.org/"'
         alias podchecker='podchecker -warnings -warnings -warnings'
-        alias bat='bat --paging=never --style=plain --wrap=never --'
         alias tohex="hexdump -ve '1/1 \"%.2x\" '"
         # shellcheck disable=SC2154
         alias unchomp='sed -i -e \$a\\ '
