@@ -50,8 +50,11 @@ B-clean-pip()
 # delete Homebrew and Perlbrew caches
 B-clean-cache()
 {
+    echo 'Uninstalling dangling Homebrew packages...'
+    brew autoremove
+
     echo 'Removing the Homebrew Build Cache...'
-    brew cleanup --prune=0
+    brew cleanup --prune=all
 
     echo 'Removing the Perlbrew Build Cache...'
     perlbrew clean
@@ -123,6 +126,12 @@ main()
     export HOMEBREW_NO_BOTTLE_SOURCE_FALLBACK='1'
     export HOMEBREW_NO_AUTO_UPDATE='1'
     export HOMEBREW_NO_ANALYTICS='1'
+
+    # Secure Brew
+    export HOMEBREW_NO_INSECURE_REDIRECT='1'
+
+    # Syntax-highlighted Brew Output
+    export HOMEBREW_BAT='1'
 
     # RLWrap
     export RLWRAP_HOME="$HOME/.rlwrap"
