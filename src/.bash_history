@@ -275,6 +275,7 @@ brew install zlib
 brew install zsh
 brew leaves --installed-as-dependency
 brew leaves --installed-on-request
+brew list --casks
 brew missing
 brew reinstall --cask vscodium
 brew search --fedora perl-Mojolicious
@@ -1542,7 +1543,7 @@ sloccount .
 snap install flutter --classic
 snap list
 snyk auth
-softwareupdate -i -a; brew update; brew upgrade; cpan-outdated --exclude-core -p | xargs cpanm; gcloud components update; tldr --update; for codext in $(codium --list-extensions); do codium --install-extension "$codext" --force; done; vim +PlugUpdate
+softwareupdate -i -a; brew update; brew upgrade; cpan-outdated --exclude-core -p | xargs cpanm; gcloud components update; tldr --update; grep -P '^docker pull [^- ]+' ~/.bash_history | cut -d' ' -f3- | sort -u | while read -r docker_image; do docker pull "$docker_image"; done; for codext in $(codium --list-extensions); do codium --install-extension "$codext" --force; done; vim +PlugUpdate
 source ./.venv/bin/activate
 spctl developer-mode enable-terminal
 speedtest
