@@ -21,6 +21,7 @@ age-keygen -o ~/.age/key.txt
 apdot filename.dot -Tpng | timg -
 aria2c -c -x 16 'https://ankitpati.in/filename.br'
 bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+bash -c 'dscacheutil -flushcache; killall -HUP mDNSResponder'
 bind -P
 brew --prefix
 brew analytics off
@@ -1117,12 +1118,16 @@ fuser -v 8080/tcp
 fzf
 gcc -march=native -Q --help=target | grep -E -- '-m(arch|tune)='
 gcloud auth application-default login
+gcloud auth application-default print-access-token
 gcloud auth list
 gcloud auth login
+gcloud auth print-access-token
 gcloud compute zones list
 gcloud compute zones list --project=project-id
 gcloud config configurations list
 gcloud config list
+gcloud config set compute/region us-west1
+gcloud config set compute/zone us-west1-a
 gcloud config set project project-id
 gcloud config unset project
 gcloud info
@@ -1379,7 +1384,8 @@ openssl pkey -aes128 -in openssl.key -text
 openssl req -x509 -days 36500 -new -key id_rsa -out id_rsa.x509
 openssl rsa -in openssl.key -pubout -out openssl.pub
 openssl rsa -in openssl.key -text -noout
-openssl s_client -connect ankitpati.in:443
+openssl s_client -connect 172.67.192.178:443 -servername ankitpati.in
+openssl s_client -connect ankitpati.in:443 -servername ankitpati.in
 openssl x509 -in ankitpati.pem -text
 openssl x509 -in ankitpati.pem -text -noout
 optipng -o7 filename.png
@@ -1561,6 +1567,9 @@ terraform init -verify-plugins=false
 terraform plan --out tfplan
 terraform plan --out tfplan --target module.vpc
 terraform refresh
+terraform show tfplan -no-color > tfplan-for-diff
+terraform show tfplan | landscape
+terraform show tfplan | less -R
 terraform validate
 timedatectl set-timezone Asia/Kolkata
 toolbox create
