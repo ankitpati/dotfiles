@@ -31,7 +31,18 @@ brew developer --verbose state
 brew doctor
 brew help --prefix
 brew help developer
+brew install --cask chromedriver
+brew install --cask chromium
 brew install --cask docker
+brew install --cask google-chrome
+brew install --cask google-cloud-sdk
+brew install --cask iterm2
+brew install --cask maccy
+brew install --cask p4
+brew install --cask p4v
+brew install --cask slack
+brew install --cask vscodium
+brew install --cask webex-meetings
 brew install ack
 brew install advancecomp
 brew install age
@@ -62,8 +73,6 @@ brew install checkbashisms
 brew install checkstyle
 brew install chrome-cli
 brew install chrome-export
-brew install chromedriver
-brew install chromium
 brew install clang-format
 brew install clusterctl
 brew install cmake
@@ -116,8 +125,6 @@ brew install gnu-units
 brew install gnu-which
 brew install gnupg
 brew install go
-brew install google-chrome
-brew install google-cloud-sdk
 brew install google-java-format
 brew install gosec
 brew install gpatch
@@ -141,7 +148,6 @@ brew install ipv6calc
 brew install iredis
 brew install irssi
 brew install istioctl
-brew install iterm2
 brew install ivy
 brew install jfrog-cli
 brew install jless
@@ -165,7 +171,6 @@ brew install lsusb
 brew install lz4
 brew install lzip
 brew install m4
-brew install maccy
 brew install make
 brew install man-db
 brew install mandoc
@@ -192,8 +197,6 @@ brew install ocrmypdf
 brew install openssh
 brew install openstackclient
 brew install oq
-brew install p4
-brew install p4v
 brew install php
 brew install pip-completion
 brew install prettier
@@ -222,7 +225,6 @@ brew install shellcheck
 brew install shellharden
 brew install shfmt
 brew install skaffold
-brew install slack
 brew install sloccount
 brew install socat
 brew install speedtest-cli
@@ -260,10 +262,8 @@ brew install universal-ctags
 brew install unzip
 brew install util-linux
 brew install vim
-brew install vscodium
 brew install watch
 brew install watchexec
-brew install webex-meetings
 brew install wget
 brew install whois
 brew install with-readline
