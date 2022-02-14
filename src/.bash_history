@@ -161,6 +161,7 @@ brew install krew
 brew install ksh
 brew install kubecfg
 brew install kubergrunt
+brew install kubescape
 brew install lastpass-cli
 brew install less
 brew install libressl
@@ -1543,7 +1544,7 @@ sloccount .
 snap install flutter --classic
 snap list
 snyk auth
-softwareupdate -i -a; brew update; brew upgrade; cpan-outdated --exclude-core -p | xargs cpanm; gcloud components update; tldr --update; grep -P '^docker pull [^- ]+' ~/.bash_history | cut -d' ' -f3- | sort -u | while read -r docker_image; do docker pull "$docker_image"; done; for codext in $(codium --list-extensions); do codium --install-extension "$codext" --force; done; vim +PlugUpdate
+softwareupdate -i -a; brew update; brew upgrade; cpan-outdated --exclude-core -p | xargs cpanm; gcloud components update; tldr --update; grep -E '^docker pull [^- ]+' ~/.bash_history | cut -d' ' -f3- | sort -u | while read -r docker_image; do docker pull "$docker_image"; done; for codext in $(codium --list-extensions); do codium --install-extension "$codext" --force; done; vim +PlugUpdate
 source ./.venv/bin/activate
 spctl developer-mode enable-terminal
 speedtest
