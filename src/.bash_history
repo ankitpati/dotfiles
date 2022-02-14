@@ -167,6 +167,7 @@ brew install less
 brew install libressl
 brew install libtermkey
 brew install libvterm
+brew install litecli
 brew install lsof
 brew install lsusb
 brew install lz4
