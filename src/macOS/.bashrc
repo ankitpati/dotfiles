@@ -29,7 +29,7 @@ B-delds()
             -print \
             -exec rm -rf {} +
 
-    echo 'Removing the QuickLook Cache...' # macOS exclusive
+    echo 'Removing the QuickLook Cache...'
     qlmanage -r cache
 }
 
@@ -417,7 +417,7 @@ main()
         alias brew-cu='brew cu --no-brew-update'
 
     else
-        alias updatedb='/usr/libexec/locate.updatedb' # macOS exclusive
+        alias updatedb='/usr/libexec/locate.updatedb'
     fi
 
     alias B-nagios-start="nagios $brew_prefix/etc/nagios/nagios.cfg"

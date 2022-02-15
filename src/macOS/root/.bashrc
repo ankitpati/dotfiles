@@ -210,7 +210,7 @@ main()
         alias ssh-copy-id='ssh-copy-id -oPasswordAuthentication=yes'
 
     else
-        alias updatedb='/usr/libexec/locate.updatedb' # macOS exclusive
+        alias updatedb='/usr/libexec/locate.updatedb'
     fi
 
     return 0
