@@ -33,20 +33,6 @@ B-delds()
     qlmanage -r cache
 }
 
-# delete CPANM cache
-B-clean-cpanm()
-{
-    echo 'Removing the CPANM Work Cache...'
-    rm -rf "$HOME/.cpanm/"{'work/','build.log','latest-build'}
-}
-
-# delete PIP cache
-B-clean-pip()
-{
-    echo 'Removing the PIP Cache...'
-    rm -rf "$HOME/Library/Caches/pip/"
-}
-
 # delete Homebrew and Perlbrew caches
 B-clean-cache()
 {
@@ -59,8 +45,11 @@ B-clean-cache()
     echo 'Removing the Perlbrew Build Cache...'
     perlbrew clean
 
-    B-clean-cpanm
-    B-clean-pip
+    echo 'Removing the CPANM Work Cache...'
+    rm -rf "$HOME/.cpanm/"{'work/','build.log','latest-build'}
+
+    echo 'Removing the PIP Cache...'
+    rm -rf "$HOME/Library/Caches/pip/"
 }
 
 # compact Homebrew git repositories
