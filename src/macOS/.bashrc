@@ -50,6 +50,11 @@ B-clean-cache()
 
     echo 'Removing the PIP Cache...'
     rm -rf "$HOME/Library/Caches/pip/"
+
+    echo 'Vacuuming Maccy SQLite DB (only works if Maccy is not running)...'
+    sqlite3 "$HOME/Library/Containers/org.p0deje.Maccy/Data/Library/Application Support/Maccy/Storage.sqlite" vacuum
+
+    # TODO: find & vacuum all NSPersistentContainer SQLite DBs, like Maccy above
 }
 
 # compact Homebrew git repositories
