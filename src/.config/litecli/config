@@ -1,0 +1,48 @@
+[main]
+#audit_log = ~/.config/litecli/audit.log
+#pager = less -SRXF
+auto_vertical_output = False
+destructive_warning = True
+enable_pager = True
+key_bindings = vi
+keyword_casing = auto
+less_chatty = True
+log_file = default
+log_level = INFO
+login_path_as_host = False
+multi_line = False
+prompt = '\d> '
+prompt_continuation = '-> '
+show_bottom_toolbar = False
+syntax_style = default
+table_format = ascii
+wider_completion_menu = False
+
+[colors]
+arg-toolbar = 'noinherit bold'
+arg-toolbar.text = 'nobold'
+bottom-toolbar = 'bg:#222222 #aaaaaa'
+bottom-toolbar.off = 'bg:#222222 #888888'
+bottom-toolbar.on = 'bg:#222222 #ffffff'
+bottom-toolbar.transaction.failed = 'bg:#222222 #ff005f bold'
+bottom-toolbar.transaction.valid = 'bg:#222222 #00ff5f bold'
+completion-menu.completion = 'bg:#008888 #ffffff'
+completion-menu.completion.current = 'bg:#ffffff #000000'
+completion-menu.meta.completion = 'bg:#448888 #ffffff'
+completion-menu.meta.completion.current = 'bg:#44aaaa #000000'
+completion-menu.multi-column-meta = 'bg:#aaffff #000000'
+scrollbar = 'bg:#00aaaa'
+scrollbar.arrow = 'bg:#003333'
+search = '#ffffff bg:#4444aa'
+search-toolbar = 'noinherit bold'
+search-toolbar.text = 'nobold'
+search.current = '#ffffff bg:#44aa44'
+selected = '#ffffff bg:#6666aa'
+system-toolbar = 'noinherit bold'
+
+# coloured table output
+output.even-row = ""
+output.header = "#00ff5f bold"
+output.odd-row = ""
+
+[favorite_queries]
