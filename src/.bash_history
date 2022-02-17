@@ -349,6 +349,8 @@ dconf dump / > dump.dconf
 dd if=/dev/urandom count=1 2>/dev/null | git hash-object --stdin
 deactivate
 declare -p | grep '^declare -- '
+defaults help
+defaults read com.apple.DictionaryServices DCSActiveDictionaries
 defaults write com.jetbrains.intellij ApplePressAndHoldEnabled -bool false
 defaults write com.visualstudio.code.oss ApplePressAndHoldEnabled -bool false
 df -h
@@ -1291,6 +1293,7 @@ launchctl list
 launchctl load /System/Library/LaunchDaemons/ssh.plist
 launchctl unload /System/Library/LaunchDaemons/ssh.plist
 limitcpu
+litecli ~/Library/Containers/org.p0deje.Maccy/Data/Library/Application\ Support/Maccy/Storage.sqlite
 ln -s "$(brew --prefix)/opt/openssl@1.1/" "$(brew --prefix)/opt/openssl"
 ln -sfn "$(brew --prefix)/opt/openjdk/libexec/openjdk.jdk" /Library/Java/JavaVirtualMachines/openjdk.jdk
 locate --statistics
@@ -1545,7 +1548,7 @@ sloccount .
 snap install flutter --classic
 snap list
 snyk auth
-softwareupdate -i -a; brew update; brew upgrade; cpan-outdated --exclude-core -p | xargs cpanm; gcloud components update; tldr --update; grep -E '^docker pull [^- ]+' ~/.bash_history | cut -d' ' -f3- | sort -u | while read -r docker_image; do docker pull "$docker_image"; done; for codext in $(codium --list-extensions); do codium --install-extension "$codext" --force; done; vim +PlugUpdate
+softwareupdate -i -a; brew update; brew upgrade; cpan-outdated --exclude-core -p | xargs cpanm; gcloud components update; tldr --update; grep -E '^docker pull [^- ]+$' ~/.bash_history | cut -d' ' -f3- | sort -u | while read -r docker_image; do docker pull "$docker_image"; done; for codext in $(codium --list-extensions); do codium --install-extension "$codext" --force; done; vim +PlugUpdate
 source ./.venv/bin/activate
 spctl developer-mode enable-terminal
 speedtest
