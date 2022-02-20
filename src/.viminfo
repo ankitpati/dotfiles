@@ -33,6 +33,7 @@
 |2,0,0,,"e filename.c"
 |2,0,0,,"noh"
 |2,0,0,,"reg"
+|2,0,0,,"set noautoread"
 |2,0,0,,"set nopaste"
 |2,0,0,,"set paste"
 |2,0,0,,"set syntax?"
