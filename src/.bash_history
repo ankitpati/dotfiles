@@ -159,6 +159,7 @@ brew install kind
 brew install kotlin
 brew install krew
 brew install ksh
+brew install kube-score
 brew install kubecfg
 brew install kubergrunt
 brew install kubescape
@@ -1049,9 +1050,9 @@ docker ps -a
 docker pull fedora
 docker pull oraclelinux:8
 docker pull ubuntu:rolling
-docker run -it fedora bash
-docker run -it oraclelinux:8 bash
-docker run -it ubuntu:rolling bash
+docker run -it --rm fedora
+docker run -it --rm oraclelinux:8
+docker run -it --rm ubuntu:rolling
 docker system info
 echo "$LINES" "$COLUMNS"
 echo 'Subject: Hello' | sendmail -v contact@ankitpati.in
@@ -1287,6 +1288,7 @@ kubectl get pods -A
 kubectl get svc -A
 kubectl options
 kubectl version
+landscape --help
 latest-version asar
 latest-version spectron
 launchctl list
@@ -1415,6 +1417,13 @@ p4 client -o
 p4 dirs -H //depot/\*
 p4 dirs //depot/\*
 p4 dirs //depot/t\*
+p4 files ...file\*.pl
+p4 files //.../file*.pl
+p4 files //.../filename.pl
+p4 files //depot/.../\*.pl
+p4 files //depot/.../filename.pl
+p4 files //depot/...file\*.pl
+p4 grep -F -e expression //depot/...
 p4 help sizes
 p4 info
 p4 login
@@ -1544,6 +1553,7 @@ sdk install visualvm
 sed -E 's/ /\n/g' < /proc/cmdline
 sed -i -E 's|#!/usr/bin/octave -q|#!/usr/bin/env -S octave -q|g' -- *.m
 sha256sum -c filename-CHECKSUM
+skaffold help
 sloccount .
 snap install flutter --classic
 snap list
@@ -1554,6 +1564,7 @@ spctl developer-mode enable-terminal
 speedtest
 sqlformat -k upper -i lower -r --indent_width 4 --indent_columns -s --comma_first True filename.sql
 sqlite3 filename.sqlite
+sqlite3 ~/Library/Containers/org.p0deje.Maccy/Data/Library/Application\ Support/Maccy/Storage.sqlite 'select group_concat(zvalue, char(10)) from zhistoryitemcontent where zvalue regexp "^[a-z0-9-_@.]+$"' | xargs brew info
 ss -tulpn
 ssh -L 8080:/tmp/sockname.sock ssh.ankitpati.in
 ssh -o ClearAllForwardings=yes ssh.ankitpati.in
@@ -1653,6 +1664,8 @@ vmrun getGuestIPAddress ~/Virtual\ Machines.localized/vm_name.vmwarevm/vm_name.v
 vmrun list
 vmrun start ~/Virtual\ Machines.localized/vm_name.vmwarevm/ nogui
 wappalyzer https://ankitpati.in | jq .
+watch -n 10 du -sh
+watch du -sh
 wget 'https://www.toptal.com/developers/gitignore/api/java,netbeans,eclipse,jetbrains,android,androidstudio' -O .gitignore
 whatchanged origin/development..
 while :; do virsh -c qemu:///system send-key Windows-10 KEY_J; sleep 120; done
