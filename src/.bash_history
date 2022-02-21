@@ -156,6 +156,7 @@ brew install jsonlint
 brew install k6
 brew install k9s
 brew install kind
+brew install kops
 brew install kotlin
 brew install krew
 brew install ksh
@@ -250,6 +251,7 @@ brew install terraform_landscape
 brew install terraformer
 brew install terraforming
 brew install terrascan
+brew install testssl
 brew install tflint
 brew install tfmigrate
 brew install tfsec
@@ -1043,6 +1045,7 @@ dnf remove qt-avif-image-plugin
 dnf remove vidcutter
 dnf remove virtualbox-guest-additions
 dnf repolist all
+docker build -t image-name:optional-tag .
 docker images -a
 docker inspect tender_chatterjee
 docker network ls -q | xargs -r docker network inspect -v
