@@ -100,7 +100,7 @@ main()
         gnu-time \
         gnu-sed \
         gnu-tar \
-        libressl \
+        openssl \
         gnu-getopt \
         gettext \
         ncurses \
