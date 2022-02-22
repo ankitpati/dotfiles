@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 ( GIT_COMMITTER_EMAIL='contact@ankitpati.in' git rebase branch-name --exec 'git commit --amend --author="Ankit Pati <contact@ankitpati.in>" --no-edit' )
 ( LESS='-I' git log )
+( hostname='google.com'; openssl s_client -auth_level 2 -connect "$hostname":443 -servername "$hostname" -verify_hostname "$hostname" -verify_return_error )
+( hostname='google.com'; openssl s_client -tls1_3 -auth_level 2 -connect "$hostname":443 -servername "$hostname" -verify_hostname "$hostname" -verify_return_error )
 ( perforce_dir=//depot/directory; p4 dirs "$perforce_dir/*"; p4 sizes -sh "$perforce_dir/..." )
 ( ssh_private_key_file=id_ed25519; ssh-keygen -l -v -f "$ssh_private_key_file" && ssh-keygen -y -f "$ssh_private_key_file" && cat "$ssh_private_key_file" )
 ( unalias -a; comm -12 <(hash -r; ls {,/usr}/{,s}bin/ | xargs command -V 2>/dev/null | grep -Ev " is ($(brew --prefix)/|a shell (builtin|keyword))" | cut -d' ' -f1 | sort -u) <(ls "$(brew --prefix)/Homebrew/Library/Taps/homebrew/homebrew-core/Formula/" | rev | cut -d. -f2- | rev | sort -u) )
@@ -1060,6 +1062,7 @@ docker system info
 echo "$LINES" "$COLUMNS"
 echo 'Subject: Hello' | sendmail -v contact@ankitpati.in
 echo 'macOS Notification Text' | terminal-notifier
+echo gcr.io | docker-credential-gcloud get | jq .
 ember build
 ember build --environment=production
 ember clean
@@ -1140,6 +1143,8 @@ fzf
 gcc -march=native -Q --help=target | grep -E -- '-m(arch|tune)='
 gcloud auth application-default login
 gcloud auth application-default print-access-token
+gcloud auth configure-docker
+gcloud auth configure-docker gcr.io
 gcloud auth list
 gcloud auth login
 gcloud auth print-access-token
@@ -1407,8 +1412,7 @@ openssl pkey -aes128 -in openssl.key -text
 openssl req -x509 -days 36500 -new -key id_rsa -out id_rsa.x509
 openssl rsa -in openssl.key -pubout -out openssl.pub
 openssl rsa -in openssl.key -text -noout
-openssl s_client -connect 172.67.192.178:443 -servername ankitpati.in
-openssl s_client -connect ankitpati.in:443 -servername ankitpati.in
+openssl s_client -tls1_3 -auth_level 2 -connect 172.67.192.178:443 -servername ankitpati.in -verify_hostname ankitpati.in -verify_return_error
 openssl x509 -in ankitpati.pem -text
 openssl x509 -in ankitpati.pem -text -noout
 optipng -o7 filename.png
@@ -1427,6 +1431,7 @@ p4 files //depot/.../\*.pl
 p4 files //depot/.../filename.pl
 p4 files //depot/...file\*.pl
 p4 grep -F -e expression //depot/...
+p4 grep -l -s -F -e expression //depot/... | cut -d# -f1 | xargs -o vim
 p4 help sizes
 p4 info
 p4 login
