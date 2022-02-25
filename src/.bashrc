@@ -39,8 +39,6 @@ main()
     unset MANPATH
     export MANPATH="$(sanitize_path "$manpath:$(manpath)")"
 
-    export EDITOR='vim'
-    export MERGE='vimdiff'
     export PERL_CPANM_OPT='--from https://www.cpan.org/ --verify'
     export PERLBREW_CPAN_MIRROR='https://www.cpan.org/'
     export PERL5LIB="$HOME/lib/perl5/"
@@ -51,11 +49,18 @@ main()
     export MYPY_CACHE_DIR="$HOME/.mypy_cache/"
     export MYPYPATH="$HOME/.mypy_stubs/"
     export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
-    export DOTNET_CLI_TELEMETRY_OPTOUT='1'
-    export POWERSHELL_TELEMETRY_OPTOUT='1'
     export ANDROID_HOME="$HOME/Android/Sdk/"
 
-    # History Configuration
+    # Text editors
+    export EDITOR='vim'
+    export MERGE='vimdiff'
+
+    # Telemetry
+    export DOTNET_CLI_TELEMETRY_OPTOUT='1'
+    export POWERSHELL_TELEMETRY_OPTOUT='1'
+    export SRC_DISABLE_USER_AGENT_TELEMETRY='1'
+
+    # History configuration
     shopt -s histappend
     export HISTSIZE=''
     export HISTFILESIZE=''

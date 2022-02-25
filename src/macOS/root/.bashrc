@@ -40,10 +40,14 @@ main()
     unset MANPATH
     export MANPATH="$(sanitize_path "$manpath:$(manpath)")"
 
+    # Text editors
     export EDITOR='vim'
     export MERGE='vimdiff'
+
+    # Telemetry
     export DOTNET_CLI_TELEMETRY_OPTOUT='1'
     export POWERSHELL_TELEMETRY_OPTOUT='1'
+    export SRC_DISABLE_USER_AGENT_TELEMETRY='1'
 
     # History Configuration
     shopt -s histappend
