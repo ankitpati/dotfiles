@@ -29,6 +29,7 @@ bind -P
 brew --prefix
 brew analytics off
 brew autoremove -n
+brew config
 brew developer --verbose state
 brew doctor
 brew help --prefix
@@ -233,6 +234,7 @@ brew install shfmt
 brew install skaffold
 brew install sloccount
 brew install socat
+brew install sourcegraph/src-cli/src-cli
 brew install speedtest-cli
 brew install sqlfluff
 brew install ssdeep
@@ -282,6 +284,7 @@ brew install zlib
 brew install zsh
 brew leaves --installed-as-dependency
 brew leaves --installed-on-request
+brew linkage
 brew list --casks
 brew missing
 brew reinstall --cask vscodium
@@ -1047,14 +1050,16 @@ dnf remove qt-avif-image-plugin
 dnf remove vidcutter
 dnf remove virtualbox-guest-additions
 dnf repolist all
+docker build --pull --no-cache -t fedora-dev .
 docker build -t image-name:optional-tag .
 docker images -a
 docker inspect tender_chatterjee
 docker network ls -q | xargs -r docker network inspect -v
 docker ps -a
-docker pull fedora
-docker pull oraclelinux:8
-docker pull ubuntu:rolling
+docker run --pull always -it --rm fedora
+docker run --pull always -it --rm oraclelinux:8
+docker run --pull always -it --rm rockylinux
+docker run --pull always -it --rm ubuntu:rolling
 docker run -it --rm fedora
 docker run -it --rm oraclelinux:8
 docker run -it --rm ubuntu:rolling
@@ -1310,6 +1315,7 @@ locate --statistics
 loginctl list-sessions
 loginctl show-session
 loginctl show-session 2 -p Type
+logname
 lpass --help
 lpass edit --password unique_name
 lpass login contact@ankitpati.in
@@ -1409,6 +1415,7 @@ openssl asn1parse -in openssl.key
 openssl genpkey -algorithm RSA -aes128 -out openssl.key
 openssl pkcs8 -in openssl.key | openssl pkcs8 -topk8 -v2 aes128 -out openssl.key
 openssl pkey -aes128 -in openssl.key -text
+openssl req -in request.csr -text -noout -verify
 openssl req -x509 -days 36500 -new -key id_rsa -out id_rsa.x509
 openssl rsa -in openssl.key -pubout -out openssl.pub
 openssl rsa -in openssl.key -text -noout
@@ -1566,13 +1573,15 @@ sloccount .
 snap install flutter --classic
 snap list
 snyk auth
-softwareupdate -i -a; brew update; brew upgrade; cpan-outdated --exclude-core -p | xargs cpanm; gcloud components update; tldr --update; grep -E '^docker pull [^- ]+$' ~/.bash_history | cut -d' ' -f3- | sort -u | while read -r docker_image; do docker pull "$docker_image"; done; for codext in $(codium --list-extensions); do codium --install-extension "$codext" --force; done; vim +PlugUpdate
+softwareupdate -i -a; brew update; brew upgrade; cpan-outdated --exclude-core -p | xargs cpanm; gcloud components update; tldr --update; grep -E '^docker run --pull always -it --rm [^- ]+$' ~/.bash_history | cut -d' ' -f7 | sort -u | while read -r docker_image; do docker pull "$docker_image"; done; for codext in $(codium --list-extensions); do codium --install-extension "$codext" --force; done; vim +PlugUpdate
 source ./.venv/bin/activate
 spctl developer-mode enable-terminal
 speedtest
 sqlformat -k upper -i lower -r --indent_width 4 --indent_columns -s --comma_first True filename.sql
 sqlite3 filename.sqlite
 sqlite3 ~/Library/Containers/org.p0deje.Maccy/Data/Library/Application\ Support/Maccy/Storage.sqlite 'select group_concat(zvalue, char(10)) from zhistoryitemcontent where zvalue regexp "^[a-z0-9-_@.]+$"' | xargs brew info
+src --help
+src search 'context:global repo:^github\.com/ankitpati/rpg$ bitcount patternType:literal case:yes'
 ss -tulpn
 ssh -L 8080:/tmp/sockname.sock ssh.ankitpati.in
 ssh -o ClearAllForwardings=yes ssh.ankitpati.in
