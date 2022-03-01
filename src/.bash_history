@@ -87,6 +87,7 @@ brew install curl
 brew install dash
 brew install datree
 brew install ddrescue
+brew install dependency-check
 brew install devspace
 brew install diffoscope
 brew install diffstat
@@ -94,9 +95,11 @@ brew install diffutils
 brew install dnscontrol
 brew install dnstracer
 brew install docker-completion
+brew install docker-slim
 brew install dos2unix
 brew install doxygen
 brew install driftctl
+brew install dsq
 brew install dyld-headers
 brew install dylibbundler
 brew install ed
