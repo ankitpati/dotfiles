@@ -116,6 +116,7 @@ brew install forcecli
 brew install fselect
 brew install gawk
 brew install gcc
+brew install gh
 brew install git
 brew install git-delta
 brew install git-lfs
@@ -1096,7 +1097,9 @@ exec su - ankitpati
 exec sudo -i
 exec sudo -u ankitpati -i
 exiftool -p '$XResolution,$YResolution' filename.jpg
+export GH_ENTERPRISE_TOKEN="$(lpass show --password github_cli_access_token)"
 export JAVA_HOME="$(/usr/libexec/java_home -v 1.8)"
+export SRC_ACCESS_TOKEN="$(lpass show --password sourcegraph_access_token)"
 factor 1849
 fallocate -l 100M hundred-MiB-file
 fallocate -l 1K one-kb-file
@@ -1167,6 +1170,11 @@ gcloud config unset project
 gcloud info
 gcloud projects list
 gcloud version
+gh config list
+gh config set git_protocol ssh
+gh issue list
+gh pr list
+gh pr status
 git add -p
 git branch --format='%(refname:short)' | while read -r branch; do git checkout "$branch" || break; git rebase origin/main || break; done
 git branch -vv
@@ -1425,6 +1433,7 @@ openssl rsa -in openssl.key -text -noout
 openssl s_client -tls1_3 -auth_level 2 -connect 172.67.192.178:443 -servername ankitpati.in -verify_hostname ankitpati.in -verify_return_error
 openssl x509 -in ankitpati.pem -text
 openssl x509 -in ankitpati.pem -text -noout
+openssl x509 -text -noout # paste base64 block into stdin
 optipng -o7 filename.png
 osascript -e 'id of app "VSCodium"'
 ovsx create-namespace ankitpati --pat SecretPersonalAccessToken
