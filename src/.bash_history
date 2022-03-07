@@ -194,6 +194,7 @@ brew install mdcat
 brew install mg
 brew install minikube
 brew install minio-mc
+brew install mist
 brew install moreutils
 brew install mosh
 brew install mscgen
