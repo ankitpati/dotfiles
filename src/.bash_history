@@ -1542,6 +1542,7 @@ prettier -w filename.js
 prettyping google.com
 pup 'css-selector' < filename.html
 pup --color < filename.html
+pushd +1
 pushd path/to/directory/
 pylint --py3k path/to/python/file.py
 pyment -w path/to/python/file.py
@@ -1623,9 +1624,11 @@ terraform fmt
 terraform graph | apdot -Tpng | timg -
 terraform graph | apdot -Tsvg > filename.svg
 terraform init
+terraform init -upgrade
 terraform init -verify-plugins=false
-terraform plan --out tfplan
-terraform plan --out tfplan --target module.vpc
+terraform plan -destroy -out tfplan
+terraform plan -out tfplan
+terraform plan -out tfplan -target module.vpc1 -target module.vpc2
 terraform refresh
 terraform show tfplan -no-color > tfplan-for-diff
 terraform show tfplan | landscape
