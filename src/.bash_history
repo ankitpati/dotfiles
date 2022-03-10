@@ -309,7 +309,6 @@ brotli filename
 browserslist 'last 1 Chrome versions'
 cargo install cargo-update
 cargo install shellharden
-chmod 644 ~/.p4trust
 chsh -s "$(brew --prefix)/bin/bash"
 codium --install-extension ankitpati.vscodium-amoled --force
 codium --install-extension eamodio.gitlens --force
@@ -1609,8 +1608,8 @@ ssh-keygen -y -f ~/.ssh/id_ed25519
 stat -c '%w' filename
 strace -e open -o programname.strace programname programargs
 strace programname 2> programname.strace
-sudo bash -c 'apt update; apt-fast dist-upgrade -y; apt autoremove -y; apt clean; snap refresh; flatpak update; pkcon refresh force; pkcon update; fwupdmgr get-updates; fwupdmgr upgrade; chmod 750 /usr/bin/nmap /usr/sbin/etherape; chown root:wireshark /usr/bin/nmap /usr/sbin/etherape; setcap cap_net_raw,cap_net_admin,cap_net_bind_service+eip /usr/bin/nmap cap_net_raw,cap_net_admin,cap_net_bind_service+eip /usr/sbin/etherape'
-sudo bash -c 'dnf upgrade --refresh; snap refresh; flatpak update; pkcon refresh force; pkcon update; fwupdmgr get-updates; fwupdmgr upgrade; chmod 750 /usr/bin/nmap /usr/sbin/etherape; chown root:wireshark /usr/bin/nmap /usr/sbin/etherape; setcap cap_net_raw,cap_net_admin,cap_net_bind_service+eip /usr/bin/nmap cap_net_raw,cap_net_admin,cap_net_bind_service+eip /usr/sbin/etherape'
+sudo bash -c 'apt update; apt-fast dist-upgrade -y; apt autoremove -y; apt clean; snap refresh; flatpak update; pkcon refresh force; pkcon update; fwupdmgr get-updates; fwupdmgr upgrade; chmod 0750 /usr/bin/nmap /usr/sbin/etherape; chown root:wireshark /usr/bin/nmap /usr/sbin/etherape; setcap cap_net_raw,cap_net_admin,cap_net_bind_service+eip /usr/bin/nmap cap_net_raw,cap_net_admin,cap_net_bind_service+eip /usr/sbin/etherape'
+sudo bash -c 'dnf upgrade --refresh; snap refresh; flatpak update; pkcon refresh force; pkcon update; fwupdmgr get-updates; fwupdmgr upgrade; chmod 0750 /usr/bin/nmap /usr/sbin/etherape; chown root:wireshark /usr/bin/nmap /usr/sbin/etherape; setcap cap_net_raw,cap_net_admin,cap_net_bind_service+eip /usr/bin/nmap cap_net_raw,cap_net_admin,cap_net_bind_service+eip /usr/sbin/etherape'
 sudo bash -c 'rfkill unblock bluetooth; systemctl restart bluetooth.service'
 sudo bash -c 'systemctl stop libvirtd.socket; systemctl stop libvirtd.service'
 svg2png filename.svg
