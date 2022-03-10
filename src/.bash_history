@@ -1098,7 +1098,7 @@ exec su - ankitpati
 exec sudo -i
 exec sudo -u ankitpati -i
 exiftool -p '$XResolution,$YResolution' filename.jpg
-export GH_ENTERPRISE_TOKEN="$(lpass show --password github_cli_access_token)"
+export GITHUB_PERSONAL_ACCESS_TOKEN="$(lpass show --password github_personal_access_token)"
 export JAVA_HOME="$(/usr/libexec/java_home -v 1.8)"
 export SRC_ACCESS_TOKEN="$(lpass show --password sourcegraph_access_token)"
 factor 1849
