@@ -353,6 +353,7 @@ cpanm XML::SAX::Expat
 crontab -e
 curl 'https://example.org/untrustworthy.dat'; exec cat
 curl 'https://ident.me'; echo; exec cat
+curl -H "Authorization: token $GITHUB_PERSONAL_ACCESS_TOKEN" https://raw.githubusercontent.com/namespace/private-repo/branch/directory/filename.c
 curl https://github.com/web-flow.gpg | gpg --import
 dart --disable-analytics
 date +%F
