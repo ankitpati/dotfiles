@@ -221,7 +221,7 @@ brew install pywhat
 brew install qemu
 brew install rakudo
 brew install reorder-python-imports
-brew install richmd
+brew install rich-cli
 brew install ripgrep-all
 brew install rlwrap
 brew install rmlint
