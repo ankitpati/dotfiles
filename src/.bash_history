@@ -220,6 +220,7 @@ brew install pyright
 brew install pywhat
 brew install qemu
 brew install rakudo
+brew install redpen
 brew install reorder-python-imports
 brew install rich-cli
 brew install ripgrep-all
@@ -242,6 +243,7 @@ brew install socat
 brew install sourcegraph/src-cli/src-cli
 brew install speedtest-cli
 brew install sqlfluff
+brew install sqlite-analyzer
 brew install ssdeep
 brew install ssh-copy-id
 brew install sslscan
@@ -1596,6 +1598,7 @@ speedtest
 sqlformat -k upper -i lower -r --indent_width 4 --indent_columns -s --comma_first True filename.sql
 sqlite3 filename.sqlite
 sqlite3 ~/Library/Containers/org.p0deje.Maccy/Data/Library/Application\ Support/Maccy/Storage.sqlite 'select group_concat(zvalue, char(10)) from zhistoryitemcontent where zvalue regexp "^[a-z0-9-_@.]+$"' | xargs brew info
+sqlite3_analyzer filename.sqlite
 src --help
 src search 'context:global repo:^github\.com/ankitpati/rpg$ bitcount patternType:literal case:yes'
 ss -tulpn
