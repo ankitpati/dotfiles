@@ -94,7 +94,6 @@ brew install diffstat
 brew install diffutils
 brew install dnscontrol
 brew install dnstracer
-brew install docker-completion
 brew install docker-slim
 brew install dos2unix
 brew install doxygen
@@ -300,6 +299,7 @@ brew search --fedora perl-Mojolicious
 brew search --ubuntu libmojolicious-perl
 brew services info --all
 brew shellenv
+brew uninstall --zap docker-completion
 brew uninstall --zap evince
 brew uninstall --zap lesspipe
 brew uninstall --zap llvm
