@@ -355,7 +355,7 @@ cpanm XML::SAX::Expat
 crontab -e
 curl 'https://example.org/untrustworthy.dat'; exec cat
 curl 'https://ident.me'; echo; exec cat
-curl -H "Authorization: token $GITHUB_PERSONAL_ACCESS_TOKEN" https://raw.githubusercontent.com/namespace/private-repo/branch/directory/filename.c
+curl -H "Authorization: token $(lpass show --password github_personal_access_token)" https://raw.githubusercontent.com/namespace/private-repo/branch/directory/filename.c
 curl https://github.com/web-flow.gpg | gpg --import
 dart --disable-analytics
 date +%F
@@ -1071,6 +1071,7 @@ docker run --pull always -it --rm ubuntu:rolling
 docker run -it --rm fedora
 docker run -it --rm oraclelinux:8
 docker run -it --rm ubuntu:rolling
+docker run -it -v "$(pwd):/host-directory" --rm docker.io/library/fedora-dev
 docker system info
 echo "$LINES" "$COLUMNS"
 echo 'Subject: Hello' | sendmail -v contact@ankitpati.in
@@ -1197,10 +1198,12 @@ git merge --ff-only branchname
 git merge-base HEAD branchname
 git rebase branch-name --exec 'git commit --amend --author="Ankit Pati <contact@ankitpati.in>" --no-edit'
 git remote -v | sed -E 's/ \((fetch|push)\)$//' | sort -u | while read -r remote_name remote_url; do remote_url="$(echo "$remote_url" | sed 's,^ssh://git@,ssh://,')"; git remote set-url "$remote_name" "$remote_url"; done
+git remote add origin https://github.com/ankitpati/rpg.git
 git restore filename
 git show --format= --name-only
 git show --show-signature
 git show -U100
+git submodule add https://github.com/ankitpati/rpg.git modules/ankitpati/rpg
 git submodule update
 git submodule update --init
 gjs-console
@@ -1443,8 +1446,16 @@ optipng -o7 filename.png
 osascript -e 'id of app "VSCodium"'
 ovsx create-namespace ankitpati --pat SecretPersonalAccessToken
 ovsx publish --pat SecretPersonalAccessToken
+p4 clean -n
+p4 clean -n -a
+p4 clean -n -d
+p4 clean -n -e
+p4 clean -n -m
+p4 clean -n //depot/...
 p4 client
 p4 client -o
+p4 describe -du 12345 | delta
+p4 describe -du5 12345 | delta
 p4 dirs -H //depot/\*
 p4 dirs //depot/\*
 p4 dirs //depot/t\*
