@@ -1,7 +1,7 @@
 all: install
 
 install:
-	cp -r src/. "$$HOME"/
+	cp -rL src/. "$$HOME"/
 	rm -rf "$$HOME"/macOS/
 	mkdir -p "$$HOME"/.vim/autoload/ "$$HOME"/.vim/swapfiles/
 	git clone --depth 1 https://github.com/junegunn/vim-plug.git
