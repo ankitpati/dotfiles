@@ -5,7 +5,7 @@ ColorScheme=WhiteOnBlack
 DimmValue=128
 Font=Source Code Pro,14,-1,5,25,0,0,0,0,0,Light
 LineSpacing=0
-TabColor=invalid
+TabColor=28,28,28,0
 UseFontLineChararacters=false
 
 [Cursor Options]
