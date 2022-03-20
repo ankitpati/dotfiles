@@ -21,9 +21,12 @@ age --decrypt -i ~/.age/key.txt -o plain.txt cipher.txt.age
 age -R ~/.age/machine.recipient -o cipher.txt.age plain.txt
 age-keygen -o ~/.age/key.txt
 apdot filename.dot -Tpng | timg -
+apt install iat
 aria2c -c -x 16 'https://ankitpati.in/filename.br'
 bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 bash -c 'dscacheutil -flushcache; killall -HUP mDNSResponder'
+bat --config-dir
+bat --config-file
 bat --style changes filename.pl
 bind -P
 brew --prefix
@@ -312,6 +315,7 @@ brotli filename
 browserslist 'last 1 Chrome versions'
 cargo install cargo-update
 cargo install shellharden
+ccd2iso disk-image.bin disk-image.iso
 chsh -s "$(brew --prefix)/bin/bash"
 codium --install-extension ankitpati.vscodium-amoled --force
 codium --install-extension eamodio.gitlens --force
@@ -353,10 +357,11 @@ cpanm XML::Bare
 cpanm XML::Parser
 cpanm XML::SAX::Expat
 crontab -e
+csv -f protocol,root_domain,status < nextdns-log.csv | tail -n +2 | grep -v ',blocked$' | rev | cut -d, -f2- | rev | sort -u > nextdns-domain-list.csv
 curl 'https://example.org/untrustworthy.dat'; exec cat
-curl 'https://ident.me'; echo; exec cat
 curl -H "Authorization: token $(lpass show --password github_personal_access_token)" https://raw.githubusercontent.com/namespace/private-repo/branch/directory/filename.c
 curl https://github.com/web-flow.gpg | gpg --import
+curl https://ident.me; echo; exec cat
 dart --disable-analytics
 date +%F
 date +%s
@@ -1260,6 +1265,7 @@ http_this --port 7009
 hunspell -l
 hwloc-ls
 i2cdetect -l
+iat disk-image.bin disk-image.iso
 id -u
 identify -format '%x,%y\n' filename.png
 ideviceinfo
@@ -1488,6 +1494,7 @@ package-cleanup --orphans
 package-cleanup --problems
 pactl info
 pactl list sinks
+parallel reduce-to-registrable < urls.txt | sort -u > registrable-domains.txt
 passwd postgres
 patch filename.c filename.c.patch
 pavumeter --record
@@ -1571,6 +1578,7 @@ readelf -x .rodata elf-binary-filename
 rename -n 's/^\d+_\d+_0(\d)_[^a-z]+_(\w+)\.mp4$/$1. $2.mp4/' -- *
 resolvectl flush-caches
 resolvectl query ankitpati.in
+resolvectl status
 restorecon -rvn /etc/X11/xorg.conf.d/
 rg -F -- '$_ =~ '
 rg -L search-string
