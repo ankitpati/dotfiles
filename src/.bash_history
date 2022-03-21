@@ -273,6 +273,7 @@ brew install tika
 brew install timg
 brew install tmux
 brew install tree
+brew install trivy
 brew install ugrep
 brew install uncrustify
 brew install unifdef
