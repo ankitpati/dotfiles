@@ -222,6 +222,7 @@ brew install pyright
 brew install pywhat
 brew install qemu
 brew install rakudo
+brew install range2cidr
 brew install redpen
 brew install reorder-python-imports
 brew install rich-cli
@@ -361,6 +362,7 @@ crontab -e
 csv -f protocol,root_domain,status < nextdns-log.csv | tail -n +2 | grep -v ',blocked$' | rev | cut -d, -f2- | rev | sort -u > nextdns-domain-list.csv
 curl 'https://example.org/untrustworthy.dat'; exec cat
 curl -H "Authorization: token $(lpass show --password github_personal_access_token)" https://raw.githubusercontent.com/namespace/private-repo/branch/directory/filename.c
+curl -s -w '\n%{time_total} - %{time_starttransfer}\n' https://httpbin.org/get | tail -n 1 | bc
 curl https://github.com/web-flow.gpg | gpg --import
 curl https://ident.me; echo; exec cat
 dart --disable-analytics
@@ -1238,6 +1240,7 @@ gpg2 --with-fingerprint filename.gpg
 gpg2 -c --no-symkey-cache filename.br
 gradle
 gradle --stop
+grep '\bcertificate-authority-data\b' kubeconfig.yaml | cut -d: -f2 | cut -d' ' -f2 | while read -r certbase64; do echo "$certbase64" | base64 -d | openssl x509 -text -noout; done
 grep '^p4 sync ' ~/.bash_history | cut -d' ' -f3- | sort -u | while read -r p4dir; do p4 sync "$p4dir"; done
 grep -E "^($(tail -n +2 brew-deps.csv | cut -d, -f1 | comm -23 - brew-install-list.txt | paste -sd'|'))" brew-deps.csv | grep -v ,
 grep -E '^\s+keg_only' -r "$(brew --prefix)/Homebrew/Library/Taps/homebrew/homebrew-core/Formula/"
@@ -1322,7 +1325,9 @@ kubectl cluster-info --context kind-kind
 kubectl cluster-info --context kind-kind dump
 kubectl config --help
 kubectl config view
+kubectl config view --minify --raw --output 'jsonpath={..cluster.certificate-authority-data}'
 kubectl get nodes
+kubectl get pods --context=kube-context
 kubectl get pods -A
 kubectl get svc -A
 kubectl options
@@ -1488,6 +1493,9 @@ p4 sync //depot/directory/...
 p4 sync //depot/directory/...#none
 p4 sync //depot/directory/file
 p4 trust
+p4 where . | cut -d' ' -f1
+p4 where directory
+p4 where file
 package-cleanup
 package-cleanup --dupes
 package-cleanup --leaves
@@ -1575,6 +1583,7 @@ python -m timeit '"-".join(str(n) for n in range(100))'
 python -m venv .venv
 qemu-img convert filename.vmdk filename.qcow2
 raku -E 'say "hello"'
+range2cidr 1.1.1.0-1.1.1.255
 readelf -x .rodata elf-binary-filename
 rename -n 's/^\d+_\d+_0(\d)_[^a-z]+_(\w+)\.mp4$/$1. $2.mp4/' -- *
 resolvectl flush-caches
@@ -1611,7 +1620,7 @@ sloccount .
 snap install flutter --classic
 snap list
 snyk auth
-softwareupdate -i -a; brew update; brew upgrade; cpan-outdated --exclude-core -p | xargs cpanm; gcloud components update; tldr --update; grep -E '^docker run --pull always -it --rm [^- ]+$' ~/.bash_history | cut -d' ' -f7 | sort -u | while read -r docker_image; do docker pull "$docker_image"; done; for codext in $(codium --list-extensions); do codium --install-extension "$codext" --force; done; vim +PlugUpdate
+softwareupdate -l; brew update; brew upgrade; cpan-outdated --exclude-core -p | xargs cpanm; gcloud components update; tldr --update; grep -E '^docker run --pull always -it --rm [^- ]+$' ~/.bash_history | cut -d' ' -f7 | sort -u | while read -r docker_image; do docker pull "$docker_image"; done; for codext in $(codium --list-extensions); do codium --install-extension "$codext" --force; done; vim +PlugUpdate
 source ./.venv/bin/activate
 spctl developer-mode enable-terminal
 speedtest
