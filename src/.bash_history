@@ -50,6 +50,7 @@ brew install --cask slack
 brew install --cask vscodium
 brew install --cask webex-meetings
 brew install ack
+brew install act
 brew install advancecomp
 brew install age
 brew install ant
@@ -171,6 +172,7 @@ brew install krew
 brew install ksh
 brew install kube-score
 brew install kubecfg
+brew install kubecm
 brew install kubergrunt
 brew install kubescape
 brew install lastpass-cli
