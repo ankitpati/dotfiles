@@ -53,6 +53,7 @@ brew install ack
 brew install act
 brew install advancecomp
 brew install age
+brew install aliyun-cli
 brew install ant
 brew install aria2
 brew install arp-scan
@@ -183,6 +184,7 @@ brew install libvterm
 brew install litecli
 brew install lsof
 brew install lsusb
+brew install lychee
 brew install lz4
 brew install lzip
 brew install m4
@@ -291,6 +293,7 @@ brew install whois
 brew install with-readline
 brew install xidel
 brew install yamllint
+brew install yapf
 brew install yq
 brew install zip
 brew install zlib
@@ -1075,6 +1078,7 @@ docker inspect tender_chatterjee
 docker network ls -q | xargs -r docker network inspect -v
 docker ps -a
 docker run --pull always -it --rm fedora
+docker run --pull always -it --rm opensuse/tumbleweed
 docker run --pull always -it --rm oraclelinux:8
 docker run --pull always -it --rm rockylinux
 docker run --pull always -it --rm ubuntu:rolling
@@ -1320,6 +1324,8 @@ kind get clusters
 kind get kubeconfig
 kind get nodes
 kind version
+kubecm --config kubeconfig.yaml list
+kubecm list
 kubectl --help
 kubectl -n namespace get pods
 kubectl cluster-info --context docker-desktop
@@ -1488,7 +1494,9 @@ p4 login -as
 p4 monitor show
 p4 monitor terminate 1234
 p4 opened
+p4 reconcile //depot/...
 p4 set
+p4 shelve //depot/...
 p4 sizes -sh //depot/directory/...
 p4 status
 p4 sync //depot/directory/...
@@ -1754,7 +1762,7 @@ xdg-open .
 xdg-open filename
 xdotool click --repeat 5 1
 xz -v9e filename.tar
-yapf filename.py | sponge bmark.py
+yapf -i filename.py
 youtube-dl 'https://www.youtube.com/watch?v=VIDEO_ID' -F
 youtube-dl 'https://www.youtube.com/watch?v=VIDEO_ID' -f 248
 zbarimg filename.jpg > filename.dat
