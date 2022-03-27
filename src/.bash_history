@@ -164,6 +164,7 @@ brew install jfrog-cli
 brew install jless
 brew install jq
 brew install jsonlint
+brew install jvm-mon
 brew install k6
 brew install k9s
 brew install kind
@@ -222,6 +223,7 @@ brew install proctools
 brew install proguard
 brew install proselint
 brew install pwgen
+brew install pylint
 brew install pyright
 brew install pywhat
 brew install qemu
@@ -254,6 +256,7 @@ brew install sqlite-analyzer
 brew install ssdeep
 brew install ssh-copy-id
 brew install sslscan
+brew install sslyze
 brew install stylua
 brew install swift
 brew install tcpdump
@@ -1648,6 +1651,8 @@ ssh-keygen -l -v -f ~/.ssh/id_ed25519
 ssh-keygen -l -v -f ~/.ssh/id_ed25519.pub
 ssh-keygen -t ed25519
 ssh-keygen -y -f ~/.ssh/id_ed25519
+sslscan ankitpati.in:443
+sslyze ankitpati.in:443
 stat -c '%w' filename
 strace -e open -o programname.strace programname programargs
 strace programname 2> programname.strace
