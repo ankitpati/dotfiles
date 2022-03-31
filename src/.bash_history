@@ -248,6 +248,7 @@ brew install shellharden
 brew install shfmt
 brew install skaffold
 brew install sloccount
+brew install snyk
 brew install socat
 brew install sourcegraph/src-cli/src-cli
 brew install speedtest-cli
@@ -312,6 +313,7 @@ brew search --fedora perl-Mojolicious
 brew search --ubuntu libmojolicious-perl
 brew services info --all
 brew shellenv
+brew tap snyk/tap
 brew uninstall --zap docker-completion
 brew uninstall --zap evince
 brew uninstall --zap lesspipe
@@ -1633,6 +1635,8 @@ sloccount .
 snap install flutter --classic
 snap list
 snyk auth
+snyk auth "$(lpass show --password snyk_auth_token)"
+snyk monitor
 softwareupdate -l; brew update; brew upgrade; cpan-outdated --exclude-core -p | xargs cpanm; gcloud components update; tldr --update; grep -E '^docker run --pull always -it --rm [^- ]+$' ~/.bash_history | cut -d' ' -f7 | sort -u | while read -r docker_image; do docker pull "$docker_image"; done; for codext in $(codium --list-extensions); do codium --install-extension "$codext" --force; done; vim +PlugUpdate
 source ./.venv/bin/activate
 spctl developer-mode enable-terminal
