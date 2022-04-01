@@ -89,6 +89,7 @@ brew install cpanminus
 brew install cscope
 brew install csvprintf
 brew install curl
+brew install dagger
 brew install dash
 brew install datree
 brew install ddrescue
@@ -1648,8 +1649,10 @@ sqlite3_analyzer filename.sqlite
 src --help
 src search 'context:global repo:^github\.com/ankitpati/rpg$ bitcount patternType:literal case:yes'
 ss -tulpn
+ssh -G ssh.ankitpati.in
 ssh -L 8080:/tmp/sockname.sock ssh.ankitpati.in
 ssh -o ClearAllForwardings=yes ssh.ankitpati.in
+ssh -vvv ssh.ankitpati.in
 ssh-copy-id -o PasswordAuthentication=yes ssh.ankitpati.in
 ssh-keygen -l -v -f ~/.ssh/id_ed25519
 ssh-keygen -l -v -f ~/.ssh/id_ed25519.pub
