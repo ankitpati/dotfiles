@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 ( GIT_COMMITTER_EMAIL='contact@ankitpati.in' git rebase branch-name --exec 'git commit --amend --author="Ankit Pati <contact@ankitpati.in>" --no-edit' )
 ( LESS='-I' git log )
+( export PATH="$(echo "$PATH" | sed 's/:/\n/g' | grep -v binutils | paste -sd :)"; cpanm Unicode::GCString )
 ( hostname='google.com'; openssl s_client -auth_level 2 -connect "$hostname":443 -servername "$hostname" -verify_hostname "$hostname" -verify_return_error )
 ( hostname='google.com'; openssl s_client -tls1_3 -auth_level 2 -connect "$hostname":443 -servername "$hostname" -verify_hostname "$hostname" -verify_return_error )
 ( perforce_dir=//depot/directory; p4 dirs "$perforce_dir/*"; p4 sizes -sh "$perforce_dir/..." )
@@ -319,6 +320,7 @@ brew uninstall --zap docker-completion
 brew uninstall --zap evince
 brew uninstall --zap lesspipe
 brew uninstall --zap llvm
+brew uninstall --zap perltidy
 brew uninstall --zap quip
 brew uses curl
 brew which-formula sponge
