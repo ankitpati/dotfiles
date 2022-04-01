@@ -15,6 +15,7 @@ only_in_void_context = 1
 [-ControlStructures::ProhibitUntilBlocks]
 [-ControlStructures::ProhibitYadaOperator]
 [-InputOutput::ProhibitExplicitStdin]
+[-InputOutput::ProhibitReadlineInForLoop]
 [-InputOutput::RequireBracedFileHandleWithPrint]
 [-InputOutput::RequireCheckedSyscalls]
 [-Miscellanea::ProhibitTies]
