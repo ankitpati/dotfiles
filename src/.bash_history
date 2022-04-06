@@ -98,6 +98,7 @@ brew install dependency-check
 brew install devspace
 brew install diffoscope
 brew install diffstat
+brew install difftastic
 brew install diffutils
 brew install dnscontrol
 brew install dnstracer
@@ -120,6 +121,7 @@ brew install flake8
 brew install flex
 brew install forcecli
 brew install fselect
+brew install fzf
 brew install gawk
 brew install gcc
 brew install gh
@@ -154,6 +156,7 @@ brew install hping
 brew install htop
 brew install http-prompt
 brew install httpd
+brew install httpie
 brew install httrack
 brew install inetutils
 brew install iproute2mac
@@ -215,6 +218,7 @@ brew install netcat
 brew install nmap
 brew install numdiff
 brew install ocrmypdf
+brew install onefetch
 brew install openssh
 brew install openstackclient
 brew install oq
@@ -1288,6 +1292,7 @@ id -u
 identify -format '%x,%y\n' filename.png
 ideviceinfo
 idevicepair
+info '(coreutils) paste invocation'
 inxi
 ip a
 ip a show enp0s20u3
@@ -1523,6 +1528,7 @@ pactl info
 pactl list sinks
 parallel reduce-to-registrable < urls.txt | sort -u > registrable-domains.txt
 passwd postgres
+paste <(echo a quick brown fox jumps over a lazy dog | sed -E 's/\s+/\n/g') <(echo article adverb adjective noun verb preposition article adjective noun | sed -E 's/\s+/\n/g')
 patch filename.c filename.c.patch
 pavumeter --record
 pbcopy < ~/.ssh/id_ed25519.pub
