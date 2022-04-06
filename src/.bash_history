@@ -4,6 +4,7 @@
 ( export PATH="$(echo "$PATH" | sed 's/:/\n/g' | grep -v binutils | paste -sd :)"; cpanm Unicode::GCString )
 ( hostname='google.com'; openssl s_client -auth_level 2 -connect "$hostname":443 -servername "$hostname" -verify_hostname "$hostname" -verify_return_error )
 ( hostname='google.com'; openssl s_client -tls1_3 -auth_level 2 -connect "$hostname":443 -servername "$hostname" -verify_hostname "$hostname" -verify_return_error )
+( perforce_dir=//depot/directory; p4 dirs "$perforce_dir/*" | while read -r perforce_subdir; do p4 grep -e 'search-expression' "$perforce_subdir/..."; done )
 ( perforce_dir=//depot/directory; p4 dirs "$perforce_dir/*"; p4 sizes -sh "$perforce_dir/..." )
 ( ssh_private_key_file=id_ed25519; ssh-keygen -l -v -f "$ssh_private_key_file" && ssh-keygen -y -f "$ssh_private_key_file" && cat "$ssh_private_key_file" )
 ( unalias -a; comm -12 <(hash -r; ls {,/usr}/{,s}bin/ | xargs command -V 2>/dev/null | grep -Ev " is ($(brew --prefix)/|a shell (builtin|keyword))" | cut -d' ' -f1 | sort -u) <(ls "$(brew --prefix)/Homebrew/Library/Taps/homebrew/homebrew-core/Formula/" | rev | cut -d. -f2- | rev | sort -u) )
@@ -1213,7 +1214,7 @@ git checkout -p
 git cherry-pick branchname~2..branchname
 git commit --amend -S --no-edit
 git config --show-origin credential.helper
-git fetch origin pull/1000/HEAD:local-branch-name # for GitHub
+git fetch origin pull/1000/head:local-branch-name # for GitHub
 git lfs install
 git log --follow -- filename
 git log --graph --pretty=fuller --show-signature
