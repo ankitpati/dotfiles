@@ -141,7 +141,9 @@ brew install gnu-units
 brew install gnu-which
 brew install gnupg
 brew install go
+brew install go-critic
 brew install google-java-format
+brew install gops
 brew install gosec
 brew install gpatch
 brew install gperf
@@ -1509,17 +1511,19 @@ p4 monitor show
 p4 monitor terminate 1234
 p4 opened
 p4 reconcile //depot/...
+p4 revert -n //depot/directory/...
+p4 revert -n filename.pl
 p4 set
 p4 shelve //depot/...
 p4 sizes -sh //depot/directory/...
 p4 status
 p4 sync //depot/directory/...
 p4 sync //depot/directory/...#none
-p4 sync //depot/directory/file
+p4 sync //depot/directory/filename
 p4 trust
 p4 where . | cut -d' ' -f1
 p4 where directory
-p4 where file
+p4 where filename
 package-cleanup
 package-cleanup --dupes
 package-cleanup --leaves
