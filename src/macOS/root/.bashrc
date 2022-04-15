@@ -51,6 +51,7 @@ main()
 
     # History Configuration
     shopt -s histappend
+    unset HISTTIMEFORMAT
     export HISTSIZE=''
     export HISTFILESIZE=''
     export HISTCONTROL='ignoreboth'
