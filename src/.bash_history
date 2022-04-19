@@ -258,11 +258,12 @@ brew install shfmt
 brew install skaffold
 brew install sloccount
 brew install snyk
+brew install snyk-iac-rules
 brew install socat
-brew install sourcegraph/src-cli/src-cli
 brew install speedtest-cli
 brew install sqlfluff
 brew install sqlite-analyzer
+brew install src-cli
 brew install ssdeep
 brew install ssh-copy-id
 brew install sslscan
@@ -323,6 +324,7 @@ brew search --ubuntu libmojolicious-perl
 brew services info --all
 brew shellenv
 brew tap snyk/tap
+brew tap sourcegraph/src-cli
 brew uninstall --zap docker-completion
 brew uninstall --zap evince
 brew uninstall --zap lesspipe
