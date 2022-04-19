@@ -1159,9 +1159,13 @@ file -i filename
 find . -not -group ankitpati
 find . -not -user ankitpati
 find . -type f -exec chmod 0600 {} + -exec dos2unix {} +
+firewall-cmd --add-protocol=ssh
+firewall-cmd --add-service=ssh --zone=public --permanent
+firewall-cmd --get-zone-of-interface=enp1s0
 firewall-cmd --list-all
 firewall-cmd --list-ports
 firewall-cmd --list-services
+firewall-cmd --reload
 firewall-cmd --state
 flatpak install com.belmoussaoui.Obfuscate
 flatpak install com.github.alexhuntley.Plots
@@ -1299,6 +1303,7 @@ ideviceinfo
 idevicepair
 info '(coreutils) paste invocation'
 inxi
+inxi -SMCDG
 ip a
 ip a show enp0s20u3
 ip addr
@@ -1367,6 +1372,7 @@ launchctl unload /System/Library/LaunchDaemons/ssh.plist
 limitcpu
 litecli ~/Library/Containers/org.p0deje.Maccy/Data/Library/Application\ Support/Maccy/Storage.sqlite
 ln -s "$(brew --prefix)/opt/openssl@1.1/" "$(brew --prefix)/opt/openssl"
+ln -sf /usr/lib/systemd/resolv.conf /etc/resolv.conf
 ln -sfn "$(brew --prefix)/opt/openjdk/libexec/openjdk.jdk" /Library/Java/JavaVirtualMachines/openjdk.jdk
 locate --statistics
 loginctl list-sessions
@@ -1685,6 +1691,7 @@ sudo bash -c 'apt update; apt-fast dist-upgrade -y; apt autoremove -y; apt clean
 sudo bash -c 'dnf upgrade --refresh; snap refresh; flatpak update; pkcon refresh force; pkcon update; fwupdmgr get-updates; fwupdmgr upgrade; chmod 0750 /usr/bin/nmap /usr/sbin/etherape; chown root:wireshark /usr/bin/nmap /usr/sbin/etherape; setcap cap_net_raw,cap_net_admin,cap_net_bind_service+eip /usr/bin/nmap cap_net_raw,cap_net_admin,cap_net_bind_service+eip /usr/sbin/etherape'
 sudo bash -c 'rfkill unblock bluetooth; systemctl restart bluetooth.service'
 sudo bash -c 'systemctl stop libvirtd.socket; systemctl stop libvirtd.service'
+sudo inxi -SMCDG
 svg2png filename.svg
 systemctl edit --user --force --full filename.service
 systemctl edit --user filename.service
@@ -1796,3 +1803,6 @@ yapf -i filename.py
 youtube-dl 'https://www.youtube.com/watch?v=VIDEO_ID' -F
 youtube-dl 'https://www.youtube.com/watch?v=VIDEO_ID' -f 248
 zbarimg filename.jpg > filename.dat
+zypper --gpg-auto-import-keys refresh
+zypper addrepo --refresh https://download.opensuse.org/repositories/system:/snappy/openSUSE_Tumbleweed snappy
+zypper removerepo snappy
