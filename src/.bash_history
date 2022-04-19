@@ -1413,6 +1413,7 @@ namei -om /bin/perl6
 nc -lp 5432
 ncdu
 neofetch
+networkQuality -v
 ng new my-app
 ng serve -o
 nmap --privileged -sS --send-eth -Pn -n 10.10.10.0/24 -p 22
@@ -1573,6 +1574,8 @@ pip install voila
 pip install wheel
 pip install wxPython
 pip install xgboost
+pkill -9 -x chrome
+pkill -s SIGKILL -x chrome
 pkill -x chrome
 pkmon
 plackup -L Shotgun filename.psgi
