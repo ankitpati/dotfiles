@@ -83,6 +83,7 @@ brew install checkbashisms
 brew install checkstyle
 brew install chrome-cli
 brew install chrome-export
+brew install ciphey
 brew install clang-format
 brew install clusterctl
 brew install cmake
@@ -268,6 +269,7 @@ brew install ssdeep
 brew install ssh-copy-id
 brew install sslscan
 brew install sslyze
+brew install staticcheck
 brew install stylua
 brew install swift
 brew install tcpdump
