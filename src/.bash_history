@@ -30,6 +30,10 @@ bash -c 'dscacheutil -flushcache; killall -HUP mDNSResponder'
 bat --config-dir
 bat --config-file
 bat --style changes filename.pl
+bazel build //:TargetName
+bazel clean
+bazel help query
+bazel query --notool_deps --noimplicit_deps deps\(//:TargetName\) --output graph | apdot -Tpng | timg -
 bind -P
 brew --prefix
 brew analytics off
@@ -71,6 +75,7 @@ brew install bash
 brew install bash-completion@2
 brew install bash_unit
 brew install bat
+brew install bazel
 brew install bc
 brew install binutils
 brew install bison
@@ -203,6 +208,7 @@ brew install man-db
 brew install mandoc
 brew install marp-cli
 brew install masscan
+brew install massren
 brew install mat2
 brew install maven
 brew install maven-completion
@@ -1409,6 +1415,9 @@ luarocks install --local dump
 luarocks path
 luarocks show dump
 markdownlint '**/*.md' 2> errors.txt
+massren --config editor vim
+massren -u
+massren -u path/to/directory
 mdfind -name '.csv'
 mdfind -name 'log4j' | ack -i '(?<!\.)2\..*\.jar$'
 meson x --buildtype release --strip -Db_lto=true
@@ -1656,6 +1665,7 @@ sdk install sbt
 sdk install visualvm
 sed -E 's/ /\n/g' < /proc/cmdline
 sed -i -E 's|#!/usr/bin/octave -q|#!/usr/bin/env -S octave -q|g' -- *.m
+seq -w 000 007 | while read -r num; do cat "input$num.txt"; read; cat "output$num.txt"; read; done
 sha256sum -c filename-CHECKSUM
 skaffold help
 sloccount .
