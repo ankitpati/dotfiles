@@ -68,6 +68,7 @@ brew install astyle
 brew install atlas
 brew install automake
 brew install aws-cdk
+brew install aws-shell
 brew install awscli
 brew install base64
 brew install basex
