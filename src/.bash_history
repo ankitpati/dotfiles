@@ -304,6 +304,7 @@ brew install tree
 brew install trivy
 brew install ugrep
 brew install uncrustify
+brew install uni
 brew install unifdef
 brew install universal-ctags
 brew install unzip
