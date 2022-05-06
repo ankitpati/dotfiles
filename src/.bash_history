@@ -1565,6 +1565,12 @@ perl -dE 0
 perl -pi -E 'chomp if eof' filename.txt
 perlbrew list-modules
 perlbrew upgrade-perl
+perldoc -U -f split
+perldoc -U File::Basename
+perldoc -f foreach
+perldoc -f split
+perldoc File::Basename
+perldoc perlsyn
 pgrep -x chrome
 pidof -s chrome
 pidof chrome
