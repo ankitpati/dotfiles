@@ -91,6 +91,7 @@ brew install chrome-cli
 brew install chrome-export
 brew install ciphey
 brew install clang-format
+brew install click
 brew install clusterctl
 brew install cmake
 brew install coreutils
@@ -1784,6 +1785,8 @@ vim -i NONE -u NONE ~/.viminfo
 vim -i NONE ~/.viminfo
 vim -u NONE ~/.viminfo
 vim /etc/shells
+vipe --suffix pl < filename | perl
+vipe < filename | cat
 virsh -c qemu:///system list --all
 virsh -c qemu:///system send-key Windows-10 --codeset win32 37
 virsh -c qemu:///system send-key Windows-10 --codeset win32 KEY_J
