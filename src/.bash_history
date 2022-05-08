@@ -1831,8 +1831,10 @@ youtube-dl 'https://www.youtube.com/watch?v=VIDEO_ID' -f 248
 zbarimg filename.jpg > filename.dat
 zypper --gpg-auto-import-keys refresh
 zypper addrepo --refresh https://download.opensuse.org/repositories/system:/snappy/openSUSE_Tumbleweed snappy
+zypper addrepo -fp 90 https://ftp.gwdg.de/pub/linux/misc/packman/suse/openSUSE_Tumbleweed/ packman
 zypper dist-upgrade
 zypper dist-upgrade --from packman --allow-vendor-change
+zypper modifyrepo --enable repo-debug
 zypper packages --orphaned
 zypper packages --unneeded
 zypper ps
