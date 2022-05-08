@@ -1655,6 +1655,7 @@ rg -F -- '$_ =~ '
 rg -L search-string
 rlwrap raku
 rm -rf /Users/Shared/*Relocated\ Items*/
+rm -rf ~/.local/share/containers/ # podman and buildah
 rpg 100 | sed -E 's/[^A-Za-z0-9!@#$%^*_=+;:]/=/g'
 rpg 100 | sed -E 's/\//-/g'
 rpm2cpio filename.rpm | cpio -idmv
@@ -1830,4 +1831,13 @@ youtube-dl 'https://www.youtube.com/watch?v=VIDEO_ID' -f 248
 zbarimg filename.jpg > filename.dat
 zypper --gpg-auto-import-keys refresh
 zypper addrepo --refresh https://download.opensuse.org/repositories/system:/snappy/openSUSE_Tumbleweed snappy
+zypper dist-upgrade
+zypper dist-upgrade --from packman --allow-vendor-change
+zypper packages --orphaned
+zypper packages --unneeded
+zypper ps
+zypper purge-kernels
+zypper remove --clean-deps firefox
+zypper remove --clean-deps parole
 zypper removerepo snappy
+zypper update
