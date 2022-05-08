@@ -136,6 +136,9 @@ main()
     # android
     export PATH="$(sanitize_path "$HOME/Android/Sdk/platform-tools:$PATH")"
 
+    # fly.io
+    export PATH="$(sanitize_path "$HOME/.fly/bin:$PATH")"
+
     return 0
 }
 
