@@ -24,6 +24,8 @@ age -R ~/.age/machine.recipient -o cipher.txt.age plain.txt
 age-keygen -o ~/.age/key.txt
 apdot filename.dot -Tpng | timg -
 apt install iat
+apt-mark auto ubuntu-restricted-addons
+apt-mark showmanual
 aria2c -c -x 16 'https://ankitpati.in/filename.br'
 bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 bash -c 'dscacheutil -flushcache; killall -HUP mDNSResponder'
