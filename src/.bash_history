@@ -1099,6 +1099,7 @@ dnf remove qt-avif-image-plugin
 dnf remove vidcutter
 dnf remove virtualbox-guest-additions
 dnf repolist all
+docker build --build-arg username='ankitpati' -t opensuse-dev .
 docker build --pull --no-cache -t fedora-dev .
 docker build -t image-name:optional-tag .
 docker images -a
