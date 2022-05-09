@@ -332,6 +332,7 @@ brew list --casks
 brew missing
 brew reinstall --cask vscodium
 brew reinstall --cask webex-meetings
+brew reinstall httpd
 brew search --fedora perl-Mojolicious
 brew search --ubuntu libmojolicious-perl
 brew services info --all
@@ -1401,6 +1402,7 @@ lpass show --field='Public Key' unique_name
 lpass show --password docker_personal_access_token | docker login -u "$(lpass show --username docker_personal_access_token)" --password-stdin
 lpass show --password perforce | p4 login
 lpass show --password unique_name
+lpass show --sync=now --all unique_name
 lpass show --username unique_name
 lpass show unique_name
 ls "$(brew --prefix)/bin/g"* | rev | cut -d/ -f1 | rev | cut -dg -f2- | xargs -r which 2>/dev/null | grep -v "^$(brew --prefix)/" | rev | cut -d/ -f1 | rev | while read -r binary; do echo "$(brew --prefix)/bin/g$binary"; done | xargs -r ls -l | rev | cut -d/ -f4 | rev | sort -u
@@ -1536,6 +1538,7 @@ p4 login -as
 p4 monitor show
 p4 monitor terminate 1234
 p4 opened
+p4 passwd -O "$(lpass show --password perforce)" -P "$(pwgen 20 1 | tee new_p4_pass)" && lpass edit --non-interactive --password perforce < new_p4_pass && rm new_p4_pass
 p4 reconcile //depot/...
 p4 revert -n //depot/directory/...
 p4 revert -n filename.pl
