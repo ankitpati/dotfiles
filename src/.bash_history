@@ -63,6 +63,7 @@ brew install advancecomp
 brew install age
 brew install aliyun-cli
 brew install ant
+brew install argocd
 brew install aria2
 brew install arp-scan
 brew install arping
