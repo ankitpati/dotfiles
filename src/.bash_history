@@ -191,6 +191,7 @@ brew install kops
 brew install kotlin
 brew install krew
 brew install ksh
+brew install kube-linter
 brew install kube-score
 brew install kubecfg
 brew install kubecm
@@ -244,6 +245,7 @@ brew install proctools
 brew install proguard
 brew install proselint
 brew install pwgen
+brew install pyenv
 brew install pylint
 brew install pyright
 brew install pywhat
@@ -290,6 +292,7 @@ brew install tcptraceroute
 brew install tcsh
 brew install tealdeer
 brew install terminal-notifier
+brew install terracognita
 brew install terraform
 brew install terraform-rover
 brew install terraform_landscape
@@ -1215,6 +1218,7 @@ gcloud auth configure-docker gcr.io
 gcloud auth list
 gcloud auth login
 gcloud auth print-access-token
+gcloud compute images list
 gcloud compute zones list
 gcloud compute zones list --project=project-id
 gcloud config configurations list
@@ -1225,6 +1229,7 @@ gcloud config set project project-id
 gcloud config unset project
 gcloud info
 gcloud projects list
+gcloud topic filters
 gcloud version
 gh config list
 gh config set git_protocol ssh
@@ -1367,6 +1372,7 @@ kubecm --config kubeconfig.yaml list
 kubecm list
 kubectl --help
 kubectl -n namespace get pods
+kubectl cluster-info
 kubectl cluster-info --context docker-desktop
 kubectl cluster-info --context kind-kind
 kubectl cluster-info --context kind-kind dump
@@ -1374,6 +1380,7 @@ kubectl config --help
 kubectl config view
 kubectl config view --minify --raw --output 'jsonpath={..cluster.certificate-authority-data}'
 kubectl get nodes
+kubectl get pods
 kubectl get pods --context=kube-context
 kubectl get pods -A
 kubectl get svc -A
@@ -1388,6 +1395,7 @@ launchctl unload /System/Library/LaunchDaemons/ssh.plist
 limitcpu
 litecli ~/Library/Containers/org.p0deje.Maccy/Data/Library/Application\ Support/Maccy/Storage.sqlite
 ln -s "$(brew --prefix)/opt/openssl@1.1/" "$(brew --prefix)/opt/openssl"
+ln -s /usr/bin/{ar,ranlib} ~/bin/ && pyenv install 2.7.18 && rm ~/bin/{ar,ranlib}
 ln -sf /usr/lib/systemd/resolv.conf /etc/resolv.conf
 ln -sfn "$(brew --prefix)/opt/openjdk/libexec/openjdk.jdk" /Library/Java/JavaVirtualMachines/openjdk.jdk
 locate --statistics
@@ -1583,6 +1591,7 @@ pgrep -x chrome
 pidof -s chrome
 pidof chrome
 ping -s 1500 ankitpati.in
+pip install --upgrade 'pip < 21'
 pip install -r requirements.txt
 pip install cx_Oracle
 pip install data-science-types
@@ -1600,6 +1609,8 @@ pip install pycurl
 pip install pyment
 pip install python-poppler-qt5
 pip install pytype
+pip install pytz
+pip install requests
 pip install safety
 pip install scipy
 pip install shap
@@ -1641,6 +1652,15 @@ pup 'css-selector' < filename.html
 pup --color < filename.html
 pushd +1
 pushd path/to/directory/
+pyenv global
+pyenv global system 2.7.18
+pyenv install -l
+pyenv install 2.7.18
+pyenv local
+pyenv local --unset
+pyenv local 2.7.18
+pyenv version
+pyenv versions
 pylint --py3k path/to/python/file.py
 pyment -w path/to/python/file.py
 python -m pdb <(echo 'import sys; print(sys.path);')
