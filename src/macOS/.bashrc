@@ -109,6 +109,7 @@ main()
 
     # Telemetry
     export DOTNET_CLI_TELEMETRY_OPTOUT='1'
+    export HOMEBREW_NO_ANALYTICS='1'
     export POWERSHELL_TELEMETRY_OPTOUT='1'
     export SRC_DISABLE_USER_AGENT_TELEMETRY='1'
 
@@ -124,7 +125,6 @@ main()
     # Brew Prevent Time-Consuming Activities
     export HOMEBREW_NO_BOTTLE_SOURCE_FALLBACK='1'
     export HOMEBREW_NO_AUTO_UPDATE='1'
-    export HOMEBREW_NO_ANALYTICS='1'
 
     # Secure Brew
     export HOMEBREW_NO_INSECURE_REDIRECT='1'

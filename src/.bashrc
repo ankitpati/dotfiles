@@ -57,6 +57,7 @@ main()
 
     # Telemetry
     export DOTNET_CLI_TELEMETRY_OPTOUT='1'
+    export HOMEBREW_NO_ANALYTICS='1'
     export POWERSHELL_TELEMETRY_OPTOUT='1'
     export SRC_DISABLE_USER_AGENT_TELEMETRY='1'
 
