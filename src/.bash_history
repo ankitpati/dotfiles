@@ -23,10 +23,12 @@ age --decrypt -i ~/.age/key.txt -o plain.txt cipher.txt.age
 age -R ~/.age/machine.recipient -o cipher.txt.age plain.txt
 age-keygen -o ~/.age/key.txt
 apdot filename.dot -Tpng | timg -
+apktool d filename.apk
 apt install iat
 apt-mark auto ubuntu-restricted-addons
 apt-mark showmanual
 aria2c -c -x 16 'https://ankitpati.in/filename.br'
+banner Type your message here.
 bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 bash -c 'dscacheutil -flushcache; killall -HUP mDNSResponder'
 bat --config-dir
@@ -36,6 +38,9 @@ bazel build //:TargetName
 bazel clean
 bazel help query
 bazel query --notool_deps --noimplicit_deps deps\(//:TargetName\) --output graph | apdot -Tpng | timg -
+below
+below help
+below replay --time '5 minutes ago'
 bind -P
 brew --prefix
 brew analytics off
@@ -447,6 +452,7 @@ dnf install abootimg
 dnf install ack
 dnf install advancecomp
 dnf install aegisub
+dnf install age
 dnf install aircrack-ng
 dnf install aireplay-ng
 dnf install android-tools
@@ -483,6 +489,7 @@ dnf install calibre
 dnf install calligra
 dnf install calligraplan
 dnf install cargo
+dnf install ccd2iso
 dnf install celestia
 dnf install certbot
 dnf install cheat
@@ -493,6 +500,7 @@ dnf install codium
 dnf install conda
 dnf install copyq
 dnf install cscope
+dnf install csv
 dnf install cura
 dnf install curlpp
 dnf install curlpp-devel
@@ -509,6 +517,7 @@ dnf install dialect
 dnf install digikam
 dnf install dnf-plugin-system-upgrade
 dnf install dnf-utils
+dnf install dnstracer
 dnf install dolphin
 dnf install dotnet
 dnf install drawing
@@ -650,6 +659,8 @@ dnf install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-3
 dnf install https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-32.noarch.rpm
 dnf install httrack
 dnf install hugin
+dnf install i2c-tools
+dnf install i2c-tools-perl
 dnf install ibus-uniemoji
 dnf install igt-gpu-tools
 dnf install impallari-raleway-fonts
@@ -678,6 +689,7 @@ dnf install krename
 dnf install krita
 dnf install krop
 dnf install kruler
+dnf install ksnip
 dnf install ktouch
 dnf install ldns-utils
 dnf install lensfun
@@ -689,6 +701,7 @@ dnf install libffi-devel
 dnf install libimobiledevice
 dnf install libimobiledevice-devel
 dnf install libimobiledevice-utils
+dnf install libpst
 dnf install librecad
 dnf install libreoffice-draw
 dnf install librsvg2-devel
@@ -778,6 +791,7 @@ dnf install perl-App-cpanminus
 dnf install perl-Sereal
 dnf install perl-Task-Kensho
 dnf install perl-Task-Kensho-\*
+dnf install perl-Unicode-LineBreak
 dnf install perl-aliased
 dnf install perl-hivex
 dnf install perl-pod2pdf
@@ -825,6 +839,7 @@ dnf install perl\(MetaCPAN::Client\)
 dnf install perl\(Modern::Perl\)
 dnf install perl\(Module::Util\)
 dnf install perl\(Mojolicious\)
+dnf install perl\(Neovim::Ext\)
 dnf install perl\(Net::IDN::Encode\)
 dnf install perl\(Net::IDN::Nameprep\)
 dnf install perl\(Net::SSLeay\)
@@ -937,6 +952,7 @@ dnf install python3-flower
 dnf install python3-gdal
 dnf install python3-graphviz
 dnf install python3-grpcio
+dnf install python3-i2c-tools
 dnf install python3-libguestfs
 dnf install python3-lxml
 dnf install python3-mypy
@@ -1014,21 +1030,30 @@ dnf install slic3r
 dnf install sloccount
 dnf install snapd
 dnf install socat
+dnf install sonic-visualiser
+dnf install soundconverter
+dnf install speedtest-cli
 dnf install sqlite-devel
 dnf install sscg
 dnf install ssdeep
+dnf install stacer
 dnf install stardict
 dnf install stardict-dic-hi
+dnf install steghide
 dnf install stellarium
 dnf install stow
 dnf install strace
+dnf install strongswan-charon-nm
+dnf install strongswan-libipsec
 dnf install subtitleeditor
 dnf install sunflow
 dnf install sushi
 dnf install svg2svgt
+dnf install svt-\*
 dnf install swift-lang
 dnf install synfigstudio
 dnf install sysfsutils
+dnf install tealdeer
 dnf install telegram-desktop
 dnf install terminator
 dnf install testdisk
@@ -1056,19 +1081,23 @@ dnf install unpaper
 dnf install vala
 dnf install valgrind
 dnf install vdpauinfo
+dnf install vidcutter
 dnf install vim-enhanced
 dnf install vlc
 dnf install vlc-extras
+dnf install vmpk
 dnf install vorbis-tools
 dnf install vulkan
 dnf install vulkan-tools
 dnf install wdiff
 dnf install wireshark
 dnf install wxGlade
+dnf install wxMaxima
 dnf install xautomation
 dnf install xclip
 dnf install xdelta
 dnf install xdotool
+dnf install xfoil
 dnf install xorg-x11-drv-nvidia-cuda
 dnf install xorg-x11-drv-nvidia-cuda-libs
 dnf install xorg-x11-drv-nvidia-devel
@@ -1079,18 +1108,22 @@ dnf install yasm
 dnf install ydotool
 dnf install youtube-dl
 dnf install zbar
+dnf install zint-qt
 dnf install zlib.i686
 dnf install zopfli
 dnf install zsh
+dnf list extras
 dnf needs-restarting
 dnf remove \*-blivet
 dnf remove abcli
 dnf remove abrt
 dnf remove awscli
+dnf remove broadcom-wl
 dnf remove csstidy
 dnf remove docker
 dnf remove fedora-chromium-config
 dnf remove fedora-user-agent-chrome
+dnf remove freedoom\*
 dnf remove gnome-abrt
 dnf remove gnome-initial-setup
 dnf remove gnome-shell-extension-apps-menu
@@ -1106,6 +1139,14 @@ dnf remove qt-avif-image-plugin
 dnf remove vidcutter
 dnf remove virtualbox-guest-additions
 dnf repolist all
+dnf repoquery --duplicates
+dnf repoquery --extras
+dnf repoquery --extras --exclude=kernel,kernel-\*
+dnf repoquery --unsatisfied
+dnf system-upgrade download --refresh --releasever=36
+dnf system-upgrade reboot
+dnstracer -s . ankitpati.in
+dnstracer ankitpati.in
 docker build --build-arg username='ankitpati' -t opensuse-dev .
 docker build --pull --no-cache -t fedora-dev .
 docker build -t image-name:optional-tag .
@@ -1123,6 +1164,8 @@ docker run -it --rm oraclelinux:8
 docker run -it --rm ubuntu:rolling
 docker run -it -v "$(pwd):/host-directory" --rm docker.io/library/fedora-dev
 docker system info
+drill -x 1.1.1.1
+drill ankitpati.in
 echo "$LINES" "$COLUMNS"
 echo 'Subject: Hello' | sendmail -v contact@ankitpati.in
 echo 'macOS Notification Text' | terminal-notifier
@@ -1144,6 +1187,7 @@ ember test
 ember test --server
 enca --list languages
 enca filename
+env __GLX_VENDOR_LIBRARY_NAME=nvidia __NV_PRIME_RENDER_OFFLOAD=1 /usr/bin/brave-browser --gpu-sandbox-failures-fatal=yes
 errno --list
 eslint --fix filename.js
 eslint filename.js
@@ -1178,6 +1222,9 @@ file -i filename
 find . -not -group ankitpati
 find . -not -user ankitpati
 find . -type f -exec chmod 0600 {} + -exec dos2unix {} +
+find . -type f -exec mv -t /directory-name/ {} +
+firewall-cmd --add-forward-port=port=443:proto=tcp:toport=8443
+firewall-cmd --add-masquerade
 firewall-cmd --add-protocol=ssh
 firewall-cmd --add-service=ssh --zone=public --permanent
 firewall-cmd --get-zone-of-interface=enp1s0
@@ -1185,11 +1232,16 @@ firewall-cmd --list-all
 firewall-cmd --list-ports
 firewall-cmd --list-services
 firewall-cmd --reload
+firewall-cmd --remove-forward-port=port=443:proto=tcp:toport=8443
+firewall-cmd --remove-masquerade
+firewall-cmd --remove-service=ssh --permanent
 firewall-cmd --state
 flatpak install com.belmoussaoui.Obfuscate
 flatpak install com.github.alexhuntley.Plots
+flatpak install com.github.hugolabe.Wike
 flatpak install com.github.huluti.Curtail
 flatpak install com.github.junrrein.PDFSlicer
+flatpak install com.github.liferooter.textpieces
 flatpak install com.github.tchx84.Flatseal
 flatpak install com.rafaelmardojai.WebfontKitGenerator
 flatpak install fr.natron.Natron
@@ -1231,6 +1283,10 @@ gcloud info
 gcloud projects list
 gcloud topic filters
 gcloud version
+gdb elfname
+getcap "$(command -v nmap)"
+getfacl "$(command -v nmap)"
+getfattr "$(command -v nmap)"
 gh config list
 gh config set git_protocol ssh
 gh issue list
@@ -1297,6 +1353,7 @@ grep -l search-string -r . | xargs -o vim
 gsettings set org.gnome.shell.app-switcher current-workspace-only true
 guiscrcpy
 guiscrcpy config -r
+gunzip filename.gz
 hash
 hash -r
 hash perl
@@ -1341,12 +1398,18 @@ istioctl version
 iw dev wlp2s0
 iw dev wlp2s0 info
 iwconfig
+iwconfig wlp2s0 freq 5.2G
 jamf enroll -prompt
 jamf manage
 jamf policy
 jamf recon
+join --nocheck-order -1 2 filename1 filename2
+join -t '' filename1 filename2
+join filename1 filename2
 journalctl
-journalctl -f -o cat "$(which gnome-shell)"
+journalctl --vacuum-size=1M
+journalctl --vacuum-time=1d
+journalctl -f -o cat "$(command -v gnome-shell)"
 jq -S --indent 4 . < filename.json
 jq . < filename.json
 js-beautify filename.js
@@ -1414,7 +1477,7 @@ lpass show --password unique_name
 lpass show --sync=now --all unique_name
 lpass show --username unique_name
 lpass show unique_name
-ls "$(brew --prefix)/bin/g"* | rev | cut -d/ -f1 | rev | cut -dg -f2- | xargs -r which 2>/dev/null | grep -v "^$(brew --prefix)/" | rev | cut -d/ -f1 | rev | while read -r binary; do echo "$(brew --prefix)/bin/g$binary"; done | xargs -r ls -l | rev | cut -d/ -f4 | rev | sort -u
+ls "$(brew --prefix)/bin/g"* | rev | cut -d/ -f1 | rev | cut -dg -f2- | xargs -r command -v 2>/dev/null | grep -v "^$(brew --prefix)/" | rev | cut -d/ -f1 | rev | while read -r binary; do echo "$(brew --prefix)/bin/g$binary"; done | xargs -r ls -l | rev | cut -d/ -f4 | rev | sort -u
 ls /Library/Launch{Agents,Daemons}
 ls ~/Library/Application\ Support/VSCodium/User/settings.json
 lsattr filename
@@ -1445,6 +1508,8 @@ msfconsole
 msfdb stop
 mvn --encrypt-master-password 'maven-master-password'
 mvn --encrypt-password 'maven-server-password'
+mypy --config-file ~/.mypy.ini
+namei -l "$(command -v perl6)"
 namei -om /bin/perl6
 nc -lp 5432
 ncdu
@@ -1459,6 +1524,7 @@ nmcli connection show
 nmcli connection show --active
 nmcli connection show --configured
 nmcli connection show --show-secrets
+nmcli connection up id connectionId
 nmcli device wifi list
 nmcli device wifi rescan
 nmcli general status
@@ -1575,6 +1641,10 @@ paste <(echo a quick brown fox jumps over a lazy dog | sed -E 's/\s+/\n/g') <(ec
 patch filename.c filename.c.patch
 pavumeter --record
 pbcopy < ~/.ssh/id_ed25519.pub
+pdfimages -all filename.pdf ./
+pdfimages -j filename.pdf ./
+pdfimages filename.pdf ./
+perl -MModern::Perl=2020 -dE 0
 perl -MModule::CoreList -E 'say Module::CoreList->find_modules(qr/path/i)'
 perl -MModule::CoreList -E 'say Module::CoreList->first_release(q{File::Path})'
 perl -dE 0
@@ -1702,6 +1772,7 @@ sdk install sbt
 sdk install visualvm
 sed -E 's/ /\n/g' < /proc/cmdline
 sed -i -E 's|#!/usr/bin/octave -q|#!/usr/bin/env -S octave -q|g' -- *.m
+sensors
 seq -w 000 007 | while read -r num; do cat "input$num.txt"; read; cat "output$num.txt"; read; done
 sha256sum -c filename-CHECKSUM
 skaffold help
@@ -1715,6 +1786,7 @@ softwareupdate -l; brew update; brew upgrade; cpan-outdated --exclude-core -p | 
 source ./.venv/bin/activate
 spctl developer-mode enable-terminal
 speedtest
+speedtest-cli
 sqlformat -k upper -i lower -r --indent_width 4 --indent_columns -s --comma_first True filename.sql
 sqlite3 filename.sqlite
 sqlite3 ~/Library/Containers/org.p0deje.Maccy/Data/Library/Application\ Support/Maccy/Storage.sqlite 'select group_concat(zvalue, char(10)) from zhistoryitemcontent where zvalue regexp "^[a-z0-9-_@.]+$"' | xargs brew info
@@ -1733,6 +1805,7 @@ ssh-keygen -t ed25519
 ssh-keygen -y -f ~/.ssh/id_ed25519
 sslscan ankitpati.in:443
 sslyze ankitpati.in:443
+sss_cache -E
 stat -c '%w' filename
 strace -e open -o programname.strace programname programargs
 strace programname 2> programname.strace
@@ -1742,8 +1815,17 @@ sudo bash -c 'rfkill unblock bluetooth; systemctl restart bluetooth.service'
 sudo bash -c 'systemctl stop libvirtd.socket; systemctl stop libvirtd.service'
 sudo inxi -SMCDG
 svg2png filename.svg
+systemctl disable --now avahi-daemon.service
+systemctl disable --now libvirtd.service
+systemctl disable --now mariadb.service
+systemctl disable --now pcscd.socket
+systemctl disable --now realmd.service
+systemctl disable --now sssd.service
+systemctl disable --now vboxservice.service
+systemctl disable --now ydotool.service
 systemctl edit --user --force --full filename.service
 systemctl edit --user filename.service
+systemctl enable --now sssd-kcm.socket
 systemctl list-units --type=service --state=active
 systemctl list-units --type=service --state=running
 systemd-analyze cat-config systemd/resolved.conf
@@ -1785,7 +1867,7 @@ uname -r
 unix2dos filename.txt
 update-alternatives --config java
 update-alternatives --config javac
-update-alternatives --set editor /bin/vim
+update-alternatives --set editor "$(command -v vim)"
 updatedb
 uprecord
 uptime
@@ -1826,10 +1908,15 @@ virsh qemu-monitor-command info
 virsh qemu-monitor-command info version
 virsh send-key Windows-10 --codeset xt 37
 virsh send-key dom --codeset xt 37
+vkcube
 vmrun getGuestIPAddress ~/Virtual\ Machines.localized/vm_name.vmwarevm/vm_name.vmx
 vmrun list
 vmrun start ~/Virtual\ Machines.localized/vm_name.vmwarevm/ nogui
+voila filename.ipynb
+volatility
+vulkaninfo
 wappalyzer https://ankitpati.in | jq .
+wash -i wlp2s0
 watch -n 10 du -sh
 watch du -sh
 wget 'https://www.toptal.com/developers/gitignore/api/java,netbeans,eclipse,jetbrains,android,androidstudio' -O .gitignore
