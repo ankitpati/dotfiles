@@ -23,7 +23,7 @@ set nocompatible
     let g:blamer_show_in_insert_modes=0
     let g:blamer_show_in_visual_modes=0
     let g:blamer_template='<committer-mail> <committer-time> <summary>'
-    let g:syntastic_python_flake8_args="--ignore=E501"
+    let g:syntastic_python_flake8_args='--ignore=E501'
 " End of Plugin Config
 
 syntax on
