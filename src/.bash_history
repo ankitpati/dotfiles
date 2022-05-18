@@ -240,6 +240,7 @@ brew install nmap
 brew install numdiff
 brew install ocrmypdf
 brew install onefetch
+brew install opa
 brew install openssh
 brew install openstackclient
 brew install oq
