@@ -177,6 +177,7 @@ brew install http-prompt
 brew install httpd
 brew install httpie
 brew install httrack
+brew install hyperfine
 brew install inetutils
 brew install iproute2mac
 brew install ipv6calc
@@ -239,6 +240,7 @@ brew install netcat
 brew install nmap
 brew install numdiff
 brew install ocrmypdf
+brew install octosql
 brew install onefetch
 brew install opa
 brew install openssh
@@ -339,6 +341,8 @@ brew leaves --installed-as-dependency
 brew leaves --installed-on-request
 brew linkage
 brew list --casks
+brew livecheck --debug kubernetes-cli
+brew livecheck kubernetes-cli
 brew missing
 brew reinstall --cask vscodium
 brew reinstall --cask webex-meetings
@@ -1561,6 +1565,7 @@ kubectl cluster-info --context kind-kind dump
 kubectl config --help
 kubectl config view
 kubectl config view --minify --raw --output 'jsonpath={..cluster.certificate-authority-data}'
+kubectl get namespaces
 kubectl get nodes
 kubectl get pods
 kubectl get pods --context=kube-context
@@ -1620,6 +1625,15 @@ massren -u path/to/directory
 mdfind -name '.csv'
 mdfind -name 'log4j' | ack -i '(?<!\.)2\..*\.jar$'
 meson x --buildtype release --strip -Db_lto=true
+minikube config --help
+minikube config set driver docker
+minikube config set kubernetes-version "$(brew livecheck --json kubernetes-cli | jq -r '.[0].version.latest')"
+minikube config set kubernetes-version "$(git ls-remote --sort=v:refname --tags https://github.com/kubernetes/kubernetes.git 'v*^{}' | cut -dv -f2 | cut -d^ -f1 | grep -P '^\d+\.\d+\.\d+$' | tail -n 1)"
+minikube config view
+minikube delete
+minikube help
+minikube start
+minikube status
 modinfo -F version nvidia
 mogrify -format jpg ./*.png
 mojo version
