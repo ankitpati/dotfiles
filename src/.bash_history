@@ -130,6 +130,7 @@ brew install ed
 brew install eksctl
 brew install eslint
 brew install expect
+brew install fd
 brew install file-formula
 brew install findutils
 brew install firebase-cli
@@ -185,6 +186,7 @@ brew install iredis
 brew install irssi
 brew install istioctl
 brew install ivy
+brew install jd
 brew install jfrog-cli
 brew install jless
 brew install jq
@@ -429,8 +431,6 @@ defaults write com.jetbrains.intellij ApplePressAndHoldEnabled -bool false
 defaults write com.visualstudio.code.oss ApplePressAndHoldEnabled -bool false
 df -h
 df -i
-diff HEAD~1 --name-only
-difftool branchname -- filename
 dig -t ANY google.com
 dig -x 172.30.83.9
 dig -x ankitpati.in
@@ -1292,6 +1292,8 @@ drill ankitpati.in
 echo "$LINES" "$COLUMNS"
 echo 'Subject: Hello' | sendmail -v contact@ankitpati.in
 echo 'macOS Notification Text' | terminal-notifier
+echo '{ "name": "Ankit" }' | jq '.name | ascii_downcase'
+echo 0 | jq 'builtins'
 echo gcr.io | docker-credential-gcloud get | jq .
 ember build
 ember build --environment=production
@@ -1334,8 +1336,18 @@ fastboot reboot recovery
 fc-cache -fv
 fc-list
 fcrackzip
-fd path/to/file
-fd path/to/file -p
+fd -F filename.c++
+fd -a filename
+fd -gp '**/to/file'
+fd -p 'th/t./file.*\.ext$'
+fd -p path/to/filename.ext
+fd -p path[12]/to/filename
+fd -p th/to/file
+fd -uu filename
+fd -uup path/to/filename
+fd Makefile
+fd filename[12]
+fd path/to/filename
 fdupes -r .
 fdupes -rN .
 fdupes -rNd .
@@ -1422,6 +1434,8 @@ git checkout -p
 git cherry-pick branchname~2..branchname
 git commit --amend -S --no-edit
 git config --show-origin credential.helper
+git diff HEAD~1 --name-only
+git difftool branchname -- filename
 git fetch origin pull/1000/head:local-branch-name # for GitHub
 git lfs install
 git log --follow -- filename
@@ -1526,6 +1540,9 @@ jamf enroll -prompt
 jamf manage
 jamf policy
 jamf recon
+jd --set 1.json 2.json
+jd -f patch 1.json 2.json
+jd 1.json 2.json
 join --nocheck-order -1 2 filename1 filename2
 join -t '' filename1 filename2
 join filename1 filename2
@@ -1536,6 +1553,7 @@ journalctl -f -o cat "$(command -v gnome-shell)"
 jq -S --indent 4 . < filename.json
 jq . < filename.json
 js-beautify filename.js
+json-sort-arrays --indent 4 filename.json
 jsonlint filename.json
 jsonlint-php filename.json
 jupyter notebook password
@@ -1778,8 +1796,9 @@ pdfimages -all filename.pdf ./
 pdfimages -j filename.pdf ./
 pdfimages filename.pdf ./
 perl -MModern::Perl=2020 -dE 0
-perl -MModule::CoreList -E 'say Module::CoreList->find_modules(qr/path/i)'
 perl -MModule::CoreList -E 'say Module::CoreList->first_release(q{File::Path})'
+perl -MModule::CoreList -E 'say foreach Module::CoreList->find_modules'
+perl -MModule::CoreList -E 'say foreach Module::CoreList->find_modules(qr/path/i)'
 perl -dE 0
 perl -pi -E 'chomp if eof' filename.txt
 perlbrew list-modules
