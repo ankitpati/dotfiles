@@ -311,9 +311,7 @@ main()
         export PYENV_ROOT="$HOME/.pyenv/"
         # shellcheck disable=SC2154
         test -d "$HOME/.pyenv" && \
-            source <(pyenv init -) && \
-            source <(pyenv virtualenv-init -) && \
-            test -z "$PYENV_ACTIVATE_SHELL" && pyenv activate "$USER"
+            source <(pyenv init -)
 
         # perlbrew
         test -f "$HOME/perl5/perlbrew/etc/bashrc" && \
