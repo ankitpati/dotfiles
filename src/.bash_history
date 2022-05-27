@@ -120,6 +120,7 @@ brew install diffutils
 brew install dnscontrol
 brew install dnstracer
 brew install docker-slim
+brew install dockviz
 brew install dos2unix
 brew install doxygen
 brew install driftctl
@@ -1287,6 +1288,10 @@ docker run -it --rm oraclelinux:8
 docker run -it --rm ubuntu:rolling
 docker run -it -v "$(pwd):/host-directory" --rm docker.io/library/fedora-dev
 docker system info
+docker system prune
+dockviz images -d | apdot | timg -
+dockviz images -d | patchwork | apdot | timg -
+dockviz images -t
 drill -x 1.1.1.1
 drill ankitpati.in
 echo "$LINES" "$COLUMNS"
@@ -1596,7 +1601,9 @@ latest-version asar
 latest-version spectron
 launchctl list
 launchctl load /System/Library/LaunchDaemons/ssh.plist
+launchctl setenv SOME_ENV_VAR 'Some Value'
 launchctl unload /System/Library/LaunchDaemons/ssh.plist
+launchctl unsetenv SOME_ENV_VAR
 limitcpu
 litecli ~/Library/Containers/org.p0deje.Maccy/Data/Library/Application\ Support/Maccy/Storage.sqlite
 ln -s "$(brew --prefix)/opt/openssl@1.1/" "$(brew --prefix)/opt/openssl"
