@@ -213,7 +213,12 @@ main()
     export PERL5LIB="$(sanitize_path "$HOME/lib/perl5:$HOME/.local/lib/perl5:$PERL5LIB")"
 
     # Completion for brewed binaries
-    # TODO
+    completions_dir="$brew_prefix/etc/bash_completion.d"
+    test -x "$completions_dir" && \
+        for completion_file in "$completions_dir"/*
+        do
+            source "$completion_file"
+        done
 
     return 0
 }
