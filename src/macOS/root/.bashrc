@@ -12,63 +12,23 @@ sanitize_path()
                  | sed 's_//*_/_g'
 }
 
-# prepend old binaries to PATH
+# Prepend old binaries to PATH
 B-oldbin()
 {
     export PATH="$(sanitize_path "$HOME/oldbin:$PATH")"
     hash -r
 }
 
-main()
+add_brewed_items_to_env()
 {
-    # Clear out `$PATH` before sourcing `/etc/profile` for root. This is necessary
-    # because `sudo -i` on macOS doesn’t blank out `$PATH`; it passes it unchanged
-    # from the sudo’ing user to root.
-    #
-    # shellcheck disable=SC2123
-    PATH=''
-
-    # Source global definitions
-    local global_profile='/etc/profile'
-    test -f "$global_profile" && source "$global_profile"
-
-    # `brew` “cowardly refuses to run as root,” so hard-coding is necessary here.
-    local brew_prefix='/usr/local'
-
-    # Ensure `source`s below this see the correct `$MANPATH`.
-    local manpath="$MANPATH"
-    unset MANPATH
-    export MANPATH="$(sanitize_path "$manpath:$(manpath)")"
-
-    # Text editors
-    export EDITOR='vim'
-    export MERGE='vimdiff'
-
-    # Telemetry
-    export DOTNET_CLI_TELEMETRY_OPTOUT='1'
-    export HOMEBREW_NO_ANALYTICS='1'
-    export POWERSHELL_TELEMETRY_OPTOUT='1'
-    export SRC_DISABLE_USER_AGENT_TELEMETRY='1'
-
-    # History Configuration
-    shopt -s histappend
-    unset HISTTIMEFORMAT
-    export HISTSIZE=''
-    export HISTFILESIZE=''
-    export HISTCONTROL='ignoreboth'
-    test -z "$(echo "$PROMPT_COMMAND" | grep '\bhistory\b')" && \
-        export PROMPT_COMMAND="history -a; history -n; $PROMPT_COMMAND"
-
-    # get the superior versions of common binaries
+    # Get the superior versions of common binaries
     local extra_binaries=''
+    local extra_claspath=''
+    local extra_dyldpath=''
     local extra_manpages=''
     local extra_pkgpaths=''
-    local extra_dyldpath=''
-    local extra_claspath=''
 
-    local use_gnu_binaries='true'
-
-    # keep more important items after less important ones
+    # Keep more important items after less important ones
     local gnuitem
     for gnuitem in \
         wildfly-as \
@@ -135,15 +95,15 @@ main()
         local gnupath="$brew_prefix/opt/$gnuitem/libexec/gnubin"
         test -d "$gnupath" && extra_binaries="$gnupath:$extra_binaries"
 
-        # some items prefer not to use `gnu` in their paths
+        # Some items prefer not to use `gnu` in their paths
         local gnupath="$brew_prefix/opt/$gnuitem/libexec/bin"
         test -d "$gnupath" && extra_binaries="$gnupath:$extra_binaries"
 
-        # some items, especially the non-g-prefixed ones, require different paths
+        # Some items, especially the non-g-prefixed ones, require different paths
         local gnupath="$brew_prefix/opt/$gnuitem/bin"
         test -d "$gnupath" && extra_binaries="$gnupath:$extra_binaries"
 
-        # some items install sbins
+        # Some items install sbins
         local gnupath="$brew_prefix/opt/$gnuitem/sbin"
         test -d "$gnupath" && extra_binaries="$gnupath:$extra_binaries"
 
@@ -151,11 +111,11 @@ main()
         local manpath="$brew_prefix/opt/$gnuitem/libexec/gnuman"
         test -d "$manpath" && extra_manpages="$manpath:$extra_manpages"
 
-        # different standards for different packages
+        # Different standards for different packages
         local manpath="$brew_prefix/opt/$gnuitem/libexec/man"
         test -d "$manpath" && extra_manpages="$manpath:$extra_manpages"
 
-        # some manpages are at a different location
+        # Some manpages are at a different location
         local manpath="$brew_prefix/opt/$gnuitem/share/man"
         test -d "$manpath" && extra_manpages="$manpath:$extra_manpages"
 
@@ -170,58 +130,101 @@ main()
     local brewsbinpath="$brew_prefix/sbin"
     test -d "$brewsbinpath" && extra_binaries="$brewsbinpath:$extra_binaries"
 
-    # clean and export the fruits of the above labour
-    if test "$use_gnu_binaries" = 'true'; then
-        local admin_user_home='/Users/ankitpati'
-        local extra_binaries="$admin_user_home/bin:$admin_user_home/.local/bin:$extra_binaries"
-        local extra_manpages="$admin_user_home/man:$admin_user_home/.local/share/man:$extra_manpages"
-        local extra_dyldpath="$admin_user_home/lib:$admin_user_home/.local/lib:$extra_dyldpath"
-        local extra_claspath="$admin_user_home/jar:$admin_user_home/.local/jar:$extra_claspath"
+    # Clean and export the fruits of the above labour
+    local admin_user_home='/Users/ankitpati'
+    local extra_binaries="$admin_user_home/bin:$admin_user_home/.local/bin:$extra_binaries"
+    local extra_claspath="$admin_user_home/jar:$admin_user_home/.local/jar:$extra_claspath"
+    local extra_dyldpath="$admin_user_home/lib:$admin_user_home/.local/lib:$extra_dyldpath"
+    local extra_manpages="$admin_user_home/man:$admin_user_home/.local/share/man:$extra_manpages"
 
-        export PATH="$(sanitize_path "$extra_binaries:$PATH")"
-        export MANPATH="$(sanitize_path "$extra_manpages:$MANPATH")"
-        export DYLD_LIBRARY_PATH="$(sanitize_path "$extra_dyldpath:$DYLD_LIBRARY_PATH")"
-        export CLASSPATH="$(sanitize_path "$extra_claspath:$CLASSPATH")"
+    export CLASSPATH="$(sanitize_path "$extra_claspath:$CLASSPATH")"
+    export DYLD_LIBRARY_PATH="$(sanitize_path "$extra_dyldpath:$DYLD_LIBRARY_PATH")"
+    export MANPATH="$(sanitize_path "$extra_manpages:$MANPATH")"
+    export PATH="$(sanitize_path "$extra_binaries:$PATH")"
+    export PKG_CONFIG_PATH="$(sanitize_path "$extra_pkgpaths:$PKG_CONFIG_PATH")"
+}
 
-        export PKG_CONFIG_PATH="$(sanitize_path "$extra_pkgpaths")"
+main()
+{
+    # Clear out `$PATH` before sourcing `/etc/profile` for root.
+    #
+    # This is necessary because `sudo -i` on macOS doesn’t blank out `$PATH`;
+    # it passes it unchanged from the sudo’ing user to root.
+    #
+    # shellcheck disable=SC2123
+    PATH=''
 
-        # completion for brewed binaries
-        local completions="$brew_prefix/etc/profile.d/bash_completion.sh"
-        test -f "$completions" && \
-            source "$completions"
+    # Source global definitions
+    local global_profile='/etc/profile'
+    test -f "$global_profile" && \
+        source "$global_profile"
 
-        # colours for `tree`
-        command -v dircolors &>/dev/null && source <(dircolors -b)
+    mesg n || true
 
-        alias egrep='grep -E'
-        alias fgrep='grep -F'
-        alias grepp='grep -P'
-        alias grep='grep --color=auto'
-        alias l='ls -CF'
-        alias l.='ls -d .*'
-        alias la='ls -A'
-        alias ll='ls -alF'
-        alias ls='ls --color=auto'
-        alias ncdu='ncdu --color dark'
-        alias tree='tree -I ".git|node_modules"'
-        alias cpan-outdated='cpan-outdated --mirror="https://www.cpan.org/"'
-        alias podchecker='podchecker -warnings -warnings -warnings'
-        alias tohex="hexdump -ve '1/1 \"%.2x\" '"
-        # shellcheck disable=SC2154
-        alias unchomp='sed -i -e \$a\\ '
-        alias ssh='exec ssh'
-        alias telnet='exec telnet'
-        alias mosh='exec mosh'
-        alias git-sh='exec git-sh'
-        alias ssh-copy-id='ssh-copy-id -oPasswordAuthentication=yes'
+    # `brew` “cowardly refuses to run as root,” so hard-coding is necessary here
+    local brew_prefix='/usr/local'
 
-    else
-        alias updatedb='/usr/libexec/locate.updatedb'
-    fi
+    # Ensure `source`s below this see the correct `$MANPATH`.
+    local manpath="$MANPATH"
+    unset MANPATH
+    export MANPATH="$(sanitize_path "$manpath:$(manpath)")"
+
+    # Text editors
+    export EDITOR='vim'
+    export MERGE='vimdiff'
+
+    # Telemetry
+    export DOTNET_CLI_TELEMETRY_OPTOUT='1'
+    export HOMEBREW_NO_ANALYTICS='1'
+    export POWERSHELL_TELEMETRY_OPTOUT='1'
+    export SRC_DISABLE_USER_AGENT_TELEMETRY='1'
+
+    # History configuration
+    shopt -s histappend
+    unset HISTTIMEFORMAT
+    export HISTCONTROL='ignoreboth'
+    export HISTFILESIZE=''
+    export HISTSIZE=''
+    test -z "$(echo "$PROMPT_COMMAND" | grep '\bhistory\b')" && \
+        export PROMPT_COMMAND="history -a; history -n; $PROMPT_COMMAND"
+
+    # Completion for brewed binaries
+    local completions="$brew_prefix/etc/profile.d/bash_completion.sh"
+    test -f "$completions" && \
+        source "$completions"
+
+    # Colours for `tree`
+    command -v dircolors &>/dev/null && \
+        source <(dircolors -b)
+
+    alias cpan-outdated='cpan-outdated --mirror="https://www.cpan.org/"'
+    alias egrep='grep -E'
+    alias fgrep='grep -F'
+    alias git-sh='exec git-sh'
+    alias grep='grep --color=auto'
+    alias grepp='grep -P'
+    alias l.='ls -d .*'
+    alias l='ls -CF'
+    alias la='ls -A'
+    alias ll='ls -alF'
+    alias ls='ls --color=auto'
+    alias mosh='exec mosh'
+    alias ncdu='ncdu --color dark'
+    alias podchecker='podchecker -warnings -warnings -warnings'
+    alias ssh-copy-id='ssh-copy-id -oPasswordAuthentication=yes'
+    alias ssh='exec ssh'
+    alias telnet='exec telnet'
+    alias tohex="hexdump -ve '1/1 \"%.2x\" '"
+    alias tree='tree -I ".git|node_modules"'
+    # shellcheck disable=SC2154
+    alias unchomp='sed -i -e \$a\\ '
+
+    add_brewed_items_to_env;
+    unset -f add_brewed_items_to_env
 
     return 0
 }
 
-# invoke `main` & cleanup
+# Invoke `main` & cleanup
 main
 unset -f main

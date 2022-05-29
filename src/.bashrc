@@ -12,14 +12,57 @@ sanitize_path()
                  | sed 's_//*_/_g'
 }
 
-# delete CPANM cache
-B-clean-cpanm()
+B-delds()
 {
-    echo 'Removing the CPANM Work Cache...'
-    rm -rf "$HOME/.cpanm/"{'work/','build.log','latest-build'}
+    echo 'Removing the following files...'
+    find "$HOME" -not \( -path "$HOME/Mounts" -prune \) \
+           -regextype egrep \
+           -regex '.*(\.(DS_Store|AppleDouble|AppleDesktop)|Thumbs\.db)$' \
+           -print \
+           -exec rm -rf {} +
+
+    echo 'Removing broken symlinks...'
+    find "$HOME" -not \( -path "$HOME/Mounts" -prune \) \
+            -type l \
+            ! -exec test -e {} \; \
+            -print \
+            -exec rm -rf {} +
+
+    command -v qlmanage &>/dev/null && \
+        echo 'Removing the QuickLook Cache...' && \
+        qlmanage -r cache
 }
 
-# prepend old binaries to PATH
+B-clean-cache()
+{
+    echo 'Uninstalling dangling Homebrew packages...'
+    brew autoremove
+
+    echo 'Removing the Homebrew Build Cache...'
+    brew cleanup --prune=all
+
+    echo 'Removing the Perlbrew Build Cache...'
+    perlbrew clean
+
+    echo 'Removing the CPANM Work Cache...'
+    rm -rf "$HOME/.cpanm/"{'work/','build.log','latest-build'}
+
+    echo 'Removing the PIP Cache...'
+    rm -rf "$HOME/.cache/pip/"
+}
+
+# Compact Homebrew git repositories
+B-brew-compact()
+{
+    echo 'Running `git cleanup` on Homebrew...'
+    for brewtap in "$brew_prefix/Homebrew" \
+                   "$brew_prefix/Homebrew/Library/Taps/"*/*
+    do
+        git -C "$brewtap" cleanup
+    done
+}
+
+# Prepend old binaries to PATH
 B-oldbin()
 {
     export PATH="$(sanitize_path "$HOME/oldbin:$PATH")"
@@ -30,40 +73,17 @@ main()
 {
     # Source global definitions
     local global_profile='/etc/profile'
-    test -f "$global_profile" && source "$global_profile"
+    test -f "$global_profile" && \
+        source "$global_profile"
 
     mesg n || true
 
-    # Source Homebrew environment
-    local brew_binary='/home/linuxbrew/.linuxbrew/bin/brew'
-    test -x "$brew_binary" && source <("$brew_binary" shellenv)
+    local brew_prefix="$(brew --prefix)"
 
     # Ensure `source`s below this see the correct `$MANPATH`.
     local manpath="$MANPATH"
     unset MANPATH
     export MANPATH="$(sanitize_path "$manpath:$(manpath)")"
-
-    export PERL_CPANM_OPT='--from https://www.cpan.org/ --verify'
-    export PERLBREW_CPAN_MIRROR='https://www.cpan.org/'
-    export PERL5LIB="$HOME/lib/perl5/"
-    export PERLCRITIC="$HOME/.perlcriticrc"
-    export PYENV_ROOT="$HOME/.pyenv/"
-    export NPM_PACKAGES="$HOME/.npm/packages/"
-    export SDKMAN_DIR="$HOME/.sdkman/"
-    export MYPY_CACHE_DIR="$HOME/.mypy_cache/"
-    export MYPYPATH="$HOME/.mypy_stubs/"
-    export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
-    export ANDROID_HOME="$HOME/Android/Sdk/"
-
-    # Brew Prevent Time-Consuming Activities
-    export HOMEBREW_NO_BOTTLE_SOURCE_FALLBACK='1'
-    export HOMEBREW_NO_AUTO_UPDATE='1'
-
-    # Secure Brew
-    export HOMEBREW_NO_INSECURE_REDIRECT='1'
-
-    # Syntax-highlighted Brew Output
-    #export HOMEBREW_BAT='1'
 
     # Text editors
     export EDITOR='vim'
@@ -78,85 +98,126 @@ main()
     # History configuration
     shopt -s histappend
     unset HISTTIMEFORMAT
-    export HISTSIZE=''
-    export HISTFILESIZE=''
     export HISTCONTROL='ignoreboth'
+    export HISTFILESIZE=''
+    export HISTSIZE=''
     test -z "$(echo "$PROMPT_COMMAND" | grep '\bhistory\b')" && \
         export PROMPT_COMMAND="history -a; history -n; $PROMPT_COMMAND"
 
+    # Brew Prevent Time-Consuming Activities
+    export HOMEBREW_NO_AUTO_UPDATE='1'
+    export HOMEBREW_NO_BOTTLE_SOURCE_FALLBACK='1'
+
+    # Secure Brew
+    export HOMEBREW_NO_INSECURE_REDIRECT='1'
+
+    # Syntax-highlighted Brew Output
+    export HOMEBREW_BAT='1'
+
+    # RLWrap
+    export RLWRAP_EDITOR="vim '+call cursor(%L,%C)'"
+    export RLWRAP_HOME="$HOME/.rlwrap"
+
+    # ripgrep
+    export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
+
+    # SDKMAN!
+    export SDKMAN_DIR="$HOME/.sdkman/"
+
+    # Android
+    export ANDROID_HOME="$HOME/Android/Sdk/"
+
+    # NPM
+    export NPM_PACKAGES="$HOME/.npm/packages/"
+
+    # Python
+    export MYPYPATH="$HOME/.mypy_stubs/"
+    export MYPY_CACHE_DIR="$HOME/.mypy_cache/"
+    export PYENV_ROOT="$HOME/.pyenv/"
+
+    # Perl
+    export PERL5LIB="$(sanitize_path "$HOME/perl5/lib/perl5:$PERL5LIB")"
+    export PERLBREW_CPAN_MIRROR='https://www.cpan.org/'
+    export PERLCRITIC="$HOME/.perlcriticrc"
+    export PERL_CPANM_OPT='--from https://www.cpan.org/ --verify'
+    export PERL_LOCAL_LIB_ROOT="$(sanitize_path "$HOME/perl5:$PERL_LOCAL_LIB_ROOT")"
+    export PERL_MB_OPT="--install_base '$HOME/perl5'"
+    export PERL_MM_OPT="INSTALL_BASE=$HOME/perl5"
+
+    alias brew-cu='brew cu --no-brew-update'
+    alias cpan-outdated='cpan-outdated --mirror="$PERLBREW_CPAN_MIRROR"'
     alias egrep='grep -E'
     alias fgrep='grep -F'
-    alias grepp='grep -P'
+    alias git-sh='exec git-sh'
     alias grep='grep --color=auto'
-    alias l='ls -CF'
+    alias grepp='grep -P'
     alias l.='ls -d .*'
+    alias l='ls -CF'
     alias la='ls -A'
     alias ll='ls -alF'
     alias ls='ls --color=auto'
+    alias mosh='exec mosh'
     alias ncdu='ncdu --color dark'
-    alias tree='tree -I ".git|node_modules"'
-    alias cpan-outdated='cpan-outdated --mirror="$PERLBREW_CPAN_MIRROR"'
     alias podchecker='podchecker -warnings -warnings -warnings'
-    alias tohex="hexdump -ve '1/1 \"%.2x\" '"
-    # shellcheck disable=SC2154
-    alias unchomp='sed -i -e \$a\\ '
+    alias ssh-copy-id='ssh-copy-id -oPasswordAuthentication=yes'
     alias ssh='exec ssh'
     alias telnet='exec telnet'
-    alias mosh='exec mosh'
-    alias git-sh='exec git-sh'
-    alias ssh-copy-id='ssh-copy-id -oPasswordAuthentication=yes'
+    alias tohex="hexdump -ve '1/1 \"%.2x\" '"
+    alias tree='tree -I ".git|node_modules"'
+    # shellcheck disable=SC2154
+    alias unchomp='sed -i -e \$a\\ '
 
-    export PATH="$(sanitize_path "$HOME/bin:$HOME/.local/bin:$PATH")"
-
+    # lesspipe
     # Only on Debian and derivatives
     test -n "$(command grep -i 'debian' '/etc/os-release')" && \
         source <(SHELL='/bin/sh' lesspipe) && \
         source <(dircolors -b)
 
-    # perl local::lib
-    export PATH="$(sanitize_path "$HOME/perl5/bin:$PATH")"
-    export PERL5LIB="$(sanitize_path "$HOME/perl5/lib/perl5:$PERL5LIB")"
-    export PERL_LOCAL_LIB_ROOT="$(sanitize_path "$HOME/perl5:$PERL_LOCAL_LIB_ROOT")"
-    export PERL_MB_OPT="--install_base '$HOME/perl5'"
-    export PERL_MM_OPT="INSTALL_BASE=$HOME/perl5"
+    # pyenv
+    # shellcheck disable=SC2154
+    test -d "$HOME/.pyenv" && \
+        source <(pyenv init -)
 
-    # cargo
+    # Perlbrew
+    test -f "$HOME/perl5/perlbrew/etc/bashrc" && \
+        source "$HOME/perl5/perlbrew/etc/bashrc"
+
+    # Perl local::lib
+    export PATH="$(sanitize_path "$HOME/perl5/bin:$PATH")"
+
+    # Cargo
     export PATH="$(sanitize_path "$HOME/.cargo/bin:$PATH")"
 
-    # go
+    # Go
     export PATH="$(sanitize_path "$HOME/go/bin:$PATH")"
 
-    # php
+    # Composer
     export PATH="$(sanitize_path "$HOME/.composer/vendor/bin:$PATH")"
 
-    # npm
+    # NPM
     #npm config set prefix "$NPM_PACKAGES"
     export PATH="$(sanitize_path "$NPM_PACKAGES/bin:$PATH")"
 
-    # sdkman
+    # SDKMAN!
     local sdkman_init="$SDKMAN_DIR/bin/sdkman-init.sh"
-    test -f "$sdkman_init" && source "$sdkman_init"
+    test -f "$sdkman_init" && \
+        source "$sdkman_init"
 
-    # dart & flutter
-    #dart --disable-analytics
-    #flutter config --no-analytics
-    export PATH="$(sanitize_path "$HOME/snap/flutter/common/flutter/bin:$PATH")"
-
-    # lua
-    local lua_version='5.4' # TODO: automate this
-    export LUA_PATH=";;$HOME/.luarocks/share/lua/$lua_version/?.lua;$HOME/.luarocks/share/lua/$lua_version/?/init.lua"
-    export LUA_CPATH=";;$HOME/.luarocks/lib64/lua/$lua_version/?.so"
-    export PATH="$(sanitize_path "$HOME/.luarocks/bin:$PATH")"
-
-    # android
+    # Android
     export PATH="$(sanitize_path "$HOME/Android/Sdk/platform-tools:$PATH")"
 
-    # fly.io
-    export PATH="$(sanitize_path "$HOME/.fly/bin:$PATH")"
+    # User-installed tools
+    export CLASSPATH="$(sanitize_path "$HOME/jar:$HOME/.local/jar:$CLASSPATH")"
+    export MANPATH="$(sanitize_path "$HOME/man:$HOME/.local/share/man:$MANPATH")"
+    export PATH="$(sanitize_path "$HOME/bin:$HOME/.local/bin:$PATH")"
+    export PERL5LIB="$(sanitize_path "$HOME/lib/perl5:$HOME/.local/lib/perl5:$PERL5LIB")"
+
+    # Completion for brewed binaries
+    # TODO
 
     return 0
 }
 
-# invoke `main` & cleanup
+# Invoke `main` & cleanup
 main
 unset -f main
