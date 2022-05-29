@@ -59,6 +59,8 @@ B-clean-cache()
 # Compact Homebrew git repositories
 B-brew-compact()
 {
+    local brew_prefix="$(brew --prefix)"
+
     echo 'Running `git cleanup` on Homebrew...'
     for brewtap in "$brew_prefix/Homebrew" \
                    "$brew_prefix/Homebrew/Library/Taps/"*/*
