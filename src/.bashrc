@@ -80,6 +80,8 @@ main()
 
     mesg n || true
 
+    export PATH="$(sanitize_path "/home/linuxbrew/.linuxbrew/bin:$PATH")"
+
     local brew_prefix="$(brew --prefix)"
 
     # Ensure `source`s below this see the correct `$MANPATH`.
