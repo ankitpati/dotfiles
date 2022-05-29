@@ -34,6 +34,10 @@ main()
 
     mesg n || true
 
+    # Source Homebrew environment
+    local brew_binary='/home/linuxbrew/.linuxbrew/bin/brew'
+    test -x "$brew_binary" && source <("$brew_binary" shellenv)
+
     # Ensure `source`s below this see the correct `$MANPATH`.
     local manpath="$MANPATH"
     unset MANPATH
@@ -50,6 +54,16 @@ main()
     export MYPYPATH="$HOME/.mypy_stubs/"
     export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
     export ANDROID_HOME="$HOME/Android/Sdk/"
+
+    # Brew Prevent Time-Consuming Activities
+    export HOMEBREW_NO_BOTTLE_SOURCE_FALLBACK='1'
+    export HOMEBREW_NO_AUTO_UPDATE='1'
+
+    # Secure Brew
+    export HOMEBREW_NO_INSECURE_REDIRECT='1'
+
+    # Syntax-highlighted Brew Output
+    #export HOMEBREW_BAT='1'
 
     # Text editors
     export EDITOR='vim'
