@@ -31,6 +31,7 @@ aria2c -c -x 16 'https://ankitpati.in/filename.br'
 banner Type your message here.
 bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 bash -c 'dscacheutil -flushcache; killall -HUP mDNSResponder'
+bash <(curl https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh | perl -0pE 's/^have_sudo_access\(\) {.*?^}/have_sudo_access() { HAVE_SUDO_ACCESS=0; return 0; }/sm' | perl -0pE 's/^execute_sudo\(\) {.*?^}/execute_sudo() { ohai "\$\@"; execute "\$\@"; }/sm')
 bat --config-dir
 bat --config-file
 bat --style changes filename.pl
@@ -1272,6 +1273,7 @@ dnf system-upgrade reboot
 dnstracer -s . ankitpati.in
 dnstracer ankitpati.in
 docker build --build-arg username='ankitpati' -t opensuse-dev .
+docker build --progress=plain -t opensuse-dev .
 docker build --pull --no-cache -t fedora-dev .
 docker build -t image-name:optional-tag .
 docker images -a
