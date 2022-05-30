@@ -48,6 +48,7 @@ brew analytics off
 brew autoremove -n
 brew config
 brew developer --verbose state
+brew developer on
 brew doctor
 brew help --prefix
 brew help developer
