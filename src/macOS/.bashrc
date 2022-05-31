@@ -62,6 +62,7 @@ B-brew-compact()
     local brew_prefix="$(brew --prefix)"
 
     echo 'Running `git cleanup` on Homebrew...'
+    local brewtap
     for brewtap in "$brew_prefix/Homebrew" \
                    "$brew_prefix/Homebrew/Library/Taps/"*/*
     do
@@ -78,6 +79,9 @@ B-oldbin()
 
 add_brewed_items_to_env()
 {
+    test -z "$brew_prefix" && \
+        return
+
     # Get the superior versions of common binaries
     local extra_binaries=''
     local extra_claspath=''
@@ -211,6 +215,18 @@ add_brewed_items_to_env()
     export MANPATH="$(sanitize_path "$extra_manpages:$MANPATH")"
     export PATH="$(sanitize_path "$extra_binaries:$PATH")"
     export PKG_CONFIG_PATH="$(sanitize_path "$extra_pkgpaths:$PKG_CONFIG_PATH")"
+
+    # Google Cloud SDK
+    local gcloud_sdk="$brew_prefix/Caskroom/google-cloud-sdk/latest/google-cloud-sdk"
+    test -f "$gcloud_sdk/path.bash.inc" && \
+        source "$gcloud_sdk/path.bash.inc"
+    test -f "$gcloud_sdk/completion.bash.inc" && \
+        source "$gcloud_sdk/completion.bash.inc"
+
+    # Completion for brewed binaries
+    local completion_file="$brew_prefix/etc/profile.d/bash_completion.sh"
+    test -f "$completion_file" && \
+        source "$completion_file"
 }
 
 main()
@@ -222,7 +238,7 @@ main()
 
     mesg n || true
 
-    local brew_prefix="$(brew --prefix)"
+    local brew_prefix="$(command -v brew &>/dev/null && brew --prefix)"
 
     # Ensure `source`s below this see the correct `$MANPATH`.
     local manpath="$MANPATH"
@@ -315,7 +331,7 @@ main()
     # shellcheck disable=SC2154
     alias unchomp='sed -i -e \$a\\ '
 
-    add_brewed_items_to_env;
+    add_brewed_items_to_env
     unset -f add_brewed_items_to_env
 
     # pyenv
@@ -358,21 +374,9 @@ main()
     export PATH="$(sanitize_path "$HOME/bin:$HOME/.local/bin:$PATH")"
     export PERL5LIB="$(sanitize_path "$HOME/lib/perl5:$HOME/.local/lib/perl5:$PERL5LIB")"
 
-    # Completion for brewed binaries
-    local completions="$brew_prefix/etc/profile.d/bash_completion.sh"
-    test -f "$completions" && \
-        source "$completions"
-
     # Colours for `tree`
     command -v dircolors &>/dev/null && \
         source <(dircolors -b)
-
-    # Google Cloud SDK
-    local gcloud_sdk="$brew_prefix/Caskroom/google-cloud-sdk/latest/google-cloud-sdk"
-    test -f "$gcloud_sdk/path.bash.inc" && \
-        source "$gcloud_sdk/path.bash.inc"
-    test -f "$gcloud_sdk/completion.bash.inc" && \
-        source "$gcloud_sdk/completion.bash.inc"
 
     # Oracle DB connections
     alias S-ora-tns-rqlplus='rlwrap sqlplus user/pass@tns'

@@ -57,6 +57,7 @@ B-brew-compact()
     local brew_prefix="$(brew --prefix)"
 
     echo 'Running `git cleanup` on Homebrew...'
+    local brewtap
     for brewtap in "$brew_prefix/Homebrew" \
                    "$brew_prefix/Homebrew/Library/Taps/"*/*
     do
@@ -71,6 +72,21 @@ B-oldbin()
     hash -r
 }
 
+add_brewed_items_to_env()
+{
+    test -z "$brew_prefix" && \
+        return
+
+    # Completion for brewed binaries
+    local completions_dir="$brew_prefix/etc/bash_completion.d"
+    local completion_file
+    test -x "$completions_dir" && \
+        for completion_file in "$completions_dir"/*
+        do
+            source "$completion_file"
+        done
+}
+
 main()
 {
     # Source global definitions
@@ -82,7 +98,7 @@ main()
 
     export PATH="$(sanitize_path "/home/linuxbrew/.linuxbrew/bin:$PATH")"
 
-    local brew_prefix="$(brew --prefix)"
+    local brew_prefix="$(command -v brew &>/dev/null && brew --prefix)"
 
     # Ensure `source`s below this see the correct `$MANPATH`.
     local manpath="$MANPATH"
@@ -171,11 +187,8 @@ main()
     # shellcheck disable=SC2154
     alias unchomp='sed -i -e \$a\\ '
 
-    # lesspipe
-    # Only on Debian and derivatives
-    test -n "$(command grep -i 'debian' '/etc/os-release')" && \
-        source <(SHELL='/bin/sh' lesspipe) && \
-        source <(dircolors -b)
+    add_brewed_items_to_env
+    unset -f add_brewed_items_to_env
 
     # pyenv
     # shellcheck disable=SC2154
@@ -216,13 +229,11 @@ main()
     export PATH="$(sanitize_path "$HOME/bin:$HOME/.local/bin:$PATH")"
     export PERL5LIB="$(sanitize_path "$HOME/lib/perl5:$HOME/.local/lib/perl5:$PERL5LIB")"
 
-    # Completion for brewed binaries
-    completions_dir="$brew_prefix/etc/bash_completion.d"
-    test -x "$completions_dir" && \
-        for completion_file in "$completions_dir"/*
-        do
-            source "$completion_file"
-        done
+    # lesspipe
+    # Only on Debian and derivatives
+    test -n "$(command grep -i 'debian' '/etc/os-release')" && \
+        source <(SHELL='/bin/sh' lesspipe) && \
+        source <(dircolors -b)
 
     return 0
 }

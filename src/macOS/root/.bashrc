@@ -21,6 +21,9 @@ B-oldbin()
 
 add_brewed_items_to_env()
 {
+    test -z "$brew_prefix" && \
+        return
+
     # Get the superior versions of common binaries
     local extra_binaries=''
     local extra_claspath=''
@@ -142,6 +145,11 @@ add_brewed_items_to_env()
     export MANPATH="$(sanitize_path "$extra_manpages:$MANPATH")"
     export PATH="$(sanitize_path "$extra_binaries:$PATH")"
     export PKG_CONFIG_PATH="$(sanitize_path "$extra_pkgpaths:$PKG_CONFIG_PATH")"
+
+    # Completion for brewed binaries
+    local completion_file="$brew_prefix/etc/profile.d/bash_completion.sh"
+    test -f "$completion_file" && \
+        source "$completion_file"
 }
 
 main()
@@ -161,8 +169,7 @@ main()
 
     mesg n || true
 
-    # `brew` “cowardly refuses to run as root,” so hard-coding is necessary here
-    local brew_prefix='/usr/local'
+    local brew_prefix="$(command -v brew &>/dev/null && brew --prefix)"
 
     # Ensure `source`s below this see the correct `$MANPATH`.
     local manpath="$MANPATH"
@@ -188,16 +195,6 @@ main()
     test -z "$(echo "$PROMPT_COMMAND" | grep '\bhistory\b')" && \
         export PROMPT_COMMAND="history -a; history -n; $PROMPT_COMMAND"
 
-    # Completion for brewed binaries
-    local completions="$brew_prefix/etc/profile.d/bash_completion.sh"
-    test -f "$completions" && \
-        source "$completions"
-
-    # Colours for `tree`
-    command -v dircolors &>/dev/null && \
-        source <(dircolors -b)
-
-    alias cpan-outdated='cpan-outdated --mirror="https://www.cpan.org/"'
     alias egrep='grep -E'
     alias fgrep='grep -F'
     alias git-sh='exec git-sh'
@@ -219,8 +216,12 @@ main()
     # shellcheck disable=SC2154
     alias unchomp='sed -i -e \$a\\ '
 
-    add_brewed_items_to_env;
+    add_brewed_items_to_env
     unset -f add_brewed_items_to_env
+
+    # Colours for `tree`
+    command -v dircolors &>/dev/null && \
+        source <(dircolors -b)
 
     return 0
 }
