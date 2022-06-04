@@ -12,6 +12,8 @@
 /usr/libexec/java_home
 /usr/libexec/java_home -V
 /usr/libexec/java_home -v 1.8
+P4DIFF=vimdiff p4 diff -f //depot/directory/...
+P4DIFF=vimdiff p4 diff -f //depot/directory/filename.pl
 ack '(?<=^B: ).*$'
 adb logcat --pid="$(adb shell pidof -s in.ankitpati.gparse | cut -d' ' -f1)"
 adb logcat -c && adb logcat > current.log
@@ -1290,6 +1292,9 @@ docker run -it --rm fedora
 docker run -it --rm oraclelinux:8
 docker run -it --rm ubuntu:rolling
 docker run -it -v "$(pwd):/host-directory" --rm docker.io/library/fedora-dev
+docker scan --accept-license --version
+docker scan --login --token "$(lpass show --password snyk_auth_token)"
+docker scan docker.io/library/opensuse-dev
 docker system info
 docker system prune
 dockviz images -d | apdot | timg -
@@ -1576,6 +1581,7 @@ kind delete --help
 kind delete cluster
 kind delete cluster --help
 kind delete cluster --name cluster-name
+kind export -v 999 logs exported-kind-logs.log
 kind get clusters
 kind get kubeconfig
 kind get nodes
@@ -1746,6 +1752,8 @@ optipng -o7 filename.png
 osascript -e 'id of app "VSCodium"'
 ovsx create-namespace ankitpati --pat SecretPersonalAccessToken
 ovsx publish --pat SecretPersonalAccessToken
+p4 changes -c client-name -l
+p4 changes -l
 p4 clean -n
 p4 clean -n -a
 p4 clean -n -d
@@ -1756,6 +1764,10 @@ p4 client
 p4 client -o
 p4 describe -du 12345 | delta
 p4 describe -du5 12345 | delta
+p4 diff -du5 -Od -f //depot/directory/... | delta
+p4 diff -du5 -f //depot/directory/... | delta
+p4 diff -du5 -f directory/filename.pl | delta
+p4 diff -se //depot/directory/...
 p4 dirs -H //depot/\*
 p4 dirs //depot/\*
 p4 dirs //depot/t\*
@@ -1911,6 +1923,8 @@ resolvectl status
 restorecon -rvn /etc/X11/xorg.conf.d/
 rg -F -- '$_ =~ '
 rg -L search-string
+rg -l search-string
+rg -uuu search-string
 rlwrap raku
 rm -rf /Users/Shared/*Relocated\ Items*/
 rm -rf ~/.local/share/containers/ # podman and buildah
@@ -2003,6 +2017,7 @@ terraform init -verify-plugins=false
 terraform plan -destroy -out tfplan
 terraform plan -out tfplan
 terraform plan -out tfplan -target module.vpc1 -target module.vpc2
+terraform plan -out=tfplan -var boolean_var_name=true
 terraform refresh
 terraform show tfplan -no-color > tfplan-for-diff
 terraform show tfplan | landscape
