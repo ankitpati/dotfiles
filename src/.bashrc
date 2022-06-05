@@ -128,7 +128,8 @@ main()
     export HISTFILESIZE=''
     export HISTSIZE=''
     test -z "$(echo "$PROMPT_COMMAND" | grep '\bhistory\b')" && \
-        export PROMPT_COMMAND="history -a; history -n; $PROMPT_COMMAND"
+        export PROMPT_COMMAND="$(echo "history -a; history -n; $PROMPT_COMMAND" \
+                                 | sed 's/__vte_prompt_command//g')"
 
     # Brew Prevent Time-Consuming Activities
     export HOMEBREW_NO_AUTO_UPDATE='1'
