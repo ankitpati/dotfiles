@@ -231,9 +231,15 @@ add_brewed_items_to_env()
 
 main()
 {
+    test -n "$BASHRC_MAIN_SOURCED" && \
+        return 0
+
+    readonly BASHRC_MAIN_SOURCED='1'
+
     # Source global definitions
     local global_profile='/etc/profile'
-    test -f "$global_profile" && \
+    # `$PROFILEREAD` is OpenSUSE-specific at the time of writing.
+    test -z "$PROFILEREAD" -a -f "$global_profile" && \
         source "$global_profile"
 
     mesg n || true
