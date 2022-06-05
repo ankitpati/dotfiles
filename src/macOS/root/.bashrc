@@ -12,6 +12,64 @@ sanitize_path()
                  | sed 's_//*_/_g'
 }
 
+B-delds()
+{
+    echo 'Removing the following files...'
+    find "$HOME" -not \( -path "$HOME/Mounts" -prune \) \
+           -regextype egrep \
+           -regex '.*(\.(DS_Store|AppleDouble|AppleDesktop)|Thumbs\.db)$' \
+           -print \
+           -exec rm -rf {} +
+
+    echo 'Removing broken symlinks...'
+    find "$HOME" -not \( -path "$HOME/Mounts" -prune \) \
+            -type l \
+            ! -exec test -e {} \; \
+            -print \
+            -exec rm -rf {} +
+
+    command -v qlmanage &>/dev/null && \
+        echo 'Removing the QuickLook Cache...' && \
+        qlmanage -r cache
+}
+
+B-clean-cache()
+{
+    echo 'Uninstalling dangling Homebrew packages...'
+    brew autoremove
+
+    echo 'Removing the Homebrew Build Cache...'
+    brew cleanup --prune=all
+
+    echo 'Removing the Perlbrew Build Cache...'
+    perlbrew clean
+
+    echo 'Removing the CPANM Work Cache...'
+    rm -rf "$HOME/.cpanm/"{'work/','build.log','latest-build'}
+
+    echo 'Removing the PIP Cache...'
+    rm -rf "$HOME/Library/Caches/pip/"
+
+    echo 'Removing Maccy SQLite DB (only works if Maccy is not running)...'
+    rm "$HOME/Library/Containers/org.p0deje.Maccy/Data/Library/Application Support/Maccy/Storage.sqlite"*
+
+    # TODO: find & vacuum/remove all NSPersistentContainer SQLite DBs
+}
+
+# Compact Homebrew git repositories
+B-brew-compact()
+{
+    local brew_prefix="$(brew --prefix)"
+
+    echo 'Running `git cleanup` on Homebrew...'
+    local brewtap
+    for brewtap in "$brew_prefix/Homebrew" \
+                   "$brew_prefix/Homebrew/Library/Taps/"*/*
+    do
+        git -C "$brewtap" cleanup
+    done
+}
+
 # Prepend old binaries to PATH
 B-oldbin()
 {
@@ -201,6 +259,52 @@ main()
     test -z "$(echo "$PROMPT_COMMAND" | grep '\bhistory\b')" && \
         export PROMPT_COMMAND="history -a; history -n; $PROMPT_COMMAND"
 
+    # Brew Prevent Time-Consuming Activities
+    export HOMEBREW_NO_AUTO_UPDATE='1'
+    export HOMEBREW_NO_BOTTLE_SOURCE_FALLBACK='1'
+
+    # Secure Brew
+    export HOMEBREW_NO_INSECURE_REDIRECT='1'
+
+    # Syntax-highlighted Brew Output
+    export HOMEBREW_BAT='1'
+
+    # RLWrap
+    export RLWRAP_EDITOR="vim '+call cursor(%L,%C)'"
+    export RLWRAP_HOME="$HOME/.rlwrap"
+
+    # ripgrep
+    export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
+
+    # Oracle Database
+    export ORACLE_HOME='/Library/Oracle/instantclient_12_2'
+    export ORACLE_SID='XE'
+
+    # SDKMAN!
+    export SDKMAN_DIR="$HOME/.sdkman/"
+
+    # Android
+    export ANDROID_HOME="$HOME/Android/Sdk/"
+
+    # NPM
+    export NPM_PACKAGES="$HOME/.npm/packages/"
+
+    # Python
+    export MYPYPATH="$HOME/.mypy_stubs/"
+    export MYPY_CACHE_DIR="$HOME/.mypy_cache/"
+    export PYENV_ROOT="$HOME/.pyenv/"
+
+    # Perl
+    export PERL5LIB="$(sanitize_path "$HOME/perl5/lib/perl5:$PERL5LIB")"
+    export PERLBREW_CPAN_MIRROR='https://www.cpan.org/'
+    export PERLCRITIC="$HOME/.perlcriticrc"
+    export PERL_CPANM_OPT='--from https://www.cpan.org/ --verify'
+    export PERL_LOCAL_LIB_ROOT="$(sanitize_path "$HOME/perl5:$PERL_LOCAL_LIB_ROOT")"
+    export PERL_MB_OPT="--install_base '$HOME/perl5'"
+    export PERL_MM_OPT="INSTALL_BASE=$HOME/perl5"
+
+    alias brew-cu='brew cu --no-brew-update'
+    alias cpan-outdated='cpan-outdated --mirror="$PERLBREW_CPAN_MIRROR"'
     alias egrep='grep -E'
     alias fgrep='grep -F'
     alias git-sh='exec git-sh'
@@ -228,6 +332,11 @@ main()
     # Colours for `tree`
     command -v dircolors &>/dev/null && \
         source <(dircolors -b)
+
+    # Oracle DB connections
+    alias S-ora-tns-rqlplus='rlwrap sqlplus user/pass@tns'
+    alias S-ora-tns-sqlplus='sqlplus user/pass@tns'
+    alias S-ora-tns-yasql='yasql user/pass@tns'
 
     return 0
 }
