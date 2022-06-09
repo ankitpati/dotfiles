@@ -351,6 +351,7 @@ main()
 
     # Perl local::lib
     export PATH="$(sanitize_path "$HOME/perl5/bin:$PATH")"
+    export MANPATH="$(sanitize_path "$HOME/perl5/man:$MANPATH")"
 
     # Cargo
     export PATH="$(sanitize_path "$HOME/.cargo/bin:$PATH")"
