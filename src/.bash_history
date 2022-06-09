@@ -1616,7 +1616,7 @@ launchctl unsetenv SOME_ENV_VAR
 limitcpu
 litecli ~/Library/Containers/org.p0deje.Maccy/Data/Library/Application\ Support/Maccy/Storage.sqlite
 ln -s "$(brew --prefix)/opt/openssl@1.1/" "$(brew --prefix)/opt/openssl"
-ln -s /usr/bin/{ar,ranlib} ~/bin/ && pyenv install 2.7.18 && rm ~/bin/{ar,ranlib}
+ln -s /usr/bin/{ar,ranlib} ~/bin/ && pyenv install 2.7.18; rm ~/bin/{ar,ranlib}
 ln -sf /usr/lib/systemd/resolv.conf /etc/resolv.conf
 ln -sfn "$(brew --prefix)/opt/openjdk/libexec/openjdk.jdk" /Library/Java/JavaVirtualMachines/openjdk.jdk
 locate --statistics
@@ -1958,7 +1958,7 @@ snap list
 snyk auth
 snyk auth "$(lpass show --password snyk_auth_token)"
 snyk monitor
-softwareupdate -l; brew update; brew upgrade; cpan-outdated --exclude-core -p | xargs cpan; gcloud components update; tldr --update; grep -E '^docker run --pull always -it --rm [^- ]+$' ~/.bash_history | cut -d' ' -f7 | sort -u | while read -r docker_image; do docker pull "$docker_image"; done; for codext in $(codium --list-extensions); do codium --install-extension "$codext" --force; done; vim +PlugUpdate
+softwareupdate -l; brew update; brew upgrade; cpan-outdated --exclude-core -p | xargs -r cpan; gcloud components update; tldr --update; grep -E '^docker run --pull always -it --rm [^- ]+$' ~/.bash_history | cut -d' ' -f7 | sort -u | while read -r docker_image; do docker pull "$docker_image"; done; for codext in $(codium --list-extensions); do codium --install-extension "$codext" --force; done; vim +PlugUpdate
 source ./.venv/bin/activate
 spctl developer-mode enable-terminal
 speedtest
