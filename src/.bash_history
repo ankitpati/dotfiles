@@ -107,7 +107,6 @@ brew install click
 brew install clusterctl
 brew install cmake
 brew install coreutils
-brew install cpanminus
 brew install cscope
 brew install csvprintf
 brew install curl
@@ -1419,6 +1418,7 @@ gcloud auth list
 gcloud auth login
 gcloud auth print-access-token
 gcloud compute images list
+gcloud compute networks list
 gcloud compute zones list
 gcloud compute zones list --project=project-id
 gcloud config configurations list
@@ -2031,6 +2031,7 @@ toolbox reset
 toolbox rm --all
 toolbox rm fedora-toolbox-34
 toolbox rmi --all
+traceroute ankitpati.in
 tree -L 2
 tree -a
 tweak filename.txt
@@ -2104,6 +2105,7 @@ while read -r directory; do find "$(case "$directory" in -*) printf '%s' ./ ;; e
 while read -r gitdir; do ( cd "$gitdir/"; git pull ) done < <(ls)
 write ankitpati :1
 write ankitpati tty4
+xargs -l -o rg < file-with-search-terms.txt
 xattr -l filename
 xattr filename
 xclip < ~/.ssh/id_ed25519.pub
