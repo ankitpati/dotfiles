@@ -123,6 +123,7 @@ brew install difftastic
 brew install diffutils
 brew install dnscontrol
 brew install dnstracer
+brew install docker-completion
 brew install docker-slim
 brew install dockviz
 brew install dos2unix
@@ -255,6 +256,7 @@ brew install openstackclient
 brew install oq
 brew install php
 brew install pip-completion
+brew install plantuml
 brew install prettier
 brew install proctools
 brew install proguard
@@ -1872,6 +1874,8 @@ pkmon
 plackup -L Shotgun filename.psgi
 plackup -r filename.psgi
 plackup filename.psgi
+plantuml -theme black-knight filename.uml && timg filename.png
+plantuml -tsvg filename.uml
 plasma-nm
 pod2pdf path/to/Perl/Module.pm > Perl-Module-docs.pdf
 podchecker path/to/Perl/Module.pm
