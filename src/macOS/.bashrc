@@ -44,6 +44,9 @@ B-clean-cache()
     echo 'Removing the Perlbrew Build Cache...'
     perlbrew clean
 
+    echo 'Removing the CPAN.pm Cache...'
+    rm -rf "$HOME/.cpan/"{'build/','sources/','Metadata'}
+
     echo 'Removing the CPANM Work Cache...'
     rm -rf "$HOME/.cpanm/"{'work/','build.log','latest-build'}
 
