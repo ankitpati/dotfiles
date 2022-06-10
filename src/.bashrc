@@ -151,6 +151,10 @@ main()
     # ripgrep
     export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
 
+    # Oracle Database
+    export ORACLE_HOME=''
+    export ORACLE_SID=''
+
     # SDKMAN!
     export SDKMAN_DIR="$HOME/.sdkman/"
 
@@ -240,11 +244,13 @@ main()
     export PATH="$(sanitize_path "$HOME/bin:$HOME/.local/bin:$PATH")"
     export PERL5LIB="$(sanitize_path "$HOME/lib/perl5:$HOME/.local/lib/perl5:$PERL5LIB")"
 
-    # lesspipe
-    # Only on Debian and derivatives
-    test -n "$(command grep -i 'debian' '/etc/os-release')" && \
-        source <(SHELL='/bin/sh' lesspipe) && \
-        source <(dircolors -b)
+    # Colours for `tree`
+    source <(dircolors -b)
+
+    # Oracle DB connections
+    alias S-ora-tns-rqlplus='rlwrap sqlplus user/pass@tns'
+    alias S-ora-tns-sqlplus='sqlplus user/pass@tns'
+    alias S-ora-tns-yasql='yasql user/pass@tns'
 
     return 0
 }

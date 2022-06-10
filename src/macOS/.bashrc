@@ -292,8 +292,8 @@ main()
     export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
 
     # Oracle Database
-    export ORACLE_HOME='/Library/Oracle/instantclient_12_2'
-    export ORACLE_SID='XE'
+    export ORACLE_HOME=''
+    export ORACLE_SID=''
 
     # SDKMAN!
     export SDKMAN_DIR="$HOME/.sdkman/"
@@ -386,8 +386,7 @@ main()
     export PERL5LIB="$(sanitize_path "$HOME/lib/perl5:$HOME/.local/lib/perl5:$PERL5LIB")"
 
     # Colours for `tree`
-    command -v dircolors &>/dev/null && \
-        source <(dircolors -b)
+    source <(dircolors -b)
 
     # Oracle DB connections
     alias S-ora-tns-rqlplus='rlwrap sqlplus user/pass@tns'
