@@ -311,6 +311,7 @@ brew install tealdeer
 brew install terminal-notifier
 brew install terracognita
 brew install terraform
+brew install terraform-docs
 brew install terraform-rover
 brew install terraform_landscape
 brew install terraformer
