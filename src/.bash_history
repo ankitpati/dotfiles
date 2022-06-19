@@ -30,7 +30,7 @@ apktool d filename.apk
 apt install iat
 apt-mark auto ubuntu-restricted-addons
 apt-mark showmanual
-aria2c -c -x 16 'https://ankitpati.in/filename.br'
+aria2c -c -x 16 https://ankitpati.in/filename.br
 banner Type your message here.
 bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 bash -c 'dscacheutil -flushcache; killall -HUP mDNSResponder'
@@ -377,6 +377,7 @@ brotli filename
 browserslist 'last 1 Chrome versions'
 cargo install cargo-update
 cargo install shellharden
+cat <(curl https://truststore.pki.rds.amazonaws.com/global/global-bundle.pem) <(curl https://truststore.pki.us-gov-west-1.rds.amazonaws.com/global/global-bundle.pem) > ~/.postgresql/root.crt
 ccd2iso disk-image.bin disk-image.iso
 chsh -s "$(brew --prefix)/bin/bash"
 codium --install-extension ankitpati.vscodium-amoled --force
@@ -444,7 +445,7 @@ dig -x 172.30.83.9
 dig -x ankitpati.in
 dig ankitpati.in
 dirs -v
-dnf config-manager --add-repo 'https://brave-browser-rpm-release.s3.brave.com/x86_64/'
+dnf config-manager --add-repo https://brave-browser-rpm-release.s3.brave.com/x86_64/
 dnf copr enable kwizart/fedy
 dnf copr enable zeno/scrcpy
 dnf groupupdate core
@@ -1519,11 +1520,11 @@ hdparm --user-master u --security-unlock SecretPassword /dev/sdb
 hdparm -I /dev/sdb
 hexdump -C filename.dat
 hexdump -C ~/Applications/Chrome\ Apps.localized/Icon$'\r'/..namedfork/rsrc
-hg clone 'https://foss.heptapod.net/pypy/pypy' pypy
+hg clone https://foss.heptapod.net/pypy/pypy pypy
 hostname -I
 hostnamectl set-hostname boronHostname
 html-beautify -f filename.html
-http 'https://ankitpati.in/filename.txt'; exec cat
+http 'https://example.org/untrustworthy.dat'; exec cat
 http_this --port 7009
 hunspell -l
 hwloc-ls
@@ -1898,6 +1899,7 @@ prettier -w filename.css
 prettier -w filename.html
 prettier -w filename.js
 prettyping google.com
+psql service=service_name
 pup 'css-selector' < filename.html
 pup --color < filename.html
 pushd +1
@@ -2103,7 +2105,7 @@ wappalyzer https://ankitpati.in | jq .
 wash -i wlp2s0
 watch -n 10 du -sh
 watch du -sh
-wget 'https://www.toptal.com/developers/gitignore/api/java,netbeans,eclipse,jetbrains,android,androidstudio' -O .gitignore
+wget https://www.toptal.com/developers/gitignore/api/java,netbeans,eclipse,jetbrains,android,androidstudio -O .gitignore
 whatchanged origin/development..
 while :; do virsh -c qemu:///system send-key Windows-10 KEY_J; sleep 120; done
 while :; do xdotool mousemove --sync 1000 10 sleep 0.5 mousemove restore; sleep 120; done
@@ -2124,8 +2126,8 @@ xdg-open filename
 xdotool click --repeat 5 1
 xz -v9e filename.tar
 yapf -i filename.py
-youtube-dl 'https://www.youtube.com/watch?v=VIDEO_ID' -F
-youtube-dl 'https://www.youtube.com/watch?v=VIDEO_ID' -f 248
+youtube-dl https://www.youtube.com/watch?v=VIDEO_ID -F
+youtube-dl https://www.youtube.com/watch?v=VIDEO_ID -f 248
 zbarimg filename.jpg > filename.dat
 zypper --gpg-auto-import-keys refresh
 zypper addrepo --refresh https://download.opensuse.org/repositories/system:/snappy/openSUSE_Tumbleweed snappy
