@@ -154,6 +154,9 @@ main()
     # Oracle Database
     export ORACLE_HOME=''
     export ORACLE_SID=''
+    alias S-ora-tns-rqlplus='rlwrap sqlplus user/pass@tns'
+    alias S-ora-tns-sqlplus='sqlplus user/pass@tns'
+    alias S-ora-tns-yasql='yasql user/pass@tns'
 
     # PostgreSQL
     export PGSSLMODE='verify-full'
@@ -252,11 +255,6 @@ main()
 
     # Colours for `tree`
     source <(dircolors -b)
-
-    # Oracle DB connections
-    alias S-ora-tns-rqlplus='rlwrap sqlplus user/pass@tns'
-    alias S-ora-tns-sqlplus='sqlplus user/pass@tns'
-    alias S-ora-tns-yasql='yasql user/pass@tns'
 
     return 0
 }
