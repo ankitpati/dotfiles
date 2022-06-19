@@ -257,6 +257,7 @@ brew install oq
 brew install php
 brew install pip-completion
 brew install plantuml
+brew install postgresql
 brew install prettier
 brew install proctools
 brew install proguard
