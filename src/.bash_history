@@ -378,6 +378,7 @@ brotli filename
 browserslist 'last 1 Chrome versions'
 cargo install cargo-update
 cargo install shellharden
+cat *.tf | vipe --suffix=tf >/dev/null
 cat <(curl https://truststore.pki.rds.amazonaws.com/global/global-bundle.pem) <(curl https://truststore.pki.us-gov-west-1.rds.amazonaws.com/global/global-bundle.pem) > ~/.postgresql/root.crt
 ccd2iso disk-image.bin disk-image.iso
 chsh -s "$(brew --prefix)/bin/bash"
@@ -1284,10 +1285,12 @@ docker build --build-arg username='ankitpati' -t opensuse-dev .
 docker build --progress=plain -t opensuse-dev .
 docker build --pull --no-cache -t fedora-dev .
 docker build -t image-name:optional-tag .
+docker images --no-trunc --digests opensuse-dev
 docker images -a
+docker inspect --format='{{index .RepoDigests 0}}' opensuse/tumbleweed
 docker inspect tender_chatterjee
 docker network ls -q | xargs -r docker network inspect -v
-docker ps -a
+docker ps --no-trunc -a
 docker run --pull always -it --rm fedora
 docker run --pull always -it --rm opensuse/tumbleweed
 docker run --pull always -it --rm oraclelinux:8
@@ -1339,6 +1342,7 @@ exec su - ankitpati
 exec sudo -i
 exec sudo -u ankitpati -i
 exiftool -p '$XResolution,$YResolution' filename.jpg
+export GH_TOKEN="$(lpass show --password github_personal_access_token)"
 export GITHUB_PERSONAL_ACCESS_TOKEN="$(lpass show --password github_personal_access_token)"
 export JAVA_HOME="$(/usr/libexec/java_home -v 1.8)"
 export SRC_ACCESS_TOKEN="$(lpass show --password sourcegraph_access_token)"
@@ -1422,7 +1426,11 @@ gcloud auth configure-docker
 gcloud auth configure-docker gcr.io
 gcloud auth list
 gcloud auth login
+gcloud auth login --remote-bootstrap='https://accounts.google.com/o/oauth2/auth?response_type=code&client_id=01234567890.apps.googleusercontent.com&scope=openid+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fcloud-platform+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fappengine.admin+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fsqlservice.login+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fcompute+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Faccounts.reauth&state=abcdABCF0123abcdABCF0123abcdAB&access_type=offline&code_challenge=abcde-abcdABCD0123abcdABCD0123abcdABCD0123a&code_challenge_method=S256&token_usage=remote'
 gcloud auth print-access-token
+gcloud cloud-shell scp localhost:path/to/filename cloudshell:~/
+gcloud cloud-shell ssh
+gcloud components install gke-gcloud-auth-plugin
 gcloud compute images list
 gcloud compute networks list
 gcloud compute zones list
@@ -1433,7 +1441,10 @@ gcloud config set compute/region us-west1
 gcloud config set compute/zone us-west1-a
 gcloud config set project project-id
 gcloud config unset project
+gcloud container clusters get-credentials cluster-name --region region-name --project project-name
+gcloud container get-server-config --format='yaml(defaultClusterVersion)'
 gcloud info
+gcloud projects get-iam-policy project-name
 gcloud projects list
 gcloud topic filters
 gcloud version
@@ -1580,6 +1591,9 @@ jupyter serverextension enable --py jupyterlab
 kate-syntax-highlighter --list-themes
 kate-syntax-highlighter -t 'Vim Dark' filename.pl > filename.html
 keytool -printcert -file cert.pem
+keytool -rfc -list -keystore filename.keystore
+keytool -v -list -keystore filename.keystore -storepass changeit
+keytool -v -list -keystore filename.keystore -storetype JKS -storepass changeit
 kind --help
 kind create --help
 kind create cluster
@@ -1595,7 +1609,10 @@ kind version
 kubecm --config kubeconfig.yaml list
 kubecm list
 kubectl --help
-kubectl -n namespace get pods
+kubectl --kubeconfig=filename.yaml -n kube-system delete configmap/kube-dns
+kubectl --kubeconfig=filename.yaml -n kube-system delete configmap/kube-dns-autoscaler
+kubectl --kubeconfig=filename.yaml -n kube-system scale deployment kube-dns-autoscaler --replicas=0
+kubectl --kubeconfig=filename.yaml -n kube-system scale deployment kube-dns-autoscaler --replicas=1
 kubectl cluster-info
 kubectl cluster-info --context docker-desktop
 kubectl cluster-info --context kind-kind
@@ -1603,6 +1620,7 @@ kubectl cluster-info --context kind-kind dump
 kubectl config --help
 kubectl config view
 kubectl config view --minify --raw --output 'jsonpath={..cluster.certificate-authority-data}'
+kubectl create -f https://ankitpati.in/example.yaml
 kubectl get namespaces
 kubectl get nodes
 kubectl get pods
@@ -1610,6 +1628,7 @@ kubectl get pods --context=kube-context
 kubectl get pods -A
 kubectl get svc -A
 kubectl options
+kubectl port-forward service/service-name 12345
 kubectl version
 landscape --help
 latest-version asar
@@ -1642,6 +1661,7 @@ lpass show --sync=now --all unique_name
 lpass show --username unique_name
 lpass show unique_name
 ls "$(brew --prefix)/bin/g"* | rev | cut -d/ -f1 | rev | cut -dg -f2- | xargs -r command -v 2>/dev/null | grep -v "^$(brew --prefix)/" | rev | cut -d/ -f1 | rev | while read -r binary; do echo "$(brew --prefix)/bin/g$binary"; done | xargs -r ls -l | rev | cut -d/ -f4 | rev | sort -u
+ls *.json | while read -r jsonfile; do jq -S --indent 4 . < "$jsonfile" | sponge "$jsonfile"; done
 ls /Library/Launch{Agents,Daemons}
 ls ~/Library/Application\ Support/VSCodium/User/settings.json
 lsattr filename
@@ -1760,20 +1780,24 @@ ovsx create-namespace ankitpati --pat SecretPersonalAccessToken
 ovsx publish --pat SecretPersonalAccessToken
 p4 changes -c client-name -l
 p4 changes -l
+p4 changes -u username
 p4 clean -n
 p4 clean -n -a
 p4 clean -n -d
 p4 clean -n -e
 p4 clean -n -m
+p4 clean -n ...
 p4 clean -n //depot/...
 p4 client
 p4 client -o
-p4 describe -du 12345 | delta
+p4 describe -a 12345 | less
 p4 describe -du5 12345 | delta
+p4 describe 12345
+p4 diff -du5 '@=12345' | delta
 p4 diff -du5 -Od -f //depot/directory/... | delta
 p4 diff -du5 -f //depot/directory/... | delta
 p4 diff -du5 -f directory/filename.pl | delta
-p4 diff -se //depot/directory/...
+p4 diff -se //depot/directory/... | vipe | xargs p4 reconcile -n
 p4 dirs -H //depot/\*
 p4 dirs //depot/\*
 p4 dirs //depot/t\*
@@ -1790,16 +1814,18 @@ p4 info
 p4 login
 p4 login -as
 p4 monitor show
-p4 monitor terminate 1234
+p4 monitor terminate 12345
 p4 opened
 p4 passwd -O "$(lpass show --password perforce)" -P "$(pwgen 20 1 | tee new_p4_pass)" && lpass edit --non-interactive --password perforce < new_p4_pass && rm new_p4_pass
 p4 reconcile //depot/...
 p4 revert -n //depot/directory/...
 p4 revert -n filename.pl
 p4 set
+p4 shelve -c 12345 -d
 p4 shelve //depot/...
 p4 sizes -sh //depot/directory/...
 p4 status
+p4 submit -c 12345
 p4 sync //depot/directory/...
 p4 sync //depot/directory/...#none
 p4 sync //depot/directory/filename
@@ -1823,6 +1849,8 @@ pbcopy < ~/.ssh/id_ed25519.pub
 pdfimages -all filename.pdf ./
 pdfimages -j filename.pdf ./
 pdfimages filename.pdf ./
+perl -0pE '$_ = "[" . join(",", /\{.*?}/gms) . "]"' < file-with-JSON-scattered-between-other-data.txt | jq '.[] | "\(.firstname) \(.lastname)"'
+perl -0pE 's/^(resource "google_kms_crypto_key" "example-key" {.*?^)(\s+lifecycle {.*?})/"$1".($2 =~ s{^}{#}rsmg)/esm' -i google-kms.tf
 perl -MModern::Perl=2020 -dE 0
 perl -MModule::CoreList -E 'say Module::CoreList->first_release(q{File::Path})'
 perl -MModule::CoreList -E 'say foreach Module::CoreList->find_modules'
@@ -1895,15 +1923,28 @@ podman pull registry.fedoraproject.org/f34
 podman rmi 536f3995adeb
 podman stop fedora-toolbox-33
 popd
+popd +0
+popd +1
+popd +4
+popd -0
+popd -1
+popd -4
 potrace filename.png
 prettier -w filename.css
 prettier -w filename.html
 prettier -w filename.js
 prettyping google.com
+ps -eo pid,args | grep -i command_substring
+psql service=foiegras
 psql service=service_name
 pup 'css-selector' < filename.html
 pup --color < filename.html
+pushd +0
 pushd +1
+pushd +4
+pushd -0
+pushd -1
+pushd -4
 pushd path/to/directory/
 pyenv global
 pyenv global system 2.7.18
@@ -2129,6 +2170,7 @@ xz -v9e filename.tar
 yapf -i filename.py
 youtube-dl https://www.youtube.com/watch?v=VIDEO_ID -F
 youtube-dl https://www.youtube.com/watch?v=VIDEO_ID -f 248
+yq -P < filename.yaml
 zbarimg filename.jpg > filename.dat
 zypper --gpg-auto-import-keys refresh
 zypper addrepo --refresh https://download.opensuse.org/repositories/system:/snappy/openSUSE_Tumbleweed snappy
