@@ -12,6 +12,7 @@
 /usr/libexec/java_home
 /usr/libexec/java_home -V
 /usr/libexec/java_home -v 1.8
+P4DIFF=vimdiff p4 diff -Od -f //depot/directory/...
 P4DIFF=vimdiff p4 diff -f //depot/directory/...
 P4DIFF=vimdiff p4 diff -f //depot/directory/filename.pl
 ack '(?<=^B: ).*$'
@@ -125,6 +126,7 @@ brew install dnstracer
 brew install docker-completion
 brew install docker-slim
 brew install dockviz
+brew install doggo
 brew install dos2unix
 brew install doxygen
 brew install driftctl
@@ -184,6 +186,7 @@ brew install httpd
 brew install httpie
 brew install httrack
 brew install hyperfine
+brew install ijq
 brew install inetutils
 brew install iproute2mac
 brew install ipv6calc
@@ -238,6 +241,7 @@ brew install minio-mc
 brew install mist
 brew install moreutils
 brew install mosh
+brew install mprocs
 brew install mscgen
 brew install mypy
 brew install nano
@@ -255,6 +259,7 @@ brew install openstackclient
 brew install oq
 brew install php
 brew install pip-completion
+brew install pixie
 brew install plantuml
 brew install postgresql
 brew install prettier
@@ -1458,6 +1463,7 @@ gh pr list
 gh pr status
 git add -p
 git branch --format='%(refname:short)' | while read -r branch; do git checkout "$branch" || break; git rebase origin/main || break; done
+git branch -r | grep -E '^\s+origin/' | grep -v HEAD | cut -d/ -f2 | xargs git push ankitpati -d
 git branch -vv
 git checkout -p
 git cherry-pick branchname~2..branchname
@@ -1763,9 +1769,11 @@ objdump -r elf-binary-filename
 openfortivpn fortigate.ankitpati.in -u ankitpati -p SecretPassword -o 012345
 openssl asn1parse -in openssl.key
 openssl genpkey -algorithm RSA -aes128 -out openssl.key
+openssl genrsa 2048 -out openssl.key
 openssl pkcs8 -in openssl.key | openssl pkcs8 -topk8 -v2 aes128 -out openssl.key
 openssl pkey -aes128 -in openssl.key -text
 openssl req -in request.csr -text -noout -verify
+openssl req -new -key openssl.key -out openssl.csr -config openssl.conf
 openssl req -x509 -days 36500 -new -key id_rsa -out id_rsa.x509
 openssl rsa -in openssl.key -pubout -out openssl.pub
 openssl rsa -in openssl.key -text -noout
@@ -2022,6 +2030,7 @@ ss -tulpn
 ssh -G ssh.ankitpati.in
 ssh -L 8080:/tmp/sockname.sock ssh.ankitpati.in
 ssh -o ClearAllForwardings=yes ssh.ankitpati.in
+ssh -o IPQoS=none ssh.ankitpati.in
 ssh -vvv ssh.ankitpati.in
 ssh-copy-id -o PasswordAuthentication=yes ssh.ankitpati.in
 ssh-keygen -l -v -f ~/.ssh/id_ed25519
