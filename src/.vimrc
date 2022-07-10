@@ -4,10 +4,10 @@ set nocompatible
     call plug#begin()
         Plug 'APZelos/blamer.nvim'
         Plug 'airblade/vim-gitgutter'
+        Plug 'dense-analysis/ale'
         Plug 'godlygeek/tabular'
         Plug 'gregsexton/MatchTag'
         Plug 'sheerun/vim-polyglot'
-        Plug 'vim-syntastic/syntastic'
     call plug#end()
 
     highlight Blamer          ctermfg=lightgray
