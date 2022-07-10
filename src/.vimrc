@@ -1,6 +1,7 @@
+vim9script
 set nocompatible
 
-" Plugin Config
+# Plugin Config
     call plug#begin()
         Plug 'APZelos/blamer.nvim'
         Plug 'airblade/vim-gitgutter'
@@ -17,15 +18,15 @@ set nocompatible
 
     runtime macros/matchit.vim
 
-    let g:blamer_date_format='%Y-%m-%dT%H:%M:%S%Z'
-    let g:blamer_delay=300
-    let g:blamer_enabled=0
-    let g:blamer_show_in_insert_modes=0
-    let g:blamer_show_in_visual_modes=0
-    let g:blamer_template='<committer-mail> <committer-time> <summary>'
-    let g:syntastic_python_flake8_args='--ignore=E501'
-    let g:syntastic_python_python_exec='python3'
-" End of Plugin Config
+    g:blamer_date_format = '%Y-%m-%dT%H:%M:%S%Z'
+    g:blamer_delay = 300
+    g:blamer_enabled = 0
+    g:blamer_show_in_insert_modes = 0
+    g:blamer_show_in_visual_modes = 0
+    g:blamer_template = '<committer-mail> <committer-time> <summary>'
+    g:syntastic_python_flake8_args = '--ignore=E501'
+    g:syntastic_python_python_exec = 'python3'
+# End of Plugin Config
 
 syntax on
 filetype plugin indent on
