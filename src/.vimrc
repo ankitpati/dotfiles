@@ -27,6 +27,7 @@ set nocompatible
         ],
     }
 
+    g:ale_sh_shfmt_options = '--indent 4'
     g:blamer_date_format = '%Y-%m-%dT%H:%M:%S%Z'
     g:blamer_delay = 300
     g:blamer_enabled = 0
