@@ -345,6 +345,7 @@ brew install watchexec
 brew install wget
 brew install whois
 brew install with-readline
+brew install xdg-ninja
 brew install xidel
 brew install yamllint
 brew install yapf
@@ -428,6 +429,9 @@ cpanm XML::SAX::Expat
 crontab -e
 csv -f protocol,root_domain,status < nextdns-log.csv | tail -n +2 | grep -v ',blocked$' | rev | cut -d, -f2- | rev | sort -u > nextdns-domain-list.csv
 curl 'https://example.org/untrustworthy.dat'; exec cat
+curl --connect-to example.org:80:localhost:8080 http://example.org
+curl --key openssl.key --cert openssl.crt https://mtls.example.org
+curl --resolve example.org:80:127.0.0.1 http://example.org
 curl -H "Authorization: token $(lpass show --password github_personal_access_token)" https://raw.githubusercontent.com/namespace/private-repo/branch/directory/filename.c
 curl -s -w '\n%{time_total} - %{time_starttransfer}\n' https://httpbin.org/get | tail -n 1 | bc
 curl https://github.com/web-flow.gpg | gpg --import
@@ -450,6 +454,7 @@ dig -t ANY google.com
 dig -x 172.30.83.9
 dig -x ankitpati.in
 dig ankitpati.in
+dig ankitpati.in @1.1.1.1
 dirs -v
 dnf config-manager --add-repo https://brave-browser-rpm-release.s3.brave.com/x86_64/
 dnf copr enable kwizart/fedy
@@ -1349,6 +1354,7 @@ exiftool -p '$XResolution,$YResolution' filename.jpg
 export GH_TOKEN="$(lpass show --password github_personal_access_token)"
 export GITHUB_PERSONAL_ACCESS_TOKEN="$(lpass show --password github_personal_access_token)"
 export JAVA_HOME="$(/usr/libexec/java_home -v 1.8)"
+export KUBECONFIG='kubeconfig.yaml'
 export SRC_ACCESS_TOKEN="$(lpass show --password sourcegraph_access_token)"
 factor 1849
 fallocate -l 100M hundred-MiB-file
@@ -1384,6 +1390,7 @@ find . -not -group ankitpati
 find . -not -user ankitpati
 find . -type f -exec chmod 0600 {} + -exec dos2unix {} +
 find . -type f -exec mv -t /directory-name/ {} +
+find . -type f -name '*.lastUpdated' -delete
 firewall-cmd --add-forward-port=port=443:proto=tcp:toport=8443
 firewall-cmd --add-masquerade
 firewall-cmd --add-protocol=ssh
@@ -1614,10 +1621,11 @@ kind version
 kubecm --config kubeconfig.yaml list
 kubecm list
 kubectl --help
-kubectl --kubeconfig=filename.yaml -n kube-system delete configmap/kube-dns
-kubectl --kubeconfig=filename.yaml -n kube-system delete configmap/kube-dns-autoscaler
-kubectl --kubeconfig=filename.yaml -n kube-system scale deployment kube-dns-autoscaler --replicas=0
-kubectl --kubeconfig=filename.yaml -n kube-system scale deployment kube-dns-autoscaler --replicas=1
+kubectl --kubeconfig=filename.yaml get pods
+kubectl -n kube-system delete configmap/kube-dns
+kubectl -n kube-system delete configmap/kube-dns-autoscaler
+kubectl -n kube-system scale deployment kube-dns-autoscaler --replicas=0
+kubectl -n kube-system scale deployment kube-dns-autoscaler --replicas=1
 kubectl cluster-info
 kubectl cluster-info --context docker-desktop
 kubectl cluster-info --context kind-kind
@@ -1626,13 +1634,16 @@ kubectl config --help
 kubectl config view
 kubectl config view --minify --raw --output 'jsonpath={..cluster.certificate-authority-data}'
 kubectl create -f https://ankitpati.in/example.yaml
+kubectl exec -it pod-name -c container-name bash
 kubectl get namespaces
 kubectl get nodes
 kubectl get pods
 kubectl get pods --context=kube-context
 kubectl get pods -A
 kubectl get svc -A
+kubectl logs pod-name
 kubectl options
+kubectl port-forward pod-name 8080:8000
 kubectl port-forward service/service-name 12345
 kubectl version
 landscape --help
@@ -1760,6 +1771,8 @@ npm install -g vsce
 npm install -g wappalyzer
 npm install -g yo
 npx asar
+nslookup ankitpati.in
+nslookup ankitpati.in 1.1.1.1
 nvidia-smi
 objdump -R elf-binary-filename
 objdump -S elf-binary-filename
@@ -1778,6 +1791,7 @@ openssl req -x509 -days 36500 -new -key id_rsa -out id_rsa.x509
 openssl rsa -in openssl.key -pubout -out openssl.pub
 openssl rsa -in openssl.key -text -noout
 openssl s_client -tls1_3 -auth_level 2 -connect 172.67.192.178:443 -servername ankitpati.in -verify_hostname ankitpati.in -verify_return_error
+openssl verify -CAfile fullchain.pem cert.pem
 openssl x509 -in ankitpati.pem -text
 openssl x509 -in ankitpati.pem -text -noout
 openssl x509 -text -noout # paste base64 block into stdin
@@ -1788,6 +1802,7 @@ ovsx publish --pat SecretPersonalAccessToken
 p4 changes -c client-name -l
 p4 changes -l
 p4 changes -u username
+p4 changes ...
 p4 clean -n
 p4 clean -n -a
 p4 clean -n -d
@@ -1808,6 +1823,7 @@ p4 diff -se //depot/directory/... | vipe | xargs p4 reconcile -n
 p4 dirs -H //depot/\*
 p4 dirs //depot/\*
 p4 dirs //depot/t\*
+p4 filelog path/to/filename.pl
 p4 files ...file\*.pl
 p4 files //.../file*.pl
 p4 files //.../filename.pl
@@ -1872,6 +1888,8 @@ perldoc -f foreach
 perldoc -f split
 perldoc File::Basename
 perldoc perlsyn
+perltidy --pro='.perltidyrc' filename.pl
+perltidy filename.pl
 pgrep -x chrome
 pidof -s chrome
 pidof chrome
@@ -2008,6 +2026,7 @@ sed -i -E 's|#!/usr/bin/octave -q|#!/usr/bin/env -S octave -q|g' -- *.m
 sensors
 seq -w 000 007 | while read -r num; do cat "input$num.txt"; read; cat "output$num.txt"; read; done
 sha256sum -c filename-CHECKSUM
+shfmt -w -s filename.bash
 skaffold help
 sloccount .
 snap install flutter --classic
@@ -2048,6 +2067,7 @@ sudo bash -c 'dnf upgrade --refresh; snap refresh; flatpak update; pkcon refresh
 sudo bash -c 'rfkill unblock bluetooth; systemctl restart bluetooth.service'
 sudo bash -c 'systemctl stop libvirtd.socket; systemctl stop libvirtd.service'
 sudo inxi -SMCDG
+sudo kubectl port-forward pod-name 80:8080
 svg2png filename.svg
 systemctl disable --now avahi-daemon.service
 systemctl disable --now libvirtd.service
@@ -2174,6 +2194,7 @@ xcodebuild -license
 xdg-open .
 xdg-open filename
 xdotool click --repeat 5 1
+xmllint --format filename.xml | sponge filename.xml
 xz -v9e filename.tar
 yapf -i filename.py
 youtube-dl https://www.youtube.com/watch?v=VIDEO_ID -F
