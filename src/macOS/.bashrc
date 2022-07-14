@@ -7,9 +7,11 @@ sanitize_path()
     # 1. repeated elements,
     # 2. repeated, starting, or ending `:`, and
     # 3. repeated `/`.
-    echo -n "$1" | awk -v 'RS=:' -v 'ORS=:' '!seen[$0]++' \
-                 | sed 's/::*/:/g' | sed 's/^://' | sed 's/:$//' \
-                 | sed 's_//*_/_g'
+    echo -n "$1" \
+        | sed 's/::*/:/g;s/^://;s_//*_/_g' \
+        | awk -v 'RS=:' -v 'ORS=:' '!seen[$0]++' \
+        | sed 's/:$//' \
+    ;
 }
 
 B-delds()
