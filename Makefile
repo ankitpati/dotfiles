@@ -1,4 +1,7 @@
-all: install
+all: test install
+
+test:
+	prove -v
 
 install:
 	cp -rL src/. "$$HOME"/
