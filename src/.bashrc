@@ -217,7 +217,7 @@ main()
 
     # pyenv
     # shellcheck disable=SC2154
-    test -d "$HOME/.pyenv" && \
+    test -d "$PYENV_ROOT" && \
         source <(pyenv init -)
 
     # Perlbrew
