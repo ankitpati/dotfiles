@@ -244,6 +244,7 @@ main()
     # Source global definitions
     local global_profile='/etc/profile'
     # `$PROFILEREAD` is OpenSUSE-specific at the time of writing.
+    # shellcheck disable=SC2154
     test -z "$PROFILEREAD" -a -f "$global_profile" && \
         source "$global_profile"
 
@@ -331,6 +332,7 @@ main()
     alias egrep='grep -E'
     alias fgrep='grep -F'
     alias git-sh='exec git-sh'
+    # shellcheck disable=SC2262
     alias grep='grep --color=auto'
     alias grepp='grep -P'
     alias l.='ls -d .*'
