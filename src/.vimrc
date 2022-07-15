@@ -40,12 +40,13 @@ set nocompatible
     g:blamer_template = '<committer-mail> <committer-time> <summary>'
     g:syntastic_python_flake8_args = '--ignore=E501'
     g:syntastic_python_python_exec = 'python3'
+
+    highlight Blamer ctermfg=lightgray
 # End of Plugin Config
 
 syntax on
 filetype plugin indent on
 
-highlight Blamer ctermfg=lightgray
 highlight ColorColumn ctermbg=darkgray
 highlight StatusLine ctermbg=darkgray ctermfg=black
 highlight StatusLineNC ctermbg=darkgray ctermfg=black
