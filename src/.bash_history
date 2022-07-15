@@ -386,6 +386,8 @@ cargo install shellharden
 cat *.tf | vipe --suffix=tf >/dev/null
 cat <(curl https://truststore.pki.rds.amazonaws.com/global/global-bundle.pem) <(curl https://truststore.pki.us-gov-west-1.rds.amazonaws.com/global/global-bundle.pem) > ~/.postgresql/root.crt
 ccd2iso disk-image.bin disk-image.iso
+checkstyle -c /google_checks.xml Filename.java
+checkstyle -c /sun_checks.xml Filename.java
 chsh -s "$(brew --prefix)/bin/bash"
 codium --install-extension ankitpati.vscodium-amoled --force
 codium --install-extension eamodio.gitlens --force
@@ -1501,6 +1503,7 @@ gjs-console
 go get github.com/ericchiang/pup
 go get png2svg
 go-avif
+google-java-format -i -a Filename.java
 gpg2 --armor --export contact@ankitpati.in | pbcopy
 gpg2 --armor --export contact@ankitpati.in | xclip
 gpg2 --armor --export-secret-keys contact@ankitpati.in > privkey.gpg.asc
@@ -1634,14 +1637,14 @@ kubectl config --help
 kubectl config view
 kubectl config view --minify --raw --output 'jsonpath={..cluster.certificate-authority-data}'
 kubectl create -f https://ankitpati.in/example.yaml
-kubectl exec -it pod-name -c container-name bash
+kubectl exec -it pod-name -c container-name -- bash
 kubectl get namespaces
 kubectl get nodes
 kubectl get pods
 kubectl get pods --context=kube-context
 kubectl get pods -A
 kubectl get svc -A
-kubectl logs pod-name
+kubectl logs -f pod-name
 kubectl options
 kubectl port-forward pod-name 8080:8000
 kubectl port-forward service/service-name 12345
@@ -1721,6 +1724,7 @@ mypy --config-file ~/.mypy.ini
 namei -l "$(command -v perl6)"
 namei -om /bin/perl6
 nc -lp 5432
+nc -zvv ankitpati.in 443
 ncdu
 neofetch
 networkQuality -v
