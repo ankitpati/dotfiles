@@ -26,6 +26,11 @@ set nocompatible
             'shfmt',
         ],
     }
+    g:ale_linters_ignore = {
+        'java': [
+            'checkstyle',
+        ],
+    }
 
     g:blamer_date_format = '%Y-%m-%dT%H:%M:%S%Z'
     g:blamer_delay = 300
