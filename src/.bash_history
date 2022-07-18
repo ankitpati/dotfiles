@@ -2131,6 +2131,7 @@ update-alternatives --set editor "$(command -v vim)"
 updatedb
 uprecord
 uptime
+url --decode < gcp_savedViews.json | sed 's/(/{/g;s/)/}/g' | jq . | sponge gcp_savedViews.json
 usb-devices
 usermod -aG libvirt ankitpati
 usermod -aG wireshark ankitpati
