@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-( GIT_COMMITTER_EMAIL='contact@ankitpati.in' git rebase branch-name --exec 'git commit --amend --author="Ankit Pati <contact@ankitpati.in>" --no-edit' )
+( GIT_COMMITTER_NAME='Ankit Pati' GIT_COMMITTER_EMAIL='contact@ankitpati.in' git rebase branch-name --exec 'git commit --amend --author="Ankit Pati <contact@ankitpati.in>" --no-edit' )
 ( LESS='-I' git log )
 ( export PATH="$(echo "$PATH" | sed 's/:/\n/g' | grep -v binutils | paste -sd :)"; cpan Unicode::GCString )
 ( hostname='google.com'; openssl s_client -auth_level 2 -connect "$hostname":443 -servername "$hostname" -verify_hostname "$hostname" -verify_return_error )
@@ -1836,6 +1836,8 @@ p4 files //depot/.../filename.pl
 p4 files //depot/...file\*.pl
 p4 grep -F -e expression //depot/...
 p4 grep -l -s -F -e expression //depot/... | cut -d# -f1 | xargs -o vim
+p4 groups
+p4 groups username
 p4 help sizes
 p4 info
 p4 login
