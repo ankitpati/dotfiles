@@ -331,6 +331,7 @@ brew install tika
 brew install timg
 brew install tmux
 brew install tree
+brew install treefmt
 brew install trivy
 brew install ugrep
 brew install uncrustify
