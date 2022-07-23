@@ -1308,13 +1308,13 @@ docker run --pull always -it --rm opensuse/tumbleweed
 docker run --pull always -it --rm oraclelinux:8
 docker run --pull always -it --rm rockylinux
 docker run --pull always -it --rm ubuntu:rolling
+docker run --pull never -it -v "$(pwd):/host-directory" --rm fedora-dev
 docker run -it --rm fedora
 docker run -it --rm oraclelinux:8
 docker run -it --rm ubuntu:rolling
-docker run -it -v "$(pwd):/host-directory" --rm docker.io/library/fedora-dev
 docker scan --accept-license --version
 docker scan --login --token "$(lpass show --password snyk_auth_token)"
-docker scan docker.io/library/opensuse-dev
+docker scan opensuse-dev
 docker system info
 docker system prune
 dockviz images -d | apdot | timg -
