@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 ( GIT_COMMITTER_NAME='Ankit Pati' GIT_COMMITTER_EMAIL='contact@ankitpati.in' git rebase branch-name --exec 'git commit --amend --author="Ankit Pati <contact@ankitpati.in>" --no-edit' )
 ( LESS='-I' git log )
-( export PATH="$(echo "$PATH" | sed 's/:/\n/g' | grep -v binutils | paste -sd :)"; cpan Unicode::GCString )
 ( hostname='google.com'; openssl s_client -auth_level 2 -connect "$hostname":443 -servername "$hostname" -verify_hostname "$hostname" -verify_return_error )
 ( hostname='google.com'; openssl s_client -tls1_3 -auth_level 2 -connect "$hostname":443 -servername "$hostname" -verify_hostname "$hostname" -verify_return_error )
 ( perforce_dir=//depot/directory; p4 dirs "$perforce_dir/*" | while read -r perforce_subdir; do p4 grep -e 'search-expression' "$perforce_subdir/..."; done )
@@ -15,6 +14,7 @@
 P4DIFF=vimdiff p4 diff -Od -f //depot/directory/...
 P4DIFF=vimdiff p4 diff -f //depot/directory/...
 P4DIFF=vimdiff p4 diff -f //depot/directory/filename.pl
+PATH="$(echo "$PATH" | sed 's/:/\n/g' | grep -v binutils | paste -sd :)" cpan Unicode::GCString
 ack '(?<=^B: ).*$'
 adb logcat --pid="$(adb shell pidof -s in.ankitpati.gparse | cut -d' ' -f1)"
 adb logcat -c && adb logcat > current.log
