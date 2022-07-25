@@ -453,6 +453,7 @@ defaults write com.jetbrains.intellij ApplePressAndHoldEnabled -bool false
 defaults write com.visualstudio.code.oss ApplePressAndHoldEnabled -bool false
 df -h
 df -i
+diff -u5 -r directory1/ directory2/ | delta
 dig -t ANY google.com
 dig -x 172.30.83.9
 dig -x ankitpati.in
