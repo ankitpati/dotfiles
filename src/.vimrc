@@ -25,6 +25,9 @@ set nocompatible
         'sh': [
             'shfmt',
         ],
+        'xml': [
+            'xmllint',
+        ],
     }
     g:ale_linters_ignore = {
         'java': [
