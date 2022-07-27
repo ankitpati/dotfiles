@@ -31,6 +31,8 @@ apt install iat
 apt-mark auto ubuntu-restricted-addons
 apt-mark showmanual
 aria2c -c -x 16 https://ankitpati.in/filename.br
+arkade info inlets-operator
+arkade install istio
 banner Type your message here.
 bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 bash -c 'dscacheutil -flushcache; killall -HUP mDNSResponder'
@@ -75,6 +77,7 @@ brew install aliyun-cli
 brew install ant
 brew install argocd
 brew install aria2
+brew install arkade
 brew install arp-scan
 brew install arping
 brew install astyle
@@ -1578,7 +1581,10 @@ istioctl --help
 istioctl analyze --help
 istioctl analyze --namespace namespace
 istioctl analyze -A
+istioctl install --set revision=release
+istioctl proxy-status
 istioctl version
+istioctl x precheck
 iw dev wlp2s0
 iw dev wlp2s0 info
 iwconfig
@@ -1639,8 +1645,14 @@ kubectl config --help
 kubectl config view
 kubectl config view --minify --raw --output 'jsonpath={..cluster.certificate-authority-data}'
 kubectl create -f https://ankitpati.in/example.yaml
+kubectl delete ns istio-system
 kubectl exec -it pod-name -c container-name -- bash
+kubectl get deploy -n istio-system
+kubectl get deployments
+kubectl get mutatingwebhookconfigurations
 kubectl get namespaces
+kubectl get node
+kubectl get node -o wide
 kubectl get nodes
 kubectl get pods
 kubectl get pods --context=kube-context
@@ -1650,6 +1662,7 @@ kubectl logs -f pod-name
 kubectl options
 kubectl port-forward pod-name 8080:8000
 kubectl port-forward service/service-name 12345
+kubectl rollout restart deployment -n default
 kubectl version
 landscape --help
 latest-version asar
