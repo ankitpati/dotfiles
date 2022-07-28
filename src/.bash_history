@@ -440,6 +440,7 @@ curl --key openssl.key --cert openssl.crt https://mtls.example.org
 curl --resolve example.org:80:127.0.0.1 http://example.org
 curl -H "Authorization: token $(lpass show --password github_personal_access_token)" https://raw.githubusercontent.com/namespace/private-repo/branch/directory/filename.c
 curl -s -w '\n%{time_total} - %{time_starttransfer}\n' https://httpbin.org/get | tail -n 1 | bc
+curl -vvvpx https://squid.ankitpati.in:1080 https://ankitpati.in
 curl https://github.com/web-flow.gpg | gpg --import
 curl https://ident.me; echo; exec cat
 dart --disable-analytics
