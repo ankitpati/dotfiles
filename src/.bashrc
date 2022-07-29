@@ -29,10 +29,6 @@ B-delds()
             ! -exec test -e {} \; \
             -print \
             -exec rm -rf {} +
-
-    command -v qlmanage &>/dev/null && \
-        echo 'Removing the QuickLook Cache...' && \
-        qlmanage -r cache
 }
 
 B-clean-cache()
@@ -54,6 +50,10 @@ B-clean-cache()
 
     echo 'Removing the PIP Cache...'
     rm -rf "$HOME/.cache/pip/"
+
+    command -v qlmanage &>/dev/null && \
+        echo 'Removing the QuickLook Cache...' && \
+        qlmanage -r cache
 }
 
 # Compact Homebrew git repositories
