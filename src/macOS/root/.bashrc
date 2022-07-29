@@ -33,6 +33,9 @@ B-delds()
 
 B-clean-cache()
 {
+    echo 'Removing SSH known_hosts Backup...'
+    rm "$HOME/.ssh/known_hosts.old"
+
     echo 'Uninstalling dangling Homebrew packages...'
     brew autoremove
 
