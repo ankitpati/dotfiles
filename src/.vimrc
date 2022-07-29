@@ -28,6 +28,9 @@ set nocompatible
         'xml': [
             'xmllint',
         ],
+        'yaml': [
+            'prettier',
+        ],
     }
     g:ale_linters_ignore = {
         'java': [
