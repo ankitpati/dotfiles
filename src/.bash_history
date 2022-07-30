@@ -195,6 +195,7 @@ brew install iproute2mac
 brew install ipv6calc
 brew install iredis
 brew install irssi
+brew install isort
 brew install istioctl
 brew install ivy
 brew install jd
@@ -278,7 +279,6 @@ brew install qemu
 brew install rakudo
 brew install range2cidr
 brew install redpen
-brew install reorder-python-imports
 brew install rich-cli
 brew install ripgrep-all
 brew install rlwrap
