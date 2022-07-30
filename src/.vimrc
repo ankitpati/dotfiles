@@ -22,6 +22,10 @@ set nocompatible
         'perl': [
             'perltidy',
         ],
+        'python': [
+            'isort',
+            'black',
+        ],
         'sh': [
             'shfmt',
         ],
