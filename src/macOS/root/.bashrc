@@ -29,6 +29,8 @@ B-delds()
             ! -exec test -e {} \; \
             -print \
             -exec rm -rf {} +
+
+    :
 }
 
 B-clean-cache()
@@ -62,6 +64,8 @@ B-clean-cache()
         qlmanage -r cache
 
     # TODO: find & vacuum/remove all NSPersistentContainer SQLite DBs
+
+    :
 }
 
 # Compact Homebrew git repositories
@@ -76,6 +80,8 @@ B-brew-compact()
     do
         git -C "$brewtap" cleanup
     done
+
+    :
 }
 
 # Prepend old binaries to PATH
