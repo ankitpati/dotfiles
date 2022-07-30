@@ -115,7 +115,7 @@ main()
     test -z "$PROFILEREAD" -a -f "$global_profile" && \
         source "$global_profile"
 
-    mesg n || true
+    mesg n || :
 
     export PATH="$(sanitize_path "/home/linuxbrew/.linuxbrew/bin:$PATH")"
 

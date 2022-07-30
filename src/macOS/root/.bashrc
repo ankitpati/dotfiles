@@ -246,7 +246,7 @@ main()
     test -z "$PROFILEREAD" -a -f "$global_profile" && \
         source "$global_profile"
 
-    mesg n || true
+    mesg n || :
 
     local brew_prefix="$(command -v brew &>/dev/null && brew --prefix)"
 
