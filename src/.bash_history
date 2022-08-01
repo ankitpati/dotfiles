@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+( GH_ORIGIN='origin'; PULL_REQUEST_ID='12345'; BRANCH_NAME='foo-bar'; git fetch "$GH_ORIGIN" "pull/$PULL_REQUEST_ID/head:$BRANCH_NAME" && git checkout "$BRANCH_NAME" )
 ( GIT_COMMITTER_NAME='Ankit Pati' GIT_COMMITTER_EMAIL='contact@ankitpati.in' git rebase branch-name --exec 'git commit --amend --author="Ankit Pati <contact@ankitpati.in>" --no-edit' )
 ( LESS='-I' git log )
 ( hostname='google.com'; openssl s_client -auth_level 2 -connect "$hostname":443 -servername "$hostname" -verify_hostname "$hostname" -verify_return_error )
@@ -262,6 +263,7 @@ brew install openssh
 brew install openstackclient
 brew install oq
 brew install php
+brew install pint
 brew install pip-completion
 brew install pixie
 brew install plantuml
@@ -1298,14 +1300,15 @@ dnf system-upgrade download --refresh --releasever=36
 dnf system-upgrade reboot
 dnstracer -s . ankitpati.in
 dnstracer ankitpati.in
+docker attach container-name
 docker build --build-arg username='ankitpati' -t opensuse-dev .
 docker build --progress=plain -t opensuse-dev .
-docker build --pull --no-cache -t fedora-dev .
+docker build --pull --no-cache -t opensuse-dev .
 docker build -t image-name:optional-tag .
 docker images --no-trunc --digests opensuse-dev
 docker images -a
 docker inspect --format='{{index .RepoDigests 0}}' opensuse/tumbleweed
-docker inspect tender_chatterjee
+docker inspect container-name
 docker network ls -q | xargs -r docker network inspect -v
 docker ps --no-trunc -a
 docker run --pull always -it --rm fedora
@@ -1313,7 +1316,8 @@ docker run --pull always -it --rm opensuse/tumbleweed
 docker run --pull always -it --rm oraclelinux:8
 docker run --pull always -it --rm rockylinux
 docker run --pull always -it --rm ubuntu:rolling
-docker run --pull never -it -v "$(pwd):/host-directory" --rm fedora-dev
+docker run --pull never --name container-name -it opensuse-dev
+docker run -d --pull never --name container-name -it opensuse-dev
 docker run -it --rm fedora
 docker run -it --rm oraclelinux:8
 docker run -it --rm ubuntu:rolling
@@ -1394,6 +1398,8 @@ fdupes -rNd .
 fdupes .
 figlet Type your message here.
 file -i filename
+find . -maxdepth 1 -type d -mtime 0
+find . -maxdepth 1 -type d -mtime 2
 find . -not -group ankitpati
 find . -not -user ankitpati
 find . -type f -exec chmod 0600 {} + -exec dos2unix {} +
