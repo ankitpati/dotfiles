@@ -19,6 +19,12 @@ set nocompatible
     runtime macros/matchit.vim
 
     g:ale_fixers = {
+        'html': [
+            'prettier',
+        ],
+        'javascript': [
+            'prettier',
+        ],
         'perl': [
             'perltidy',
         ],
@@ -28,6 +34,9 @@ set nocompatible
         ],
         'sh': [
             'shfmt',
+        ],
+        'typescript': [
+            'prettier',
         ],
         'xml': [
             'xmllint',
