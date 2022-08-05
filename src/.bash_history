@@ -2130,6 +2130,8 @@ terraform refresh
 terraform show tfplan -no-color > tfplan-for-diff
 terraform show tfplan | landscape
 terraform show tfplan | less -R
+terraform state list
+terraform state show module.compute.google_compute_address.compute-array[0]
 terraform validate
 timedatectl set-timezone Asia/Kolkata
 toolbox create
