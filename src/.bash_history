@@ -9,6 +9,15 @@
 ( perforce_dir=//depot/directory; p4 dirs "$perforce_dir/*"; p4 sizes -sh "$perforce_dir/..." )
 ( ssh_private_key_file=id_ed25519; ssh-keygen -l -v -f "$ssh_private_key_file" && ssh-keygen -y -f "$ssh_private_key_file" && cat "$ssh_private_key_file" )
 ( unalias -a; comm -12 <(hash -r; ls {,/usr}/{,s}bin/ | xargs command -V 2>/dev/null | grep -Ev " is ($(brew --prefix)/|a shell (builtin|keyword))" | cut -d' ' -f1 | sort -u) <(ls "$(brew --prefix)/Homebrew/Library/Taps/homebrew/homebrew-core/Formula/" | rev | cut -d. -f2- | rev | sort -u) )
+./manage.py check auth admin forum
+./manage.py dbshell
+./manage.py makemigrations
+./manage.py migrate
+./manage.py runserver 0:8000
+./manage.py shell
+./manage.py showmigrations
+./manage.py sqlmigrate
+./manage.py startapp
 /bin/ls -l@
 /usr/libexec/java_home
 /usr/libexec/java_home -V
@@ -468,6 +477,7 @@ dig -x ankitpati.in
 dig ankitpati.in
 dig ankitpati.in @1.1.1.1
 dirs -v
+django-admin startproject forum
 dnf config-manager --add-repo https://brave-browser-rpm-release.s3.brave.com/x86_64/
 dnf copr enable kwizart/fedy
 dnf copr enable zeno/scrcpy
