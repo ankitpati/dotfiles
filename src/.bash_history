@@ -39,6 +39,7 @@ age-keygen -o ~/.age/key.txt
 apdot filename.dot -Tpng | timg -
 apktool d filename.apk
 apt install iat
+apt purge -y mysql-\* && apt autoremove -y && rm -rf /etc/mysql/ /var/lib/mysql/
 apt-mark auto ubuntu-restricted-addons
 apt-mark showmanual
 aria2c -c -x 16 https://ankitpati.in/filename.br
