@@ -497,6 +497,7 @@ dnf install SDL2-devel
 dnf install SDL2-static
 dnf install ShellCheck
 dnf install \*-firmware
+dnf install aajohan-comfortaa-fonts
 dnf install abiword
 dnf install abootimg
 dnf install ack
@@ -519,11 +520,13 @@ dnf install astyle
 dnf install audacity
 dnf install awscli
 dnf install b43-tools
+dnf install bandit
 dnf install banner
 dnf install bash-completion
 dnf install bat
 dnf install below
 dnf install binwalk
+dnf install biosdevname
 dnf install bison
 dnf install black
 dnf install bleachbit
@@ -535,6 +538,7 @@ dnf install brave-keyring
 dnf install broadcom-bt-firmware
 dnf install broadcom-wl
 dnf install brotli
+dnf install buildah
 dnf install byacc
 dnf install bzip2-devel
 dnf install bzip2-libs.i686
@@ -616,6 +620,7 @@ dnf install freetiger
 dnf install freeze
 dnf install fritzing
 dnf install fuse-sshfs
+dnf install fzf
 dnf install gaupol
 dnf install gcc-c++
 dnf install gdal
@@ -872,8 +877,10 @@ dnf install perl-App-cpanminus
 dnf install perl-BerkeleyDB
 dnf install perl-Browser-Open
 dnf install perl-Carton
+dnf install perl-Class-DBI-SQLite
 dnf install perl-Cpanel-JSON-XS
 dnf install perl-Crypt-Random
+dnf install perl-DBD-SQLite
 dnf install perl-DBI
 dnf install perl-Data-Printer
 dnf install perl-Devel-Cover
@@ -913,6 +920,7 @@ dnf install perl-Net-IDN-Nameprep
 dnf install perl-PDF-Create
 dnf install perl-Parallel-ForkManager
 dnf install perl-Perl-Critic
+dnf install perl-Perl-Tidy-Sweetened
 dnf install perl-Pod-Spell
 dnf install perl-Readonly
 dnf install perl-Redis
@@ -1169,6 +1177,7 @@ dnf install retext
 dnf install rhythmbox-alternative-toolbar
 dnf install ripgrep
 dnf install rlwrap
+dnf install rnnoise
 dnf install rpmconf
 dnf install rpmfusion-free-release
 dnf install rpmfusion-free-release-tainted
@@ -1249,6 +1258,7 @@ dnf install valgrind
 dnf install vdpauinfo
 dnf install vidcutter
 dnf install vim-enhanced
+dnf install virt-manager
 dnf install vlc
 dnf install vlc-extras
 dnf install vmpk
@@ -1258,6 +1268,7 @@ dnf install vulkan-tools
 dnf install wdiff
 dnf install webp-pixbuf-loader
 dnf install wireshark
+dnf install wl-clipboard
 dnf install wxGlade
 dnf install wxMaxima
 dnf install xautomation
