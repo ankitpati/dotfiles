@@ -1256,6 +1256,7 @@ dnf install vorbis-tools
 dnf install vulkan
 dnf install vulkan-tools
 dnf install wdiff
+dnf install webp-pixbuf-loader
 dnf install wireshark
 dnf install wxGlade
 dnf install wxMaxima
