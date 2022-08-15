@@ -1310,6 +1310,7 @@ dnf repoquery --duplicates
 dnf repoquery --extras
 dnf repoquery --extras --exclude=kernel,kernel-\*
 dnf repoquery --unsatisfied
+dnf repoquery --userinstalled
 dnf system-upgrade download --refresh --releasever=36
 dnf system-upgrade reboot
 dnstracer -s . ankitpati.in
