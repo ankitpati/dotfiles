@@ -399,6 +399,7 @@ brew-list-deps
 brotli -d filename.br
 brotli filename
 browserslist 'last 1 Chrome versions'
+btrfs subvolume list /data
 cargo install cargo-update
 cargo install shellharden
 cat *.tf | vipe --suffix=tf >/dev/null
@@ -1764,6 +1765,9 @@ minikube status
 modinfo -F version nvidia
 mogrify -format jpg ./*.png
 mojo version
+mount /dev/sda1 -o subvol='@/home/' /btrfs-subvolume-mount
+mount /dev/sda1 -o subvolid=123 /btrfs-subvolume-mount
+mount /dev/sda1 /data
 msfconsole
 msfdb stop
 mvn --encrypt-master-password 'maven-master-password'
@@ -2174,6 +2178,7 @@ ufw allow in ssh
 ufw enable
 ugrep -Q
 ugrep -Q -.
+umount /data
 uname -a
 uname -r
 unix2dos filename.txt
