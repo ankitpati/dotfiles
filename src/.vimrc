@@ -35,6 +35,9 @@ set nocompatible
         'sh': [
             'shfmt',
         ],
+        'terraform': [
+            'terraform',
+        ],
         'typescript': [
             'prettier',
         ],
