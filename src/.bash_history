@@ -22,6 +22,7 @@
 /usr/libexec/java_home
 /usr/libexec/java_home -V
 /usr/libexec/java_home -v 1.8
+CLASSPATH=. java ClassName
 P4DIFF=vimdiff p4 diff -Od -f //depot/directory/...
 P4DIFF=vimdiff p4 diff -f //depot/directory/...
 P4DIFF=vimdiff p4 diff -f //depot/directory/filename.pl
@@ -378,6 +379,7 @@ brew list --casks
 brew livecheck --debug kubernetes-cli
 brew livecheck kubernetes-cli
 brew missing
+brew reinstall --cask chromium
 brew reinstall --cask vscodium
 brew reinstall --cask webex-meetings
 brew reinstall httpd
@@ -402,7 +404,7 @@ browserslist 'last 1 Chrome versions'
 btrfs subvolume list /data
 cargo install cargo-update
 cargo install shellharden
-cat *.tf | vipe --suffix=tf >/dev/null
+cat ./*.tf | vipe --suffix=tf >/dev/null
 cat <(curl https://truststore.pki.rds.amazonaws.com/global/global-bundle.pem) <(curl https://truststore.pki.us-gov-west-1.rds.amazonaws.com/global/global-bundle.pem) > ~/.postgresql/root.crt
 ccd2iso disk-image.bin disk-image.iso
 checkstyle -c /google_checks.xml Filename.java
@@ -1340,25 +1342,26 @@ docker network ls -q | xargs -r docker network inspect -v
 docker ps --no-trunc -a
 docker run --pull always -it --rm fedora
 docker run --pull always -it --rm opensuse/tumbleweed
-docker run --pull always -it --rm oraclelinux:8
-docker run --pull always -it --rm rockylinux
 docker run --pull always -it --rm ubuntu:rolling
 docker run --pull never --name container-name -it opensuse-dev
 docker run -d --pull never --name container-name -it opensuse-dev
 docker run -it --rm fedora
-docker run -it --rm oraclelinux:8
 docker run -it --rm ubuntu:rolling
 docker scan --accept-license --version
 docker scan --login --token "$(lpass show --password snyk_auth_token)"
 docker scan opensuse-dev
 docker system info
 docker system prune
+docker-compose build
+docker-compose stop
+docker-compose up
 dockviz images -d | apdot | timg -
 dockviz images -d | patchwork | apdot | timg -
 dockviz images -t
 drill -x 1.1.1.1
 drill ankitpati.in
 echo "$LINES" "$COLUMNS"
+echo "$RANDOM"
 echo 'Subject: Hello' | sendmail -v contact@ankitpati.in
 echo 'macOS Notification Text' | terminal-notifier
 echo '{ "name": "Ankit" }' | jq '.name | ascii_downcase'
