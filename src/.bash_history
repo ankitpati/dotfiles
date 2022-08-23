@@ -1530,6 +1530,7 @@ git log --pretty=email
 git log --pretty=format:%ae | sort -u | cut -d@ -f2- | sort -u
 git log -p
 git log -p ':^*.asc'
+git log -p --author='contact@ankitpati.in'
 git merge --ff-only branchname
 git merge-base HEAD branchname
 git remote -v | sed -E 's/ \((fetch|push)\)$//' | sort -u | while read -r remote_name remote_url; do remote_url="$(echo "$remote_url" | sed 's,^ssh://git@,ssh://,')"; git remote set-url "$remote_name" "$remote_url"; done
