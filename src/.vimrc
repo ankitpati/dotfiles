@@ -19,6 +19,12 @@ set nocompatible
     runtime macros/matchit.vim
 
     g:ale_fixers = {
+        'c': [
+            'astyle',
+        ],
+        'cpp': [
+            'astyle',
+        ],
         'html': [
             'prettier',
         ],
