@@ -1,0 +1,15 @@
+--add-braces
+--align-pointer=name
+--attach-return-type
+--attach-return-type-decl
+--break-blocks
+--break-one-line-headers
+--convert-tabs
+--indent=spaces=4
+--lineend=linux
+--pad-comma
+--pad-header
+--pad-oper
+--style=kr
+--suffix=none
+--unpad-paren
