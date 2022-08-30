@@ -80,7 +80,7 @@ brew install --cask maccy
 brew install --cask p4
 brew install --cask p4v
 brew install --cask slack
-brew install --cask vscodium
+brew install --cask visual-studio-code
 brew install --cask webex-meetings
 brew install ack
 brew install act
@@ -380,7 +380,6 @@ brew livecheck --debug kubernetes-cli
 brew livecheck kubernetes-cli
 brew missing
 brew reinstall --cask chromium
-brew reinstall --cask vscodium
 brew reinstall --cask webex-meetings
 brew reinstall httpd
 brew search --fedora perl-Mojolicious
@@ -410,19 +409,24 @@ ccd2iso disk-image.bin disk-image.iso
 checkstyle -c /google_checks.xml Filename.java
 checkstyle -c /sun_checks.xml Filename.java
 chsh -s "$(brew --prefix)/bin/bash"
-codium --install-extension ankitpati.vscodium-amoled --force
-codium --install-extension eamodio.gitlens --force
-codium --install-extension jock.svg --force
-codium --install-extension redhat.java --force
-codium --install-extension vscjava.vscode-java-debug --force
-codium --install-extension vscodevim.vim --force
-codium --list-extensions
+code --install-extension eamodio.gitlens --force
+code --install-extension googlecloudtools.cloudcode --force
+code --install-extension jock.svg --force
+code --install-extension mjcrouch.perforce --force
+code --install-extension ms-azuretools.vscode-docker --force
+code --install-extension ms-kubernetes-tools.vscode-kubernetes-tools --force
+code --install-extension ms-ossdata.vscode-postgresql --force
+code --install-extension redhat.java --force
+code --install-extension viktorqvarfordt.vscode-pitch-black-theme --force
+code --install-extension vscjava.vscode-java-debug --force
+code --install-extension vscodevim.vim --force
+code --list-extensions
 comm -23 <(grep -P '^brew install (?!--cask )' ~/Code/Dotfiles/src/.bash_history | cut -d' ' -f3) <(brew leaves --installed-on-request)
 command -V command
 command -v gnome-shell
 convert ./*.jpg output.pdf
 copyq info
-cpan-outdated -p | xargs cpanm; echo $?; pip list --outdated --format=freeze | cut -d= -f1 | grep -Ev '^(GDAL|python-poppler-qt5|slip|wxPython)$' | xargs pip install --user -U; echo $?; mypy --install-types; echo $?; cargo install-update -a; echo $?; npm update -g; echo $?; sdk selfupdate; echo $?; sdk update; echo $?; for java_sdk in $(grep '^sdk install ' ~/.bash_history | cut -d' ' -f3 | sort -u); do sdk upgrade "$java_sdk"; done; find ~/.sdkman/ -type f \( -name '*.exe' -o -name '*.bat' \) -delete; vim +PlugUpgrade +PlugUpdate +qa; nvim +PlugUpgrade +PlugUpdate +qa; for codext in $(codium --list-extensions); do codium --install-extension "$codext" --force; done; echo $?; flutter upgrade; echo $?; flutter doctor -v; echo $?; gcloud components update; echo $?; tldr --update; echo $?
+cpan-outdated -p | xargs cpanm; echo $?; pip list --outdated --format=freeze | cut -d= -f1 | grep -Ev '^(GDAL|python-poppler-qt5|slip|wxPython)$' | xargs pip install --user -U; echo $?; mypy --install-types; echo $?; cargo install-update -a; echo $?; npm update -g; echo $?; sdk selfupdate; echo $?; sdk update; echo $?; for java_sdk in $(grep '^sdk install ' ~/.bash_history | cut -d' ' -f3 | sort -u); do sdk upgrade "$java_sdk"; done; find ~/.sdkman/ -type f \( -name '*.exe' -o -name '*.bat' \) -delete; vim +PlugUpgrade +PlugUpdate +qa; nvim +PlugUpgrade +PlugUpdate +qa; for codext in $(code --list-extensions); do code --install-extension "$codext" --force; done; echo $?; flutter upgrade; echo $?; flutter doctor -v; echo $?; gcloud components update; echo $?; tldr --update; echo $?
 cpanm App::cpanoutdated
 cpanm Data::Printer
 cpanm Future::AsyncAwait
@@ -556,7 +560,7 @@ dnf install cheat
 dnf install cheese
 dnf install chromedriver
 dnf install chromium
-dnf install codium
+dnf install code
 dnf install conda
 dnf install containers-common
 dnf install copyq
@@ -1735,7 +1739,7 @@ lpass show unique_name
 ls "$(brew --prefix)/bin/g"* | rev | cut -d/ -f1 | rev | cut -dg -f2- | xargs -r command -v 2>/dev/null | grep -v "^$(brew --prefix)/" | rev | cut -d/ -f1 | rev | while read -r binary; do echo "$(brew --prefix)/bin/g$binary"; done | xargs -r ls -l | rev | cut -d/ -f4 | rev | sort -u
 ls *.json | while read -r jsonfile; do jq -S --indent 4 . < "$jsonfile" | sponge "$jsonfile"; done
 ls /Library/Launch{Agents,Daemons}
-ls ~/Library/Application\ Support/VSCodium/User/settings.json
+ls ~/Library/Application\ Support/Code/User/settings.json
 lsattr filename
 lsblk
 lscpu
@@ -1856,7 +1860,7 @@ openssl x509 -in ankitpati.pem -text
 openssl x509 -in ankitpati.pem -text -noout
 openssl x509 -text -noout # paste base64 block into stdin
 optipng -o7 filename.png
-osascript -e 'id of app "VSCodium"'
+osascript -e 'id of app "Visual Studio Code"'
 ovsx create-namespace ankitpati --pat SecretPersonalAccessToken
 ovsx publish --pat SecretPersonalAccessToken
 p4 changes -c client-name -l
@@ -2096,7 +2100,7 @@ snap list
 snyk auth
 snyk auth "$(lpass show --password snyk_auth_token)"
 snyk monitor
-softwareupdate -l; brew update; brew upgrade; cpan-outdated --exclude-core -p | xargs -r cpan; gcloud components update; tldr --update; grep -E '^docker run --pull always -it --rm [^- ]+$' ~/.bash_history | cut -d' ' -f7 | sort -u | while read -r docker_image; do docker pull "$docker_image"; done; for codext in $(codium --list-extensions); do codium --install-extension "$codext" --force; done; vim +PlugUpdate
+softwareupdate -l; brew update; brew upgrade; cpan-outdated --exclude-core -p | xargs -r cpan; gcloud components update; tldr --update; grep -E '^docker run --pull always -it --rm [^- ]+$' ~/.bash_history | cut -d' ' -f7 | sort -u | while read -r docker_image; do docker pull "$docker_image"; done; for codext in $(code --list-extensions); do code --install-extension "$codext" --force; done; vim +PlugUpdate
 source ./.venv/bin/activate
 spctl developer-mode enable-terminal
 speedtest
