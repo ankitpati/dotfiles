@@ -25,6 +25,7 @@
     defaultBranch = main
 [log]
     showSignature = false
+    date = iso-strict
 [merge]
     tool = vimdiff
 [pull]
