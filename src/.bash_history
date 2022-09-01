@@ -475,7 +475,9 @@ deactivate
 declare -p | grep '^declare -- '
 defaults help
 defaults read com.apple.DictionaryServices DCSActiveDictionaries
+defaults write "$(osascript -e 'id of app "Visual Studio Code"')" ApplePressAndHoldEnabled -bool false
 defaults write com.jetbrains.intellij ApplePressAndHoldEnabled -bool false
+defaults write com.microsoft.VSCode ApplePressAndHoldEnabled -bool false
 defaults write com.visualstudio.code.oss ApplePressAndHoldEnabled -bool false
 df -h
 df -i
