@@ -412,6 +412,7 @@ chsh -s "$(brew --prefix)/bin/bash"
 code --install-extension eamodio.gitlens --force
 code --install-extension googlecloudtools.cloudcode --force
 code --install-extension jock.svg --force
+code --install-extension mindaro.mindaro --force
 code --install-extension mjcrouch.perforce --force
 code --install-extension ms-azuretools.vscode-docker --force
 code --install-extension ms-kubernetes-tools.vscode-kubernetes-tools --force
