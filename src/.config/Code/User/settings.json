@@ -36,6 +36,7 @@
     "java.saveActions.organizeImports": true,
     "markdown.preview.fontFamily": "'Ubuntu', sans-serif",
     "markdown.preview.linkify": false,
+    "redhat.telemetry.enabled": false,
     "screencastMode.fontSize": 48,
     "search.followSymlinks": false,
     "svg.completion.showAdvanced": true,
