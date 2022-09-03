@@ -231,6 +231,7 @@ brew install kubecfg
 brew install kubecm
 brew install kubergrunt
 brew install kubescape
+brew install kubesess
 brew install lastpass-cli
 brew install less
 brew install libressl
@@ -280,6 +281,7 @@ brew install pint
 brew install pip-completion
 brew install pixie
 brew install plantuml
+brew install popeye
 brew install postgresql
 brew install prettier
 brew install proctools
@@ -1546,6 +1548,7 @@ git restore filename
 git show --format= --name-only
 git show --show-signature
 git show -U100
+git show -p ':^*.asc'
 git submodule add https://github.com/ankitpati/rpg.git modules/ankitpati/rpg
 git submodule update
 git submodule update --init
@@ -1687,6 +1690,7 @@ kubectl cluster-info --context docker-desktop
 kubectl cluster-info --context kind-kind
 kubectl cluster-info --context kind-kind dump
 kubectl config --help
+kubectl config use-context cluster-name
 kubectl config view
 kubectl config view --minify --raw --output 'jsonpath={..cluster.certificate-authority-data}'
 kubectl create -f https://ankitpati.in/example.yaml
