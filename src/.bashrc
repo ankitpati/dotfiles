@@ -201,8 +201,6 @@ main()
 
     alias brew-cu='brew cu --no-brew-update'
     alias cpan-outdated='cpan-outdated --mirror="$PERLBREW_CPAN_MIRROR"'
-    alias egrep='grep -E'
-    alias fgrep='grep -F'
     alias git-sh='exec git-sh'
     # shellcheck disable=SC2262
     alias grep='grep --color=auto'
