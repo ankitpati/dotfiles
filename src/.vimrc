@@ -25,10 +25,16 @@ set nocompatible
         'cpp': [
             'astyle',
         ],
+        'css': [
+            'prettier',
+        ],
         'html': [
             'prettier',
         ],
         'javascript': [
+            'prettier',
+        ],
+        'markdown': [
             'prettier',
         ],
         'perl': [
