@@ -28,7 +28,7 @@
     "files.trimFinalNewlines": true,
     "files.trimTrailingWhitespace": true,
     "gitlens.codeLens.enabled": false,
-    "gitlens.currentLine.dateFormat": "YYYY-MM-DDTHH:mm:ssZZ",
+    "gitlens.currentLine.dateFormat": "YYYY-MM-DDTHH:mm:ssZ",
     "gitlens.currentLine.format": "${email} ${date} ${message|50?}",
     "gitlens.currentLine.pullRequests.enabled": false,
     "gitlens.hovers.currentLine.over": "line",
