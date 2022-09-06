@@ -31,7 +31,13 @@ set nocompatible
         'html': [
             'prettier',
         ],
+        'java': [
+            'google_java_format',
+        ],
         'javascript': [
+            'prettier',
+        ],
+        'json': [
             'prettier',
         ],
         'markdown': [
@@ -66,6 +72,7 @@ set nocompatible
         ],
     }
 
+    g:ale_java_google_java_format_options = '--aosp'
     g:blamer_date_format = '%Y-%m-%dT%H:%M:%S%Z'
     g:blamer_delay = 300
     g:blamer_enabled = 0
