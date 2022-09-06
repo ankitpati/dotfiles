@@ -112,6 +112,7 @@ brew install bison
 brew install black
 brew install byacc
 brew install bzip2
+brew install c
 brew install cdk8s
 brew install certigo
 brew install checkbashisms
@@ -195,6 +196,7 @@ brew install groff
 brew install grpc
 brew install gzip
 brew install helm
+brew install hof
 brew install howdoi
 brew install hping
 brew install htop
@@ -382,6 +384,7 @@ brew livecheck --debug kubernetes-cli
 brew livecheck kubernetes-cli
 brew missing
 brew reinstall --cask chromium
+brew reinstall --cask visual-studio-code
 brew reinstall --cask webex-meetings
 brew reinstall httpd
 brew search --fedora perl-Mojolicious
@@ -424,6 +427,7 @@ code --install-extension viktorqvarfordt.vscode-pitch-black-theme --force
 code --install-extension vscjava.vscode-java-debug --force
 code --install-extension vscodevim.vim --force
 code --list-extensions
+code --locate-shell-integration-path bash
 comm -23 <(grep -P '^brew install (?!--cask )' ~/Code/Dotfiles/src/.bash_history | cut -d' ' -f3) <(brew leaves --installed-on-request)
 command -V command
 command -v gnome-shell
@@ -465,11 +469,13 @@ curl --resolve example.org:80:127.0.0.1 http://example.org
 curl -H "Authorization: token $(lpass show --password github_personal_access_token)" https://raw.githubusercontent.com/namespace/private-repo/branch/directory/filename.c
 curl -s -w '\n%{time_total} - %{time_starttransfer}\n' https://httpbin.org/get | tail -n 1 | bc
 curl -vvvpx https://squid.ankitpati.in:1080 https://ankitpati.in
+curl http://localhost:8001 | jq -r '.["paths"][]' | while read -r k8s_api_endpoint; do printf '\n## `%s`\n\n```json\n%s\n```\n' "$k8s_api_endpoint" "$(curl "http://localhost:8001$k8s_api_endpoint")"; done > kubernetes_api_record.md
 curl https://github.com/web-flow.gpg | gpg --import
 curl https://ident.me; echo; exec cat
 dart --disable-analytics
 date +%F
 date +%s
+date -Is
 date -d@1619533275
 dconf dump / > dump.dconf
 dd if=/dev/urandom count=1 2>/dev/null | git hash-object --stdin
@@ -1338,27 +1344,29 @@ dnf system-upgrade download --refresh --releasever=36
 dnf system-upgrade reboot
 dnstracer -s . ankitpati.in
 dnstracer ankitpati.in
-docker attach container-name
-docker build --build-arg username='ankitpati' -t opensuse-dev .
-docker build --progress=plain -t opensuse-dev .
-docker build --pull --no-cache -t opensuse-dev .
-docker build -t image-name:optional-tag .
-docker images --no-trunc --digests opensuse-dev
+docker attach container_name
+docker build --build-arg username='ankitpati' -t image_name .
+docker build --progress=plain -t image_name .
+docker build --pull --no-cache -t image_name .
+docker build -t image_name:tag_name .
+docker exec -it container_name bash
+docker images --no-trunc --digests image_name
 docker images -a
-docker inspect --format='{{index .RepoDigests 0}}' opensuse/tumbleweed
-docker inspect container-name
+docker inspect --format='{{index .RepoDigests 0}}' image_name
+docker inspect container_name
 docker network ls -q | xargs -r docker network inspect -v
 docker ps --no-trunc -a
 docker run --pull always -it --rm fedora
 docker run --pull always -it --rm opensuse/tumbleweed
 docker run --pull always -it --rm ubuntu:rolling
-docker run --pull never --name container-name -it opensuse-dev
-docker run -d --pull never --name container-name -it opensuse-dev
+docker run --pull never --name container_name -it image_name
+docker run -d --pull never --name container_name -it image_name
 docker run -it --rm fedora
 docker run -it --rm ubuntu:rolling
 docker scan --accept-license --version
 docker scan --login --token "$(lpass show --password snyk_auth_token)"
-docker scan opensuse-dev
+docker scan image_name
+docker start container_name
 docker system info
 docker system prune
 docker-compose build
@@ -1441,6 +1449,7 @@ find . -maxdepth 1 -type d -mtime 0
 find . -maxdepth 1 -type d -mtime 2
 find . -not -group ankitpati
 find . -not -user ankitpati
+find . -type d -empty -delete
 find . -type f -exec chmod 0600 {} + -exec dos2unix {} +
 find . -type f -exec mv -t /directory-name/ {} +
 find . -type f -name '*.lastUpdated' -delete
@@ -1535,6 +1544,7 @@ git fetch origin pull/1000/head:local-branch-name # for GitHub
 git lfs install
 git log --follow -- filename
 git log --graph --pretty=fuller --show-signature
+git log --name-only --format= | uniq | less
 git log --pretty=email
 git log --pretty=format:%ae | sort -u | cut -d@ -f2- | sort -u
 git log -p
@@ -1695,7 +1705,7 @@ kubectl config view
 kubectl config view --minify --raw --output 'jsonpath={..cluster.certificate-authority-data}'
 kubectl create -f https://ankitpati.in/example.yaml
 kubectl delete ns istio-system
-kubectl exec -it pod-name -c container-name -- bash
+kubectl exec -it pod_name -c container_name -- bash
 kubectl get deploy -n istio-system
 kubectl get deployments
 kubectl get mutatingwebhookconfigurations
@@ -1707,10 +1717,11 @@ kubectl get pods
 kubectl get pods --context=kube-context
 kubectl get pods -A
 kubectl get svc -A
-kubectl logs -f pod-name
+kubectl logs -f pod_name
 kubectl options
-kubectl port-forward pod-name 8080:8000
-kubectl port-forward service/service-name 12345
+kubectl port-forward pod_name 8080:8000
+kubectl port-forward service/service_name 12345
+kubectl proxy
 kubectl rollout restart deployment -n default
 kubectl version
 landscape --help
@@ -2140,7 +2151,7 @@ sudo bash -c 'dnf upgrade --refresh; snap refresh; flatpak update; pkcon refresh
 sudo bash -c 'rfkill unblock bluetooth; systemctl restart bluetooth.service'
 sudo bash -c 'systemctl stop libvirtd.socket; systemctl stop libvirtd.service'
 sudo inxi -SMCDG
-sudo kubectl port-forward pod-name 80:8080
+sudo kubectl port-forward pod_name 80:8080
 svg2png filename.svg
 systemctl disable --now avahi-daemon.service
 systemctl disable --now libvirtd.service
