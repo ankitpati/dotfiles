@@ -165,6 +165,7 @@ brew install flex
 brew install forcecli
 brew install fselect
 brew install fzf
+brew install gator
 brew install gawk
 brew install gcc
 brew install gh
