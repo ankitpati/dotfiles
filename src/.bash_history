@@ -1361,6 +1361,7 @@ docker run --pull always -it --rm fedora
 docker run --pull always -it --rm opensuse/tumbleweed
 docker run --pull always -it --rm ubuntu:rolling
 docker run --pull never --name container_name -it image_name
+docker run --pull never -it -e 'TERM=xterm-256color' --rm local_image_name
 docker run -d --pull never --name container_name -it image_name
 docker run -it --rm fedora
 docker run -it --rm ubuntu:rolling
