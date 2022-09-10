@@ -463,6 +463,11 @@ cpanm XML::Parser
 cpanm XML::SAX::Expat
 crontab -e
 csv -f protocol,root_domain,status < nextdns-log.csv | tail -n +2 | grep -v ',blocked$' | rev | cut -d, -f2- | rev | sort -u > nextdns-domain-list.csv
+cue eval fields.cue
+cue export --out json filename.cue
+cue export --out yaml filename.cue
+cue fmt filename.cue
+cue help
 curl 'https://example.org/untrustworthy.dat'; exec cat
 curl --connect-to example.org:80:localhost:8080 http://example.org
 curl --key openssl.key --cert openssl.crt https://mtls.example.org
@@ -1510,6 +1515,8 @@ gcloud compute images list
 gcloud compute networks list
 gcloud compute zones list
 gcloud compute zones list --project=project-id
+gcloud config config-helper
+gcloud config config-helper --format=json
 gcloud config configurations list
 gcloud config list
 gcloud config set compute/region us-west1
@@ -1663,6 +1670,7 @@ journalctl
 journalctl --vacuum-size=1M
 journalctl --vacuum-time=1d
 journalctl -f -o cat "$(command -v gnome-shell)"
+jq -R 'split(".") | .[0],.[1] | @base64d | fromjson' < JWT.asc
 jq -S --indent 4 . < filename.json
 jq . < filename.json
 js-beautify filename.js
