@@ -71,12 +71,12 @@ brew doctor
 brew help --prefix
 brew help developer
 brew install --cask chromedriver
-brew install --cask chromium
 brew install --cask docker
 brew install --cask google-chrome
 brew install --cask google-cloud-sdk
 brew install --cask iterm2
 brew install --cask maccy
+brew install --cask microsoft-edge
 brew install --cask p4
 brew install --cask p4v
 brew install --cask slack
