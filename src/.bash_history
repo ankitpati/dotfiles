@@ -8,7 +8,7 @@
 ( perforce_dir=//depot/directory; p4 dirs "$perforce_dir/*" | while read -r perforce_subdir; do p4 grep -e 'search-expression' "$perforce_subdir/..."; done )
 ( perforce_dir=//depot/directory; p4 dirs "$perforce_dir/*"; p4 sizes -sh "$perforce_dir/..." )
 ( ssh_private_key_file=id_ed25519; ssh-keygen -l -v -f "$ssh_private_key_file" && ssh-keygen -y -f "$ssh_private_key_file" && cat "$ssh_private_key_file" )
-( unalias -a; comm -12 <(hash -r; ls {,/usr}/{,s}bin/ | xargs command -V 2>/dev/null | grep -Ev " is ($(brew --prefix)/|a shell (builtin|keyword))" | cut -d' ' -f1 | sort -u) <(ls "$(brew --prefix)/Homebrew/Library/Taps/homebrew/homebrew-core/Formula/" | rev | cut -d. -f2- | rev | sort -u) )
+( unalias -a; comm -12 <(hash -r; ls {,/usr}/{,s}bin/ | xargs command -V 2>/dev/null | grep -Ev " is ($(brew --prefix)/|a shell (builtin|keyword))" | cut -d' ' -f1 | sort -u) <(ls "$(brew --repo)/Library/Taps/homebrew/homebrew-core/Formula/" | rev | cut -d. -f2- | rev | sort -u) )
 ./manage.py check auth admin forum
 ./manage.py dbshell
 ./manage.py makemigrations
@@ -227,13 +227,12 @@ brew install kind
 brew install kops
 brew install kotlin
 brew install krew
-brew install ksh
+brew install ksh93
 brew install kube-linter
 brew install kube-score
 brew install kubecfg
 brew install kubecm
 brew install kubergrunt
-brew install kubescape
 brew install kubesess
 brew install lastpass-cli
 brew install less
@@ -343,7 +342,6 @@ brew install terraform-docs
 brew install terraform-rover
 brew install terraform_landscape
 brew install terraformer
-brew install terraforming
 brew install terrascan
 brew install testssl
 brew install tflint
@@ -394,6 +392,7 @@ brew services info --all
 brew shellenv
 brew tap snyk/tap
 brew tap sourcegraph/src-cli
+brew uninstall --zap chromium
 brew uninstall --zap docker-completion
 brew uninstall --zap evince
 brew uninstall --zap lesspipe
@@ -1601,7 +1600,7 @@ gradle --stop
 grep '\bcertificate-authority-data\b' kubeconfig.yaml | cut -d: -f2 | cut -d' ' -f2 | while read -r certbase64; do echo "$certbase64" | base64 -d | openssl x509 -text -noout; done
 grep '^p4 sync ' ~/.bash_history | cut -d' ' -f3- | sort -u | while read -r p4dir; do p4 sync "$p4dir"; done
 grep -E "^($(tail -n +2 brew-deps.csv | cut -d, -f1 | comm -23 - brew-install-list.txt | paste -sd'|'))" brew-deps.csv | grep -v ,
-grep -E '^\s+keg_only' -r "$(brew --prefix)/Homebrew/Library/Taps/homebrew/homebrew-core/Formula/"
+grep -E '^\s+keg_only' -r "$(brew --repo)/Library/Taps/homebrew/homebrew-core/Formula/"
 grep -Elr -- '^(<<<<<<< HEAD|=======|>>>>>>> [[:xdigit:]]+ .*)$' | sort -u | xargs -o vim
 grep -l search-string -r . | xargs -o vim
 gsettings set org.gnome.shell.app-switcher current-workspace-only true
