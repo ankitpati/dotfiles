@@ -11,7 +11,7 @@
     "editor.dragAndDrop": false,
     "editor.emptySelectionClipboard": false,
     "editor.find.addExtraSpaceOnTop": false,
-    "editor.fontFamily": "'Ubuntu Mono', 'Monaco', monospace",
+    "editor.fontFamily": "'Source Code Pro', 'Ubuntu Mono', 'Monaco', monospace",
     "editor.lineNumbers": "off",
     "editor.minimap.enabled": false,
     "editor.overviewRulerBorder": false,
