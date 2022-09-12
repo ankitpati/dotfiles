@@ -98,6 +98,8 @@
         "sideBar.border": "#000",
         "statusBar.border": "#000",
         "tab.border": "#000",
+        "terminal.selectionBackground": "#4448",
+        "terminal.selectionForeground": "#fff",
         "window.activeBorder": "#000",
         "window.inactiveBorder": "#000"
     }
