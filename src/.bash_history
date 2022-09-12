@@ -422,8 +422,7 @@ code --install-extension mjcrouch.perforce --force
 code --install-extension ms-azuretools.vscode-docker --force
 code --install-extension ms-kubernetes-tools.vscode-kubernetes-tools --force
 code --install-extension ms-ossdata.vscode-postgresql --force
-code --install-extension redhat.java --force
-code --install-extension vscjava.vscode-java-debug --force
+code --install-extension vscjava.vscode-java-pack --force
 code --install-extension vscodevim.vim --force
 code --list-extensions
 code --locate-shell-integration-path bash
