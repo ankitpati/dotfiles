@@ -15,6 +15,7 @@
     "editor.lineNumbers": "off",
     "editor.minimap.enabled": false,
     "editor.overviewRulerBorder": false,
+    "editor.renderLineHighlight": "none",
     "editor.rulers": [72, 80, 100, 120],
     "editor.scrollPredominantAxis": false,
     "editor.suggest.preview": true,
@@ -54,13 +55,15 @@
     "vim.hlsearch": true,
     "vim.ignorecase": false,
     "vim.incsearch": true,
+    "vim.searchHighlightColor": "#00f",
+    "vim.searchMatchColor": "#00f",
     "vim.surround": false,
     "vim.useCtrlKeys": true,
     "window.enableMenuBarMnemonics": false,
     "window.titleBarStyle": "custom",
     "window.zoomLevel": 2,
     "workbench.activityBar.visible": false,
-    "workbench.colorTheme": "Pitch Black",
+    "workbench.colorTheme": "Default High Contrast",
     "workbench.editor.closeOnFileDelete": true,
     "workbench.editor.highlightModifiedTabs": true,
     "workbench.editor.limit.enabled": true,
@@ -73,16 +76,19 @@
     "workbench.startupEditor": "newUntitledFile",
     "files.exclude": {
         "**/.classpath": true,
+        "**/.factorypath": true,
         "**/.project": true,
-        "**/.settings": true,
-        "**/.factorypath": true
+        "**/.settings": true
     },
     "gitlens.codeLens.scopes": [
-        "document",
+        "blocks",
         "containers",
-        "blocks"
+        "document"
     ],
     "workbench.colorCustomizations": {
-        "editorWhitespace.foreground": "#000"
+        "editorBracketMatch.background": "#444",
+        "editorBracketMatch.border": "#000",
+        "statusBar.border": "#000",
+        "tab.border": "#000"
     }
 }
