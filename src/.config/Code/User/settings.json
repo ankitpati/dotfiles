@@ -55,8 +55,6 @@
     "vim.hlsearch": true,
     "vim.ignorecase": false,
     "vim.incsearch": true,
-    "vim.searchHighlightColor": "#00f",
-    "vim.searchMatchColor": "#00f",
     "vim.surround": false,
     "vim.useCtrlKeys": true,
     "window.enableMenuBarMnemonics": false,
@@ -86,9 +84,21 @@
         "document"
     ],
     "workbench.colorCustomizations": {
+        "contrastActiveBorder": "#444",
+        "editor.findMatchBackground": "#00f8",
+        "editor.findMatchHighlightBackground": "#00f8",
+        "editor.selectionBackground": "#4448",
+        "editor.selectionForeground": "#fff",
         "editorBracketMatch.background": "#444",
         "editorBracketMatch.border": "#000",
+        "editorGroup.border": "#000",
+        "editorGroupHeader.border": "#000",
+        "editorIndentGuide.activeBackground": "#444",
+        "editorIndentGuide.background": "#444",
+        "sideBar.border": "#000",
         "statusBar.border": "#000",
-        "tab.border": "#000"
+        "tab.border": "#000",
+        "window.activeBorder": "#000",
+        "window.inactiveBorder": "#000"
     }
 }
