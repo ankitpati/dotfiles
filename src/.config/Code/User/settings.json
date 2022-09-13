@@ -63,7 +63,6 @@
     "workbench.activityBar.visible": false,
     "workbench.colorTheme": "Default High Contrast",
     "workbench.editor.closeOnFileDelete": true,
-    "workbench.editor.highlightModifiedTabs": true,
     "workbench.editor.limit.enabled": true,
     "workbench.editor.openPositioning": "last",
     "workbench.editor.restoreViewState": false,
