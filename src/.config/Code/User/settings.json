@@ -12,6 +12,7 @@
     "editor.emptySelectionClipboard": false,
     "editor.find.addExtraSpaceOnTop": false,
     "editor.fontFamily": "'Source Code Pro', 'Ubuntu Mono', 'Monaco', monospace",
+    "editor.inlayHints.enabled": "offUnlessPressed",
     "editor.lineNumbers": "off",
     "editor.minimap.enabled": false,
     "editor.overviewRulerBorder": false,
