@@ -460,6 +460,7 @@ cpanm XML::Parser
 cpanm XML::SAX::Expat
 crontab -e
 csv -f protocol,root_domain,status < nextdns-log.csv | tail -n +2 | grep -v ',blocked$' | rev | cut -d, -f2- | rev | sort -u > nextdns-domain-list.csv
+csvprintf -n '%1$s %2$s %3$s\n' < filename.csv
 cue eval fields.cue
 cue export --out json filename.cue
 cue export --out yaml filename.cue
@@ -1352,6 +1353,9 @@ docker build --build-arg username='ankitpati' -t image_name .
 docker build --progress=plain -t image_name .
 docker build --pull --no-cache -t image_name .
 docker build -t image_name:tag_name .
+docker container list
+docker container list -a
+docker container stop container_name
 docker exec -it container_name bash
 docker images --no-trunc --digests image_name
 docker images -a
@@ -1693,6 +1697,7 @@ kind export -v 999 logs exported-kind-logs.log
 kind get clusters
 kind get kubeconfig
 kind get nodes
+kind load docker-image image_name
 kind version
 kubecm --config kubeconfig.yaml list
 kubecm list
@@ -1702,17 +1707,30 @@ kubectl -n kube-system delete configmap/kube-dns
 kubectl -n kube-system delete configmap/kube-dns-autoscaler
 kubectl -n kube-system scale deployment kube-dns-autoscaler --replicas=0
 kubectl -n kube-system scale deployment kube-dns-autoscaler --replicas=1
+kubectl apply -f filename.yaml
 kubectl cluster-info
 kubectl cluster-info --context docker-desktop
 kubectl cluster-info --context kind-kind
 kubectl cluster-info --context kind-kind dump
+kubectl cluster-info dump | jq .
 kubectl config --help
+kubectl config get-contexts
 kubectl config use-context cluster-name
 kubectl config view
 kubectl config view --minify --raw --output 'jsonpath={..cluster.certificate-authority-data}'
 kubectl create -f https://ankitpati.in/example.yaml
 kubectl delete ns istio-system
+kubectl delete pod pod_name
+kubectl describe
+kubectl describe namespaces
+kubectl describe nodes
+kubectl describe pod pod_name
+kubectl describe pods
+kubectl describe service service_name
+kubectl edit pod pod_name
+kubectl exec -it pod_name -- bash
 kubectl exec -it pod_name -c container_name -- bash
+kubectl get configmaps
 kubectl get deploy -n istio-system
 kubectl get deployments
 kubectl get mutatingwebhookconfigurations
@@ -1723,6 +1741,7 @@ kubectl get nodes
 kubectl get pods
 kubectl get pods --context=kube-context
 kubectl get pods -A
+kubectl get services
 kubectl get svc -A
 kubectl logs -f pod_name
 kubectl options
@@ -1889,7 +1908,9 @@ osascript -e 'id of app "Visual Studio Code"'
 ovsx create-namespace ankitpati --pat SecretPersonalAccessToken
 ovsx publish --pat SecretPersonalAccessToken
 p4 changes -c client-name -l
+p4 changes -e 12345 filename | cut -d' ' -f2 | xargs p4 describe -du5 | delta
 p4 changes -l
+p4 changes -m 10 ... | cut -d' ' -f2 | xargs p4 describe -du5 | delta
 p4 changes -u username
 p4 changes ...
 p4 clean -n
