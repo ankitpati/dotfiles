@@ -1,19 +1,12 @@
-{
-    "tabWidth": 4,
-    "jsxBracketSameLine": true,
-    "arrowParens": "avoid",
-    "proseWrap": "always",
-    "vueIndentScriptAndStyle": true,
-    "endOfLine": "lf",
-    "overrides": [
-        {
-            "files": [
-                "*.yml",
-                "*.yaml"
-            ],
-            "options": {
-                "tabWidth": 2
-            }
-        }
-    ]
-}
+arrowParens: avoid
+endOfLine: lf
+jsxBracketSameLine: true
+proseWrap: always
+tabWidth: 4
+vueIndentScriptAndStyle: true
+overrides:
+  - files:
+      - '*.yml'
+      - '*.yaml'
+    options:
+      tabWidth: 2
