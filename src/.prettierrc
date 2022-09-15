@@ -4,5 +4,16 @@
     "arrowParens": "avoid",
     "proseWrap": "always",
     "vueIndentScriptAndStyle": true,
-    "endOfLine": "lf"
+    "endOfLine": "lf",
+    "overrides": [
+        {
+            "files": [
+                "*.yml",
+                "*.yaml"
+            ],
+            "options": {
+                "tabWidth": 2
+            }
+        }
+    ]
 }
