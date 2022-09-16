@@ -2167,6 +2167,7 @@ ssh-copy-id -o PasswordAuthentication=yes ssh.ankitpati.in
 ssh-keygen -l -v -f ~/.ssh/id_ed25519
 ssh-keygen -l -v -f ~/.ssh/id_ed25519.pub
 ssh-keygen -t ed25519
+ssh-keygen -t ed25519 -P '' -f ~/.ssh/id_ed25519
 ssh-keygen -y -f ~/.ssh/id_ed25519
 sslscan ankitpati.in:443
 sslyze ankitpati.in:443
