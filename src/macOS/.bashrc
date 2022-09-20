@@ -14,25 +14,6 @@ sanitize_path()
     ;
 }
 
-B-delds()
-{
-    echo 'Removing the following files...'
-    find "$HOME" -not \( -path "$HOME/Mounts" -prune \) \
-           -regextype egrep \
-           -regex '.*(\.(DS_Store|AppleDouble|AppleDesktop)|Thumbs\.db)$' \
-           -print \
-           -exec rm -rf {} +
-
-    echo 'Removing broken symlinks...'
-    find "$HOME" -not \( -path "$HOME/Mounts" -prune \) \
-            -type l \
-            ! -exec test -e {} \; \
-            -print \
-            -exec rm -rf {} +
-
-    :
-}
-
 B-clean-cache()
 {
     echo 'Removing SSH known_hosts Backup...'
