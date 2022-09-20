@@ -178,7 +178,7 @@ main()
     export PERL_MM_OPT="INSTALL_BASE=$HOME/perl5"
 
     # Podman
-    export DOCKER_HOST="unix:///run/user/$(id -u)/podman/podman.sock"
+    export DOCKER_HOST="unix://$XDG_RUNTIME_DIR/podman/podman.sock"
 
     alias brew-cu='brew cu --no-brew-update'
     alias chomp='perl -pi -E "chomp if eof"'
