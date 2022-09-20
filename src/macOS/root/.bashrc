@@ -331,6 +331,9 @@ main()
     add_brewed_items_to_env
     unset -f add_brewed_items_to_env
 
+    # Bash
+    export -f sanitize_path
+
     # Colours for `tree`
     source <(dircolors -b)
 
