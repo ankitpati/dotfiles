@@ -1347,6 +1347,11 @@ dnf repoquery --unsatisfied
 dnf repoquery --userinstalled
 dnf system-upgrade download --refresh --releasever=36
 dnf system-upgrade reboot
+dnslookup ankitpati.in 1.1.1.1
+dnslookup ankitpati.in https://1.1.1.1/dns-query
+dnslookup ankitpati.in https://one.one.one.one/dns-query
+dnslookup ankitpati.in tls://1.1.1.1
+dnslookup ankitpati.in tls://one.one.one.one
 dnstracer -s . ankitpati.in
 dnstracer ankitpati.in
 docker attach container_name
@@ -1386,6 +1391,7 @@ dockviz images -d | patchwork | apdot | timg -
 dockviz images -t
 drill -x 1.1.1.1
 drill ankitpati.in
+echo "$CONTAINERS_GRAPHROOT" "$CONTAINERS_RUNROOT"
 echo "$LINES" "$COLUMNS"
 echo "$RANDOM"
 echo 'Subject: Hello' | sendmail -v contact@ankitpati.in
@@ -1496,6 +1502,7 @@ flatpak uninstall --unused
 flatpak uninstall org.freedesktop.Platform.GL.nvidia-465-24-02
 flutter config --no-analytics
 flutter doctor -v
+fly auth signup
 foremost
 fpaste filename.txt
 free -h
@@ -1818,6 +1825,8 @@ massren -u path/to/directory
 mdfind -name '.csv'
 mdfind -name 'log4j' | ack -i '(?<!\.)2\..*\.jar$'
 meson x --buildtype release --strip -Db_lto=true
+microk8s kubectl get all --all-namespaces
+microk8s status --wait-ready
 minikube config --help
 minikube config set driver docker
 minikube config set kubernetes-version "$(brew livecheck --json kubernetes-cli | jq -r '.[0].version.latest')"
@@ -1845,6 +1854,7 @@ nc -zvv ankitpati.in 443
 ncdu
 neofetch
 networkQuality -v
+newgrp groupname
 ng new my-app
 ng serve -o
 nmap --privileged -sS --send-eth -Pn -n 10.10.10.0/24 -p 22
@@ -2072,6 +2082,9 @@ podman pull fedora-toolbox
 podman pull registry.fedoraproject.org/f34
 podman rmi 536f3995adeb
 podman stop fedora-toolbox-33
+podman unshare
+podman unshare cat /proc/self/uid_map
+podman unshare chown root:root .
 popd
 popd +0
 popd +1
@@ -2155,6 +2168,7 @@ shfmt -w -s filename.bash
 skaffold help
 sloccount .
 snap install flutter --classic
+snap install microk8s --classic
 snap list
 snyk auth
 snyk auth "$(lpass show --password snyk_auth_token)"
@@ -2194,7 +2208,10 @@ sudo bash -c 'rfkill unblock bluetooth; systemctl restart bluetooth.service'
 sudo bash -c 'systemctl stop libvirtd.socket; systemctl stop libvirtd.service'
 sudo inxi -SMCDG
 sudo kubectl port-forward pod_name 80:8080
+sudo usermod -a -G microk8s "$USER"
 svg2png filename.svg
+systemctl --user enable --now podman.socket
+systemctl --user status podman.socket
 systemctl disable --now avahi-daemon.service
 systemctl disable --now libvirtd.service
 systemctl disable --now mariadb.service
