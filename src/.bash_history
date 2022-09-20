@@ -47,6 +47,7 @@ aria2c -c -x 16 https://ankitpati.in/filename.br
 arkade info inlets-operator
 arkade install istio
 banner Type your message here.
+base64 -w0
 bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 bash -c 'dscacheutil -flushcache; killall -HUP mDNSResponder'
 bash <(curl https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh | perl -0pE 's/^have_sudo_access\(\) {.*?^}/have_sudo_access() { HAVE_SUDO_ACCESS=0; return 0; }/sm' | perl -0pE 's/^execute_sudo\(\) {.*?^}/execute_sudo() { ohai "\$\@"; execute "\$\@"; }/sm')
@@ -99,7 +100,6 @@ brew install automake
 brew install aws-cdk
 brew install aws-shell
 brew install awscli
-brew install base64
 brew install basex
 brew install bash
 brew install bash-completion@2
@@ -392,6 +392,7 @@ brew services info --all
 brew shellenv
 brew tap snyk/tap
 brew tap sourcegraph/src-cli
+brew uninstall --zap base64
 brew uninstall --zap chromium
 brew uninstall --zap docker-completion
 brew uninstall --zap evince
@@ -1719,36 +1720,48 @@ kubectl config use-context cluster-name
 kubectl config view
 kubectl config view --minify --raw --output 'jsonpath={..cluster.certificate-authority-data}'
 kubectl create -f https://ankitpati.in/example.yaml
+kubectl debug -it container_name --image image_name --target pod_name
+kubectl debug -it node/kind-control-plane -it --image image_name
+kubectl debug -it node/kind-worker -it --image image_name
 kubectl delete ns istio-system
 kubectl delete pod pod_name
 kubectl describe
+kubectl describe deployments.apps
+kubectl describe namespace istio-system
 kubectl describe namespaces
 kubectl describe nodes
 kubectl describe pod pod_name
+kubectl describe poddisruptionbudgets.policy
 kubectl describe pods
 kubectl describe service service_name
+kubectl describe virtualservices.networking.istio.io virtual_service_name -n istio-system
 kubectl edit pod pod_name
+kubectl edit virtualservices.networking.istio.io virtual_service_name -n istio-system
 kubectl exec -it pod_name -- bash
 kubectl exec -it pod_name -c container_name -- bash
 kubectl get configmaps
 kubectl get deploy -n istio-system
 kubectl get deployments
+kubectl get deployments.apps
+kubectl get events
 kubectl get mutatingwebhookconfigurations
 kubectl get namespaces
 kubectl get node
 kubectl get node -o wide
 kubectl get nodes
+kubectl get poddisruptionbudgets.policy
 kubectl get pods
 kubectl get pods --context=kube-context
 kubectl get pods -A
 kubectl get services
 kubectl get svc -A
+kubectl get virtualservices.networking.istio.io virtual_service_name -n istio-system
 kubectl logs -f pod_name
 kubectl options
 kubectl port-forward pod_name 8080:8000
 kubectl port-forward service/service_name 12345
 kubectl proxy
-kubectl rollout restart deployment -n default
+kubectl rollout restart deployment deployment_name
 kubectl version
 landscape --help
 latest-version asar
@@ -2318,6 +2331,7 @@ youtube-dl https://www.youtube.com/watch?v=VIDEO_ID -F
 youtube-dl https://www.youtube.com/watch?v=VIDEO_ID -f 248
 yq -P < filename.yaml
 zbarimg filename.jpg > filename.dat
+zlib-flate -uncompress < filename.dfl > filename.txt
 zypper --gpg-auto-import-keys refresh
 zypper addrepo --refresh https://download.opensuse.org/repositories/system:/snappy/openSUSE_Tumbleweed snappy
 zypper addrepo -fp 90 https://ftp.gwdg.de/pub/linux/misc/packman/suse/openSUSE_Tumbleweed/ packman
