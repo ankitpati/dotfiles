@@ -303,6 +303,7 @@ brew install ripgrep-all
 brew install rlwrap
 brew install rmlint
 brew install rpcgen
+brew install rpm
 brew install rsync
 brew install rust
 brew install rustc-completion
@@ -1394,6 +1395,7 @@ drill ankitpati.in
 echo "$CONTAINERS_GRAPHROOT" "$CONTAINERS_RUNROOT"
 echo "$LINES" "$COLUMNS"
 echo "$RANDOM"
+echo $(<whitespace-separated-argument-list.txt)
 echo 'Subject: Hello' | sendmail -v contact@ankitpati.in
 echo 'macOS Notification Text' | terminal-notifier
 echo '{ "name": "Ankit" }' | jq '.name | ascii_downcase'
@@ -1554,11 +1556,13 @@ git branch -r | grep -E '^\s+origin/' | grep -v HEAD | cut -d/ -f2 | xargs git p
 git branch -vv
 git checkout -p
 git cherry-pick branchname~2..branchname
+git commit --allow-empty -m empty
 git commit --amend -S --no-edit
 git config --show-origin credential.helper
 git diff HEAD~1 --name-only
 git difftool branchname -- filename
 git fetch origin pull/1000/head:local-branch-name # for GitHub
+git fsck --cache --no-reflogs --lost-found --dangling HEAD
 git lfs install
 git log --follow -- filename
 git log --graph --pretty=fuller --show-signature
@@ -1726,6 +1730,8 @@ kubectl config get-contexts
 kubectl config use-context cluster-name
 kubectl config view
 kubectl config view --minify --raw --output 'jsonpath={..cluster.certificate-authority-data}'
+kubectl cp filename pod_name:/path/to/filename -c container_name
+kubectl cp filename pod_name:filename -c container_name
 kubectl create -f https://ankitpati.in/example.yaml
 kubectl debug -it container_name --image image_name --target pod_name
 kubectl debug -it node/kind-control-plane -it --image image_name
@@ -2129,6 +2135,8 @@ qemu-img convert filename.vmdk filename.qcow2
 raku -E 'say "hello"'
 range2cidr 1.1.1.0-1.1.1.255
 readelf -x .rodata elf-binary-filename
+readlink -e path/to/directory/
+readlink -f path/to/filename
 rename -n 's/^\d+_\d+_0(\d)_[^a-z]+_(\w+)\.mp4$/$1. $2.mp4/' -- *
 resolvectl flush-caches
 resolvectl query ankitpati.in
@@ -2143,6 +2151,7 @@ rm -rf /Users/Shared/*Relocated\ Items*/
 rm -rf ~/.local/share/containers/ # podman and buildah
 rpg 100 | sed -E 's/[^A-Za-z0-9!@#$%^*_=+;:]/=/g'
 rpg 100 | sed -E 's/\//-/g'
+rpm -qp --queryformat '%{NAME}\n' ./*.rpm
 rpm2cpio filename.rpm | cpio -idmv
 rpmconf -a -f vimdiff
 rpmconf -c
