@@ -298,6 +298,7 @@ brew install qemu
 brew install rakudo
 brew install range2cidr
 brew install redpen
+brew install repo
 brew install rich-cli
 brew install ripgrep-all
 brew install rlwrap
@@ -330,6 +331,7 @@ brew install sslyze
 brew install staticcheck
 brew install stylua
 brew install swift
+brew install tbls
 brew install tcpdump
 brew install tcpreplay
 brew install tcptrace
@@ -1462,6 +1464,7 @@ fdupes -rNd .
 fdupes .
 figlet Type your message here.
 file -i filename
+find . -exec sha256sum {} + 2>/dev/null | cut -d' ' -f1 | paste -sd' ' | sed 's/ //g' | perl -pi -E 'chomp if eof' | sha256sum
 find . -maxdepth 1 -type d -mtime 0
 find . -maxdepth 1 -type d -mtime 2
 find . -not -group ankitpati
@@ -1523,6 +1526,7 @@ gcloud cloud-shell scp localhost:path/to/filename cloudshell:~/
 gcloud cloud-shell ssh
 gcloud components install gke-gcloud-auth-plugin
 gcloud compute images list
+gcloud compute instances list --project=project_name --zones=us-east1-b,us-east1-c,us-east1-d --limit=5 --filter='name~instance_name' --format=json
 gcloud compute networks list
 gcloud compute zones list
 gcloud compute zones list --project=project-id
@@ -1582,6 +1586,7 @@ git show --show-signature
 git show -U100
 git show -p ':^*.asc'
 git submodule add https://github.com/ankitpati/rpg.git modules/ankitpati/rpg
+git submodule foreach --recursive git reset --hard
 git submodule update
 git submodule update --init
 gjs-console
@@ -1936,6 +1941,7 @@ optipng -o7 filename.png
 osascript -e 'id of app "Visual Studio Code"'
 ovsx create-namespace ankitpati --pat SecretPersonalAccessToken
 ovsx publish --pat SecretPersonalAccessToken
+p4 change -o 12345
 p4 changes -c client-name -l
 p4 changes -e 12345 filename | cut -d' ' -f2 | xargs p4 describe -du5 | delta
 p4 changes -l
@@ -1951,17 +1957,22 @@ p4 clean -n ...
 p4 clean -n //depot/...
 p4 client
 p4 client -o
+p4 delete -n -c 12345 //depot/directory/filename
 p4 describe -a 12345 | less
 p4 describe -du5 12345 | delta
+p4 describe -du5 default | delta
 p4 describe 12345
 p4 diff -du5 '@=12345' | delta
 p4 diff -du5 -Od -f //depot/directory/... | delta
+p4 diff -du5 -Od //depot/directory/... | delta
 p4 diff -du5 -f //depot/directory/... | delta
 p4 diff -du5 -f directory/filename.pl | delta
 p4 diff -se //depot/directory/... | vipe | xargs p4 reconcile -n
 p4 dirs -H //depot/\*
 p4 dirs //depot/\*
 p4 dirs //depot/t\*
+p4 edit -n directory/filename1 directory/filename2 directory/filename3
+p4 filelog //depot/directory/filename
 p4 filelog path/to/filename.pl
 p4 files ...file\*.pl
 p4 files //.../file*.pl
@@ -1975,17 +1986,24 @@ p4 groups
 p4 groups username
 p4 help sizes
 p4 info
+p4 integrate -n -c 12345 directory/filename1 directory/filename2 directory/filename3
 p4 login
 p4 login -as
 p4 monitor show
 p4 monitor terminate 12345
+p4 move -n directory/filename.old directory/filename.new
 p4 opened
 p4 passwd -O "$(lpass show --password perforce)" -P "$(pwgen 20 1 | tee new_p4_pass)" && lpass edit --non-interactive --password perforce < new_p4_pass && rm new_p4_pass
 p4 reconcile //depot/...
+p4 reopen -c 12345 directory/filename1 directory/filename2 directory/filename3
+p4 revert -n -c default ...
 p4 revert -n //depot/directory/...
 p4 revert -n filename.pl
 p4 set
-p4 shelve -c 12345 -d
+p4 shelve -c 12345
+p4 shelve -d -c 12345
+p4 shelve -f -c 12345
+p4 shelve -r -c 12345
 p4 shelve //depot/...
 p4 sizes -sh //depot/directory/...
 p4 status
@@ -1994,6 +2012,8 @@ p4 sync //depot/directory/...
 p4 sync //depot/directory/...#none
 p4 sync //depot/directory/filename
 p4 trust
+p4 undo @12345
+p4 unshelve -s 12345 -c 12346
 p4 where . | cut -d' ' -f1
 p4 where directory
 p4 where filename
