@@ -1562,6 +1562,7 @@ git branch -r | grep -E '^\s+origin/' | grep -v HEAD | cut -d/ -f2 | xargs git p
 git branch -vv
 git checkout -p
 git cherry-pick branchname~2..branchname
+git clean -ffdxn
 git commit --allow-empty -m empty
 git commit --amend -S --no-edit
 git config --show-origin credential.helper
