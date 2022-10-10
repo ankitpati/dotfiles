@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 ( GH_ORIGIN='origin'; PULL_REQUEST_ID='12345'; BRANCH_NAME='foo-bar'; git fetch "$GH_ORIGIN" "pull/$PULL_REQUEST_ID/head:$BRANCH_NAME" && git checkout "$BRANCH_NAME" )
 ( GH_ORIGIN='origin'; PULL_REQUEST_ID='12345'; git pull "$GH_ORIGIN" "pull/$PULL_REQUEST_ID/head" )
-( GIT_COMMITTER_NAME='Ankit Pati' GIT_COMMITTER_EMAIL='contact@ankitpati.in' git rebase branch-name --exec 'git commit --amend --author="Ankit Pati <contact@ankitpati.in>" --no-edit' )
+( GIT_COMMITTER_NAME='Ankit Pati' GIT_COMMITTER_EMAIL='contact@ankitpati.in' git rebase branchname --exec 'git commit --amend --author="Ankit Pati <contact@ankitpati.in>" --no-edit' )
 ( LESS='-I' git log )
 ( hostname='google.com'; openssl s_client -auth_level 2 -connect "$hostname":443 -servername "$hostname" -verify_hostname "$hostname" -verify_return_error )
 ( hostname='google.com'; openssl s_client -tls1_3 -auth_level 2 -connect "$hostname":443 -servername "$hostname" -verify_hostname "$hostname" -verify_return_error )
@@ -1386,6 +1386,7 @@ docker scan image_name
 docker start container_name
 docker system info
 docker system prune
+docker-browse tags path/to/image -r docker-registry.example.org # for docker-registry.example.org/path/to/image
 docker-compose build
 docker-compose stop
 docker-compose up
@@ -1397,6 +1398,7 @@ drill ankitpati.in
 echo "$CONTAINERS_GRAPHROOT" "$CONTAINERS_RUNROOT"
 echo "$LINES" "$COLUMNS"
 echo "$RANDOM"
+echo "${BASH_VERSINFO[@]}"
 echo $(<whitespace-separated-argument-list.txt)
 echo 'Subject: Hello' | sendmail -v contact@ankitpati.in
 echo 'macOS Notification Text' | terminal-notifier
@@ -1565,7 +1567,8 @@ git commit --amend -S --no-edit
 git config --show-origin credential.helper
 git diff HEAD~1 --name-only
 git difftool branchname -- filename
-git fetch origin pull/1000/head:local-branch-name # for GitHub
+git difftool branchname1 branchname2 -- path1/to/filename1 path2/to/filename2
+git fetch origin pull/1000/head:local-branchname # for GitHub
 git fsck --cache --no-reflogs --lost-found --dangling HEAD
 git lfs install
 git log --follow -- filename
@@ -1946,6 +1949,7 @@ p4 changes -c client-name -l
 p4 changes -e 12345 filename | cut -d' ' -f2 | xargs p4 describe -du5 | delta
 p4 changes -l
 p4 changes -m 10 ... | cut -d' ' -f2 | xargs p4 describe -du5 | delta
+p4 changes -u "$USER" -s submitted | head -5 | cut -d' ' -f2 | while read -r cl_number; do echo "@=$cl_number"; done | xargs p4 files -e | cut -d# -f1 | sort -u | while read -r source_depot_path; do p4 integrate "$source_depot_path" "${source_depot_path//\/directory1\///directory2/}"; done
 p4 changes -u username
 p4 changes ...
 p4 clean -n
@@ -1996,6 +2000,7 @@ p4 opened
 p4 passwd -O "$(lpass show --password perforce)" -P "$(pwgen 20 1 | tee new_p4_pass)" && lpass edit --non-interactive --password perforce < new_p4_pass && rm new_p4_pass
 p4 reconcile //depot/...
 p4 reopen -c 12345 directory/filename1 directory/filename2 directory/filename3
+p4 resolve //depot/directory/...
 p4 revert -n -c default ...
 p4 revert -n //depot/directory/...
 p4 revert -n filename.pl
