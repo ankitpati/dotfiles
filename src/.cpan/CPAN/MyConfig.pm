@@ -46,6 +46,7 @@ $CPAN::Config = {
     prefer_installer                   => q[MB],
     prefs_dir                          => qq[$ENV{HOME}/.cpan/prefs],
     prerequisites_policy               => q[follow],
+    pushy_https                        => q[0],
     recommends_policy                  => q[1],
     scan_cache                         => q[atstart],
     shell                              => q[bash],
