@@ -1412,9 +1412,9 @@ echo gcr.io | docker-credential-gcloud get | jq .
 ember build
 ember build --environment=production
 ember clean
-ember generate component component-name
-ember generate route route-name
-ember generate template template-name
+ember generate component component_name
+ember generate route route_name
+ember generate template template_name
 ember help generate
 ember install ember-cli-eslint
 ember lint
@@ -1477,7 +1477,7 @@ find . -not -group ankitpati
 find . -not -user ankitpati
 find . -type d -empty -delete
 find . -type f -exec chmod 0600 {} + -exec dos2unix {} +
-find . -type f -exec mv -t /directory-name/ {} +
+find . -type f -exec mv -t /directory/ {} +
 find . -type f -name '*.lastUpdated' -delete
 firewall-cmd --add-forward-port=port=443:proto=tcp:toport=8443
 firewall-cmd --add-masquerade
@@ -1546,10 +1546,10 @@ gcloud config set compute/region us-west1
 gcloud config set compute/zone us-west1-a
 gcloud config set project project_id
 gcloud config unset project
-gcloud container clusters get-credentials cluster-name --region region-name --project project-name
+gcloud container clusters get-credentials cluster_name --region region_name --project project_id
 gcloud container get-server-config --format='yaml(defaultClusterVersion)'
 gcloud info
-gcloud projects get-iam-policy project-name
+gcloud projects get-iam-policy project_id
 gcloud projects list
 gcloud topic filters
 gcloud version
@@ -1720,7 +1720,7 @@ kind create cluster
 kind delete --help
 kind delete cluster
 kind delete cluster --help
-kind delete cluster --name cluster-name
+kind delete cluster --name cluster_name
 kind export -v 999 logs exported-kind-logs.log
 kind get clusters
 kind get kubeconfig
@@ -1743,7 +1743,7 @@ kubectl cluster-info --context kind-kind dump
 kubectl cluster-info dump | jq .
 kubectl config --help
 kubectl config get-contexts
-kubectl config use-context cluster-name
+kubectl config use-context cluster_name
 kubectl config view
 kubectl config view --minify --raw --output 'jsonpath={..cluster.certificate-authority-data}'
 kubectl cp filename pod_name:/path/to/filename -c container_name
@@ -1955,7 +1955,7 @@ osascript -e 'id of app "Visual Studio Code"'
 ovsx create-namespace ankitpati --pat SecretPersonalAccessToken
 ovsx publish --pat SecretPersonalAccessToken
 p4 change -o 12345
-p4 changes -c client-name -l
+p4 changes -c client_name -l
 p4 changes -e 12345 filename | cut -d' ' -f2 | xargs p4 describe -du5 | delta
 p4 changes -l
 p4 changes -m 10 ... | cut -d' ' -f2 | xargs p4 describe -du5 | delta
