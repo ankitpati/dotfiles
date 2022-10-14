@@ -85,6 +85,9 @@
         "containers",
         "document"
     ],
+    "settingsSync.ignoredSettings": [
+        "sourcegraph.accessToken"
+    ],
     "workbench.colorCustomizations": {
         "[Default High Contrast]": {
             "contrastActiveBorder": "#444",
