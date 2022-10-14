@@ -347,6 +347,7 @@ brew install terraform_landscape
 brew install terraformer
 brew install terrascan
 brew install testssl
+brew install textract
 brew install tflint
 brew install tfmigrate
 brew install tfsec
@@ -463,6 +464,7 @@ cpanm WWW::Mechanize::Chrome
 cpanm XML::Bare
 cpanm XML::Parser
 cpanm XML::SAX::Expat
+cpio -idv < filename.cpio
 crontab -e
 csv -f protocol,root_domain,status < nextdns-log.csv | tail -n +2 | grep -v ',blocked$' | rev | cut -d, -f2- | rev | sort -u > nextdns-domain-list.csv
 csvprintf -n '%1$s %2$s %3$s\n' < filename.csv
@@ -1369,8 +1371,9 @@ docker container stop container_name
 docker exec -it container_name bash
 docker images --no-trunc --digests image_name
 docker images -a
-docker inspect --format='{{index .RepoDigests 0}}' image_name
-docker inspect container_name
+docker inspect --format='{{index .RepoDigests 0}}' image_name | jq .
+docker inspect container_name | jq .
+docker inspect image_name | jq .
 docker network ls -q | xargs -r docker network inspect -v
 docker ps --no-trunc -a
 docker run --pull always -it --rm fedora
@@ -1529,17 +1532,19 @@ gcloud cloud-shell scp localhost:path/to/filename cloudshell:~/
 gcloud cloud-shell ssh
 gcloud components install gke-gcloud-auth-plugin
 gcloud compute images list
-gcloud compute instances list --project=project_name --zones=us-east1-b,us-east1-c,us-east1-d --limit=5 --filter='name~instance_name' --format=json
+gcloud compute instances list --project=project_id --zones=us-east1-b,us-east1-c,us-east1-d --limit=5 --filter='name~instance_name' --format=json
 gcloud compute networks list
+gcloud compute project-info describe --project=project_id
+gcloud compute regions describe us-east1 --project=project_id | yq .
 gcloud compute zones list
-gcloud compute zones list --project=project-id
+gcloud compute zones list --project=project_id
 gcloud config config-helper
 gcloud config config-helper --format=json
 gcloud config configurations list
 gcloud config list
 gcloud config set compute/region us-west1
 gcloud config set compute/zone us-west1-a
-gcloud config set project project-id
+gcloud config set project project_id
 gcloud config unset project
 gcloud container clusters get-credentials cluster-name --region region-name --project project-name
 gcloud container get-server-config --format='yaml(defaultClusterVersion)'
@@ -1564,6 +1569,7 @@ git branch -vv
 git checkout -p
 git cherry-pick branchname~2..branchname
 git clean -ffdxn
+git clone --recurse-submodules https://example.org/repo-with-submodules.git
 git commit --allow-empty -m empty
 git commit --amend -S --no-edit
 git config --show-origin credential.helper
@@ -1862,6 +1868,8 @@ msfconsole
 msfdb stop
 mvn --encrypt-master-password 'maven-master-password'
 mvn --encrypt-password 'maven-server-password'
+mvn clean install
+mvn dependency:tree
 mypy --config-file ~/.mypy.ini
 namei -l "$(command -v perl6)"
 namei -om /bin/perl6
@@ -2179,7 +2187,8 @@ rm -rf ~/.local/share/containers/ # podman and buildah
 rpg 100 | sed -E 's/[^A-Za-z0-9!@#$%^*_=+;:]/=/g'
 rpg 100 | sed -E 's/\//-/g'
 rpm -qp --queryformat '%{NAME}\n' ./*.rpm
-rpm2cpio filename.rpm | cpio -idmv
+rpm2cpio ../filename.rpm | cpio -idmv
+rpm2cpio filename.rpm > filename.cpio
 rpmconf -a -f vimdiff
 rpmconf -c
 scour filename.svg filename-scour.svg -v --no-renderer-workaround --strip-xml-prolog --remove-titles --remove-descriptions --remove-metadata --remove-descriptive-elements --enable-comment-stripping --disable-embed-rasters --enable-viewboxing --indent=none --no-line-breaks --strip-xml-space --enable-id-stripping --shorten-ids
