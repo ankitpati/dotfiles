@@ -316,6 +316,7 @@ brew install shellcheck
 brew install shellharden
 brew install shfmt
 brew install skaffold
+brew install skopeo
 brew install sloccount
 brew install snyk
 brew install snyk-iac-rules
