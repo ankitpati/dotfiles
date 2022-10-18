@@ -374,6 +374,7 @@ brew install whois
 brew install with-readline
 brew install xdg-ninja
 brew install xidel
+brew install xq
 brew install yamllint
 brew install yapf
 brew install yq
@@ -1601,6 +1602,12 @@ git submodule add https://github.com/ankitpati/rpg.git modules/ankitpati/rpg
 git submodule foreach --recursive git reset --hard
 git submodule update
 git submodule update --init
+git tag -d tag_name
+git tag -l
+git tag -s tag_name
+git tag -s tag_name HEAD~1
+git tag -v tag_name
+git tag tag_name
 gjs-console
 go get github.com/ericchiang/pup
 go get png2svg
@@ -1818,6 +1825,7 @@ lpass login contact@ankitpati.in
 lpass ls
 lpass show --field='Public Key' unique_name
 lpass show --password docker_personal_access_token | docker login -u "$(lpass show --username docker_personal_access_token)" --password-stdin
+lpass show --password quay_encrypted_cli_password | skopeo login quay.io --tls-verify -u "$(lpass show --username quay_encrypted_cli_password)" --password-stdin
 lpass show --password perforce | p4 login
 lpass show --password unique_name
 lpass show --sync=now --all unique_name
@@ -2212,6 +2220,9 @@ seq -w 000 007 | while read -r num; do cat "input$num.txt"; read; cat "output$nu
 sha256sum -c filename-CHECKSUM
 shfmt -w -s filename.bash
 skaffold help
+skopeo inspect docker://quay.io/ankitpati/tigress
+skopeo inspect docker://quay.io/ankitpati/tigress | jq -r .RepoTags[]
+skopeo inspect docker://quay.io/ankitpati/tigress | jq .
 sloccount .
 snap install flutter --classic
 snap install microk8s --classic
