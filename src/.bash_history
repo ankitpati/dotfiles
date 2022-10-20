@@ -1392,6 +1392,7 @@ docker scan image_name
 docker start container_name
 docker system info
 docker system prune
+docker top container_name
 docker-browse tags path/to/image -r docker-registry.example.org # for docker-registry.example.org/path/to/image
 docker-compose build
 docker-compose stop
@@ -1825,8 +1826,8 @@ lpass login contact@ankitpati.in
 lpass ls
 lpass show --field='Public Key' unique_name
 lpass show --password docker_personal_access_token | docker login -u "$(lpass show --username docker_personal_access_token)" --password-stdin
-lpass show --password quay_encrypted_cli_password | skopeo login quay.io --tls-verify -u "$(lpass show --username quay_encrypted_cli_password)" --password-stdin
 lpass show --password perforce | p4 login
+lpass show --password quay_encrypted_cli_password | skopeo login quay.io --tls-verify -u "$(lpass show --username quay_encrypted_cli_password)" --password-stdin
 lpass show --password unique_name
 lpass show --sync=now --all unique_name
 lpass show --username unique_name
