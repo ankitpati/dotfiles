@@ -180,6 +180,9 @@ main()
     # Podman
     export DOCKER_HOST="unix://$XDG_RUNTIME_DIR/podman/podman.sock"
 
+    # No `man` Prompts on Namesake Pages
+    export MAN_POSIXLY_CORRECT='1'
+
     alias brew-cu='brew cu --no-brew-update'
     alias chomp='perl -pi -E "chomp if eof"'
     alias cpan-outdated='cpan-outdated --mirror="$PERLBREW_CPAN_MIRROR"'

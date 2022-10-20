@@ -317,6 +317,9 @@ main()
     export PERL_MB_OPT="--install_base '$HOME/perl5'"
     export PERL_MM_OPT="INSTALL_BASE=$HOME/perl5"
 
+    # No `man` Prompts on Namesake Pages
+    export MAN_POSIXLY_CORRECT='1'
+
     alias brew-cu='brew cu --no-brew-update'
     alias chomp='perl -pi -E "chomp if eof"'
     alias cpan-outdated='cpan-outdated --mirror="$PERLBREW_CPAN_MIRROR"'
