@@ -101,6 +101,7 @@ window-maximized=true
 custom-font='Source Code Pro 14'
 discover-settings=false
 indent-style='space'
+keybindings='vim'
 restore-session=false
 show-map=false
 show-right-margin=true
