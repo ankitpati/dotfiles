@@ -63,6 +63,8 @@ below help
 below replay --time '5 minutes ago'
 bind -P
 brew --prefix
+brew --repo
+brew --repo snyk/tap
 brew analytics off
 brew autoremove -n
 brew config
@@ -284,7 +286,6 @@ brew install pip-completion
 brew install pixie
 brew install plantuml
 brew install popeye
-brew install postgresql
 brew install prettier
 brew install proctools
 brew install proguard
@@ -407,6 +408,7 @@ brew uninstall --zap llvm
 brew uninstall --zap perltidy
 brew uninstall --zap quip
 brew uses curl
+brew uses curl --installed
 brew which-formula sponge
 brew-list-deps
 brotli -d filename.br
