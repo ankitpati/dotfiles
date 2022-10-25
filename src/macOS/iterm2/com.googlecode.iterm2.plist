@@ -113,6 +113,8 @@
 	<false/>
 	<key>HideScrollbar</key>
 	<true/>
+	<key>HideTabNumber</key>
+	<false/>
 	<key>HotkeyMigratedFromSingleToMulti</key>
 	<true/>
 	<key>NeverWarnAboutShortLivedSessions_EDFCA3ED-21CF-4897-B37B-E94E4236200C</key>
@@ -782,6 +784,8 @@
 	<false/>
 	<key>PassOnControlClick</key>
 	<true/>
+	<key>PasteTabToStringTabStopSize</key>
+	<integer>4</integer>
 	<key>PerPaneBackgroundImage</key>
 	<true/>
 	<key>PointerActions</key>
@@ -798,7 +802,7 @@
 		</dict>
 	</dict>
 	<key>PromptOnQuit</key>
-	<false/>
+	<true/>
 	<key>QuitWhenAllWindowsClosed</key>
 	<true/>
 	<key>SeparateWindowTitlePerTab</key>
