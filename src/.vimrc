@@ -38,7 +38,7 @@ set nocompatible
             'prettier',
         ],
         'json': [
-            'prettier',
+            'jq',
         ],
         'markdown': [
             'prettier',
@@ -73,6 +73,7 @@ set nocompatible
     }
 
     g:ale_java_google_java_format_options = '--aosp'
+    g:ale_json_jq_options = '-S --indent 4'
     g:blamer_date_format = '%Y-%m-%dT%H:%M:%S%Z'
     g:blamer_delay = 300
     g:blamer_enabled = 0
