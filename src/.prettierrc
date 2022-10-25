@@ -1,6 +1,6 @@
 arrowParens: avoid
+bracketSameLine: true
 endOfLine: lf
-jsxBracketSameLine: true
 proseWrap: always
 tabWidth: 4
 vueIndentScriptAndStyle: true
