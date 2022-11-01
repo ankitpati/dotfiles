@@ -27,6 +27,7 @@ P4DIFF=vimdiff p4 diff -Od -f //depot/directory/...
 P4DIFF=vimdiff p4 diff -f //depot/directory/...
 P4DIFF=vimdiff p4 diff -f //depot/directory/filename.pl
 PATH="$(echo "$PATH" | sed 's/:/\n/g' | grep -v binutils | paste -sd :)" cpan Unicode::GCString
+aa-status
 ack '(?<=^B: ).*$'
 adb logcat --pid="$(adb shell pidof -s in.ankitpati.gparse | cut -d' ' -f1)"
 adb logcat -c && adb logcat > current.log
@@ -39,8 +40,12 @@ age -R ~/.age/machine.recipient -o cipher.txt.age plain.txt
 age-keygen -o ~/.age/key.txt
 apdot filename.dot -Tpng | timg -
 apktool d filename.apk
+apt -o APT::Get::Always-Include-Phased-Updates=true full-upgrade
 apt install iat
+apt install python3-apt/kinetic # used to fix unavailable packages after Ubuntu `do-release-upgrade` to Kinetic Kudu
 apt purge -y mysql-\* && apt autoremove -y && rm -rf /etc/mysql/ /var/lib/mysql/
+apt-cache policy snapd
+apt-cache rdepends python-apt-common
 apt-mark auto ubuntu-restricted-addons
 apt-mark showmanual
 aria2c -c -x 16 https://ankitpati.in/filename.br
@@ -2150,6 +2155,10 @@ prettier -w filename.css
 prettier -w filename.html
 prettier -w filename.js
 prettyping google.com
+pro security-status
+pro security-status --thirdparty
+pro security-status --unavailable
+pro status
 ps -eo pid,args | grep -i command_substring
 psql service=foiegras
 psql service=service_name
@@ -2220,6 +2229,7 @@ sed -E 's/ /\n/g' < /proc/cmdline
 sed -i -E 's|#!/usr/bin/octave -q|#!/usr/bin/env -S octave -q|g' -- *.m
 sensors
 seq -w 000 007 | while read -r num; do cat "input$num.txt"; read; cat "output$num.txt"; read; done
+sestatus
 sha256sum -c filename-CHECKSUM
 shfmt -w -s filename.bash
 skaffold help
