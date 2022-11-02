@@ -290,6 +290,7 @@ brew install pint
 brew install pip-completion
 brew install pixie
 brew install plantuml
+brew install pluto
 brew install popeye
 brew install prettier
 brew install proctools
