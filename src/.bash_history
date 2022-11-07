@@ -131,6 +131,7 @@ brew install clang-format
 brew install click
 brew install clusterctl
 brew install cmake
+brew install cmctl
 brew install coreutils
 brew install cscope
 brew install csvprintf
