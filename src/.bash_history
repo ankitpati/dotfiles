@@ -1415,6 +1415,7 @@ echo "$CONTAINERS_GRAPHROOT" "$CONTAINERS_RUNROOT"
 echo "$LINES" "$COLUMNS"
 echo "$RANDOM"
 echo "${BASH_VERSINFO[@]}"
+echo "${MAPFILE[@]}"
 echo $(<whitespace-separated-argument-list.txt)
 echo 'Subject: Hello' | sendmail -v contact@ankitpati.in
 echo 'macOS Notification Text' | terminal-notifier
@@ -1859,6 +1860,7 @@ luarocks completion bash
 luarocks install --local dump
 luarocks path
 luarocks show dump
+mapfile -t < newline-separated-item-list.txt
 markdownlint '**/*.md' 2> errors.txt
 massren --config editor vim
 massren -u
@@ -2319,6 +2321,9 @@ terraform state list
 terraform state show module.compute.google_compute_address.compute-array[0]
 terraform validate
 timedatectl set-timezone Asia/Kolkata
+tmux a
+tmux kill-server
+tmux ls
 toolbox create
 toolbox enter
 toolbox list
