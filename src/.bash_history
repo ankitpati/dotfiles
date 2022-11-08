@@ -3,6 +3,7 @@
 ( GH_ORIGIN='origin'; PULL_REQUEST_ID='12345'; git pull "$GH_ORIGIN" "pull/$PULL_REQUEST_ID/head" )
 ( GIT_COMMITTER_NAME='Ankit Pati' GIT_COMMITTER_EMAIL='contact@ankitpati.in' git rebase branchname --exec 'git commit --amend --author="Ankit Pati <contact@ankitpati.in>" --no-edit' )
 ( LESS='-I' git log )
+( filename=depot/directory/filename.pl; p4 sync "$filename#$(( "$(p4 have "$filename" | cut -d# -f2 | cut -d' ' -f1)" - 1 ))" )
 ( hostname='google.com'; openssl s_client -auth_level 2 -connect "$hostname":443 -servername "$hostname" -verify_hostname "$hostname" -verify_return_error )
 ( hostname='google.com'; openssl s_client -tls1_3 -auth_level 2 -connect "$hostname":443 -servername "$hostname" -verify_hostname "$hostname" -verify_return_error )
 ( perforce_dir=//depot/directory; p4 dirs "$perforce_dir/*" | while read -r perforce_subdir; do p4 grep -e 'search-expression' "$perforce_subdir/..."; done )
@@ -1821,7 +1822,6 @@ launchctl unload /System/Library/LaunchDaemons/ssh.plist
 launchctl unsetenv SOME_ENV_VAR
 limitcpu
 litecli ~/Library/Containers/org.p0deje.Maccy/Data/Library/Application\ Support/Maccy/Storage.sqlite
-ln -s "$(brew --prefix)/opt/openssl@1.1/" "$(brew --prefix)/opt/openssl"
 ln -s /usr/bin/{ar,ranlib} ~/bin/ && pyenv install 2.7.18; rm ~/bin/{ar,ranlib}
 ln -sf /usr/lib/systemd/resolv.conf /etc/resolv.conf
 ln -sfn "$(brew --prefix)/opt/openjdk/libexec/openjdk.jdk" /Library/Java/JavaVirtualMachines/openjdk.jdk
@@ -2019,6 +2019,7 @@ p4 grep -F -e expression //depot/...
 p4 grep -l -s -F -e expression //depot/... | cut -d# -f1 | xargs -o vim
 p4 groups
 p4 groups username
+p4 have path/to/filename.pl
 p4 help sizes
 p4 info
 p4 integrate -n -c 12345 directory/filename1 directory/filename2 directory/filename3
@@ -2207,6 +2208,7 @@ rg -L search-string
 rg -l search-string
 rg -uuu search-string
 rlwrap raku
+rm "$(brew --prefix)/opt/openssl"; ln -s "$(brew --prefix)/opt/openssl@1.1/" "$(brew --prefix)/opt/openssl"
 rm -rf /Users/Shared/*Relocated\ Items*/
 rm -rf ~/.local/share/containers/ # podman and buildah
 rpg 100 | sed -E 's/[^A-Za-z0-9!@#$%^*_=+;:]/=/g'
