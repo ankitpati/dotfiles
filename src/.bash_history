@@ -375,6 +375,7 @@ brew install unifdef
 brew install universal-ctags
 brew install unzip
 brew install util-linux
+brew install vhs
 brew install vim
 brew install watch
 brew install watchexec
@@ -1421,6 +1422,7 @@ echo $(<whitespace-separated-argument-list.txt)
 echo 'Subject: Hello' | sendmail -v contact@ankitpati.in
 echo 'macOS Notification Text' | terminal-notifier
 echo '{ "name": "Ankit" }' | jq '.name | ascii_downcase'
+echo '{"dashed-key-name":{"12345":{"inner-dashed-key-name":"foo"},"12346":{"inner-dashed-key-name":"bar"},"12347":{"inner-dashed-key-name":"baz"}}}' | jq '.["dashed-key-name"] | to_entries | [.[] | select(.value."inner-dashed-key-name" == "bar")] | from_entries'
 echo 0 | jq 'builtins'
 echo gcr.io | docker-credential-gcloud get | jq .
 ember build
@@ -1889,6 +1891,7 @@ msfconsole
 msfdb stop
 mvn --encrypt-master-password 'maven-master-password'
 mvn --encrypt-password 'maven-server-password'
+mvn -U dependency:tree
 mvn clean install
 mvn dependency:tree
 mypy --config-file ~/.mypy.ini
@@ -2267,6 +2270,7 @@ ssh -o ClearAllForwardings=yes ssh.ankitpati.in
 ssh -o IPQoS=none ssh.ankitpati.in
 ssh -vvv ssh.ankitpati.in
 ssh-copy-id -o PasswordAuthentication=yes ssh.ankitpati.in
+ssh-keygen -R ssh.ankitpati.in
 ssh-keygen -l -v -f ~/.ssh/id_ed25519
 ssh-keygen -l -v -f ~/.ssh/id_ed25519.pub
 ssh-keygen -t ed25519
