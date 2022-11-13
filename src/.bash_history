@@ -35,6 +35,8 @@ adb logcat -c && adb logcat > current.log
 adb shell pm grant com.oasisfeng.island android.permission.GET_APP_OPS_STATS
 adb shell pm list packages
 adb uninstall com.markany.aegis.gt
+add-apt-repository multiverse
+add-apt-repository universe
 advzip --recompress -4 --iter 1000 filename.zip
 age --decrypt -i ~/.age/key.txt -o plain.txt cipher.txt.age
 age -R ~/.age/machine.recipient -o cipher.txt.age plain.txt
@@ -393,6 +395,7 @@ brew install zlib
 brew install zsh
 brew leaves --installed-as-dependency
 brew leaves --installed-on-request
+brew leaves | grep -Ev '^(bash-completion@2|flyctl|gcc|git-delta|kind|terraform)$' | xargs -o brew uninstall
 brew linkage
 brew list --casks
 brew livecheck --debug kubernetes-cli
@@ -494,6 +497,8 @@ curl -H "Authorization: token $(lpass show --password github_personal_access_tok
 curl -s -w '\n%{time_total} - %{time_starttransfer}\n' https://httpbin.org/get | tail -n 1 | bc
 curl -vvvpx https://squid.ankitpati.in:1080 https://ankitpati.in
 curl http://localhost:8001 | jq -r '.["paths"][]' | while read -r k8s_api_endpoint; do printf '\n## `%s`\n\n```json\n%s\n```\n' "$k8s_api_endpoint" "$(curl "http://localhost:8001$k8s_api_endpoint")"; done > kubernetes_api_record.md
+curl https://ankitpati.in/gpg.asc -o /etc/apt/trusted.gpg.d/ankitpati.asc
+curl https://apt.ankitpati.in/ankitpati.list -o /etc/apt/sources.list.d/ankitpati.list
 curl https://github.com/web-flow.gpg | gpg --import
 curl https://ident.me; echo; exec cat
 dart --disable-analytics
@@ -1373,6 +1378,7 @@ dnslookup ankitpati.in tls://1.1.1.1
 dnslookup ankitpati.in tls://one.one.one.one
 dnstracer -s . ankitpati.in
 dnstracer ankitpati.in
+do-release-upgrade
 docker attach container_name
 docker build --build-arg username='ankitpati' -t image_name .
 docker build --progress=plain -t image_name .
@@ -1723,6 +1729,7 @@ journalctl --vacuum-time=1d
 journalctl -f -o cat "$(command -v gnome-shell)"
 jq -R 'split(".") | .[0],.[1] | @base64d | fromjson' < JWT.asc
 jq -S --indent 4 . < filename.json
+jq -r .zerosuggest.cachedresults < ~/.config/google-chrome/Default/Preferences | tail -n +2 | jq .
 jq . < filename.json
 js-beautify filename.js
 json-sort-arrays --indent 4 filename.json
@@ -1916,6 +1923,7 @@ nmcli connection up id connectionId
 nmcli device wifi list
 nmcli device wifi rescan
 nmcli general status
+nmcli networking connectivity check
 nmcli radio wifi
 nmcli radio wifi off
 nmcli radio wifi on
@@ -2138,6 +2146,7 @@ pod2pdf path/to/Perl/Module.pm > Perl-Module-docs.pdf
 podchecker path/to/Perl/Module.pm
 podlinkcheck path/to/Perl/Module.pm
 podlint path/to/Perl/Module.pm
+podman commit container_name image_name
 podman images
 podman info
 podman inspect -l
@@ -2146,11 +2155,15 @@ podman ps
 podman pull fedora
 podman pull fedora-toolbox
 podman pull registry.fedoraproject.org/f34
-podman rmi 536f3995adeb
+podman rmi 0dead1beef23
 podman stop fedora-toolbox-33
+podman tag 0dead1beef23 image_name
+podman top --latest
+podman top --latest huser user
 podman unshare
 podman unshare cat /proc/self/uid_map
 podman unshare chown root:root .
+podman untag image_name
 popd
 popd +0
 popd +1
@@ -2246,9 +2259,23 @@ skopeo inspect docker://quay.io/ankitpati/tigress
 skopeo inspect docker://quay.io/ankitpati/tigress | jq -r .RepoTags[]
 skopeo inspect docker://quay.io/ankitpati/tigress | jq .
 sloccount .
+snap disable snapd-desktop-integration
+snap enable snapd-desktop-integration
 snap install flutter --classic
 snap install microk8s --classic
 snap list
+snap logs snapd-desktop-integration
+snap model
+snap model --assertion
+snap model --verbose
+snap okay
+snap remove --purge snapd-desktop-integration
+snap services
+snap services microk8s.daemon-kubelite
+snap services snapd-desktop-integration
+snap start snapd-desktop-integration
+snap stop snapd-desktop-integration
+snap warnings
 snyk auth
 snyk auth "$(lpass show --password snyk_auth_token)"
 snyk monitor
@@ -2257,6 +2284,7 @@ source ./.venv/bin/activate
 spctl developer-mode enable-terminal
 speedtest
 speedtest-cli
+sqlcmd -S localhost -U SA -P p@5Sword
 sqlformat -k upper -i lower -r --indent_width 4 --indent_columns -s --comma_first True filename.sql
 sqlite3 filename.sqlite
 sqlite3 ~/Library/Containers/org.p0deje.Maccy/Data/Library/Application\ Support/Maccy/Storage.sqlite 'select group_concat(zvalue, char(10)) from zhistoryitemcontent where zvalue regexp "^[a-z0-9-_@.]+$"' | xargs brew info
@@ -2305,6 +2333,9 @@ systemctl edit --user filename.service
 systemctl enable --now sssd-kcm.socket
 systemctl list-units --type=service --state=active
 systemctl list-units --type=service --state=running
+systemctl mask sleep.target suspend.target hibernate.target suspend-then-hibernate.target hybrid-sleep.target
+systemctl status snap.microk8s.daemon-containerd.service
+systemctl stop gdm.service
 systemd-analyze cat-config systemd/resolved.conf
 tail -n +2 brew-deps.csv | cut -d, -f1 | comm -23 - brew-install-list.txt | while read -r brew_formula; do grep "^$brew_formula" brew-deps.csv; done
 telnet google.com & telnet_pid="$!" && ( sleep 5; kill "$telnet_pid" ) && fg; unset telnet_pid
@@ -2411,6 +2442,7 @@ while :; do virsh -c qemu:///system send-key Windows-10 KEY_J; sleep 120; done
 while :; do xdotool mousemove --sync 1000 10 sleep 0.5 mousemove restore; sleep 120; done
 while read -r directory; do find "$(case "$directory" in -*) printf '%s' ./ ;; esac; printf '%s' "$directory")" \( -type f -exec ls -lt -- {} \; -exec md5sum -- {} \; \) -o \( -type d -exec ls -ltd -- {} \; -exec printf '%s%s' 'directory ' {} \; \); done < directory-list.txt
 while read -r gitdir; do ( cd "$gitdir/"; git pull ) done < <(ls)
+wl-copy < filename.txt
 write ankitpati :1
 write ankitpati tty4
 xargs -l -o rg < file-with-search-terms.txt
