@@ -1618,6 +1618,7 @@ git show --format= --name-only
 git show --show-signature
 git show -U100
 git show -p ':^*.asc'
+git submodule add -b branch_name https://gitlab.com/ankitpati/rpg.git modules/ankitpati/rpg
 git submodule add https://github.com/ankitpati/rpg.git modules/ankitpati/rpg
 git submodule foreach --recursive git reset --hard
 git submodule update
