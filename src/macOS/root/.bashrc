@@ -222,7 +222,7 @@ main()
 
     # Source global definitions
     local global_profile='/etc/profile'
-    # `$PROFILEREAD` is OpenSUSE-specific at the time of writing.
+    # `$PROFILEREAD` is openSUSE-specific at the time of writing.
     # shellcheck disable=SC2154
     test -z "$PROFILEREAD" -a -f "$global_profile" && \
         source "$global_profile"
