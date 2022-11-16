@@ -1706,8 +1706,13 @@ istioctl --help
 istioctl analyze --help
 istioctl analyze --namespace namespace
 istioctl analyze -A
+istioctl dashboard envoy pod_name.default
+istioctl install --revision 1-15-3
+istioctl install --set profile=ambient
 istioctl install --set revision=release
+istioctl operator dump | yq .
 istioctl proxy-status
+istioctl verify-install
 istioctl version
 istioctl x precheck
 iw dev wlp2s0
@@ -1761,6 +1766,7 @@ kubecm --config kubeconfig.yaml list
 kubecm list
 kubectl --help
 kubectl --kubeconfig=filename.yaml get pods
+kubectl -n istio-system get pod -l app=istio-ingressgateway -o jsonpath='{.items..metadata.name}' | sed -E 's/ |$/\n/g'
 kubectl -n kube-system delete configmap/kube-dns
 kubectl -n kube-system delete configmap/kube-dns-autoscaler
 kubectl -n kube-system scale deployment kube-dns-autoscaler --replicas=0
@@ -1775,7 +1781,7 @@ kubectl config --help
 kubectl config get-contexts
 kubectl config use-context cluster_name
 kubectl config view
-kubectl config view --minify --raw --output 'jsonpath={..cluster.certificate-authority-data}'
+kubectl config view --minify --raw --output jsonpath='{..cluster.certificate-authority-data}'
 kubectl cp filename pod_name:/path/to/filename -c container_name
 kubectl cp filename pod_name:filename -c container_name
 kubectl create -f https://ankitpati.in/example.yaml
@@ -1805,6 +1811,7 @@ kubectl get deployments.apps
 kubectl get events
 kubectl get mutatingwebhookconfigurations
 kubectl get namespaces
+kubectl get namespaces default --output=json | jq '.metadata.labels."istio.io/dataplane-mode"'
 kubectl get node
 kubectl get node -o wide
 kubectl get nodes
@@ -1815,6 +1822,10 @@ kubectl get pods -A
 kubectl get services
 kubectl get svc -A
 kubectl get virtualservices.networking.istio.io virtual_service_name -n istio-system
+kubectl label --list namespaces default
+kubectl label namespaces default istio-injection=enabled
+kubectl label namespaces default istio.io/dataplane-mode-
+kubectl label namespaces default istio.io/dataplane-mode=ambient
 kubectl logs -f pod_name
 kubectl options
 kubectl port-forward pod_name 8080:8000
