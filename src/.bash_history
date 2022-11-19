@@ -1387,6 +1387,7 @@ docker build -t image_name:tag_name .
 docker container list
 docker container list -a
 docker container stop container_name
+docker exec -it --user root container_name bash
 docker exec -it container_name bash
 docker images --no-trunc --digests image_name
 docker images -a
@@ -1707,11 +1708,15 @@ istioctl analyze --help
 istioctl analyze --namespace namespace
 istioctl analyze -A
 istioctl dashboard envoy pod_name.default
-istioctl install --revision 1-15-3
+istioctl install --revision 1-16-0
 istioctl install --set profile=ambient
 istioctl install --set revision=release
 istioctl operator dump | yq .
 istioctl proxy-status
+istioctl tag list
+istioctl tag set default --revision 1-16-0
+istioctl uninstall --revision 1-16-0
+istioctl uninstall --revision default
 istioctl verify-install
 istioctl version
 istioctl x precheck
@@ -1766,6 +1771,7 @@ kubecm --config kubeconfig.yaml list
 kubecm list
 kubectl --help
 kubectl --kubeconfig=filename.yaml get pods
+kubectl -n istio-system get configmap istio-sidecar-injector -o jsonpath='{.data.config}' | yq .
 kubectl -n istio-system get pod -l app=istio-ingressgateway -o jsonpath='{.items..metadata.name}' | sed -E 's/ |$/\n/g'
 kubectl -n kube-system delete configmap/kube-dns
 kubectl -n kube-system delete configmap/kube-dns-autoscaler
@@ -1819,10 +1825,14 @@ kubectl get poddisruptionbudgets.policy
 kubectl get pods
 kubectl get pods --context=kube-context
 kubectl get pods -A
+kubectl get pods -n istio-system -l app=istiod
 kubectl get services
 kubectl get svc -A
+kubectl get svc -n istio-system -l app=istiod
 kubectl get virtualservices.networking.istio.io virtual_service_name -n istio-system
 kubectl label --list namespaces default
+kubectl label --overwrite namespace default istio-injection- istio.io/rev=default
+kubectl label namespace default istio-injection- istio.io/rev=1-16-0
 kubectl label namespaces default istio-injection=enabled
 kubectl label namespaces default istio.io/dataplane-mode-
 kubectl label namespaces default istio.io/dataplane-mode=ambient
