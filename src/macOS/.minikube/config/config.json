@@ -1,0 +1,4 @@
+{
+    "driver": "docker",
+    "kubernetes-version": "1.24.0"
+}
