@@ -2335,7 +2335,6 @@ strace programname 2> programname.strace
 sudo bash -c 'apt update; apt-fast dist-upgrade -y; apt autoremove -y; apt clean; snap refresh; flatpak update; pkcon refresh force; pkcon update; fwupdmgr get-updates; fwupdmgr upgrade; chmod 0750 /usr/bin/nmap /usr/sbin/etherape; chown root:wireshark /usr/bin/nmap /usr/sbin/etherape; setcap cap_net_raw,cap_net_admin,cap_net_bind_service+eip /usr/bin/nmap cap_net_raw,cap_net_admin,cap_net_bind_service+eip /usr/sbin/etherape'
 sudo bash -c 'dnf upgrade --refresh; snap refresh; flatpak update; pkcon refresh force; pkcon update; fwupdmgr get-updates; fwupdmgr upgrade; chmod 0750 /usr/bin/nmap /usr/sbin/etherape; chown root:wireshark /usr/bin/nmap /usr/sbin/etherape; setcap cap_net_raw,cap_net_admin,cap_net_bind_service+eip /usr/bin/nmap cap_net_raw,cap_net_admin,cap_net_bind_service+eip /usr/sbin/etherape'
 sudo bash -c 'rfkill unblock bluetooth; systemctl restart bluetooth.service'
-sudo bash -c 'systemctl stop libvirtd.socket; systemctl stop libvirtd.service'
 sudo inxi -SMCDG
 sudo kubectl port-forward pod_name 80:8080
 sudo usermod -a -G microk8s "$USER"
@@ -2343,7 +2342,6 @@ svg2png filename.svg
 systemctl --user enable --now podman.socket
 systemctl --user status podman.socket
 systemctl disable --now avahi-daemon.service
-systemctl disable --now libvirtd.service
 systemctl disable --now mariadb.service
 systemctl disable --now pcscd.socket
 systemctl disable --now realmd.service
@@ -2411,7 +2409,7 @@ uprecord
 uptime
 url --decode < gcp_savedViews.json | sed 's/(/{/g;s/)/}/g' | jq . | sponge gcp_savedViews.json
 usb-devices
-usermod -aG libvirt ankitpati
+usermod -aG libvirt administrator
 usermod -aG wireshark ankitpati
 vctl images -a
 vctl images -d
