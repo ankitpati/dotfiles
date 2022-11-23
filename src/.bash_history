@@ -28,6 +28,7 @@ P4DIFF=vimdiff p4 diff -Od -f //depot/directory/...
 P4DIFF=vimdiff p4 diff -f //depot/directory/...
 P4DIFF=vimdiff p4 diff -f //depot/directory/filename.pl
 PATH="$(echo "$PATH" | sed 's/:/\n/g' | grep -v binutils | paste -sd :)" cpan Unicode::GCString
+\ssh ssh.ankitpati.in
 aa-status
 ack '(?<=^B: ).*$'
 adb logcat --pid="$(adb shell pidof -s in.ankitpati.gparse | cut -d' ' -f1)"
@@ -271,6 +272,7 @@ brew install mg
 brew install minikube
 brew install minio-mc
 brew install mist
+brew install mkcert
 brew install moreutils
 brew install mosh
 brew install mprocs
@@ -450,6 +452,7 @@ code --locate-shell-integration-path bash
 comm -23 <(grep -P '^brew install (?!--cask )' ~/Code/Dotfiles/src/.bash_history | cut -d' ' -f3) <(brew leaves --installed-on-request)
 command -V command
 command -v gnome-shell
+command ssh ssh.ankitpati.in
 convert ./*.jpg output.pdf
 copyq info
 cpan-outdated -p | xargs cpanm; echo $?; pip list --outdated --format=freeze | cut -d= -f1 | grep -Ev '^(GDAL|python-poppler-qt5|slip|wxPython)$' | xargs pip install --user -U; echo $?; mypy --install-types; echo $?; cargo install-update -a; echo $?; npm update -g; echo $?; sdk selfupdate; echo $?; sdk update; echo $?; for java_sdk in $(grep '^sdk install ' ~/.bash_history | cut -d' ' -f3 | sort -u); do sdk upgrade "$java_sdk"; done; find ~/.sdkman/ -type f \( -name '*.exe' -o -name '*.bat' \) -delete; vim +PlugUpgrade +PlugUpdate +qa; nvim +PlugUpgrade +PlugUpdate +qa; for codext in $(code --list-extensions); do code --install-extension "$codext" --force; done; echo $?; flutter upgrade; echo $?; flutter doctor -v; echo $?; gcloud components update; echo $?; tldr --update; echo $?
@@ -1843,6 +1846,7 @@ kubectl port-forward service/service_name 12345
 kubectl proxy
 kubectl rollout restart deployment deployment_name
 kubectl version
+kubectl version -o yaml | yq .
 landscape --help
 latest-version asar
 latest-version spectron
@@ -1867,6 +1871,7 @@ lpass login contact@ankitpati.in
 lpass ls
 lpass show --field='Public Key' unique_name
 lpass show --password docker_personal_access_token | docker login -u "$(lpass show --username docker_personal_access_token)" --password-stdin
+lpass show --password docker_personal_access_token | skopeo login docker.io --tls-verify -u "$(lpass show --username docker_personal_access_token)" --password-stdin
 lpass show --password perforce | p4 login
 lpass show --password quay_encrypted_cli_password | skopeo login quay.io --tls-verify -u "$(lpass show --username quay_encrypted_cli_password)" --password-stdin
 lpass show --password unique_name
@@ -2027,6 +2032,8 @@ p4 client
 p4 client -o
 p4 delete -n -c 12345 //depot/directory/filename
 p4 describe -a 12345 | less
+p4 describe -du5 -O 12345 | delta
+p4 describe -du5 -S 12345 | delta
 p4 describe -du5 12345 | delta
 p4 describe -du5 default | delta
 p4 describe 12345
@@ -2082,6 +2089,7 @@ p4 sync //depot/directory/...
 p4 sync //depot/directory/...#none
 p4 sync //depot/directory/filename
 p4 trust
+p4 undo -n ...@12345,@12345
 p4 undo @12345
 p4 unshelve -s 12345 -c 12346
 p4 where . | cut -d' ' -f1
@@ -2277,6 +2285,7 @@ sestatus
 sha256sum -c filename-CHECKSUM
 shfmt -w -s filename.bash
 skaffold help
+skopeo inspect --override-arch amd64 --override-os linux docker://kindest/node:TEST | jq -r .RepoTags[] | sort -V
 skopeo inspect docker://quay.io/ankitpati/tigress
 skopeo inspect docker://quay.io/ankitpati/tigress | jq -r .RepoTags[]
 skopeo inspect docker://quay.io/ankitpati/tigress | jq .
