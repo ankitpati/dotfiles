@@ -1399,6 +1399,9 @@ docker inspect container_name | jq .
 docker inspect image_name | jq .
 docker network ls -q | xargs -r docker network inspect -v
 docker ps --no-trunc -a
+docker run --pull always -it --rm --privileged --pid=host busybox nsenter -t1 -m -u -i -n # Linuxkit access on Docker for Mac
+docker run --pull always -it --rm estargz.kontain.me/busybox
+docker run --pull always -it --rm estargz.kontain.me/quay.io/ankitpati/tigress
 docker run --pull always -it --rm fedora
 docker run --pull always -it --rm opensuse/tumbleweed
 docker run --pull always -it --rm ubuntu:rolling
