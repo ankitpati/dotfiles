@@ -77,6 +77,9 @@ brew --repo snyk/tap
 brew analytics off
 brew autoremove -n
 brew config
+brew deps --direct google-java-format
+brew deps --topological google-java-format
+brew deps --tree google-java-format
 brew developer --verbose state
 brew developer on
 brew doctor
