@@ -2290,6 +2290,8 @@ sensors
 seq -w 000 007 | while read -r num; do cat "input$num.txt"; read; cat "output$num.txt"; read; done
 sestatus
 sha256sum -c filename-CHECKSUM
+shellharden --replace filename.bash
+shellharden filename.bash
 shfmt -w -s filename.bash
 skaffold help
 skopeo inspect --override-arch amd64 --override-os linux docker://kindest/node:TEST | jq -r .RepoTags[] | sort -V
