@@ -294,6 +294,7 @@ brew install opa
 brew install openssh
 brew install openstackclient
 brew install oq
+brew install packer
 brew install php
 brew install pint
 brew install pip-completion
@@ -1852,6 +1853,8 @@ kubectl port-forward pod_name 8080:8000
 kubectl port-forward service/service_name 12345
 kubectl proxy
 kubectl rollout restart deployment deployment_name
+kubectl top pod
+kubectl top pod --containers
 kubectl version
 kubectl version -o yaml | yq .
 landscape --help
@@ -2006,6 +2009,7 @@ openssl genpkey -algorithm RSA -aes128 -out openssl.key
 openssl genrsa 2048 -out openssl.key
 openssl pkcs8 -in openssl.key | openssl pkcs8 -topk8 -v2 aes128 -out openssl.key
 openssl pkey -aes128 -in openssl.key -text
+openssl rand -out 128_bit_key.dat 32
 openssl req -in request.csr -text -noout -verify
 openssl req -new -key openssl.key -out openssl.csr -config openssl.conf
 openssl req -x509 -days 36500 -new -key id_rsa -out id_rsa.x509
@@ -2294,10 +2298,11 @@ shellharden --replace filename.bash
 shellharden filename.bash
 shfmt -w -s filename.bash
 skaffold help
-skopeo inspect --override-arch amd64 --override-os linux docker://kindest/node:TEST | jq -r .RepoTags[] | sort -V
-skopeo inspect docker://quay.io/ankitpati/tigress
-skopeo inspect docker://quay.io/ankitpati/tigress | jq -r .RepoTags[]
 skopeo inspect docker://quay.io/ankitpati/tigress | jq .
+skopeo list-tags --override-arch amd64 --override-os linux docker://kindest/node | jq -r .Tags[] | sort -V
+skopeo list-tags docker://quay.io/ankitpati/tigress | jq -r .Tags[]
+skopeo sync --all --src docker --dest docker gcr.io/project_id/namespace/image_name quay.io/namespace/image_name
+skopeo sync --dry-run --all --src docker --dest docker gcr.io/project_id/namespace/image_name quay.io/namespace/image_name
 sloccount .
 snap disable snapd-desktop-integration
 snap enable snapd-desktop-integration
