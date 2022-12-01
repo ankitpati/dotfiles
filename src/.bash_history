@@ -68,7 +68,6 @@ bazel clean
 bazel help query
 bazel query --notool_deps --noimplicit_deps deps\(//:TargetName\) --output graph | apdot -Tpng | timg -
 below
-below help
 below replay --time '5 minutes ago'
 bind -P
 brew --prefix
@@ -301,6 +300,7 @@ brew install pip-completion
 brew install pixie
 brew install plantuml
 brew install pluto
+brew install pmd
 brew install popeye
 brew install prettier
 brew install proctools
@@ -495,11 +495,11 @@ cue eval fields.cue
 cue export --out json filename.cue
 cue export --out yaml filename.cue
 cue fmt filename.cue
-cue help
 curl 'https://example.org/untrustworthy.dat'; exec cat
 curl --connect-to example.org:80:localhost:8080 http://example.org
 curl --key openssl.key --cert openssl.crt https://mtls.example.org
 curl --resolve example.org:80:127.0.0.1 http://example.org
+curl -H "Authorization: token $(lpass show --password github_personal_access_token)" -o filename.pl https://raw.githubusercontent.com/namespace/repo_name/branch_name/path/to/filename.pl
 curl -H "Authorization: token $(lpass show --password github_personal_access_token)" https://raw.githubusercontent.com/namespace/private-repo/branch/directory/filename.c
 curl -s -w '\n%{time_total} - %{time_starttransfer}\n' https://httpbin.org/get | tail -n 1 | bc
 curl -vvvpx https://squid.ankitpati.in:1080 https://ankitpati.in
@@ -517,7 +517,6 @@ dconf dump / > dump.dconf
 dd if=/dev/urandom count=1 2>/dev/null | git hash-object --stdin
 deactivate
 declare -p | grep '^declare -- '
-defaults help
 defaults read com.apple.DictionaryServices DCSActiveDictionaries
 defaults write "$(osascript -e 'id of app "Visual Studio Code"')" ApplePressAndHoldEnabled -bool false
 defaults write com.jetbrains.intellij ApplePressAndHoldEnabled -bool false
@@ -531,6 +530,7 @@ dig -x 172.30.83.9
 dig -x ankitpati.in
 dig ankitpati.in
 dig ankitpati.in @1.1.1.1
+dirs -c
 dirs -v
 django-admin startproject forum
 dnf config-manager --add-repo https://brave-browser-rpm-release.s3.brave.com/x86_64/
@@ -1441,6 +1441,7 @@ echo 'Subject: Hello' | sendmail -v contact@ankitpati.in
 echo 'macOS Notification Text' | terminal-notifier
 echo '{ "name": "Ankit" }' | jq '.name | ascii_downcase'
 echo '{"dashed-key-name":{"12345":{"inner-dashed-key-name":"foo"},"12346":{"inner-dashed-key-name":"bar"},"12347":{"inner-dashed-key-name":"baz"}}}' | jq '.["dashed-key-name"] | to_entries | [.[] | select(.value."inner-dashed-key-name" == "bar")] | from_entries'
+echo -n username:password | base64
 echo 0 | jq 'builtins'
 echo gcr.io | docker-credential-gcloud get | jq .
 ember build
@@ -1493,6 +1494,7 @@ fd -p 'th/t./file.*\.ext$'
 fd -p path/to/filename.ext
 fd -p path[12]/to/filename
 fd -p th/to/file
+fd -td -te -p ~/Perforce/ -X rm -rf \; -X echo
 fd -uu filename
 fd -uup path/to/filename
 fd Makefile
@@ -1512,6 +1514,7 @@ find . -not -user ankitpati
 find . -type d -empty -delete
 find . -type f -exec chmod 0600 {} + -exec dos2unix {} +
 find . -type f -exec mv -t /directory/ {} +
+find . -type f -exec perl -pi -E 's{#!\s*(?:/usr)?/bin/(?!env\b)(\S+)([ \t]*(?=\S))}{#!/usr/bin/env ${\($2 ? "-S " : "")}$1$2}' {} +
 find . -type f -name '*.lastUpdated' -delete
 firewall-cmd --add-forward-port=port=443:proto=tcp:toport=8443
 firewall-cmd --add-masquerade
@@ -1574,6 +1577,7 @@ gcloud compute zones list
 gcloud compute zones list --project=project_id
 gcloud config config-helper
 gcloud config config-helper --format=json
+gcloud config config-helper --format=json | jq -r .credential.id_token | jq -R 'split(".") | .[0],.[1] | @base64d | fromjson'
 gcloud config configurations list
 gcloud config list
 gcloud config set compute/region us-west1
@@ -1586,7 +1590,6 @@ gcloud info
 gcloud projects get-iam-policy project_id
 gcloud projects list
 gcloud topic filters
-gcloud version
 gdb elfname
 getcap "$(command -v nmap)"
 getfacl "$(command -v nmap)"
@@ -1596,6 +1599,7 @@ gh config set git_protocol ssh
 gh issue list
 gh pr list
 gh pr status
+git -C "$(git rev-parse --show-toplevel)" clean -ffdx && git submodule foreach git clean -ffdx
 git add -p
 git branch --format='%(refname:short)' | while read -r branch; do git checkout "$branch" || break; git rebase origin/main || break; done
 git branch -r | grep -E '^\s+origin/' | grep -v HEAD | cut -d/ -f2 | xargs git push ankitpati -d
@@ -1623,6 +1627,7 @@ git log -p ':^*.asc'
 git log -p --author='contact@ankitpati.in'
 git merge --ff-only branchname
 git merge-base HEAD branchname
+git p4 clone //depot/directory@all --verbose
 git remote -v | sed -E 's/ \((fetch|push)\)$//' | sort -u | while read -r remote_name remote_url; do remote_url="$(echo "$remote_url" | sed 's,^ssh://git@,ssh://,')"; git remote set-url "$remote_name" "$remote_url"; done
 git remote add origin https://github.com/ankitpati/rpg.git
 git restore filename
@@ -1633,8 +1638,7 @@ git show -p ':^*.asc'
 git submodule add -b branch_name https://gitlab.com/ankitpati/rpg.git modules/ankitpati/rpg
 git submodule add https://github.com/ankitpati/rpg.git modules/ankitpati/rpg
 git submodule foreach --recursive git reset --hard
-git submodule update
-git submodule update --init
+git submodule update --init --recursive
 git tag -d tag_name
 git tag -l
 git tag -s tag_name
@@ -1714,22 +1718,21 @@ ipcrm shm 262162
 ipcs -l
 ipcs -m
 ipcs -s
-istioctl --help
-istioctl analyze --help
 istioctl analyze --namespace namespace
 istioctl analyze -A
 istioctl dashboard envoy pod_name.default
+istioctl install --dry-run --revision 1-16-0 --filename istio-config.yaml
 istioctl install --revision 1-16-0
 istioctl install --set profile=ambient
 istioctl install --set revision=release
 istioctl operator dump | yq .
 istioctl proxy-status
+istioctl proxy-status | grep "$(kubectl -n istio-system get pod -l app=istio-ingressgateway -o jsonpath='{.items..metadata.name}')"
 istioctl tag list
 istioctl tag set default --revision 1-16-0
 istioctl uninstall --revision 1-16-0
 istioctl uninstall --revision default
 istioctl verify-install
-istioctl version
 istioctl x precheck
 iw dev wlp2s0
 iw dev wlp2s0 info
@@ -1765,22 +1768,16 @@ keytool -printcert -file cert.pem
 keytool -rfc -list -keystore filename.keystore
 keytool -v -list -keystore filename.keystore -storepass changeit
 keytool -v -list -keystore filename.keystore -storetype JKS -storepass changeit
-kind --help
-kind create --help
 kind create cluster
-kind delete --help
 kind delete cluster
-kind delete cluster --help
 kind delete cluster --name cluster_name
 kind export -v 999 logs exported-kind-logs.log
 kind get clusters
 kind get kubeconfig
 kind get nodes
 kind load docker-image image_name
-kind version
 kubecm --config kubeconfig.yaml list
 kubecm list
-kubectl --help
 kubectl --kubeconfig=filename.yaml get pods
 kubectl -n istio-system get configmap istio-sidecar-injector -o jsonpath='{.data.config}' | yq .
 kubectl -n istio-system get pod -l app=istio-ingressgateway -o jsonpath='{.items..metadata.name}' | sed -E 's/ |$/\n/g'
@@ -1794,7 +1791,6 @@ kubectl cluster-info --context docker-desktop
 kubectl cluster-info --context kind-kind
 kubectl cluster-info --context kind-kind dump
 kubectl cluster-info dump | jq .
-kubectl config --help
 kubectl config get-contexts
 kubectl config use-context cluster_name
 kubectl config view
@@ -1848,6 +1844,7 @@ kubectl label namespaces default istio-injection=enabled
 kubectl label namespaces default istio.io/dataplane-mode-
 kubectl label namespaces default istio.io/dataplane-mode=ambient
 kubectl logs -f pod_name
+kubectl logs pod_name -c container_name --since 1h
 kubectl options
 kubectl port-forward pod_name 8080:8000
 kubectl port-forward service/service_name 12345
@@ -1855,7 +1852,6 @@ kubectl proxy
 kubectl rollout restart deployment deployment_name
 kubectl top pod
 kubectl top pod --containers
-kubectl version
 kubectl version -o yaml | yq .
 landscape --help
 latest-version asar
@@ -1875,7 +1871,6 @@ loginctl list-sessions
 loginctl show-session
 loginctl show-session 2 -p Type
 logname
-lpass --help
 lpass edit --password unique_name
 lpass login contact@ankitpati.in
 lpass ls
@@ -1916,13 +1911,11 @@ mdfind -name 'log4j' | ack -i '(?<!\.)2\..*\.jar$'
 meson x --buildtype release --strip -Db_lto=true
 microk8s kubectl get all --all-namespaces
 microk8s status --wait-ready
-minikube config --help
 minikube config set driver docker
 minikube config set kubernetes-version "$(brew livecheck --json kubernetes-cli | jq -r '.[0].version.latest')"
 minikube config set kubernetes-version "$(git ls-remote --sort=v:refname --tags https://github.com/kubernetes/kubernetes.git 'v*^{}' | cut -dv -f2 | cut -d^ -f1 | grep -P '^\d+\.\d+\.\d+$' | tail -n 1)"
 minikube config view
 minikube delete
-minikube help
 minikube start
 minikube status
 modinfo -F version nvidia
@@ -2334,7 +2327,6 @@ sqlformat -k upper -i lower -r --indent_width 4 --indent_columns -s --comma_firs
 sqlite3 filename.sqlite
 sqlite3 ~/Library/Containers/org.p0deje.Maccy/Data/Library/Application\ Support/Maccy/Storage.sqlite 'select group_concat(zvalue, char(10)) from zhistoryitemcontent where zvalue regexp "^[a-z0-9-_@.]+$"' | xargs brew info
 sqlite3_analyzer filename.sqlite
-src --help
 src search 'context:global repo:^github\.com/ankitpati/rpg$ bitcount patternType:literal case:yes'
 ss -tulpn
 ssh -G ssh.ankitpati.in
@@ -2447,7 +2439,6 @@ vctl run -it rockylinux bash
 vctl system info
 vctl system start
 vctl system stop
-vctl version
 vctl volume
 vctl volume prune
 vdpauinfo
