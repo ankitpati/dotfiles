@@ -244,6 +244,12 @@ main()
     test -f "$sdkman_init" && \
         source "$sdkman_init"
 
+    # Ruby
+    local ruby_gems="$HOME/.local/share/gem/ruby"
+    # shellcheck disable=2012,2263
+    test -n "$(ls "$ruby_gems" 2>/dev/null)" && \
+        export PATH="$(sanitize_path "$ruby_gems/$(ls -vr "$ruby_gems" | head -1)/bin:$PATH")"
+
     # Android
     export PATH="$(sanitize_path "$HOME/Android/Sdk/platform-tools:$PATH")"
 
