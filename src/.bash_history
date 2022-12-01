@@ -1506,6 +1506,7 @@ fdupes -rNd .
 fdupes .
 figlet Type your message here.
 file -i filename
+find "$HOME/.local/share/gem/ruby" -mindepth 1 -maxdepth 1 -type d | sort -V
 find . -exec sha256sum {} + 2>/dev/null | cut -d' ' -f1 | paste -sd' ' | sed 's/ //g' | perl -pi -E 'chomp if eof' | sha256sum
 find . -maxdepth 1 -type d -mtime 0
 find . -maxdepth 1 -type d -mtime 2
@@ -1591,6 +1592,7 @@ gcloud projects get-iam-policy project_id
 gcloud projects list
 gcloud topic filters
 gdb elfname
+gem install --user-install --no-format-executable rubocop
 getcap "$(command -v nmap)"
 getfacl "$(command -v nmap)"
 getfattr "$(command -v nmap)"
