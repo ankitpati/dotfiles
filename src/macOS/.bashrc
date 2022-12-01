@@ -355,8 +355,9 @@ main()
         source <(pyenv init -)
 
     # Perlbrew
-    test -f "$HOME/perl5/perlbrew/etc/bashrc" && \
-        source "$HOME/perl5/perlbrew/etc/bashrc"
+    local perlbrew_bashrc="$HOME/perl5/perlbrew/etc/bashrc"
+    test -f "$perlbrew_bashrc" && \
+        source "$perlbrew_bashrc"
 
     # Perl local::lib
     export PATH="$(sanitize_path "$HOME/perl5/bin:$PATH")"
