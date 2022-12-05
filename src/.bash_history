@@ -143,6 +143,7 @@ brew install cscope
 brew install csvprintf
 brew install cue
 brew install curl
+brew install d2
 brew install dagger
 brew install dash
 brew install datree
@@ -248,6 +249,7 @@ brew install kubecfg
 brew install kubecm
 brew install kubergrunt
 brew install kubesess
+brew install kubevious
 brew install lastpass-cli
 brew install less
 brew install libressl
