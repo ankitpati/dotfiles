@@ -1615,6 +1615,7 @@ git clone --recurse-submodules https://example.org/repo-with-submodules.git
 git commit --allow-empty -m empty
 git commit --amend -S --no-edit
 git config --show-origin credential.helper
+git diff HEAD~1 ':^*.asc'
 git diff HEAD~1 --name-only
 git difftool branchname -- filename
 git difftool branchname1 branchname2 -- path1/to/filename1 path2/to/filename2
