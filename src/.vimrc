@@ -19,24 +19,24 @@ set nocompatible
     runtime macros/matchit.vim
 
     g:ale_fixers = {
-        'c':          ['astyle'            ],
-        'cpp':        ['astyle'            ],
-        'css':        ['prettier'          ],
-        'html':       ['prettier'          ],
-        'java':       ['google_java_format'],
-        'javascript': ['prettier'          ],
-        'json':       ['jq'                ],
-        'markdown':   ['prettier'          ],
-        'perl':       ['perltidy'          ],
-        'python':     ['isort', 'black'    ],
-        'sh':         ['shfmt'             ],
-        'terraform':  ['terraform'         ],
-        'typescript': ['prettier'          ],
-        'xml':        ['xmllint'           ],
-        'yaml':       ['prettier'          ],
+        c:          ['astyle'            ],
+        cpp:        ['astyle'            ],
+        css:        ['prettier'          ],
+        html:       ['prettier'          ],
+        java:       ['google_java_format'],
+        javascript: ['prettier'          ],
+        json:       ['jq'                ],
+        markdown:   ['prettier'          ],
+        perl:       ['perltidy'          ],
+        python:     ['isort', 'black'    ],
+        sh:         ['shfmt'             ],
+        terraform:  ['terraform'         ],
+        typescript: ['prettier'          ],
+        xml:        ['xmllint'           ],
+        yaml:       ['prettier'          ],
     }
     g:ale_linters_ignore = {
-        'java': ['checkstyle'],
+        java: ['checkstyle'],
     }
 
     g:ale_java_google_java_format_options = '--aosp'
