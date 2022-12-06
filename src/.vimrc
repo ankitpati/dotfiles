@@ -22,6 +22,7 @@ set nocompatible
         c:          ['astyle'            ],
         cpp:        ['astyle'            ],
         css:        ['prettier'          ],
+        hcl:        ['packer'            ],
         html:       ['prettier'          ],
         java:       ['google_java_format'],
         javascript: ['prettier'          ],
