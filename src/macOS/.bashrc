@@ -37,6 +37,9 @@ B-clean-cache()
     echo 'Removing the PIP Cache...'
     rm -rf "$HOME/Library/Caches/pip/"
 
+    echo 'Removing the Maven Cache...'
+    rm -rf "$HOME/.m2/repository/"
+
     echo 'Removing Maccy SQLite DB (only works if Maccy is not running)...'
     rm "$HOME/Library/Containers/org.p0deje.Maccy/Data/Library/Application Support/Maccy/Storage.sqlite"*
 

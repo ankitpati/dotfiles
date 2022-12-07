@@ -37,6 +37,9 @@ B-clean-cache()
     echo 'Removing the PIP Cache...'
     rm -rf "$HOME/.cache/pip/"
 
+    echo 'Removing the Maven Cache...'
+    rm -rf "$HOME/.m2/repository/"
+
     command -v qlmanage &>/dev/null && \
         echo 'Removing the QuickLook Cache...' && \
         qlmanage -r cache
