@@ -2109,6 +2109,10 @@ package-cleanup --dupes
 package-cleanup --leaves
 package-cleanup --orphans
 package-cleanup --problems
+packer build .
+packer fmt -recursive .
+packer init -upgrade .
+packer validate .
 pactl info
 pactl list sinks
 parallel reduce-to-registrable < urls.txt | sort -u > registrable-domains.txt
@@ -2181,6 +2185,9 @@ plackup filename.psgi
 plantuml -theme black-knight filename.uml && timg filename.png
 plantuml -tsvg filename.uml
 plasma-nm
+pmset -g
+pmset -g log
+pmset -g therm
 pod2pdf path/to/Perl/Module.pm > Perl-Module-docs.pdf
 podchecker path/to/Perl/Module.pm
 podlinkcheck path/to/Perl/Module.pm
