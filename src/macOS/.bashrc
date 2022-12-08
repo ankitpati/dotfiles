@@ -100,6 +100,7 @@ add_brewed_items_to_env()
         openldap \
         cython \
         opencolorio \
+        postgresql@15 \
         libxml2 \
         texinfo \
         apr-util \
