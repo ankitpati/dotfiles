@@ -6,7 +6,6 @@
 ( filename=depot/directory/filename.pl; p4 sync "$filename#$(( "$(p4 have "$filename" | cut -d# -f2 | cut -d' ' -f1)" - 1 ))" )
 ( hostname='google.com'; openssl s_client -auth_level 2 -connect "$hostname":443 -servername "$hostname" -verify_hostname "$hostname" -verify_return_error )
 ( hostname='google.com'; openssl s_client -tls1_3 -auth_level 2 -connect "$hostname":443 -servername "$hostname" -verify_hostname "$hostname" -verify_return_error )
-( mapfile -t <<<"$(brew formulae | grep '^postgresql@' | sort -rV)"; echo "${MAPFILE[@]:1}" | xargs -n 1 brew uninstall --zap; brew install "${MAPFILE[0]}" )
 ( perforce_dir=//depot/directory; p4 dirs "$perforce_dir/*" | while read -r perforce_subdir; do p4 grep -e 'search-expression' "$perforce_subdir/..."; done )
 ( perforce_dir=//depot/directory; p4 dirs "$perforce_dir/*"; p4 sizes -sh "$perforce_dir/..." )
 ( ssh_private_key_file=id_ed25519; ssh-keygen -l -v -f "$ssh_private_key_file" && ssh-keygen -y -f "$ssh_private_key_file" && cat "$ssh_private_key_file" )
@@ -2330,7 +2329,7 @@ snap warnings
 snyk auth
 snyk auth "$(lpass show --password snyk_auth_token)"
 snyk monitor
-softwareupdate -l; brew update; brew upgrade; cpan-outdated --exclude-core -p | xargs -r cpan; gcloud components update; tldr --update; grep -E '^docker run --pull always -it --rm [^- ]+$' ~/.bash_history | cut -d' ' -f7 | sort -u | while read -r docker_image; do docker pull "$docker_image"; done; for codext in $(code --list-extensions); do code --install-extension "$codext" --force; done; vim +PlugUpdate
+softwareupdate -l; brew update; brew upgrade; while read -r brew_forced_version_formula; do ( mapfile -t <<<"$(brew formulae | grep "^$brew_forced_version_formula@" | sort -rV)"; echo "${MAPFILE[@]:1}" | xargs -n 1 brew uninstall --zap; brew install "${MAPFILE[0]}" ); done < ~/.brew_forced_version_formulae; cpan-outdated --exclude-core -p | xargs -r cpan; gcloud components update; tldr --update; grep -E '^docker run --pull always -it --rm [^- ]+$' ~/.bash_history | cut -d' ' -f7 | sort -u | while read -r docker_image; do docker pull "$docker_image"; done; for codext in $(code --list-extensions); do code --install-extension "$codext" --force; done; vim +PlugUpdate
 source ./.venv/bin/activate
 spctl developer-mode enable-terminal
 speedtest
