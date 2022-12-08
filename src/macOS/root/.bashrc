@@ -80,6 +80,10 @@ add_brewed_items_to_env()
     test -z "$brew_prefix" && \
         return
 
+    local brew_postgresql_latest_formula=("$(brew formulae | grep '^postgresql@' | sort -rV | head -n 1)")
+    test -z "${brew_postgresql_latest_formula[0]}" && \
+        brew_postgresql_latest_formula=()
+
     # Get the superior versions of common binaries
     local extra_binaries=''
     local extra_claspath=''
@@ -100,7 +104,7 @@ add_brewed_items_to_env()
         openldap \
         cython \
         opencolorio \
-        postgresql@15 \
+        "${brew_postgresql_latest_formula[@]}" \
         libxml2 \
         texinfo \
         apr-util \
