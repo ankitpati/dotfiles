@@ -258,6 +258,7 @@ brew install libvterm
 brew install litecli
 brew install lsof
 brew install lsusb
+brew install luacheck
 brew install lychee
 brew install lz4
 brew install lzip
