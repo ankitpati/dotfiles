@@ -2386,6 +2386,7 @@ systemctl status snap.microk8s.daemon-containerd.service
 systemctl stop gdm.service
 systemd-analyze cat-config systemd/resolved.conf
 tail -n +2 brew-deps.csv | cut -d, -f1 | comm -23 - brew-install-list.txt | while read -r brew_formula; do grep "^$brew_formula" brew-deps.csv; done
+tccutil reset ScreenCapture com.google.Chrome
 telnet google.com & telnet_pid="$!" && ( sleep 5; kill "$telnet_pid" ) && fg; unset telnet_pid
 terraform apply tfplan
 terraform fmt
