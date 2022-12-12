@@ -123,6 +123,7 @@ brew install bc
 brew install binutils
 brew install bison
 brew install black
+brew install buf
 brew install byacc
 brew install bzip2
 brew install c
