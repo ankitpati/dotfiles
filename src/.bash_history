@@ -1759,6 +1759,9 @@ journalctl
 journalctl --vacuum-size=1M
 journalctl --vacuum-time=1d
 journalctl -f -o cat "$(command -v gnome-shell)"
+jq '.extensions | fromjson' filename.code-profile
+jq '.globalState | fromjson' filename.code-profile
+jq '.settings | fromjson.settings | fromjson' filename.code-profile
 jq -R 'split(".") | .[0],.[1] | @base64d | fromjson' < JWT.asc
 jq -S --indent 4 . < filename.json
 jq -r .zerosuggest.cachedresults < ~/.config/google-chrome/Default/Preferences | tail -n +2 | jq .
