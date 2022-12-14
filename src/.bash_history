@@ -530,6 +530,7 @@ defaults write com.visualstudio.code.oss ApplePressAndHoldEnabled -bool false
 df -h
 df -i
 diff -u5 -r directory1/ directory2/ | delta
+diff -x '*.asc' -x '*.lock.hcl' -x '*.tfstate' -x '.terraform' -x 'tfplan' -u5 -r terraform_directory1/ terraform_directory2/ | delta
 dig -t ANY google.com
 dig -x 172.30.83.9
 dig -x ankitpati.in
