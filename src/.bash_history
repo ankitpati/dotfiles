@@ -2315,6 +2315,7 @@ skopeo list-tags --override-arch amd64 --override-os linux docker://kindest/node
 skopeo list-tags docker://quay.io/ankitpati/tigress | jq -r .Tags[]
 skopeo sync --all --src docker --dest docker gcr.io/project_id/namespace/image_name quay.io/namespace/image_name
 skopeo sync --dry-run --all --src docker --dest docker gcr.io/project_id/namespace/image_name quay.io/namespace/image_name
+skopeo sync --override-arch amd64 --override-os linux --src docker --dest docker gcr.io/project_id/namespace/image_name:tag_name quay.io/namespace/
 sloccount .
 snap disable snapd-desktop-integration
 snap enable snapd-desktop-integration
