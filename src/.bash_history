@@ -297,6 +297,7 @@ brew install opa
 brew install openssh
 brew install openstackclient
 brew install oq
+brew install osv-scanner
 brew install packer
 brew install php
 brew install pint
@@ -507,6 +508,8 @@ curl --resolve example.org:80:127.0.0.1 http://example.org
 curl -H "Authorization: token $(lpass show --password github_personal_access_token)" -o filename.pl https://raw.githubusercontent.com/namespace/repo_name/branch_name/path/to/filename.pl
 curl -H "Authorization: token $(lpass show --password github_personal_access_token)" https://raw.githubusercontent.com/namespace/private-repo/branch/directory/filename.c
 curl -s -w '\n%{time_total} - %{time_starttransfer}\n' https://httpbin.org/get | tail -n 1 | bc
+curl -sX POST -d '{"commit":"6879efc2c1596d11a6a6ad296f80063b558d5e0f"}' https://api.osv.dev/v1/query | jq .
+curl -sX POST -d '{"version":"2.4.1","package":{"name":"jinja2","ecosystem":"PyPI"}}' https://api.osv.dev/v1/query | jq .
 curl -vvvpx https://squid.ankitpati.in:1080 https://ankitpati.in
 curl http://localhost:8001 | jq -r '.["paths"][]' | while read -r k8s_api_endpoint; do printf '\n## `%s`\n\n```json\n%s\n```\n' "$k8s_api_endpoint" "$(curl "http://localhost:8001$k8s_api_endpoint")"; done > kubernetes_api_record.md
 curl https://ankitpati.in/gpg.asc -o /etc/apt/trusted.gpg.d/ankitpati.asc
@@ -1819,6 +1822,7 @@ kubectl describe
 kubectl describe deployments.apps
 kubectl describe namespace istio-system
 kubectl describe namespaces
+kubectl describe node node_name
 kubectl describe nodes
 kubectl describe pod pod_name
 kubectl describe poddisruptionbudgets.policy
