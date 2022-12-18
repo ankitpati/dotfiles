@@ -28,6 +28,7 @@ P4DIFF=vimdiff p4 diff -Od -f //depot/directory/...
 P4DIFF=vimdiff p4 diff -f //depot/directory/...
 P4DIFF=vimdiff p4 diff -f //depot/directory/filename.pl
 PATH="$(echo "$PATH" | sed 's/:/\n/g' | grep -v binutils | paste -sd :)" cpan Unicode::GCString
+Xvfb :99 -screen 0 1024x768x24
 \ssh ssh.ankitpati.in
 aa-status
 ack '(?<=^B: ).*$'
@@ -1479,6 +1480,7 @@ exec su - ankitpati
 exec sudo -i
 exec sudo -u ankitpati -i
 exiftool -p '$XResolution,$YResolution' filename.jpg
+export DISPLAY=':99.0'
 export GH_TOKEN="$(lpass show --password github_personal_access_token)"
 export GITHUB_PERSONAL_ACCESS_TOKEN="$(lpass show --password github_personal_access_token)"
 export JAVA_HOME="$(/usr/libexec/java_home -v 1.8)"
