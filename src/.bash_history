@@ -2446,6 +2446,8 @@ unix2dos filename.txt
 update-alternatives --config java
 update-alternatives --config javac
 update-alternatives --set editor "$(command -v vim)"
+update-desktop-database
+update-mime-database
 updatedb
 uprecord
 uptime
