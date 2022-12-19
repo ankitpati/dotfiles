@@ -2350,6 +2350,7 @@ spctl developer-mode enable-terminal
 speedtest
 speedtest-cli
 sqlcmd -S localhost -U SA -P p@5Sword
+sqlfluff fix --force --dialect postgres filename.sql
 sqlformat -k upper -i lower -r --indent_width 4 --indent_columns -s --comma_first True filename.sql
 sqlite3 filename.sqlite
 sqlite3 ~/Library/Containers/org.p0deje.Maccy/Data/Library/Application\ Support/Maccy/Storage.sqlite 'select group_concat(zvalue, char(10)) from zhistoryitemcontent where zvalue regexp "^[a-z0-9-_@.]+$"' | xargs brew info
