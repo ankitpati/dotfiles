@@ -85,6 +85,7 @@ brew developer on
 brew doctor
 brew help --prefix
 brew help developer
+brew info --json=v2 --cask visual-studio-code | jq .
 brew install --cask chromedriver
 brew install --cask docker
 brew install --cask google-chrome
