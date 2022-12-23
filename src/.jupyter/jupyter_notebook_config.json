@@ -1,14 +1,14 @@
 {
-  "NotebookApp": {
-    "password": "sha512:1f1f94319a11:8af1582e847e1721e2ee3dbf433edca9ca59ebc226182503c512cb9c21f577528b52626dcf94821ddd8f4b449014328a3af94615477ae9cfa610c9d2dcbbc0c0",
-    "password_required": true,
-    "allow_password_change": false,
-    "nbserver_extensions": {
-      "jupyterlab": true
+    "KernelManager": {
+        "transport": "ipc"
     },
-    "default_url": "/lab"
-  },
-  "KernelManager": {
-    "transport": "ipc"
-  }
+    "NotebookApp": {
+        "allow_password_change": false,
+        "default_url": "/lab",
+        "nbserver_extensions": {
+            "jupyterlab": true
+        },
+        "password": "sha512:1f1f94319a11:8af1582e847e1721e2ee3dbf433edca9ca59ebc226182503c512cb9c21f577528b52626dcf94821ddd8f4b449014328a3af94615477ae9cfa610c9d2dcbbc0c0",
+        "password_required": true
+    }
 }

@@ -1,6 +1,6 @@
 {
-  "container-runtime": "containerd",
-  "driver": "podman",
-  "kubernetes-version": "1.25.4",
-  "rootless": true
+    "container-runtime": "containerd",
+    "driver": "podman",
+    "kubernetes-version": "1.26.0",
+    "rootless": true
 }

@@ -4,18 +4,18 @@
     "windowSplash": {
         "baseTheme": "vs-dark",
         "colorInfo": {
-            "foreground": "#cccccc",
+            "activityBarBackground": "#000000",
             "background": "#000000",
             "editorBackground": "#000000",
-            "titleBarBackground": "#000000",
-            "activityBarBackground": "#000000",
+            "foreground": "#cccccc",
             "sideBarBackground": "#000000",
             "statusBarBackground": "#000000",
-            "statusBarNoFolderBackground": "#000000"
+            "statusBarNoFolderBackground": "#000000",
+            "titleBarBackground": "#000000"
         },
         "layoutInfo": {
-            "sideBarSide": "left",
             "activityBarWidth": 0,
+            "sideBarSide": "left",
             "windowBorder": false
         }
     }
