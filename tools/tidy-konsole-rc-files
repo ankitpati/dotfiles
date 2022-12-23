@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -euo pipefail
+
 me="$(basename "$0")"
 mydir="$(dirname "$0")/"
 
