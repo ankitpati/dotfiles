@@ -1520,6 +1520,7 @@ figlet Type your message here.
 file -i filename
 find "$HOME/.local/share/gem/ruby" -mindepth 1 -maxdepth 1 -type d | sort -V
 find . -exec sha256sum {} + 2>/dev/null | cut -d' ' -f1 | paste -sd' ' | sed 's/ //g' | perl -pi -E 'chomp if eof' | sha256sum
+find . -maxdepth 1 -print0 | xargs -0 -L 1 du -sh | sort -h
 find . -maxdepth 1 -type d -mtime 0
 find . -maxdepth 1 -type d -mtime 2
 find . -not -group ankitpati
