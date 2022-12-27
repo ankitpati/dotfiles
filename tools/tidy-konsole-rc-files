@@ -7,5 +7,5 @@ mydir="$(dirname "$0")/"
 
 test "$#" -ne 0 && echo "Usage: $me" && exit 1
 
-tidy -mciq --sort-attributes alpha --indent-spaces 4 -w 150 -xml \
+tidy -mciq --sort-attributes alpha --indent-spaces 4 -w 150 -xml -- \
     "$mydir/../src/.local/share/kxmlgui5/konsole/"{konsoleui,sessionui}.rc
