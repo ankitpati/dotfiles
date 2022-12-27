@@ -354,6 +354,7 @@ brew install ssh-copy-id
 brew install sslscan
 brew install sslyze
 brew install staticcheck
+brew install steampipe
 brew install stylua
 brew install swift
 brew install tbls
@@ -467,7 +468,7 @@ command -v gnome-shell
 command ssh ssh.ankitpati.in
 convert ./*.jpg output.pdf
 copyq info
-cpan-outdated -p | xargs cpanm; echo $?; pip list --outdated --format=freeze | cut -d= -f1 | grep -Ev '^(GDAL|python-poppler-qt5|slip|wxPython)$' | xargs pip install --user -U; echo $?; mypy --install-types; echo $?; cargo install-update -a; echo $?; npm update -g; echo $?; sdk selfupdate; echo $?; sdk update; echo $?; for java_sdk in $(grep '^sdk install ' ~/.bash_history | cut -d' ' -f3 | sort -u); do sdk upgrade "$java_sdk"; done; find ~/.sdkman/ -type f \( -name '*.exe' -o -name '*.bat' \) -delete; vim +PlugUpgrade +PlugUpdate +qa; nvim +PlugUpgrade +PlugUpdate +qa; for codext in $(code --list-extensions); do code --install-extension "$codext" --force; done; echo $?; flutter upgrade; echo $?; flutter doctor -v; echo $?; gcloud components update; echo $?; tldr --update; echo $?
+cpan-outdated -p | xargs cpanm; echo $?; pip list --outdated --format=freeze | cut -d= -f1 | grep -Ev '^(GDAL|python-poppler-qt5|slip|wxPython)$' | xargs pip install --user -U; echo $?; mypy --install-types; echo $?; cargo install-update -a; echo $?; npm update -g; echo $?; sdk selfupdate; echo $?; sdk update; echo $?; for java_sdk in $(grep '^sdk install ' ~/.bash_history | cut -d' ' -f3 | sort -u); do sdk upgrade "$java_sdk"; done; find ~/.sdkman/ -type f \( -name '*.exe' -o -name '*.bat' \) -delete; vim +PlugUpgrade +PlugUpdate +qa; nvim +PlugUpgrade +PlugUpdate +qa; for codext in $(code --list-extensions); do code --install-extension "$codext" --force; done; echo $?; flutter upgrade; echo $?; flutter doctor -v; echo $?; gcloud components update; echo $?; steampipe plugin update --all; echo $?; tldr --update; echo $?
 cpanm --uninstall Term::ReadLine::Perl
 cpanm App::cpanoutdated
 cpanm Data::Printer
@@ -1653,6 +1654,7 @@ git show -U100
 git show -p ':^*.asc'
 git submodule add -b branch_name https://gitlab.com/ankitpati/rpg.git modules/ankitpati/rpg
 git submodule add https://github.com/ankitpati/rpg.git modules/ankitpati/rpg
+git submodule deinit -f submodule_directory/
 git submodule foreach --recursive git reset --hard
 git submodule update --init --recursive
 git tag -d tag_name
@@ -1848,6 +1850,7 @@ kubectl get namespaces default --output=json | jq '.metadata.labels."istio.io/da
 kubectl get node
 kubectl get node -o wide
 kubectl get nodes
+kubectl get nodes -A | grep -F v1.20. | cut -d' ' -f1 | xargs -L 1 kubectl describe node
 kubectl get poddisruptionbudgets.policy
 kubectl get pods
 kubectl get pods --context=kube-context
@@ -2374,6 +2377,10 @@ sslscan ankitpati.in:443
 sslyze ankitpati.in:443
 sss_cache -E
 stat -c '%w' filename
+steampipe plugin install aws
+steampipe plugin install gcp
+steampipe plugin list
+steampipe query
 strace -e open -o programname.strace programname programargs
 strace programname 2> programname.strace
 sudo bash -c 'apt update; apt-fast dist-upgrade -y; apt autoremove -y; apt clean; snap refresh; flatpak update; pkcon refresh force; pkcon update; fwupdmgr get-updates; fwupdmgr upgrade; chmod 0750 /usr/bin/nmap /usr/sbin/etherape; chown root:wireshark /usr/bin/nmap /usr/sbin/etherape; setcap cap_net_raw,cap_net_admin,cap_net_bind_service+eip /usr/bin/nmap cap_net_raw,cap_net_admin,cap_net_bind_service+eip /usr/sbin/etherape'
