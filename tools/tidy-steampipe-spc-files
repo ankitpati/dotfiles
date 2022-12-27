@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+me="$(basename "$0")"
+mydir="$(dirname "$0")/"
+
+if [[ $# -ne 0 ]]
+then
+    echo "Usage: $me"
+    exit 1
+fi
+
+mapfile -d '' spcfiles < <(find "$mydir/../src/" -type f -iname '*.spc' -print0)
+
+for spcfile in "${spcfiles[@]}"
+do
+    mv "$spcfile" "$spcfile.tf"
+    terraform fmt -- "$spcfile.tf"
+    mv "$spcfile.tf" "$spcfile"
+done
