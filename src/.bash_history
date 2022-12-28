@@ -254,6 +254,7 @@ brew install kubergrunt
 brew install kubesess
 brew install kubevious
 brew install lastpass-cli
+brew install lemmeknow
 brew install less
 brew install libressl
 brew install libtermkey
