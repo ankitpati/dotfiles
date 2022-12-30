@@ -1531,6 +1531,7 @@ find . -type d -empty -delete
 find . -type f -exec chmod 0600 {} + -exec dos2unix {} +
 find . -type f -exec mv -t /directory/ {} +
 find . -type f -exec perl -pi -E 's{#!\s*(?:/usr)?/bin/(?!env\b)(\S+)([ \t]*(?=\S))}{#!/usr/bin/env ${\($2 ? "-S " : "")}$1$2}' {} +
+find . -type f -name '*.expanded-csr' -exec openssl req -noout -text -in {} \; | grep -E '^\s+DNS:' | sed 's/, /\n/g' | cut -d: -f2- | sort -u | paste -sd,
 find . -type f -name '*.lastUpdated' -delete
 firewall-cmd --add-forward-port=port=443:proto=tcp:toport=8443
 firewall-cmd --add-masquerade
@@ -2029,9 +2030,11 @@ openssl pkey -aes128 -in openssl.key -text
 openssl rand -out 128_bit_key.dat 32
 openssl req -in request.csr -text -noout -verify
 openssl req -new -key openssl.key -out openssl.csr -config openssl.conf
+openssl req -noout -modulus -in filename.csr | sha512sum
 openssl req -x509 -days 36500 -new -key id_rsa -out id_rsa.x509
 openssl rsa -in openssl.key -pubout -out openssl.pub
 openssl rsa -in openssl.key -text -noout
+openssl rsa -noout -modulus -in filename.key | sha512sum
 openssl s_client -tls1_3 -auth_level 2 -connect 172.67.192.178:443 -servername ankitpati.in -verify_hostname ankitpati.in -verify_return_error
 openssl verify -CAfile fullchain.pem cert.pem
 openssl x509 -in ankitpati.pem -text
