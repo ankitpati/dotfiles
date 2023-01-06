@@ -98,6 +98,7 @@ brew install --cask p4v
 brew install --cask slack
 brew install --cask visual-studio-code
 brew install --cask webex-meetings
+brew install --cask zoom
 brew install ack
 brew install act
 brew install advancecomp
@@ -233,6 +234,7 @@ brew install irssi
 brew install isort
 brew install istioctl
 brew install ivy
+brew install jbang
 brew install jd
 brew install jfrog-cli
 brew install jless
@@ -282,6 +284,7 @@ brew install minikube
 brew install minio-mc
 brew install mist
 brew install mkcert
+brew install mongosh
 brew install moreutils
 brew install mosh
 brew install mprocs
@@ -1428,6 +1431,7 @@ docker run -it -e 'TERM=xterm-256color' --rm image_name
 docker run -it -v "$HOME/.inputrc:/root/.inputrc:ro" --rm image_name
 docker run -it -v "$HOME/.ssh:/root/.ssh" --rm image_name
 docker run -it -v "$HOME/Mounts/container-mount:/host-directory" --rm image_name
+docker run -p 27017:27017 -d mongo
 docker scan --accept-license --version
 docker scan --login --token "$(lpass show --password snyk_auth_token)"
 docker scan image_name
@@ -1647,6 +1651,7 @@ git log -p --author='contact@ankitpati.in'
 git merge --ff-only branchname
 git merge-base HEAD branchname
 git p4 clone //depot/directory@all --verbose
+git push ssh://github.com/ankitpati/rpg.git local_branch_name:master
 git remote -v | sed -E 's/ \((fetch|push)\)$//' | sort -u | while read -r remote_name remote_url; do remote_url="$(echo "$remote_url" | sed 's,^ssh://git@,ssh://,')"; git remote set-url "$remote_name" "$remote_url"; done
 git remote add origin https://github.com/ankitpati/rpg.git
 git restore filename
@@ -1953,9 +1958,8 @@ msfconsole
 msfdb stop
 mvn --encrypt-master-password 'maven-master-password'
 mvn --encrypt-password 'maven-server-password'
+mvn -U clean install -Ddependency-check.skip=true
 mvn -U dependency:tree
-mvn clean install
-mvn dependency:tree
 mypy --config-file ~/.mypy.ini
 namei -l "$(command -v perl6)"
 namei -om /bin/perl6
@@ -2327,6 +2331,7 @@ shfmt -w -s filename.bash
 skaffold help
 skopeo inspect docker://quay.io/ankitpati/tigress | jq .
 skopeo list-tags --override-arch amd64 --override-os linux docker://kindest/node | jq -r .Tags[] | sort -V
+skopeo list-tags docker://hashicorp/terraform | jq -r .Tags[] | while read -r tag; do skopeo inspect docker://hashicorp/terraform:"$tag" | jq -j '[.Created,.Labels."com.hashicorp.terraform.version"] | join(" ")'; echo " $tag"; done | sort -V
 skopeo list-tags docker://quay.io/ankitpati/tigress | jq -r .Tags[]
 skopeo sync --all --src docker --dest docker gcr.io/project_id/namespace/image_name quay.io/namespace/image_name
 skopeo sync --dry-run --all --src docker --dest docker gcr.io/project_id/namespace/image_name quay.io/namespace/image_name
