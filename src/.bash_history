@@ -252,6 +252,7 @@ brew install kube-linter
 brew install kube-score
 brew install kubecfg
 brew install kubecm
+brew install kubent
 brew install kubergrunt
 brew install kubesess
 brew install kubevious
@@ -1883,6 +1884,7 @@ kubectl rollout restart deployment deployment_name
 kubectl top pod
 kubectl top pod --containers
 kubectl version -o yaml | yq .
+kubent
 landscape --help
 latest-version asar
 latest-version spectron
@@ -2040,6 +2042,7 @@ openssl rsa -in openssl.key -pubout -out openssl.pub
 openssl rsa -in openssl.key -text -noout
 openssl rsa -noout -modulus -in filename.key | sha512sum
 openssl s_client -tls1_3 -auth_level 2 -connect 172.67.192.178:443 -servername ankitpati.in -verify_hostname ankitpati.in -verify_return_error
+openssl storeutl -noout -text -certs filename-bundle.crt | grep -E '^\s+(Subject|Issuer):' | sed 's/^.*CN=//'
 openssl verify -CAfile fullchain.pem cert.pem
 openssl x509 -in ankitpati.pem -text
 openssl x509 -in ankitpati.pem -text -noout
