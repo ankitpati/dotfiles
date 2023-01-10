@@ -129,7 +129,9 @@ brew install black
 brew install buf
 brew install byacc
 brew install bzip2
+brew install bzip3
 brew install c
+brew install cascadia
 brew install cdk8s
 brew install certigo
 brew install checkbashisms
@@ -213,6 +215,7 @@ brew install graphviz
 brew install grc
 brew install grep
 brew install groff
+brew install groovy
 brew install grpc
 brew install gzip
 brew install helm
@@ -1606,7 +1609,7 @@ gcloud config set compute/region us-west1
 gcloud config set compute/zone us-west1-a
 gcloud config set project project_id
 gcloud config unset project
-gcloud container clusters get-credentials cluster_name --region region_name --project project_id
+gcloud container clusters get-credentials cluster_name --region region_name --project project_id # appends to ~/.kube/config
 gcloud container get-server-config --format='yaml(defaultClusterVersion)'
 gcloud info
 gcloud projects get-iam-policy project_id
@@ -2029,8 +2032,10 @@ objdump -g elf-binary-filename
 objdump -r elf-binary-filename
 openfortivpn fortigate.ankitpati.in -u ankitpati -p SecretPassword -o 012345
 openssl asn1parse -in openssl.key
+openssl genpkey -algorithm Ed25519 -out root.key
 openssl genpkey -algorithm RSA -aes128 -out openssl.key
 openssl genrsa 2048 -out openssl.key
+openssl help x509 2>&1 | less
 openssl pkcs8 -in openssl.key | openssl pkcs8 -topk8 -v2 aes128 -out openssl.key
 openssl pkey -aes128 -in openssl.key -text
 openssl rand -out 128_bit_key.dat 32
