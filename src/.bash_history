@@ -172,6 +172,7 @@ brew install driftctl
 brew install dsq
 brew install dyld-headers
 brew install dylibbundler
+brew install ecoji
 brew install ed
 brew install eksctl
 brew install eslint
@@ -300,6 +301,7 @@ brew install neofetch
 brew install netcat
 brew install nmap
 brew install numdiff
+brew install ocm
 brew install ocrmypdf
 brew install octosql
 brew install onefetch
@@ -1465,6 +1467,7 @@ echo '{"dashed-key-name":{"12345":{"inner-dashed-key-name":"foo"},"12346":{"inne
 echo -n username:password | base64
 echo 0 | jq 'builtins'
 echo gcr.io | docker-credential-gcloud get | jq .
+ecoji -e <<<'hello, world' | ecoji -d
 ember build
 ember build --environment=production
 ember clean
@@ -1817,6 +1820,7 @@ kubectl -n kube-system delete configmap/kube-dns
 kubectl -n kube-system delete configmap/kube-dns-autoscaler
 kubectl -n kube-system scale deployment kube-dns-autoscaler --replicas=0
 kubectl -n kube-system scale deployment kube-dns-autoscaler --replicas=1
+kubectl -n namespace_name rollout restart deployment/deployment_name
 kubectl apply -f filename.yaml
 kubectl cluster-info
 kubectl cluster-info --context docker-desktop
@@ -1868,6 +1872,7 @@ kubectl get pods --context=kube-context
 kubectl get pods -A
 kubectl get pods -n istio-system -l app=istiod
 kubectl get services
+kubectl get services -A -o yaml | yq .items[].metadata.name | sort -V
 kubectl get svc -A
 kubectl get svc -n istio-system -l app=istiod
 kubectl get virtualservices.networking.istio.io virtual_service_name -n istio-system
