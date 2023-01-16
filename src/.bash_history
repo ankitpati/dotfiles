@@ -114,6 +114,7 @@ brew install astyle
 brew install atlas
 brew install automake
 brew install aws-cdk
+brew install aws-sam-cli
 brew install aws-shell
 brew install awscli
 brew install basex
