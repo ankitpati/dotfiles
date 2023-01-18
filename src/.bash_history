@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 ( GH_ORIGIN='origin'; PULL_REQUEST_ID='12345'; BRANCH_NAME='foo-bar'; git fetch "$GH_ORIGIN" "pull/$PULL_REQUEST_ID/head:$BRANCH_NAME" && git checkout "$BRANCH_NAME" )
 ( GH_ORIGIN='origin'; PULL_REQUEST_ID='12345'; git pull "$GH_ORIGIN" "pull/$PULL_REQUEST_ID/head" )
+( GH_USERNAME='ankitpati'; age -r "$(curl -H "Authorization: token $(lpass show --password github_personal_access_token)" "https://github.example.org/api/v3/users/$GH_USERNAME/keys" | jq -r .[0].key)" -o cipher.txt.age plain.txt )
 ( GIT_COMMITTER_NAME='Ankit Pati' GIT_COMMITTER_EMAIL='contact@ankitpati.in' git rebase branchname --exec 'git commit --amend --author="Ankit Pati <contact@ankitpati.in>" --no-edit' )
 ( LESS='-I' git log )
 ( filename=depot/directory/filename.pl; p4 sync "$filename#$(( "$(p4 have "$filename" | cut -d# -f2 | cut -d' ' -f1)" - 1 ))" )
@@ -40,8 +41,8 @@ adb uninstall com.markany.aegis.gt
 add-apt-repository multiverse
 add-apt-repository universe
 advzip --recompress -4 --iter 1000 filename.zip
-age --decrypt -i ~/.age/key.txt -o plain.txt cipher.txt.age
-age -R ~/.age/machine.recipient -o cipher.txt.age plain.txt
+age -R ~/.ssh/authorized_keys -o cipher.txt.age plain.txt
+age -d -i ~/.ssh/id_ed25519 -o plain.txt cipher.txt.age
 age-keygen -o ~/.age/key.txt
 apdot filename.dot -Tpng | timg -
 apktool d filename.apk
@@ -2395,7 +2396,7 @@ ssh-keygen -l -v -f ~/.ssh/id_ed25519
 ssh-keygen -l -v -f ~/.ssh/id_ed25519.pub
 ssh-keygen -t ed25519
 ssh-keygen -t ed25519 -P '' -f ~/.ssh/id_ed25519
-ssh-keygen -y -f ~/.ssh/id_ed25519
+ssh-keygen -y -f ~/.ssh/id_ed25519 > ~/.ssh/id_ed25519.pub
 sslscan ankitpati.in:443
 sslyze ankitpati.in:443
 sss_cache -E
