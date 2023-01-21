@@ -1697,6 +1697,7 @@ gpg2 --fingerprint contact@ankitpati.in
 gpg2 --full-generate-key
 gpg2 --import filename.asc
 gpg2 --keyid-format long --list-keys contact@ankitpati.in
+gpg2 --keyring ./filename.gpg --no-default-keyring --export -a > filename.asc
 gpg2 --list-keys --keyid-format long
 gpg2 --list-secret-keys
 gpg2 --locate-keys contact@ankitpati.in
