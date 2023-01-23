@@ -146,6 +146,7 @@ brew install click
 brew install clusterctl
 brew install cmake
 brew install cmctl
+brew install copa
 brew install coreutils
 brew install cscope
 brew install csvprintf
@@ -262,6 +263,7 @@ brew install kubent
 brew install kubergrunt
 brew install kubesess
 brew install kubevious
+brew install kwok
 brew install lastpass-cli
 brew install lemmeknow
 brew install less
@@ -316,6 +318,7 @@ brew install packer
 brew install php
 brew install pint
 brew install pip-completion
+brew install pipdeptree
 brew install pixie
 brew install plantuml
 brew install pluto
@@ -346,6 +349,7 @@ brew install rust
 brew install rustc-completion
 brew install scorecard
 brew install screen
+brew install scriptisto
 brew install semgrep
 brew install sha3sum
 brew install shellcheck
