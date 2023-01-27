@@ -2377,7 +2377,6 @@ snap warnings
 snyk auth
 snyk auth "$(lpass show --password snyk_auth_token)"
 snyk monitor
-softwareupdate -l; brew update; brew upgrade; while read -r brew_forced_version_formula; do ( mapfile -t <<<"$(brew formulae | grep "^$brew_forced_version_formula@" | sort -rV)"; echo "${MAPFILE[@]:1}" | xargs -n 1 brew uninstall --zap; brew install "${MAPFILE[0]}" ); done < ~/.brew_forced_version_formulae; cpan-outdated --exclude-core -p | xargs -r cpan; gcloud components update; tldr --update; grep -E '^docker run --pull always -it --rm [^- ]+$' ~/.bash_history | cut -d' ' -f7 | sort -u | while read -r docker_image; do docker pull "$docker_image"; done; for codext in $(code --list-extensions); do code --install-extension "$codext" --force; done; vim +PlugUpdate
 source ./.venv/bin/activate
 spctl developer-mode enable-terminal
 speedtest
