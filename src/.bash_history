@@ -98,7 +98,6 @@ brew install --cask p4
 brew install --cask p4v
 brew install --cask slack
 brew install --cask visual-studio-code
-brew install --cask webex-meetings
 brew install --cask zoom
 brew install ack
 brew install act
@@ -345,6 +344,7 @@ brew install rmlint
 brew install rpcgen
 brew install rpm
 brew install rsync
+brew install ruff
 brew install rust
 brew install rustc-completion
 brew install scorecard
@@ -433,7 +433,6 @@ brew livecheck kubernetes-cli
 brew missing
 brew reinstall --cask chromium
 brew reinstall --cask visual-studio-code
-brew reinstall --cask webex-meetings
 brew reinstall httpd
 brew search --fedora perl-Mojolicious
 brew search --ubuntu libmojolicious-perl
@@ -1769,6 +1768,7 @@ istioctl proxy-status
 istioctl proxy-status | grep "$(kubectl -n istio-system get pod -l app=istio-ingressgateway -o jsonpath='{.items..metadata.name}')"
 istioctl tag list
 istioctl tag set default --revision 1-16-0
+istioctl uninstall --purge
 istioctl uninstall --revision 1-16-0
 istioctl uninstall --revision default
 istioctl verify-install
@@ -2388,6 +2388,7 @@ sqlite3 filename.sqlite
 sqlite3 ~/Library/Containers/org.p0deje.Maccy/Data/Library/Application\ Support/Maccy/Storage.sqlite 'select group_concat(zvalue, char(10)) from zhistoryitemcontent where zvalue regexp "^[a-z0-9-_@.]+$"' | xargs brew info
 sqlite3_analyzer filename.sqlite
 src search 'context:global repo:^github\.com/ankitpati/rpg$ bitcount patternType:literal case:yes'
+src search 'type:repo tcount'
 ss -tulpn
 ssh -G ssh.ankitpati.in
 ssh -L 8080:/tmp/sockname.sock ssh.ankitpati.in
