@@ -20,6 +20,7 @@ enable=require-double-brackets
 
 disable=SC1090
 disable=SC1091
+disable=SC1112
 disable=SC2016
 disable=SC2139
 disable=SC2155
