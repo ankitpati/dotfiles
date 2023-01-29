@@ -196,33 +196,33 @@ add_brewed_items_to_env()
 
     if [[ $(id -u) != '0' ]]
     then
-    local oraclepath="$ORACLE_HOME"
-    test -d "$oraclepath" && extra_binaries="$oraclepath:$extra_binaries"
+        local oraclepath="$ORACLE_HOME"
+        test -d "$oraclepath" && extra_binaries="$oraclepath:$extra_binaries"
 
-    local oracledyldpath="$ORACLE_HOME"
-    test -d "$oracledyldpath" && extra_dyldpath="$oracledyldpath:$extra_dyldpath"
+        local oracledyldpath="$ORACLE_HOME"
+        test -d "$oracledyldpath" && extra_dyldpath="$oracledyldpath:$extra_dyldpath"
 
-    local oracleclaspath="$ORACLE_HOME"
-    test -d "$oracleclaspath" && extra_claspath="$oracleclaspath:$extra_claspath"
+        local oracleclaspath="$ORACLE_HOME"
+        test -d "$oracleclaspath" && extra_claspath="$oracleclaspath:$extra_claspath"
 
-    local flutterpath="$HOME/flutter/bin"
-    test -d "$flutterpath" && extra_binaries="$flutterpath:$extra_binaries"
+        local flutterpath="$HOME/flutter/bin"
+        test -d "$flutterpath" && extra_binaries="$flutterpath:$extra_binaries"
 
-    local pyenvpath="$HOME/.pyenv/bin"
-    test -d "$pyenvpath" && extra_binaries="$pyenvpath:$extra_binaries"
+        local pyenvpath="$HOME/.pyenv/bin"
+        test -d "$pyenvpath" && extra_binaries="$pyenvpath:$extra_binaries"
 
-    #local vctlpath="$HOME/.vctl/bin"
-    #test -d "$vctlpath" && extra_binaries="$vctlpath:$extra_binaries"
+        #local vctlpath="$HOME/.vctl/bin"
+        #test -d "$vctlpath" && extra_binaries="$vctlpath:$extra_binaries"
     fi
 
     # Clean and export the fruits of the above labour
     if [[ $(id -u) == '0' ]]
     then
-    local admin_user_home='/Users/ankitpati'
-    local extra_binaries="$admin_user_home/bin:$admin_user_home/.local/bin:$extra_binaries"
-    local extra_claspath="$admin_user_home/jar:$admin_user_home/.local/jar:$extra_claspath"
-    local extra_dyldpath="$admin_user_home/lib:$admin_user_home/.local/lib:$extra_dyldpath"
-    local extra_manpages="$admin_user_home/man:$admin_user_home/.local/share/man:$extra_manpages"
+        local admin_user_home='/Users/ankitpati'
+        local extra_binaries="$admin_user_home/bin:$admin_user_home/.local/bin:$extra_binaries"
+        local extra_claspath="$admin_user_home/jar:$admin_user_home/.local/jar:$extra_claspath"
+        local extra_dyldpath="$admin_user_home/lib:$admin_user_home/.local/lib:$extra_dyldpath"
+        local extra_manpages="$admin_user_home/man:$admin_user_home/.local/share/man:$extra_manpages"
     fi
 
     export CLASSPATH="$(sanitize_path "$extra_claspath:$CLASSPATH")"
@@ -234,11 +234,11 @@ add_brewed_items_to_env()
     # Google Cloud SDK
     if [[ $(id -u) != '0' ]]
     then
-    local gcloud_sdk="$brew_prefix/Caskroom/google-cloud-sdk/latest/google-cloud-sdk"
-    test -f "$gcloud_sdk/path.bash.inc" && \
-        source "$gcloud_sdk/path.bash.inc"
-    test -f "$gcloud_sdk/completion.bash.inc" && \
-        source "$gcloud_sdk/completion.bash.inc"
+        local gcloud_sdk="$brew_prefix/Caskroom/google-cloud-sdk/latest/google-cloud-sdk"
+        test -f "$gcloud_sdk/path.bash.inc" && \
+            source "$gcloud_sdk/path.bash.inc"
+        test -f "$gcloud_sdk/completion.bash.inc" && \
+            source "$gcloud_sdk/completion.bash.inc"
     fi
 
     # Completion for brewed binaries
@@ -251,13 +251,13 @@ main()
 {
     if [[ $(id -u) == '0' ]]
     then
-    # Clear out `$PATH` before sourcing `/etc/profile` for root.
-    #
-    # This is necessary because `sudo -i` on macOS doesn’t blank out `$PATH`;
-    # it passes it unchanged from the sudo’ing user to root.
-    #
-    # shellcheck disable=SC2123
-    PATH=''
+        # Clear out `$PATH` before sourcing `/etc/profile` for root.
+        #
+        # This is necessary because `sudo -i` on macOS doesn’t blank out `$PATH`;
+        # it passes it unchanged from the sudo’ing user to root.
+        #
+        # shellcheck disable=SC2123
+        PATH=''
     fi
 
     test -n "$BASHRC_MAIN_SOURCED" && \
@@ -385,47 +385,47 @@ main()
 
     if [[ $(id -u) != '0' ]]
     then
-    # pyenv
-    # shellcheck disable=SC2154
-    test -d "$PYENV_ROOT" && \
-        source <(pyenv init -)
+        # pyenv
+        # shellcheck disable=SC2154
+        test -d "$PYENV_ROOT" && \
+            source <(pyenv init -)
 
-    # Perlbrew
-    local perlbrew_bashrc="$HOME/perl5/perlbrew/etc/bashrc"
-    test -f "$perlbrew_bashrc" && \
-        source "$perlbrew_bashrc"
+        # Perlbrew
+        local perlbrew_bashrc="$HOME/perl5/perlbrew/etc/bashrc"
+        test -f "$perlbrew_bashrc" && \
+            source "$perlbrew_bashrc"
 
-    # Perl local::lib
-    export PATH="$(sanitize_path "$HOME/perl5/bin:$PATH")"
-    export MANPATH="$(sanitize_path "$HOME/perl5/man:$MANPATH")"
+        # Perl local::lib
+        export PATH="$(sanitize_path "$HOME/perl5/bin:$PATH")"
+        export MANPATH="$(sanitize_path "$HOME/perl5/man:$MANPATH")"
 
-    # Cargo
-    export PATH="$(sanitize_path "$HOME/.cargo/bin:$PATH")"
+        # Cargo
+        export PATH="$(sanitize_path "$HOME/.cargo/bin:$PATH")"
 
-    # Go
-    export PATH="$(sanitize_path "$HOME/go/bin:$PATH")"
+        # Go
+        export PATH="$(sanitize_path "$HOME/go/bin:$PATH")"
 
-    # Composer
-    export PATH="$(sanitize_path "$HOME/.composer/vendor/bin:$PATH")"
+        # Composer
+        export PATH="$(sanitize_path "$HOME/.composer/vendor/bin:$PATH")"
 
-    # NPM
-    #npm config set prefix "$NPM_PACKAGES"
-    export PATH="$(sanitize_path "$NPM_PACKAGES/bin:$PATH")"
+        # NPM
+        #npm config set prefix "$NPM_PACKAGES"
+        export PATH="$(sanitize_path "$NPM_PACKAGES/bin:$PATH")"
 
-    # SDKMAN!
-    local sdkman_init="$SDKMAN_DIR/bin/sdkman-init.sh"
-    test -f "$sdkman_init" && \
-        source "$sdkman_init"
+        # SDKMAN!
+        local sdkman_init="$SDKMAN_DIR/bin/sdkman-init.sh"
+        test -f "$sdkman_init" && \
+            source "$sdkman_init"
 
-    # Android
-    export PATH="$(sanitize_path "$HOME/Android/Sdk/platform-tools:$PATH")"
+        # Android
+        export PATH="$(sanitize_path "$HOME/Android/Sdk/platform-tools:$PATH")"
 
-    # User-installed tools
-    export CLASSPATH="$(sanitize_path "$HOME/jar:$HOME/.local/jar:$CLASSPATH")"
-    export DYLD_LIBRARY_PATH="$(sanitize_path "$HOME/lib:$HOME/.local/lib:$DYLD_LIBRARY_PATH")"
-    export MANPATH="$(sanitize_path "$HOME/man:$HOME/.local/share/man:$MANPATH")"
-    export PATH="$(sanitize_path "$HOME/bin:$HOME/.local/bin:$PATH")"
-    export PERL5LIB="$(sanitize_path "$HOME/lib/perl5:$HOME/.local/lib/perl5:$PERL5LIB")"
+        # User-installed tools
+        export CLASSPATH="$(sanitize_path "$HOME/jar:$HOME/.local/jar:$CLASSPATH")"
+        export DYLD_LIBRARY_PATH="$(sanitize_path "$HOME/lib:$HOME/.local/lib:$DYLD_LIBRARY_PATH")"
+        export MANPATH="$(sanitize_path "$HOME/man:$HOME/.local/share/man:$MANPATH")"
+        export PATH="$(sanitize_path "$HOME/bin:$HOME/.local/bin:$PATH")"
+        export PERL5LIB="$(sanitize_path "$HOME/lib/perl5:$HOME/.local/lib/perl5:$PERL5LIB")"
     fi
 
     # Colours for `tree`
