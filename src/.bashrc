@@ -370,8 +370,9 @@ main()
     export PERL_MM_OPT="INSTALL_BASE=$HOME/perl5"
 
     # Podman
+    # shellcheck disable=SC2154
     command -v podman &>/dev/null && \
-    export DOCKER_HOST="unix://$XDG_RUNTIME_DIR/podman/podman.sock"
+        export DOCKER_HOST="unix://$XDG_RUNTIME_DIR/podman/podman.sock"
 
     # No `man` Prompts on Namesake Pages
     export MAN_POSIXLY_CORRECT='1'
@@ -387,6 +388,7 @@ main()
     alias l='ls -CF'
     alias la='ls -A'
     alias ll='ls -alF'
+    # shellcheck disable=SC2262
     alias ls='ls --color=auto'
     alias mosh='exec mosh'
     alias ncdu='ncdu --color dark'
