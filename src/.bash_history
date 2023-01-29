@@ -523,8 +523,8 @@ curl 'https://example.org/untrustworthy.dat'; exec cat
 curl --connect-to example.org:80:localhost:8080 http://example.org
 curl --key openssl.key --cert openssl.crt https://mtls.example.org
 curl --resolve example.org:80:127.0.0.1 http://example.org
+curl -H "Authorization: token $(lpass show --password github_personal_access_token)" -o filename.pl https://github.example.org/raw/namespace/repo_name/branch_name/path/to/filename.pl
 curl -H "Authorization: token $(lpass show --password github_personal_access_token)" -o filename.pl https://raw.githubusercontent.com/namespace/repo_name/branch_name/path/to/filename.pl
-curl -H "Authorization: token $(lpass show --password github_personal_access_token)" https://raw.githubusercontent.com/namespace/private-repo/branch/directory/filename.c
 curl -s -w '\n%{time_total} - %{time_starttransfer}\n' https://httpbin.org/get | tail -n 1 | bc
 curl -sX POST -d '{"commit":"6879efc2c1596d11a6a6ad296f80063b558d5e0f"}' https://api.osv.dev/v1/query | jq .
 curl -sX POST -d '{"version":"2.4.1","package":{"name":"jinja2","ecosystem":"PyPI"}}' https://api.osv.dev/v1/query | jq .
@@ -1603,9 +1603,12 @@ gcloud cloud-shell ssh
 gcloud components install gke-gcloud-auth-plugin
 gcloud compute images list
 gcloud compute instances list --project=project_id --zones=us-east1-b,us-east1-c,us-east1-d --limit=5 --filter='name~instance_name' --format=json
+gcloud compute instances start --zone=us-east1-b instance_name
+gcloud compute instances stop --zone=us-east1-b instance_name
 gcloud compute networks list
 gcloud compute project-info describe --project=project_id
 gcloud compute regions describe us-east1 --project=project_id | yq .
+gcloud compute ssh --zone=us-east1-b --internal-ip instance_name
 gcloud compute zones list
 gcloud compute zones list --project=project_id
 gcloud config config-helper
@@ -1772,6 +1775,7 @@ istioctl uninstall --purge
 istioctl uninstall --revision 1-16-0
 istioctl uninstall --revision default
 istioctl verify-install
+istioctl version
 istioctl x precheck
 iw dev wlp2s0
 iw dev wlp2s0 info
@@ -1828,6 +1832,7 @@ kubectl -n kube-system delete configmap/kube-dns-autoscaler
 kubectl -n kube-system scale deployment kube-dns-autoscaler --replicas=0
 kubectl -n kube-system scale deployment kube-dns-autoscaler --replicas=1
 kubectl -n namespace_name rollout restart deployment/deployment_name
+kubectl api-resources
 kubectl apply -f filename.yaml
 kubectl cluster-info
 kubectl cluster-info --context docker-desktop
