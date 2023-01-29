@@ -370,9 +370,10 @@ main()
     export PERL_MM_OPT="INSTALL_BASE=$HOME/perl5"
 
     # Podman
-    # shellcheck disable=SC2154
-    command -v podman &>/dev/null && test -n "$XDG_RUNTIME_DIR" && \
+    if command -v podman &>/dev/null && [[ -n $XDG_RUNTIME_DIR ]]
+    then
         export DOCKER_HOST="unix://$XDG_RUNTIME_DIR/podman/podman.sock"
+    fi
 
     # No `man` Prompts on Namesake Pages
     export MAN_POSIXLY_CORRECT='1'
