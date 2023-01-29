@@ -44,9 +44,8 @@ B-clean-cache()
     echo 'Removing Maccy SQLite DB (only works if Maccy is not running)...'
     rm "$HOME/Library/Containers/org.p0deje.Maccy/Data/Library/Application Support/Maccy/Storage.sqlite"*
 
-    command -v qlmanage &>/dev/null && \
-        echo 'Removing the QuickLook Cache...' && \
-        qlmanage -r cache
+    echo 'Removing the QuickLook Cache...'
+    qlmanage -r cache
 
     # TODO: [macOS] find & vacuum/remove all NSPersistentContainer SQLite DBs
 
