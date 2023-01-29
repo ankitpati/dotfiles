@@ -266,8 +266,8 @@ main()
     then
         # Clear out `$PATH` before sourcing `/etc/profile` for root.
         #
-        # This is necessary because `sudo -i` on macOS doesn’t blank out `$PATH`;
-        # it passes it unchanged from the sudo’ing user to root.
+        # This is necessary because `sudo -i` on macOS doesn't blank out `$PATH`;
+        # it passes it unchanged from the sudo'ing user to root.
         #
         # shellcheck disable=SC2123
         PATH=''
