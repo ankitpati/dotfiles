@@ -371,7 +371,7 @@ main()
 
     # Podman
     # shellcheck disable=SC2154
-    command -v podman &>/dev/null && \
+    command -v podman &>/dev/null && test -n "$XDG_RUNTIME_DIR" && \
         export DOCKER_HOST="unix://$XDG_RUNTIME_DIR/podman/podman.sock"
 
     # No `man` Prompts on Namesake Pages
