@@ -83,181 +83,181 @@ add_brewed_items_to_env()
 
     if [[ $(uname -s) == 'Linux' ]]
     then
-    # Completion for brewed binaries
-    local completions_dir="$brew_prefix/etc/bash_completion.d"
-    local completion_file
-    test -x "$completions_dir" && \
-        for completion_file in "$completions_dir"/*
-        do
-            source "$completion_file"
-        done
+        # Completion for brewed binaries
+        local completions_dir="$brew_prefix/etc/bash_completion.d"
+        local completion_file
+        test -x "$completions_dir" && \
+            for completion_file in "$completions_dir"/*
+            do
+                source "$completion_file"
+            done
     elif [[ $(uname -s) == 'Darwin' ]]
     then
-    local brew_postgresql_latest_formula=("$(brew formulae | grep '^postgresql@' | sort -rV | head -n 1)")
-    test -z "${brew_postgresql_latest_formula[0]}" && \
-        brew_postgresql_latest_formula=()
+        local brew_postgresql_latest_formula=("$(brew formulae | grep '^postgresql@' | sort -rV | head -n 1)")
+        test -z "${brew_postgresql_latest_formula[0]}" && \
+            brew_postgresql_latest_formula=()
 
-    # Get the superior versions of common binaries
-    local extra_binaries=''
-    local extra_claspath=''
-    local extra_dyldpath=''
-    local extra_manpages=''
-    local extra_pkgpaths=''
+        # Get the superior versions of common binaries
+        local extra_binaries=''
+        local extra_claspath=''
+        local extra_dyldpath=''
+        local extra_manpages=''
+        local extra_pkgpaths=''
 
-    # Keep more important items after less important ones
-    local gnuitem
-    for gnuitem in \
-        wildfly-as \
-        artifactory \
-        swift \
-        sphinx-doc \
-        jpeg-turbo \
-        sqlite \
-        icu4c \
-        openldap \
-        cython \
-        opencolorio \
-        "${brew_postgresql_latest_formula[@]}" \
-        libxml2 \
-        texinfo \
-        apr-util \
-        apr \
-        libarchive \
-        mozjpeg \
-        libxslt \
-        subversion \
-        expat \
-        ruby \
-        ssh-copy-id \
-        bzip2 \
-        unzip \
-        zip \
-        file-formula \
-        krb5 \
-        qt \
-        libpcap \
-        e2fsprogs \
-        gnu-which \
-        gnu-indent \
-        gnu-units \
-        gnu-time \
-        gnu-sed \
-        gnu-tar \
-        openssl \
-        gnu-getopt \
-        gettext \
-        ncurses \
-        libtool \
-        rpcgen \
-        unifdef \
-        flex \
-        bison \
-        curl \
-        bc \
-        make \
-        grep \
-        ed \
-        m4 \
-        man-db \
-        gcc \
-        lsof \
-        util-linux \
-        inetutils \
-        binutils \
-        findutils \
-        coreutils \
-    ;
-    do
-        # BSD-shadowing versions of g-prefixed items
-        local gnupath="$brew_prefix/opt/$gnuitem/libexec/gnubin"
-        test -d "$gnupath" && extra_binaries="$gnupath:$extra_binaries"
+        # Keep more important items after less important ones
+        local gnuitem
+        for gnuitem in \
+            wildfly-as \
+            artifactory \
+            swift \
+            sphinx-doc \
+            jpeg-turbo \
+            sqlite \
+            icu4c \
+            openldap \
+            cython \
+            opencolorio \
+            "${brew_postgresql_latest_formula[@]}" \
+            libxml2 \
+            texinfo \
+            apr-util \
+            apr \
+            libarchive \
+            mozjpeg \
+            libxslt \
+            subversion \
+            expat \
+            ruby \
+            ssh-copy-id \
+            bzip2 \
+            unzip \
+            zip \
+            file-formula \
+            krb5 \
+            qt \
+            libpcap \
+            e2fsprogs \
+            gnu-which \
+            gnu-indent \
+            gnu-units \
+            gnu-time \
+            gnu-sed \
+            gnu-tar \
+            openssl \
+            gnu-getopt \
+            gettext \
+            ncurses \
+            libtool \
+            rpcgen \
+            unifdef \
+            flex \
+            bison \
+            curl \
+            bc \
+            make \
+            grep \
+            ed \
+            m4 \
+            man-db \
+            gcc \
+            lsof \
+            util-linux \
+            inetutils \
+            binutils \
+            findutils \
+            coreutils \
+        ;
+        do
+            # BSD-shadowing versions of g-prefixed items
+            local gnupath="$brew_prefix/opt/$gnuitem/libexec/gnubin"
+            test -d "$gnupath" && extra_binaries="$gnupath:$extra_binaries"
 
-        # Some items prefer not to use `gnu` in their paths
-        local gnupath="$brew_prefix/opt/$gnuitem/libexec/bin"
-        test -d "$gnupath" && extra_binaries="$gnupath:$extra_binaries"
+            # Some items prefer not to use `gnu` in their paths
+            local gnupath="$brew_prefix/opt/$gnuitem/libexec/bin"
+            test -d "$gnupath" && extra_binaries="$gnupath:$extra_binaries"
 
-        # Some items, especially the non-g-prefixed ones, require different paths
-        local gnupath="$brew_prefix/opt/$gnuitem/bin"
-        test -d "$gnupath" && extra_binaries="$gnupath:$extra_binaries"
+            # Some items, especially the non-g-prefixed ones, require different paths
+            local gnupath="$brew_prefix/opt/$gnuitem/bin"
+            test -d "$gnupath" && extra_binaries="$gnupath:$extra_binaries"
 
-        # Some items install sbins
-        local gnupath="$brew_prefix/opt/$gnuitem/sbin"
-        test -d "$gnupath" && extra_binaries="$gnupath:$extra_binaries"
+            # Some items install sbins
+            local gnupath="$brew_prefix/opt/$gnuitem/sbin"
+            test -d "$gnupath" && extra_binaries="$gnupath:$extra_binaries"
 
-        # manpages for the commands
-        local manpath="$brew_prefix/opt/$gnuitem/libexec/gnuman"
-        test -d "$manpath" && extra_manpages="$manpath:$extra_manpages"
+            # manpages for the commands
+            local manpath="$brew_prefix/opt/$gnuitem/libexec/gnuman"
+            test -d "$manpath" && extra_manpages="$manpath:$extra_manpages"
 
-        # Different standards for different packages
-        local manpath="$brew_prefix/opt/$gnuitem/libexec/man"
-        test -d "$manpath" && extra_manpages="$manpath:$extra_manpages"
+            # Different standards for different packages
+            local manpath="$brew_prefix/opt/$gnuitem/libexec/man"
+            test -d "$manpath" && extra_manpages="$manpath:$extra_manpages"
 
-        # Some manpages are at a different location
-        local manpath="$brew_prefix/opt/$gnuitem/share/man"
-        test -d "$manpath" && extra_manpages="$manpath:$extra_manpages"
+            # Some manpages are at a different location
+            local manpath="$brew_prefix/opt/$gnuitem/share/man"
+            test -d "$manpath" && extra_manpages="$manpath:$extra_manpages"
 
-        # pkg-config for some tools
-        local pkgpath="$brew_prefix/opt/$gnuitem/lib/pkgconfig"
-        test -d "$pkgpath" && extra_pkgpaths="$pkgpath:$extra_pkgpaths"
-    done
+            # pkg-config for some tools
+            local pkgpath="$brew_prefix/opt/$gnuitem/lib/pkgconfig"
+            test -d "$pkgpath" && extra_pkgpaths="$pkgpath:$extra_pkgpaths"
+        done
 
-    local brewbinpath="$brew_prefix/bin"
-    test -d "$brewbinpath" && extra_binaries="$brewbinpath:$extra_binaries"
+        local brewbinpath="$brew_prefix/bin"
+        test -d "$brewbinpath" && extra_binaries="$brewbinpath:$extra_binaries"
 
-    local brewsbinpath="$brew_prefix/sbin"
-    test -d "$brewsbinpath" && extra_binaries="$brewsbinpath:$extra_binaries"
+        local brewsbinpath="$brew_prefix/sbin"
+        test -d "$brewsbinpath" && extra_binaries="$brewsbinpath:$extra_binaries"
 
-    if [[ $(id -u) != '0' ]]
-    then
-    local oraclepath="$ORACLE_HOME"
-    test -d "$oraclepath" && extra_binaries="$oraclepath:$extra_binaries"
+        if [[ $(id -u) != '0' ]]
+        then
+            local oraclepath="$ORACLE_HOME"
+            test -d "$oraclepath" && extra_binaries="$oraclepath:$extra_binaries"
 
-    local oracledyldpath="$ORACLE_HOME"
-    test -d "$oracledyldpath" && extra_dyldpath="$oracledyldpath:$extra_dyldpath"
+            local oracledyldpath="$ORACLE_HOME"
+            test -d "$oracledyldpath" && extra_dyldpath="$oracledyldpath:$extra_dyldpath"
 
-    local oracleclaspath="$ORACLE_HOME"
-    test -d "$oracleclaspath" && extra_claspath="$oracleclaspath:$extra_claspath"
+            local oracleclaspath="$ORACLE_HOME"
+            test -d "$oracleclaspath" && extra_claspath="$oracleclaspath:$extra_claspath"
 
-    local flutterpath="$HOME/flutter/bin"
-    test -d "$flutterpath" && extra_binaries="$flutterpath:$extra_binaries"
+            local flutterpath="$HOME/flutter/bin"
+            test -d "$flutterpath" && extra_binaries="$flutterpath:$extra_binaries"
 
-    local pyenvpath="$HOME/.pyenv/bin"
-    test -d "$pyenvpath" && extra_binaries="$pyenvpath:$extra_binaries"
+            local pyenvpath="$HOME/.pyenv/bin"
+            test -d "$pyenvpath" && extra_binaries="$pyenvpath:$extra_binaries"
 
-    #local vctlpath="$HOME/.vctl/bin"
-    #test -d "$vctlpath" && extra_binaries="$vctlpath:$extra_binaries"
-    fi
+            #local vctlpath="$HOME/.vctl/bin"
+            #test -d "$vctlpath" && extra_binaries="$vctlpath:$extra_binaries"
+        fi
 
-    # Clean and export the fruits of the above labour
-    if [[ $(id -u) == '0' ]]
-    then
-    local admin_user_home='/Users/ankitpati'
-    local extra_binaries="$admin_user_home/bin:$admin_user_home/.local/bin:$extra_binaries"
-    local extra_claspath="$admin_user_home/jar:$admin_user_home/.local/jar:$extra_claspath"
-    local extra_dyldpath="$admin_user_home/lib:$admin_user_home/.local/lib:$extra_dyldpath"
-    local extra_manpages="$admin_user_home/man:$admin_user_home/.local/share/man:$extra_manpages"
-    fi
+        # Clean and export the fruits of the above labour
+        if [[ $(id -u) == '0' ]]
+        then
+            local admin_user_home='/Users/ankitpati'
+            local extra_binaries="$admin_user_home/bin:$admin_user_home/.local/bin:$extra_binaries"
+            local extra_claspath="$admin_user_home/jar:$admin_user_home/.local/jar:$extra_claspath"
+            local extra_dyldpath="$admin_user_home/lib:$admin_user_home/.local/lib:$extra_dyldpath"
+            local extra_manpages="$admin_user_home/man:$admin_user_home/.local/share/man:$extra_manpages"
+        fi
 
-    export CLASSPATH="$(sanitize_path "$extra_claspath:$CLASSPATH")"
-    export DYLD_LIBRARY_PATH="$(sanitize_path "$extra_dyldpath:$DYLD_LIBRARY_PATH")"
-    export MANPATH="$(sanitize_path "$extra_manpages:$MANPATH")"
-    export PATH="$(sanitize_path "$extra_binaries:$PATH")"
-    export PKG_CONFIG_PATH="$(sanitize_path "$extra_pkgpaths:$PKG_CONFIG_PATH")"
+        export CLASSPATH="$(sanitize_path "$extra_claspath:$CLASSPATH")"
+        export DYLD_LIBRARY_PATH="$(sanitize_path "$extra_dyldpath:$DYLD_LIBRARY_PATH")"
+        export MANPATH="$(sanitize_path "$extra_manpages:$MANPATH")"
+        export PATH="$(sanitize_path "$extra_binaries:$PATH")"
+        export PKG_CONFIG_PATH="$(sanitize_path "$extra_pkgpaths:$PKG_CONFIG_PATH")"
 
-    # Google Cloud SDK
-    if [[ $(id -u) != '0' ]]
-    then
-    local gcloud_sdk="$brew_prefix/Caskroom/google-cloud-sdk/latest/google-cloud-sdk"
-    test -f "$gcloud_sdk/path.bash.inc" && \
-        source "$gcloud_sdk/path.bash.inc"
-    test -f "$gcloud_sdk/completion.bash.inc" && \
-        source "$gcloud_sdk/completion.bash.inc"
-    fi
+        # Google Cloud SDK
+        if [[ $(id -u) != '0' ]]
+        then
+            local gcloud_sdk="$brew_prefix/Caskroom/google-cloud-sdk/latest/google-cloud-sdk"
+            test -f "$gcloud_sdk/path.bash.inc" && \
+                source "$gcloud_sdk/path.bash.inc"
+            test -f "$gcloud_sdk/completion.bash.inc" && \
+                source "$gcloud_sdk/completion.bash.inc"
+        fi
 
-    # Completion for brewed binaries
-    local completion_file="$brew_prefix/etc/profile.d/bash_completion.sh"
-    test -f "$completion_file" && \
-        source "$completion_file"
+        # Completion for brewed binaries
+        local completion_file="$brew_prefix/etc/profile.d/bash_completion.sh"
+        test -f "$completion_file" && \
+            source "$completion_file"
     fi
 }
 
@@ -265,13 +265,13 @@ main()
 {
     if [[ $(uname -s) == 'Darwin' && $(id -u) == '0' ]]
     then
-    # Clear out `$PATH` before sourcing `/etc/profile` for root.
-    #
-    # This is necessary because `sudo -i` on macOS doesn’t blank out `$PATH`;
-    # it passes it unchanged from the sudo’ing user to root.
-    #
-    # shellcheck disable=SC2123
-    PATH=''
+        # Clear out `$PATH` before sourcing `/etc/profile` for root.
+        #
+        # This is necessary because `sudo -i` on macOS doesn’t blank out `$PATH`;
+        # it passes it unchanged from the sudo’ing user to root.
+        #
+        # shellcheck disable=SC2123
+        PATH=''
     fi
 
     test -n "$BASHRC_MAIN_SOURCED" && \
@@ -290,7 +290,7 @@ main()
 
     if [[ $(uname -s) == 'Linux' ]]
     then
-    export PATH="$(sanitize_path "/home/linuxbrew/.linuxbrew/bin:$PATH")"
+        export PATH="$(sanitize_path "/home/linuxbrew/.linuxbrew/bin:$PATH")"
     fi
 
     local brew_prefix="$(command -v brew &>/dev/null && brew --prefix)"
@@ -408,56 +408,56 @@ main()
 
     if [[ $(id -u) != '0' ]]
     then
-    # pyenv
-    # shellcheck disable=SC2154
-    test -d "$PYENV_ROOT" && \
-        source <(pyenv init -)
+        # pyenv
+        # shellcheck disable=SC2154
+        test -d "$PYENV_ROOT" && \
+            source <(pyenv init -)
 
-    # Perlbrew
-    local perlbrew_bashrc="$HOME/perl5/perlbrew/etc/bashrc"
-    test -f "$perlbrew_bashrc" && \
-        source "$perlbrew_bashrc"
+        # Perlbrew
+        local perlbrew_bashrc="$HOME/perl5/perlbrew/etc/bashrc"
+        test -f "$perlbrew_bashrc" && \
+            source "$perlbrew_bashrc"
 
-    # Perl local::lib
-    export PATH="$(sanitize_path "$HOME/perl5/bin:$PATH")"
-    export MANPATH="$(sanitize_path "$HOME/perl5/man:$MANPATH")"
+        # Perl local::lib
+        export PATH="$(sanitize_path "$HOME/perl5/bin:$PATH")"
+        export MANPATH="$(sanitize_path "$HOME/perl5/man:$MANPATH")"
 
-    # Cargo
-    export PATH="$(sanitize_path "$HOME/.cargo/bin:$PATH")"
+        # Cargo
+        export PATH="$(sanitize_path "$HOME/.cargo/bin:$PATH")"
 
-    # Go
-    export PATH="$(sanitize_path "$HOME/go/bin:$PATH")"
+        # Go
+        export PATH="$(sanitize_path "$HOME/go/bin:$PATH")"
 
-    # Composer
-    export PATH="$(sanitize_path "$HOME/.composer/vendor/bin:$PATH")"
+        # Composer
+        export PATH="$(sanitize_path "$HOME/.composer/vendor/bin:$PATH")"
 
-    # NPM
-    #npm config set prefix "$NPM_PACKAGES"
-    export PATH="$(sanitize_path "$NPM_PACKAGES/bin:$PATH")"
+        # NPM
+        #npm config set prefix "$NPM_PACKAGES"
+        export PATH="$(sanitize_path "$NPM_PACKAGES/bin:$PATH")"
 
-    # SDKMAN!
-    local sdkman_init="$SDKMAN_DIR/bin/sdkman-init.sh"
-    test -f "$sdkman_init" && \
-        source "$sdkman_init"
+        # SDKMAN!
+        local sdkman_init="$SDKMAN_DIR/bin/sdkman-init.sh"
+        test -f "$sdkman_init" && \
+            source "$sdkman_init"
 
-    # Ruby
-    local ruby_gems="$HOME/.local/share/gem/ruby"
-    # shellcheck disable=2012,2263
-    test -n "$(ls "$ruby_gems" 2>/dev/null)" && \
-        export PATH="$(sanitize_path "$ruby_gems/$(ls -vr "$ruby_gems" | head -1)/bin:$PATH")"
+        # Ruby
+        local ruby_gems="$HOME/.local/share/gem/ruby"
+        # shellcheck disable=2012,2263
+        test -n "$(ls "$ruby_gems" 2>/dev/null)" && \
+            export PATH="$(sanitize_path "$ruby_gems/$(ls -vr "$ruby_gems" | head -1)/bin:$PATH")"
 
-    # Android
-    export PATH="$(sanitize_path "$HOME/Android/Sdk/platform-tools:$PATH")"
+        # Android
+        export PATH="$(sanitize_path "$HOME/Android/Sdk/platform-tools:$PATH")"
 
-    # User-installed tools
-    export CLASSPATH="$(sanitize_path "$HOME/jar:$HOME/.local/jar:$CLASSPATH")"
-    if [[ $(uname -s) == 'Darwin' ]]
-    then
-    export DYLD_LIBRARY_PATH="$(sanitize_path "$HOME/lib:$HOME/.local/lib:$DYLD_LIBRARY_PATH")"
-    fi
-    export MANPATH="$(sanitize_path "$HOME/man:$HOME/.local/share/man:$MANPATH")"
-    export PATH="$(sanitize_path "$HOME/bin:$HOME/.local/bin:$PATH")"
-    export PERL5LIB="$(sanitize_path "$HOME/lib/perl5:$HOME/.local/lib/perl5:$PERL5LIB")"
+        # User-installed tools
+        export CLASSPATH="$(sanitize_path "$HOME/jar:$HOME/.local/jar:$CLASSPATH")"
+        if [[ $(uname -s) == 'Darwin' ]]
+        then
+            export DYLD_LIBRARY_PATH="$(sanitize_path "$HOME/lib:$HOME/.local/lib:$DYLD_LIBRARY_PATH")"
+        fi
+        export MANPATH="$(sanitize_path "$HOME/man:$HOME/.local/share/man:$MANPATH")"
+        export PATH="$(sanitize_path "$HOME/bin:$HOME/.local/bin:$PATH")"
+        export PERL5LIB="$(sanitize_path "$HOME/lib/perl5:$HOME/.local/lib/perl5:$PERL5LIB")"
     fi
 
     # Colours for `tree`
