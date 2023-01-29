@@ -194,6 +194,8 @@ add_brewed_items_to_env()
     local brewsbinpath="$brew_prefix/sbin"
     test -d "$brewsbinpath" && extra_binaries="$brewsbinpath:$extra_binaries"
 
+    if [[ $(id -u) != '0' ]]
+    then
     local oraclepath="$ORACLE_HOME"
     test -d "$oraclepath" && extra_binaries="$oraclepath:$extra_binaries"
 
@@ -211,8 +213,18 @@ add_brewed_items_to_env()
 
     #local vctlpath="$HOME/.vctl/bin"
     #test -d "$vctlpath" && extra_binaries="$vctlpath:$extra_binaries"
+    fi
 
     # Clean and export the fruits of the above labour
+    if [[ $(id -u) == '0' ]]
+    then
+    local admin_user_home='/Users/ankitpati'
+    local extra_binaries="$admin_user_home/bin:$admin_user_home/.local/bin:$extra_binaries"
+    local extra_claspath="$admin_user_home/jar:$admin_user_home/.local/jar:$extra_claspath"
+    local extra_dyldpath="$admin_user_home/lib:$admin_user_home/.local/lib:$extra_dyldpath"
+    local extra_manpages="$admin_user_home/man:$admin_user_home/.local/share/man:$extra_manpages"
+    fi
+
     export CLASSPATH="$(sanitize_path "$extra_claspath:$CLASSPATH")"
     export DYLD_LIBRARY_PATH="$(sanitize_path "$extra_dyldpath:$DYLD_LIBRARY_PATH")"
     export MANPATH="$(sanitize_path "$extra_manpages:$MANPATH")"
@@ -220,11 +232,14 @@ add_brewed_items_to_env()
     export PKG_CONFIG_PATH="$(sanitize_path "$extra_pkgpaths:$PKG_CONFIG_PATH")"
 
     # Google Cloud SDK
+    if [[ $(id -u) != '0' ]]
+    then
     local gcloud_sdk="$brew_prefix/Caskroom/google-cloud-sdk/latest/google-cloud-sdk"
     test -f "$gcloud_sdk/path.bash.inc" && \
         source "$gcloud_sdk/path.bash.inc"
     test -f "$gcloud_sdk/completion.bash.inc" && \
         source "$gcloud_sdk/completion.bash.inc"
+    fi
 
     # Completion for brewed binaries
     local completion_file="$brew_prefix/etc/profile.d/bash_completion.sh"
@@ -234,6 +249,17 @@ add_brewed_items_to_env()
 
 main()
 {
+    if [[ $(id -u) == '0' ]]
+    then
+    # Clear out `$PATH` before sourcing `/etc/profile` for root.
+    #
+    # This is necessary because `sudo -i` on macOS doesn’t blank out `$PATH`;
+    # it passes it unchanged from the sudo’ing user to root.
+    #
+    # shellcheck disable=SC2123
+    PATH=''
+    fi
+
     test -n "$BASHRC_MAIN_SOURCED" && \
         return 0
 
@@ -357,6 +383,8 @@ main()
     # Bash
     export -f sanitize_path
 
+    if [[ $(id -u) != '0' ]]
+    then
     # pyenv
     # shellcheck disable=SC2154
     test -d "$PYENV_ROOT" && \
@@ -398,6 +426,7 @@ main()
     export MANPATH="$(sanitize_path "$HOME/man:$HOME/.local/share/man:$MANPATH")"
     export PATH="$(sanitize_path "$HOME/bin:$HOME/.local/bin:$PATH")"
     export PERL5LIB="$(sanitize_path "$HOME/lib/perl5:$HOME/.local/lib/perl5:$PERL5LIB")"
+    fi
 
     # Colours for `tree`
     source <(dircolors -b)
