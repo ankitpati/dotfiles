@@ -2073,6 +2073,7 @@ optipng -o7 filename.png
 osascript -e 'id of app "Visual Studio Code"'
 ovsx create-namespace ankitpati --pat SecretPersonalAccessToken
 ovsx publish --pat SecretPersonalAccessToken
+p4 --field Root=/path/to/old/workspace client -o | p4 client -i; mv /path/to/new/workspace /path/to/old/workspace
 p4 change -o 12345
 p4 changes -c client_name -l
 p4 changes -e 12345 filename | cut -d' ' -f2 | xargs p4 describe -du5 | delta
@@ -2145,6 +2146,7 @@ p4 shelve //depot/...
 p4 sizes -sh //depot/directory/...
 p4 status
 p4 submit -c 12345
+p4 sync
 p4 sync //depot/directory/...
 p4 sync //depot/directory/...#none
 p4 sync //depot/directory/filename
