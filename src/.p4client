@@ -1,0 +1,15 @@
+Client: boron_workstation
+
+Owner: ankitpati
+
+Root: /home/ankitpati/perforce
+
+Options: noallwrite noclobber nocompress locked nomodtime rmdir
+
+SubmitOptions: submitunchanged
+
+LineEnd: unix
+
+View:
+    //depot/directory/... //boron_workstation/depot/directory/...
+    //depot/directory/filename.c //boron_workstation/depot/directory/filename.c
