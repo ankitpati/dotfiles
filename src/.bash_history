@@ -164,7 +164,6 @@ brew install difftastic
 brew install diffutils
 brew install dnscontrol
 brew install dnstracer
-brew install docker-completion
 brew install docker-slim
 brew install dockviz
 brew install doggo
@@ -533,6 +532,7 @@ curl http://localhost:8001 | jq -r '.["paths"][]' | while read -r k8s_api_endpoi
 curl https://ankitpati.in/gpg.asc -o /etc/apt/trusted.gpg.d/ankitpati.asc
 curl https://apt.ankitpati.in/ankitpati.list -o /etc/apt/sources.list.d/ankitpati.list
 curl https://github.com/web-flow.gpg | gpg --import
+curl https://gitlab.com/api/v4/users/ankitpati/projects | jq -r --arg random_index $((RANDOM % 13)) '.[$random_index | tonumber]'
 curl https://ident.me; echo; exec cat
 dart --disable-analytics
 date +%F
