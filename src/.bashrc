@@ -173,33 +173,19 @@ add_brewed_items_to_env()
             coreutils \
         ;
         do
-            # BSD-shadowing versions of g-prefixed items
-            local gnupath="$brew_prefix/opt/$gnuitem/libexec/gnubin"
-            if [[ -d $gnupath ]]
-            then
-                extra_binaries="$gnupath:$extra_binaries"
-            fi
-
-            # Some items prefer not to use `gnu` in their paths
-            local gnupath="$brew_prefix/opt/$gnuitem/libexec/bin"
-            if [[ -d $gnupath ]]
-            then
-                extra_binaries="$gnupath:$extra_binaries"
-            fi
-
-            # Some items, especially the non-g-prefixed ones, require different paths
-            local gnupath="$brew_prefix/opt/$gnuitem/bin"
-            if [[ -d $gnupath ]]
-            then
-                extra_binaries="$gnupath:$extra_binaries"
-            fi
-
-            # Some items install sbins
-            local gnupath="$brew_prefix/opt/$gnuitem/sbin"
-            if [[ -d $gnupath ]]
-            then
-                extra_binaries="$gnupath:$extra_binaries"
-            fi
+            local gnusubpath
+            for gnusubpath in {libexec/{gnu,},,s}bin
+                # 1. BSD-shadowing versions of g-prefixed items
+                # 2. Items not using `gnu` in their paths
+                # 3. Items requiring different paths (especially non-g-prefixed ones)
+                # 4. Items installing sbins
+            do
+                local gnupath="$brew_prefix/opt/$gnuitem/$gnusubpath"
+                if [[ -d $gnupath ]]
+                then
+                    extra_binaries="$gnupath:$extra_binaries"
+                fi
+            done
 
             # manpages for the commands
             local manpath="$brew_prefix/opt/$gnuitem/libexec/gnuman"
