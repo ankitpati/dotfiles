@@ -329,7 +329,6 @@ main()
     # Source global definitions
     local global_profile='/etc/profile'
     # `$PROFILEREAD` is openSUSE-specific at the time of writing.
-    # shellcheck disable=SC2154
     if [[ -z $PROFILEREAD && -f $global_profile ]]
     then
         source "$global_profile"
@@ -434,7 +433,6 @@ main()
     alias chomp='perl -pi -E "chomp if eof"'
     alias cpan-outdated='cpan-outdated --mirror="$PERLBREW_CPAN_MIRROR"'
     alias git-sh='exec git-sh'
-    # shellcheck disable=SC2262
     alias grep='grep --color=auto'
     alias grepp='grep -P'
     alias l.='ls -d .*'
@@ -463,7 +461,6 @@ main()
     if [[ $(id -u) != '0' ]]
     then
         # pyenv
-        # shellcheck disable=SC2154
         if [[ -d $PYENV_ROOT ]]
         then
             source <(pyenv init -)
@@ -502,9 +499,9 @@ main()
 
         # Ruby
         local ruby_gems="$HOME/.local/share/gem/ruby"
-        # shellcheck disable=2012,2263
         if [[ -n $(ls "$ruby_gems" 2>/dev/null) ]]
         then
+            # shellcheck disable=2012
             export PATH="$(sanitize_path "$ruby_gems/$(ls -vr "$ruby_gems" | head -1)/bin:$PATH")"
         fi
 
