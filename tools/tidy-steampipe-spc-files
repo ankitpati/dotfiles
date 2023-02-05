@@ -5,9 +5,9 @@ set -euo pipefail
 me="$(basename "$0")"
 mydir="$(dirname "$0")/"
 
-if [[ $# -ne 0 ]]
+if (($# != 0))
 then
-    echo "Usage: $me"
+    printf 'Usage: %s\n' "$me"
     exit 1
 fi
 
