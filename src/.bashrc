@@ -77,24 +77,30 @@ B-oldbin()
 
 add_brewed_items_to_env()
 {
-    test -z "$brew_prefix" && \
+    if [[ -z $brew_prefix ]]
+    then
         return
+    fi
 
     if [[ $(uname -s) == 'Linux' ]]
     then
         # Completion for brewed binaries
         local completions_dir="$brew_prefix/etc/bash_completion.d"
         local completion_file
-        test -x "$completions_dir" && \
+        if [[ -x $completions_dir ]]
+        then
             for completion_file in "$completions_dir"/*
             do
                 source "$completion_file"
             done
+        fi
     elif [[ $(uname -s) == 'Darwin' ]]
     then
         local brew_postgresql_latest_formula=("$(brew formulae | grep '^postgresql@' | sort -rV | head -n 1)")
-        test -z "${brew_postgresql_latest_formula[0]}" && \
+        if [[ -z ${brew_postgresql_latest_formula[0]} ]]
+        then
             brew_postgresql_latest_formula=()
+        fi
 
         # Get the superior versions of common binaries
         local extra_binaries=''
@@ -169,62 +175,110 @@ add_brewed_items_to_env()
         do
             # BSD-shadowing versions of g-prefixed items
             local gnupath="$brew_prefix/opt/$gnuitem/libexec/gnubin"
-            test -d "$gnupath" && extra_binaries="$gnupath:$extra_binaries"
+            if [[ -d $gnupath ]]
+            then
+                extra_binaries="$gnupath:$extra_binaries"
+            fi
 
             # Some items prefer not to use `gnu` in their paths
             local gnupath="$brew_prefix/opt/$gnuitem/libexec/bin"
-            test -d "$gnupath" && extra_binaries="$gnupath:$extra_binaries"
+            if [[ -d $gnupath ]]
+            then
+                extra_binaries="$gnupath:$extra_binaries"
+            fi
 
             # Some items, especially the non-g-prefixed ones, require different paths
             local gnupath="$brew_prefix/opt/$gnuitem/bin"
-            test -d "$gnupath" && extra_binaries="$gnupath:$extra_binaries"
+            if [[ -d $gnupath ]]
+            then
+                extra_binaries="$gnupath:$extra_binaries"
+            fi
 
             # Some items install sbins
             local gnupath="$brew_prefix/opt/$gnuitem/sbin"
-            test -d "$gnupath" && extra_binaries="$gnupath:$extra_binaries"
+            if [[ -d $gnupath ]]
+            then
+                extra_binaries="$gnupath:$extra_binaries"
+            fi
 
             # manpages for the commands
             local manpath="$brew_prefix/opt/$gnuitem/libexec/gnuman"
-            test -d "$manpath" && extra_manpages="$manpath:$extra_manpages"
+            if [[ -d $manpath ]]
+            then
+                extra_manpages="$manpath:$extra_manpages"
+            fi
 
             # Different standards for different packages
             local manpath="$brew_prefix/opt/$gnuitem/libexec/man"
-            test -d "$manpath" && extra_manpages="$manpath:$extra_manpages"
+            if [[ -d $manpath ]]
+            then
+                extra_manpages="$manpath:$extra_manpages"
+            fi
 
             # Some manpages are at a different location
             local manpath="$brew_prefix/opt/$gnuitem/share/man"
-            test -d "$manpath" && extra_manpages="$manpath:$extra_manpages"
+            if [[ -d $manpath ]]
+            then
+                extra_manpages="$manpath:$extra_manpages"
+            fi
 
             # pkg-config for some tools
             local pkgpath="$brew_prefix/opt/$gnuitem/lib/pkgconfig"
-            test -d "$pkgpath" && extra_pkgpaths="$pkgpath:$extra_pkgpaths"
+            if [[ -d $pkgpath ]]
+            then
+                extra_pkgpaths="$pkgpath:$extra_pkgpaths"
+            fi
         done
 
         local brewbinpath="$brew_prefix/bin"
-        test -d "$brewbinpath" && extra_binaries="$brewbinpath:$extra_binaries"
+        if [[ -d $brewbinpath ]]
+        then
+            extra_binaries="$brewbinpath:$extra_binaries"
+        fi
 
         local brewsbinpath="$brew_prefix/sbin"
-        test -d "$brewsbinpath" && extra_binaries="$brewsbinpath:$extra_binaries"
+        if [[ -d $brewsbinpath ]]
+        then
+            extra_binaries="$brewsbinpath:$extra_binaries"
+        fi
 
         if [[ $(id -u) != '0' ]]
         then
             local oraclepath="$ORACLE_HOME"
-            test -d "$oraclepath" && extra_binaries="$oraclepath:$extra_binaries"
+            if [[ -d $oraclepath ]]
+            then
+                extra_binaries="$oraclepath:$extra_binaries"
+            fi
 
             local oracledyldpath="$ORACLE_HOME"
-            test -d "$oracledyldpath" && extra_dyldpath="$oracledyldpath:$extra_dyldpath"
+            if [[ -d $oracledyldpath ]]
+            then
+                extra_dyldpath="$oracledyldpath:$extra_dyldpath"
+            fi
 
             local oracleclaspath="$ORACLE_HOME"
-            test -d "$oracleclaspath" && extra_claspath="$oracleclaspath:$extra_claspath"
+            if [[ -d $oracleclaspath ]]
+            then
+                extra_claspath="$oracleclaspath:$extra_claspath"
+            fi
 
             local flutterpath="$HOME/flutter/bin"
-            test -d "$flutterpath" && extra_binaries="$flutterpath:$extra_binaries"
+            if [[ -d $flutterpath ]]
+            then
+                extra_binaries="$flutterpath:$extra_binaries"
+            fi
 
             local pyenvpath="$HOME/.pyenv/bin"
-            test -d "$pyenvpath" && extra_binaries="$pyenvpath:$extra_binaries"
+            if [[ -d $pyenvpath ]]
+            then
+                extra_binaries="$pyenvpath:$extra_binaries"
+            fi
 
             #local vctlpath="$HOME/.vctl/bin"
-            #test -d "$vctlpath" && extra_binaries="$vctlpath:$extra_binaries"
+            #if [[ -d $vctlpath ]]
+            #then
+            #    extra_binaries="$vctlpath:$extra_binaries"
+            #fi
         fi
 
         # Clean and export the fruits of the above labour
@@ -247,16 +301,22 @@ add_brewed_items_to_env()
         if [[ $(id -u) != '0' ]]
         then
             local gcloud_sdk="$brew_prefix/Caskroom/google-cloud-sdk/latest/google-cloud-sdk"
-            test -f "$gcloud_sdk/path.bash.inc" && \
+            if [[ -f $gcloud_sdk/path.bash.inc ]]
+            then
                 source "$gcloud_sdk/path.bash.inc"
-            test -f "$gcloud_sdk/completion.bash.inc" && \
+            fi
+            if [[ -f $gcloud_sdk/completion.bash.inc ]]
+            then
                 source "$gcloud_sdk/completion.bash.inc"
+            fi
         fi
 
         # Completion for brewed binaries
         local completion_file="$brew_prefix/etc/profile.d/bash_completion.sh"
-        test -f "$completion_file" && \
+        if [[ -f $completion_file ]]
+        then
             source "$completion_file"
+        fi
     fi
 }
 
@@ -273,8 +333,10 @@ main()
         PATH=''
     fi
 
-    test -n "$BASHRC_MAIN_SOURCED" && \
+    if [[ -n $BASHRC_MAIN_SOURCED ]]
+    then
         return 0
+    fi
 
     readonly BASHRC_MAIN_SOURCED='1'
 
@@ -282,8 +344,10 @@ main()
     local global_profile='/etc/profile'
     # `$PROFILEREAD` is openSUSE-specific at the time of writing.
     # shellcheck disable=SC2154
-    test -z "$PROFILEREAD" -a -f "$global_profile" && \
+    if [[ -z $PROFILEREAD && -f $global_profile ]]
+    then
         source "$global_profile"
+    fi
 
     mesg n || :
 
@@ -315,9 +379,11 @@ main()
     export HISTCONTROL='ignoreboth'
     export HISTFILESIZE=''
     export HISTSIZE=''
-    test -z "$(printf '%s\n' "$PROMPT_COMMAND" | grep '\bhistory\b')" && \
+    if ! printf '%s\n' "$PROMPT_COMMAND" | grep -q '\bhistory\b'
+    then
         export PROMPT_COMMAND="$(printf 'history -a; history -n; %s\n' "$PROMPT_COMMAND" \
                                  | sed 's/__vte_prompt_command//g')"
+    fi
 
     # Brew Prevent Time-Consuming Activities
     export HOMEBREW_NO_AUTO_UPDATE='1'
@@ -412,13 +478,17 @@ main()
     then
         # pyenv
         # shellcheck disable=SC2154
-        test -d "$PYENV_ROOT" && \
+        if [[ -d $PYENV_ROOT ]]
+        then
             source <(pyenv init -)
+        fi
 
         # Perlbrew
         local perlbrew_bashrc="$HOME/perl5/perlbrew/etc/bashrc"
-        test -f "$perlbrew_bashrc" && \
+        if [[ -f $perlbrew_bashrc ]]
+        then
             source "$perlbrew_bashrc"
+        fi
 
         # Perl local::lib
         export PATH="$(sanitize_path "$HOME/perl5/bin:$PATH")"
@@ -439,14 +509,18 @@ main()
 
         # SDKMAN!
         local sdkman_init="$SDKMAN_DIR/bin/sdkman-init.sh"
-        test -f "$sdkman_init" && \
+        if [[ -f $sdkman_init ]]
+        then
             source "$sdkman_init"
+        fi
 
         # Ruby
         local ruby_gems="$HOME/.local/share/gem/ruby"
         # shellcheck disable=2012,2263
-        test -n "$(ls "$ruby_gems" 2>/dev/null)" && \
+        if [[ -n $(ls "$ruby_gems" 2>/dev/null) ]]
+        then
             export PATH="$(sanitize_path "$ruby_gems/$(ls -vr "$ruby_gems" | head -1)/bin:$PATH")"
+        fi
 
         # Android
         export PATH="$(sanitize_path "$HOME/Android/Sdk/platform-tools:$PATH")"
