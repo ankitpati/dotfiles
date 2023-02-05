@@ -7,7 +7,7 @@ sanitize_path()
     # 1. repeated elements,
     # 2. repeated, starting, or ending `:`, and
     # 3. repeated `/`.
-    echo -n "$1" \
+    printf '%s' "$1" \
         | sed 's/::*/:/g;s/^://;s_//*_/_g' \
         | awk -v 'RS=:' -v 'ORS=:' '!seen[$0]++' \
         | sed 's/:$//' \
@@ -16,35 +16,35 @@ sanitize_path()
 
 B-clean-cache()
 {
-    echo 'Removing SSH known_hosts Backup...'
+    printf 'Removing SSH known_hosts Backup...\n'
     rm "$HOME/.ssh/known_hosts.old"
 
-    echo 'Uninstalling dangling Homebrew packages...'
+    printf 'Uninstalling dangling Homebrew packages...\n'
     brew autoremove
 
-    echo 'Removing the Homebrew Build Cache...'
+    printf 'Removing the Homebrew Build Cache...\n'
     brew cleanup --prune=all
 
-    echo 'Removing the Perlbrew Build Cache...'
+    printf 'Removing the Perlbrew Build Cache...\n'
     perlbrew clean
 
-    echo 'Removing the CPAN.pm Cache...'
+    printf 'Removing the CPAN.pm Cache...\n'
     rm -rf "$HOME/.cpan/"{'build/','sources/','Metadata'}
 
-    echo 'Removing the CPANM Work Cache...'
+    printf 'Removing the CPANM Work Cache...\n'
     rm -rf "$HOME/.cpanm/"{'work/','build.log','latest-build'}
 
-    echo 'Removing the PIP Cache...'
+    printf 'Removing the PIP Cache...\n'
     rm -rf "$HOME/.cache/pip/"
     rm -rf "$HOME/Library/Caches/pip/"
 
-    echo 'Removing the Maven Cache...'
+    printf 'Removing the Maven Cache...\n'
     rm -rf "$HOME/.m2/repository/"
 
-    echo 'Removing Maccy SQLite DB (only works if Maccy is not running)...'
+    printf 'Removing Maccy SQLite DB (only works if Maccy is not running)...\n'
     rm "$HOME/Library/Containers/org.p0deje.Maccy/Data/Library/Application Support/Maccy/Storage.sqlite"*
 
-    echo 'Removing the QuickLook Cache...'
+    printf 'Removing the QuickLook Cache...\n'
     qlmanage -r cache
 
     # TODO: [macOS] find & vacuum/remove all NSPersistentContainer SQLite DBs
@@ -57,7 +57,7 @@ B-brew-compact()
 {
     local brew_prefix="$(brew --prefix)"
 
-    echo 'Running `git cleanup` on Homebrew...'
+    printf 'Running `git cleanup` on Homebrew...\n'
     local brewtap
     for brewtap in "$brew_prefix/Homebrew" \
                    "$brew_prefix/Homebrew/Library/Taps/"*/*
@@ -315,8 +315,8 @@ main()
     export HISTCONTROL='ignoreboth'
     export HISTFILESIZE=''
     export HISTSIZE=''
-    test -z "$(echo "$PROMPT_COMMAND" | grep '\bhistory\b')" && \
-        export PROMPT_COMMAND="$(echo "history -a; history -n; $PROMPT_COMMAND" \
+    test -z "$(printf '%s\n' "$PROMPT_COMMAND" | grep '\bhistory\b')" && \
+        export PROMPT_COMMAND="$(printf 'history -a; history -n; %s\n' "$PROMPT_COMMAND" \
                                  | sed 's/__vte_prompt_command//g')"
 
     # Brew Prevent Time-Consuming Activities
