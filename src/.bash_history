@@ -1550,6 +1550,7 @@ find . -type f -exec mv -t /directory/ {} +
 find . -type f -exec perl -pi -E 's{#!\s*(?:/usr)?/bin/(?!env\b)(\S+)([ \t]*(?=\S))}{#!/usr/bin/env ${\($2 ? "-S " : "")}$1$2}' {} +
 find . -type f -name '*.expanded-csr' -exec openssl req -noout -text -in {} \; | grep -E '^\s+DNS:' | sed 's/, /\n/g' | cut -d: -f2- | sort -u | paste -sd,
 find . -type f -name '*.lastUpdated' -delete
+find . -type f -name requirements.txt -exec pip install -r {} \;
 firewall-cmd --add-forward-port=port=443:proto=tcp:toport=8443
 firewall-cmd --add-masquerade
 firewall-cmd --add-protocol=ssh
@@ -1733,6 +1734,11 @@ hdparm --user-master m --security-unlock SecretPassword /dev/sdb
 hdparm --user-master u --security-disable SecretPassword /dev/sdb
 hdparm --user-master u --security-unlock SecretPassword /dev/sdb
 hdparm -I /dev/sdb
+helm get all release_name | yq .
+helm history release_name
+helm list
+helm rollback --dry-run release_name
+helm rollback release_name 5
 hexdump -C filename.dat
 hexdump -C ~/Applications/Chrome\ Apps.localized/Icon$'\r'/..namedfork/rsrc
 hg clone https://foss.heptapod.net/pypy/pypy pypy
@@ -1769,6 +1775,8 @@ istioctl install --set profile=ambient
 istioctl install --set revision=release
 istioctl operator dump | yq .
 istioctl proxy-status
+istioctl proxy-status --revision 1-16-0
+istioctl proxy-status --revision default
 istioctl proxy-status | grep "$(kubectl -n istio-system get pod -l app=istio-ingressgateway -o jsonpath='{.items..metadata.name}')"
 istioctl tag list
 istioctl tag set default --revision 1-16-0
@@ -1861,7 +1869,9 @@ kubectl describe nodes
 kubectl describe pod pod_name
 kubectl describe poddisruptionbudgets.policy
 kubectl describe pods
+kubectl describe pods -n istio-system -l app=istiod
 kubectl describe service service_name
+kubectl describe services -n istio-system istiod-1-16-0
 kubectl describe virtualservices.networking.istio.io virtual_service_name -n istio-system
 kubectl edit pod pod_name
 kubectl edit virtualservices.networking.istio.io virtual_service_name -n istio-system
@@ -1873,7 +1883,8 @@ kubectl get deployments
 kubectl get deployments.apps
 kubectl get events
 kubectl get mutatingwebhookconfigurations
-kubectl get namespaces
+kubectl get namespaces --show-labels
+kubectl get namespaces -L istio.io/rev -L istio-injection
 kubectl get namespaces default --output=json | jq '.metadata.labels."istio.io/dataplane-mode"'
 kubectl get node
 kubectl get node -o wide
@@ -1882,6 +1893,7 @@ kubectl get nodes -A | grep -F v1.20. | cut -d' ' -f1 | xargs -L 1 kubectl descr
 kubectl get poddisruptionbudgets.policy
 kubectl get pods
 kubectl get pods --context=kube-context
+kubectl get pods --selector app=app_name
 kubectl get pods -A
 kubectl get pods -n istio-system -l app=istiod
 kubectl get services
@@ -1901,9 +1913,13 @@ kubectl options
 kubectl port-forward pod_name 8080:8000
 kubectl port-forward service/service_name 12345
 kubectl proxy
+kubectl rollout restart daemonset daemonset_name
 kubectl rollout restart deployment deployment_name
+kubectl rollout restart statefulset statefulset_name
+kubectl run -it --rm --restart=Never busybox --image=gcr.io/google-containers/busybox sh
 kubectl top pod
 kubectl top pod --containers
+kubectl version --client -o json | jq -r .clientVersion.gitVersion
 kubectl version -o yaml | yq .
 kubent
 landscape --help
@@ -2175,6 +2191,7 @@ paste <(echo a quick brown fox jumps over a lazy dog | sed -E 's/\s+/\n/g') <(ec
 patch filename.c filename.c.patch
 pavumeter --record
 pbcopy < ~/.ssh/id_ed25519.pub
+pbpaste > ~/.ssh/authorized_keys
 pdfimages -all filename.pdf ./
 pdfimages -j filename.pdf ./
 pdfimages filename.pdf ./
