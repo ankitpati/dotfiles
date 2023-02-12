@@ -16,19 +16,18 @@
         "cinemamodewideplayer": true,
         "contrast": 100,
         "controlbar": {
-            "active": true,
+            "active": false,
             "autohide": false,
             "centered": true,
             "position": "absolute"
         },
         "controls": [
-            "loop",
             "video-filters",
             "screenshot"
         ],
         "controlspeed": false,
         "controlspeedmousebutton": false,
-        "controlsvisible": false,
+        "controlsvisible": true,
         "controlvolume": false,
         "controlvolumemousebutton": false,
         "convertshorts": false,
