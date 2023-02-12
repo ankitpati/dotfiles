@@ -372,6 +372,7 @@ brew install staticcheck
 brew install steampipe
 brew install stylua
 brew install swift
+brew install symlinks
 brew install tbls
 brew install tcpdump
 brew install tcpreplay
