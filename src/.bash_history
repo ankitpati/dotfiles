@@ -368,6 +368,7 @@ brew install ssdeep
 brew install ssh-copy-id
 brew install sslscan
 brew install sslyze
+brew install stackql
 brew install staticcheck
 brew install steampipe
 brew install stylua
