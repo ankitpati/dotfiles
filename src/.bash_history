@@ -77,6 +77,7 @@ brew --repo
 brew --repo snyk/tap
 brew analytics off
 brew autoremove -n
+brew bundle
 brew config
 brew deps --direct google-java-format
 brew deps --topological google-java-format
@@ -330,7 +331,6 @@ brew install pwgen
 brew install pyenv
 brew install pylint
 brew install pyright
-brew install pywhat
 brew install qemu
 brew install rakudo
 brew install range2cidr
@@ -465,6 +465,8 @@ ccd2iso disk-image.bin disk-image.iso
 checkstyle -c /google_checks.xml Filename.java
 checkstyle -c /sun_checks.xml Filename.java
 chsh -s "$(brew --prefix)/bin/bash"
+ciphey -f filename.txt
+ciphey -gf filename.txt | grep hello
 code --install-extension eamodio.gitlens --force
 code --install-extension googlecloudtools.cloudcode --force
 code --install-extension jock.svg --force
@@ -1432,6 +1434,7 @@ docker inspect container_name | jq .
 docker inspect image_name | jq .
 docker network ls -q | xargs -r docker network inspect -v
 docker ps --no-trunc -a
+docker pull "kindest/node:$(skopeo list-tags docker://kindest/node | jq -r .Tags[] | sort -V | tail -n -1)"
 docker run --pull always -it --rm --privileged --pid=host busybox nsenter -t1 -m -u -i -n # Linuxkit access on Docker for Mac
 docker run --pull always -it --rm estargz.kontain.me/busybox
 docker run --pull always -it --rm estargz.kontain.me/quay.io/ankitpati/tigress
@@ -1890,7 +1893,9 @@ kubectl get namespaces default --output=json | jq '.metadata.labels."istio.io/da
 kubectl get node
 kubectl get node -o wide
 kubectl get nodes
+kubectl get nodes --show-labels
 kubectl get nodes -A | grep -F v1.20. | cut -d' ' -f1 | xargs -L 1 kubectl describe node
+kubectl get nodes -l cloud.google.com/gke-nodepool=nodepool_name -L topology.kubernetes.io/zone
 kubectl get poddisruptionbudgets.policy
 kubectl get pods
 kubectl get pods --context=kube-context
@@ -2000,6 +2005,7 @@ mvn --encrypt-master-password 'maven-master-password'
 mvn --encrypt-password 'maven-server-password'
 mvn -U clean install -Ddependency-check.skip=true
 mvn -U dependency:tree
+mvn clean install -Dmaven.test.skip=true
 mypy --config-file ~/.mypy.ini
 namei -l "$(command -v perl6)"
 namei -om /bin/perl6
@@ -2566,6 +2572,7 @@ watch -n 10 du -sh
 watch du -sh
 wget https://www.toptal.com/developers/gitignore/api/java,netbeans,eclipse,jetbrains,android,androidstudio -O .gitignore
 whatchanged origin/development..
+while :; do kubectl get pods -wl app=app_name; done
 while :; do virsh -c qemu:///system send-key Windows-10 KEY_J; sleep 120; done
 while :; do xdotool mousemove --sync 1000 10 sleep 0.5 mousemove restore; sleep 120; done
 while read -r directory; do find "$(case "$directory" in -*) printf '%s' ./ ;; esac; printf '%s' "$directory")" \( -type f -exec ls -lt -- {} \; -exec md5sum -- {} \; \) -o \( -type d -exec ls -ltd -- {} \; -exec printf '%s%s' 'directory ' {} \; \); done < directory-list.txt
