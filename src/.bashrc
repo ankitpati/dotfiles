@@ -371,7 +371,6 @@ main()
     fi
 
     # Brew Prevent Time-Consuming Activities
-    export HOMEBREW_NO_AUTO_UPDATE='1'
     export HOMEBREW_NO_BOTTLE_SOURCE_FALLBACK='1'
 
     # Secure Brew
