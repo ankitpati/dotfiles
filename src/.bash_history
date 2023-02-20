@@ -77,7 +77,6 @@ brew --repo
 brew --repo snyk/tap
 brew analytics off
 brew autoremove -n
-brew bundle
 brew config
 brew deps --direct google-java-format
 brew deps --topological google-java-format
@@ -439,6 +438,9 @@ brew search --fedora perl-Mojolicious
 brew search --ubuntu libmojolicious-perl
 brew services info --all
 brew shellenv
+brew tap homebrew/bundle
+brew tap homebrew/command-not-found
+brew tap homebrew/services
 brew tap snyk/tap
 brew tap sourcegraph/src-cli
 brew uninstall --zap base64
@@ -449,8 +451,13 @@ brew uninstall --zap lesspipe
 brew uninstall --zap llvm
 brew uninstall --zap perltidy
 brew uninstall --zap quip
+brew untap homebrew/autoupdate
+brew untap homebrew/cask
+brew untap homebrew/core
 brew uses curl
 brew uses curl --installed
+brew which-formula --explain aria2c
+brew which-formula aria2c
 brew which-formula sponge
 brew-list-deps
 brotli -d filename.br
