@@ -77,6 +77,9 @@ brew --repo
 brew --repo snyk/tap
 brew analytics off
 brew autoremove -n
+brew bundle check
+brew bundle cleanup
+brew bundle dump --force
 brew config
 brew deps --direct google-java-format
 brew deps --topological google-java-format
@@ -1464,6 +1467,7 @@ journalctl --vacuum-time=1d
 journalctl -f -o cat "$(command -v gnome-shell)"
 jq '.extensions | fromjson' filename.code-profile
 jq '.globalState | fromjson' filename.code-profile
+jq '.resources[] | select(.type == "google_container_node_pool" and .instances[].attributes.autoscaling[].total_max_node_count == 0)' < terraform.tfstate
 jq '.settings | fromjson.settings | fromjson' filename.code-profile
 jq -R 'split(".") | .[0],.[1] | @base64d | fromjson' < JWT.asc
 jq -S --indent 4 . < filename.json
