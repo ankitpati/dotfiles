@@ -133,6 +133,7 @@ code --install-extension ms-azuretools.vscode-docker --force
 code --install-extension ms-kubernetes-tools.vscode-kubernetes-tools --force
 code --install-extension ms-ossdata.vscode-postgresql --force
 code --install-extension ms-vscode-remote.vscode-remote-extensionpack --force
+code --install-extension sourcegraph.sourcegraph --force
 code --install-extension vscjava.vscode-java-pack --force
 code --install-extension vscodevim.vim --force
 code --list-extensions
