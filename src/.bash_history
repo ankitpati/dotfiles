@@ -1880,6 +1880,7 @@ perldoc File::Basename
 perldoc perlsyn
 perltidy --pro='.perltidyrc' filename.pl
 perltidy filename.pl
+pgrep -fL jenkins
 pgrep -x chrome
 pidof -s chrome
 pidof chrome
