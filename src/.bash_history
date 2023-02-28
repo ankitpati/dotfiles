@@ -1110,6 +1110,7 @@ docker run -p 27017:27017 -d mongo
 docker scan --accept-license --version
 docker scan --login --token "$(lpass show --password snyk_auth_token)"
 docker scan image_name
+docker start -ai container_name
 docker start container_name
 docker system info
 docker system prune
@@ -1666,6 +1667,7 @@ mvn --encrypt-password 'maven-server-password'
 mvn -U clean install -Ddependency-check.skip=true
 mvn -U dependency:tree
 mvn clean install -Dmaven.test.skip=true
+mvn exec:java -Dexec.mainClass=in.ankitpati.ClassName
 mypy --config-file ~/.mypy.ini
 namei -l "$(command -v perl6)"
 namei -om /bin/perl6
@@ -2108,6 +2110,8 @@ strace programname 2> programname.strace
 sudo bash -c 'apt update; apt-fast dist-upgrade -y; apt autoremove -y; apt clean; snap refresh; flatpak update; pkcon refresh force; pkcon update; fwupdmgr get-updates; fwupdmgr upgrade; chmod 0750 /usr/bin/nmap /usr/sbin/etherape; chown root:wireshark /usr/bin/nmap /usr/sbin/etherape; setcap cap_net_raw,cap_net_admin,cap_net_bind_service+eip /usr/bin/nmap cap_net_raw,cap_net_admin,cap_net_bind_service+eip /usr/sbin/etherape'
 sudo bash -c 'dnf upgrade --refresh; snap refresh; flatpak update; pkcon refresh force; pkcon update; fwupdmgr get-updates; fwupdmgr upgrade; chmod 0750 /usr/bin/nmap /usr/sbin/etherape; chown root:wireshark /usr/bin/nmap /usr/sbin/etherape; setcap cap_net_raw,cap_net_admin,cap_net_bind_service+eip /usr/bin/nmap cap_net_raw,cap_net_admin,cap_net_bind_service+eip /usr/sbin/etherape'
 sudo bash -c 'rfkill unblock bluetooth; systemctl restart bluetooth.service'
+sudo ifconfig awdl0 down # on macOS, disable Apple Wireless Direct Link
+sudo ifconfig awdl0 up
 sudo inxi -SMCDG
 sudo kubectl port-forward pod_name 80:8080
 sudo usermod -a -G microk8s "$USER"
