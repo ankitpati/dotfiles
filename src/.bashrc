@@ -41,6 +41,9 @@ B-clean-cache()
     printf 'Removing the Maven Cache...\n'
     rm -rf "$HOME/.m2/repository/"
 
+    printf 'Removing the Python Cache...\n'
+    rm -rf "$HOME/.pycache/"
+
     printf 'Removing Maccy SQLite DB (only works if Maccy is not running)...\n'
     rm "$HOME/Library/Containers/org.p0deje.Maccy/Data/Library/Application Support/Maccy/Storage.sqlite"*
 
