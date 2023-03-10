@@ -2034,6 +2034,7 @@ sdk install kotlin
 sdk install maven
 sdk install sbt
 sdk install visualvm
+sed '/^$/d' file-with-blank-lines.txt
 sed -E 's/ /\n/g' < /proc/cmdline
 sed -i -E 's|#!/usr/bin/octave -q|#!/usr/bin/env -S octave -q|g' -- *.m
 sensors
