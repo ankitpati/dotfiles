@@ -43,6 +43,7 @@ set nocompatible
     g:ale_java_google_java_format_options = '--aosp'
     g:ale_json_jq_options = '-S --indent 4'
     g:ale_python_flake8_options = '--ignore=E501'
+    g:ale_python_ruff_options = '--ignore=E501'
     g:ale_sql_sqlfluff_options = '--dialect postgres'
     g:ale_virtualtext_cursor = 'disabled'
     g:blamer_date_format = '%Y-%m-%dT%H:%M:%S%Z'
