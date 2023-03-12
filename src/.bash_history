@@ -1461,6 +1461,8 @@ jamf recon
 jd --set 1.json 2.json
 jd -f patch 1.json 2.json
 jd 1.json 2.json
+johnnydep --output-format dot package_name | apdot -Tpng | timg -
+johnnydep --output-format json package_name | jq .
 join --nocheck-order -1 2 filename1 filename2
 join -t '' filename1 filename2
 join filename1 filename2
@@ -1916,6 +1918,8 @@ pip install voila
 pip install wheel
 pip install wxPython
 pip install xgboost
+pipdeptree --json-tree -p installed_package_name | jq .
+pipdeptree -p installed_package_name
 pkill -9 -x chrome
 pkill -s SIGKILL -x chrome
 pkill -x chrome
@@ -1988,6 +1992,7 @@ pyenv local --unset
 pyenv local 2.7.18
 pyenv version
 pyenv versions
+pylint --list-msgs
 pylint --py3k path/to/python/file.py
 pyment -w path/to/python/file.py
 python -m pdb <(echo 'import sys; print(sys.path);')
