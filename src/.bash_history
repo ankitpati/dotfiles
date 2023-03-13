@@ -1467,8 +1467,7 @@ join --nocheck-order -1 2 filename1 filename2
 join -t '' filename1 filename2
 join filename1 filename2
 journalctl
-journalctl --vacuum-size=1M
-journalctl --vacuum-time=1d
+journalctl --rotate --vacuum-time 1s
 journalctl -f -o cat "$(command -v gnome-shell)"
 jq '.extensions | fromjson' filename.code-profile
 jq '.globalState | fromjson' filename.code-profile
