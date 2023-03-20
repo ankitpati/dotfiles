@@ -174,6 +174,9 @@ cpanm XML::Bare
 cpanm XML::Parser
 cpanm XML::SAX::Expat
 cpio -idv < filename.cpio
+crane catalog docker.io
+crane ls quay.io/ankitpati/tigress
+crane manifest quay.io/ankitpati/tigress | jq .
 crontab -e
 csv -f protocol,root_domain,status < nextdns-log.csv | tail -n +2 | grep -v ',blocked$' | rev | cut -d, -f2- | rev | sort -u > nextdns-domain-list.csv
 csvprintf -n '%1$s %2$s %3$s\n' < filename.csv
@@ -1115,7 +1118,6 @@ docker start container_name
 docker system info
 docker system prune
 docker top container_name
-docker-browse tags path/to/image -r docker-registry.example.org # for docker-registry.example.org/path/to/image
 docker-compose build
 docker-compose stop
 docker-compose up
@@ -1250,6 +1252,7 @@ flatpak uninstall org.freedesktop.Platform.GL.nvidia-465-24-02
 flutter config --no-analytics
 flutter doctor -v
 fly auth signup
+for i in {0..127}; do echo "$i" | pbcopy; sleep 1; done
 foremost
 fpaste filename.txt
 free -h
@@ -1612,6 +1615,7 @@ lpass edit --password unique_name
 lpass login contact@ankitpati.in
 lpass ls
 lpass show --field='Public Key' unique_name
+lpass show --password docker_personal_access_token | crane auth login docker.io -u "$(lpass show --username docker_personal_access_token)" --password-stdin
 lpass show --password docker_personal_access_token | docker login -u "$(lpass show --username docker_personal_access_token)" --password-stdin
 lpass show --password docker_personal_access_token | skopeo login docker.io --tls-verify -u "$(lpass show --username docker_personal_access_token)" --password-stdin
 lpass show --password perforce | p4 login
