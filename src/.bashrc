@@ -14,22 +14,6 @@ sanitize_path()
     ;
 }
 
-# Compact Homebrew git repositories
-B-brew-compact()
-{
-    local brew_prefix="$(brew --prefix)"
-
-    printf 'Running `git cleanup` on Homebrew...\n'
-    local brewtap
-    for brewtap in "$brew_prefix/Homebrew" \
-                   "$brew_prefix/Homebrew/Library/Taps/"*/*
-    do
-        git -C "$brewtap" cleanup
-    done
-
-    :
-}
-
 # Prepend old binaries to PATH
 B-oldbin()
 {
