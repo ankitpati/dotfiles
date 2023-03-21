@@ -1568,6 +1568,7 @@ kubectl get pods --context=kube-context
 kubectl get pods --selector app=app_name
 kubectl get pods -A
 kubectl get pods -n istio-system -l app=istiod
+kubectl get pods | cut -d' ' -f1 | grep -E '(-[[:alnum:]]+){2}$' | sort -V | while read -r deployment; do kubectl logs "$deployment" -c "${deployment%%-+([[:alnum:]])-+([[:alnum:]])}"; done
 kubectl get services
 kubectl get services -A -o yaml | yq .items[].metadata.name | sort -V
 kubectl get svc -A
