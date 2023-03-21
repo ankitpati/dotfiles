@@ -1479,6 +1479,7 @@ jq '.settings | fromjson.settings | fromjson' filename.code-profile
 jq -R 'split(".") | .[0],.[1] | @base64d | fromjson' < JWT.asc
 jq -S --indent 4 . < filename.json
 jq -r .zerosuggest.cachedresults < ~/.config/google-chrome/Default/Preferences | tail -n +2 | jq .
+jq -rj '.logs[] | select(.type != "phase").message' < quay-build-log.json ; echo
 jq . < filename.json
 js-beautify filename.js
 json-sort-arrays --indent 4 filename.json
