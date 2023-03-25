@@ -1973,6 +1973,7 @@ prettier -w filename.css
 prettier -w filename.html
 prettier -w filename.js
 prettyping google.com
+printf '1 2\t3\t4\t5\t6 9 8 9 10\n' | teip -f3 -- sed 's/./x/'
 pro security-status
 pro security-status --thirdparty
 pro security-status --unavailable
