@@ -1363,10 +1363,10 @@ google-java-format -i -a Filename.java
 gpg2 --armor --export contact@ankitpati.in | pbcopy
 gpg2 --armor --export contact@ankitpati.in | xclip
 gpg2 --armor --export-secret-keys contact@ankitpati.in > privkey.gpg.asc
-gpg2 --decrypt data.gpg
 gpg2 --decrypt data.gpg --output data
 gpg2 --edit-key contact@ankitpati.in
-gpg2 --encrypt --sign --recipient contact@ankitpati.in filename.br
+gpg2 --encrypt --sign --recipient contact@ankitpati.in filename.br | brotli --decompress --output filename
+gpg2 --encrypt --sign --recipient contact@ankitpati.in filename.br | brotli --decompress | grep service
 gpg2 --export -a 'Ankit Pati' > pubkey.asc
 gpg2 --export-secret-keys contact@ankitpati.in > privkey.gpg
 gpg2 --fingerprint contact@ankitpati.in
