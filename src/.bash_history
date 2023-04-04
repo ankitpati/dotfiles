@@ -2055,6 +2055,7 @@ sensors
 seq -w 000 007 | while read -r num; do cat "input$num.txt"; read; cat "output$num.txt"; read; done
 sestatus
 sha256sum -c filename-CHECKSUM
+sha512sum --status --strict -c <<<'f65f341b35981fda842b09b2c8af9bcdb7602a4c2e6fa1f7d41f0974d3e3122f268fc79d5a4af66358f5133885cd1c165c916f80ab25e5d8d95db46f803c782c hello.txt'
 shellharden --replace filename.bash
 shellharden filename.bash
 shfmt -w -s filename.bash
