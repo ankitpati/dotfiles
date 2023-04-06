@@ -1279,6 +1279,7 @@ gcloud compute networks list
 gcloud compute project-info describe --project=project_id
 gcloud compute regions describe us-east1 --project=project_id | yq .
 gcloud compute ssh --zone=us-east1-b --internal-ip instance_name
+gcloud compute ssh gke_node_name --project=project_id --zone=us-central1-b --troubleshoot --tunnel-through-iap
 gcloud compute zones list
 gcloud compute zones list --project=project_id
 gcloud config config-helper
@@ -1563,6 +1564,8 @@ kubectl get nodes
 kubectl get nodes --show-labels
 kubectl get nodes -A | grep -F v1.20. | cut -d' ' -f1 | xargs -L 1 kubectl describe node
 kubectl get nodes -l cloud.google.com/gke-nodepool=nodepool_name -L topology.kubernetes.io/zone
+kubectl get nodes -o json | jq '[.items[] | select(.status.conditions[] | select(.type == "MemoryPressure" and .status == "True"))]'
+kubectl get nodes -o jsonpath='{.items[*].status.conditions[?(@.type=="MemoryPressure")]}'
 kubectl get poddisruptionbudgets.policy
 kubectl get pods
 kubectl get pods --context=kube-context
