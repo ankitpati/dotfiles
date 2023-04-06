@@ -1290,7 +1290,7 @@ gcloud config set compute/region us-west1
 gcloud config set compute/zone us-west1-a
 gcloud config set project project_id
 gcloud config unset project
-gcloud container clusters get-credentials cluster_name --region region_name --project project_id # appends to ~/.kube/config
+gcloud container clusters get-credentials cluster_name --region=region_name --project=project_id # appends to ~/.kube/config
 gcloud container get-server-config --format='yaml(defaultClusterVersion)'
 gcloud info
 gcloud projects get-iam-policy project_id
