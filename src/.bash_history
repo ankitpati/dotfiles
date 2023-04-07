@@ -4,7 +4,7 @@
 ( GH_USERNAME='ankitpati'; age -r "$(curl -H "Authorization: token $(lpass show --password github_personal_access_token)" "https://github.example.org/api/v3/users/$GH_USERNAME/keys" | jq -r .[0].key)" -o cipher.txt.age plain.txt )
 ( GIT_COMMITTER_NAME='Ankit Pati' GIT_COMMITTER_EMAIL='contact@ankitpati.in' git rebase branchname --exec 'git commit --amend --author="Ankit Pati <contact@ankitpati.in>" --no-edit' )
 ( LESS='-I' git log )
-( filename=depot/directory/filename.pl; p4 sync "$filename#$(( "$(p4 have "$filename" | cut -d# -f2 | cut -d' ' -f1)" - 1 ))" )
+( filename=depot/directory/filename; p4 sync "$filename#$(( "$(p4 have "$filename" | cut -d# -f2 | cut -d' ' -f1)" - 1 ))" )
 ( hostname='google.com'; openssl s_client -auth_level 2 -connect "$hostname":443 -servername "$hostname" -verify_hostname "$hostname" -verify_return_error )
 ( hostname='google.com'; openssl s_client -tls1_3 -auth_level 2 -connect "$hostname":443 -servername "$hostname" -verify_hostname "$hostname" -verify_return_error )
 ( perforce_dir=//depot/directory; p4 dirs "$perforce_dir/*" | while read -r perforce_subdir; do p4 grep -e 'search-expression' "$perforce_subdir/..."; done )
@@ -27,7 +27,7 @@
 CLASSPATH=. java ClassName
 P4DIFF=vimdiff p4 diff -Od -f //depot/directory/...
 P4DIFF=vimdiff p4 diff -f //depot/directory/...
-P4DIFF=vimdiff p4 diff -f //depot/directory/filename.pl
+P4DIFF=vimdiff p4 diff -f //depot/directory/filename
 PATH="$(echo "$PATH" | sed 's/:/\n/g' | grep -v binutils | paste -sd :)" cpan Unicode::GCString
 Xvfb :99 -screen 0 1024x768x24
 \ssh ssh.ankitpati.in
@@ -189,8 +189,8 @@ curl 'https://example.org/untrustworthy.dat'; exec cat
 curl --connect-to example.org:80:localhost:8080 http://example.org
 curl --key openssl.key --cert openssl.crt https://mtls.example.org
 curl --resolve example.org:80:127.0.0.1 http://example.org
-curl -H "Authorization: token $(lpass show --password github_personal_access_token)" -o filename.pl https://github.example.org/raw/namespace/repo_name/branch_name/path/to/filename.pl
-curl -H "Authorization: token $(lpass show --password github_personal_access_token)" -o filename.pl https://raw.githubusercontent.com/namespace/repo_name/branch_name/path/to/filename.pl
+curl -H "Authorization: token $(lpass show --password github_personal_access_token)" -o filename https://github.example.org/raw/namespace/repo_name/branch_name/path/to/filename
+curl -H "Authorization: token $(lpass show --password github_personal_access_token)" -o filename https://raw.githubusercontent.com/namespace/repo_name/branch_name/path/to/filename
 curl -s -w '\n%{time_total} - %{time_starttransfer}\n' https://httpbin.org/get | tail -n 1 | bc
 curl -sX POST -d '{"commit":"6879efc2c1596d11a6a6ad296f80063b558d5e0f"}' https://api.osv.dev/v1/query | jq .
 curl -sX POST -d '{"version":"2.4.1","package":{"name":"jinja2","ecosystem":"PyPI"}}' https://api.osv.dev/v1/query | jq .
@@ -1530,6 +1530,8 @@ kubectl create -f https://ankitpati.in/example.yaml
 kubectl debug -it container_name --image image_name --target pod_name
 kubectl debug -it node/kind-control-plane -it --image image_name
 kubectl debug -it node/kind-worker -it --image image_name
+kubectl delete --dry-run=client -f filename.yaml
+kubectl delete --dry-run=server -f filename.yaml
 kubectl delete ns istio-system
 kubectl delete pod pod_name
 kubectl describe
@@ -1550,11 +1552,14 @@ kubectl edit virtualservices.networking.istio.io virtual_service_name -n istio-s
 kubectl exec -it pod_name -- bash
 kubectl exec -it pod_name -c container_name -- bash
 kubectl get configmaps
+kubectl get customresourcedefinitions.apiextensions.k8s.io
 kubectl get deploy -n istio-system
 kubectl get deployments
 kubectl get deployments.apps
 kubectl get events
+kubectl get jobs.batch
 kubectl get mutatingwebhookconfigurations
+kubectl get namespace -L istio.io/rev -L istio-injection
 kubectl get namespaces --show-labels
 kubectl get namespaces -L istio.io/rev -L istio-injection
 kubectl get namespaces default --output=json | jq '.metadata.labels."istio.io/dataplane-mode"'
@@ -1572,6 +1577,7 @@ kubectl get pods --context=kube-context
 kubectl get pods --selector app=app_name
 kubectl get pods -A
 kubectl get pods -n istio-system -l app=istiod
+kubectl get pods -o custom-columns=pods:.metadata.name | grep deployment_name | sort -V | while read -r pod; do kubectl top pod --no-headers "$pod"; done
 kubectl get pods | cut -d' ' -f1 | grep -E '(-[[:alnum:]]+){2}$' | sort -V | while read -r deployment; do kubectl logs "$deployment" -c "${deployment%%-+([[:alnum:]])-+([[:alnum:]])}"; done
 kubectl get services
 kubectl get services -A -o yaml | yq .items[].metadata.name | sort -V
@@ -1597,7 +1603,6 @@ kubectl run -it --rm --restart=Never busybox --image=gcr.io/google-containers/bu
 kubectl top pod
 kubectl top pod --containers
 kubectl version --client -o json | jq -r .clientVersion.gitVersion
-kubectl version -o yaml | yq .
 kubent
 landscape --help
 latest-version asar
@@ -1771,6 +1776,10 @@ osascript -e 'id of app "Visual Studio Code"'
 ovsx create-namespace ankitpati --pat SecretPersonalAccessToken
 ovsx publish --pat SecretPersonalAccessToken
 p4 --field Root=/path/to/old/workspace client -o | p4 client -i; mv /path/to/new/workspace /path/to/old/workspace
+p4 annotate -c filename
+p4 annotate -cu filename
+p4 annotate -u filename
+p4 annotate filename
 p4 change -o 12345
 p4 changes -c client_name -l
 p4 changes -e 12345 filename | cut -d' ' -f2 | xargs p4 describe -du5 | delta
@@ -1778,6 +1787,7 @@ p4 changes -l
 p4 changes -m 10 ... | cut -d' ' -f2 | xargs p4 describe -du5 | delta
 p4 changes -u "$USER" -s submitted | head -5 | cut -d' ' -f2 | while read -r cl_number; do echo "@=$cl_number"; done | xargs p4 files -e | cut -d# -f1 | sort -u | while read -r source_depot_path; do p4 integrate "$source_depot_path" "${source_depot_path//\/directory1\///directory2/}"; done
 p4 changes -u username
+p4 changes -u username -s pending
 p4 changes ...
 p4 clean -n
 p4 clean -n -a
@@ -1799,25 +1809,25 @@ p4 diff -du5 '@=12345' | delta
 p4 diff -du5 -Od -f //depot/directory/... | delta
 p4 diff -du5 -Od //depot/directory/... | delta
 p4 diff -du5 -f //depot/directory/... | delta
-p4 diff -du5 -f directory/filename.pl | delta
+p4 diff -du5 -f directory/filename | delta
 p4 diff -se //depot/directory/... | vipe | xargs p4 reconcile -n
 p4 dirs -H //depot/\*
 p4 dirs //depot/\*
 p4 dirs //depot/t\*
 p4 edit -n directory/filename1 directory/filename2 directory/filename3
 p4 filelog //depot/directory/filename
-p4 filelog path/to/filename.pl
+p4 filelog path/to/filename
 p4 files ...file\*.pl
 p4 files //.../file*.pl
-p4 files //.../filename.pl
+p4 files //.../filename
 p4 files //depot/.../\*.pl
-p4 files //depot/.../filename.pl
+p4 files //depot/.../filename
 p4 files //depot/...file\*.pl
 p4 grep -F -e expression //depot/...
 p4 grep -l -s -F -e expression //depot/... | cut -d# -f1 | xargs -o vim
 p4 groups
 p4 groups username
-p4 have path/to/filename.pl
+p4 have path/to/filename
 p4 help sizes
 p4 info
 p4 integrate -n -c 12345 directory/filename1 directory/filename2 directory/filename3
@@ -1833,7 +1843,7 @@ p4 reopen -c 12345 directory/filename1 directory/filename2 directory/filename3
 p4 resolve //depot/directory/...
 p4 revert -n -c default ...
 p4 revert -n //depot/directory/...
-p4 revert -n filename.pl
+p4 revert -n filename
 p4 set
 p4 shelve -c 12345
 p4 shelve -d -c 12345
