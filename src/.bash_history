@@ -1391,6 +1391,8 @@ grep -E '^\s+keg_only' -r "$(brew --repo)/Library/Taps/homebrew/homebrew-core/Fo
 grep -Elr -- '^(<<<<<<< HEAD|=======|>>>>>>> [[:xdigit:]]+ .*)$' | sort -u | xargs -o vim
 grep -l search-string -r . | xargs -o vim
 gsettings set org.gnome.shell.app-switcher current-workspace-only true
+gsutil cat gs://bucket-name/path/to/filename # $bucket_name =~ /^[a-z](?:[-a-z0-9]{4,28}[a-z0-9])$/
+gsutil cp gs://bucket-name/path/to/filename ./
 guiscrcpy
 guiscrcpy config -r
 gunzip filename.gz
@@ -1878,6 +1880,7 @@ pactl list sinks
 parallel reduce-to-registrable < urls.txt | sort -u > registrable-domains.txt
 passwd postgres
 paste <(echo a quick brown fox jumps over a lazy dog | sed -E 's/\s+/\n/g') <(echo article adverb adjective noun verb preposition article adjective noun | sed -E 's/\s+/\n/g')
+patch --reverse < filename.patch
 patch filename.c filename.c.patch
 pavumeter --record
 pbcopy < ~/.ssh/id_ed25519.pub
@@ -2253,6 +2256,7 @@ virsh qemu-monitor-command info
 virsh qemu-monitor-command info version
 virsh send-key Windows-10 --codeset xt 37
 virsh send-key dom --codeset xt 37
+virtualenv --python "$(command -v python2)" --clear ~/.venv/python2-app/
 vkcube
 vmrun getGuestIPAddress ~/Virtual\ Machines.localized/vm_name.vmwarevm/vm_name.vmx
 vmrun list
