@@ -1864,6 +1864,8 @@ p4 trust
 p4 undo -n ...@12345,@12345
 p4 undo @12345
 p4 unshelve -s 12345 -c 12346
+p4 user
+p4 user -o
 p4 where . | cut -d' ' -f1
 p4 where directory
 p4 where filename
