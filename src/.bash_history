@@ -1834,6 +1834,7 @@ p4 have path/to/filename
 p4 help sizes
 p4 info
 p4 integrate -n -c 12345 directory/filename1 directory/filename2 directory/filename3
+p4 integrate -n -c 12346 //depot/directory/branch1...@12345,@12345 //depot/directory/branch2/...
 p4 login
 p4 login -as
 p4 monitor show
