@@ -188,6 +188,7 @@ cue fmt filename.cue
 curl 'https://example.org/untrustworthy.dat'; exec cat
 curl --connect-to example.org:80:localhost:8080 http://example.org
 curl --key openssl.key --cert openssl.crt https://mtls.example.org
+curl --remote-name https://ankitpati.in/download?file=filename.c
 curl --resolve example.org:80:127.0.0.1 http://example.org
 curl -H "Authorization: token $(lpass show --password github_personal_access_token)" -o filename https://github.example.org/raw/namespace/repo_name/branch_name/path/to/filename
 curl -H "Authorization: token $(lpass show --password github_personal_access_token)" -o filename https://raw.githubusercontent.com/namespace/repo_name/branch_name/path/to/filename
@@ -204,7 +205,9 @@ curl https://ident.me; echo; exec cat
 dart --disable-analytics
 date +%F
 date +%s
+date --utc --date "@$((1601234567890 / 1000))" +%Y%m%d
 date -Is
+date -d 'Wed Dec 13 05:43:21 GMT 1995'
 date -d@1619533275
 dconf dump / > dump.dconf
 dd if=/dev/urandom count=1 2>/dev/null | git hash-object --stdin
@@ -1411,6 +1414,7 @@ helm history release_name
 helm list
 helm rollback --dry-run release_name
 helm rollback release_name 5
+help '{ ... }'
 hexdump -C filename.dat
 hexdump -C ~/Applications/Chrome\ Apps.localized/Icon$'\r'/..namedfork/rsrc
 hg clone https://foss.heptapod.net/pypy/pypy pypy
@@ -1838,6 +1842,7 @@ p4 integrate -n -c 12346 //depot/directory/branch1...@12345,@12345 //depot/direc
 p4 login
 p4 login -as
 p4 monitor show
+p4 monitor show | grep -v ' monitor $' | grep -F " $USER " | sed 's/^ \+//' | cut -d' ' -f1 | xargs -L1 p4 monitor terminate
 p4 monitor terminate 12345
 p4 move -n directory/filename.old directory/filename.new
 p4 opened
