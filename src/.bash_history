@@ -187,6 +187,7 @@ cue export --out yaml filename.cue
 cue fmt filename.cue
 curl 'https://example.org/untrustworthy.dat'; exec cat
 curl --connect-to example.org:80:localhost:8080 http://example.org
+curl --head https://example.org/filename
 curl --key openssl.key --cert openssl.crt https://mtls.example.org
 curl --remote-name https://ankitpati.in/download?file=filename.c
 curl --resolve example.org:80:127.0.0.1 http://example.org
@@ -1470,6 +1471,7 @@ jamf enroll -prompt
 jamf manage
 jamf policy
 jamf recon
+java -version |& head -n 1
 jd --set 1.json 2.json
 jd -f patch 1.json 2.json
 jd 1.json 2.json
@@ -1792,6 +1794,8 @@ p4 changes -c client_name -l
 p4 changes -e 12345 filename | cut -d' ' -f2 | xargs p4 describe -du5 | delta
 p4 changes -l
 p4 changes -m 10 ... | cut -d' ' -f2 | xargs p4 describe -du5 | delta
+p4 changes -m 10 directory/...
+p4 changes -m 10 directory/....pl
 p4 changes -u "$USER" -s submitted | head -5 | cut -d' ' -f2 | while read -r cl_number; do echo "@=$cl_number"; done | xargs p4 files -e | cut -d# -f1 | sort -u | while read -r source_depot_path; do p4 integrate "$source_depot_path" "${source_depot_path//\/directory1\///directory2/}"; done
 p4 changes -u username
 p4 changes -u username -s pending
