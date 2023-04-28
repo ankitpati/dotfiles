@@ -1706,12 +1706,13 @@ ng new my-app
 ng serve -o
 nmap --privileged -sS --send-eth -Pn -n 10.10.10.0/24 -p 22
 nmap -n -sn 10.10.10.0/24
-nmcli connection down id connectionId
+nmcli connection down id connection_name
 nmcli connection show
 nmcli connection show --active
 nmcli connection show --configured
 nmcli connection show --show-secrets
-nmcli connection up id connectionId
+nmcli connection show connection_name
+nmcli connection up id connection_name
 nmcli device wifi list
 nmcli device wifi rescan
 nmcli general status
