@@ -449,6 +449,9 @@ main()
             export PATH="$(sanitize_path "$ruby_gems/$(ls -vr "$ruby_gems" | head -1)/bin:$PATH")"
         fi
 
+        # .NET
+        export PATH="$(sanitize_path "$HOME/.dotnet/tools:$PATH")"
+
         # Android
         export PATH="$(sanitize_path "$HOME/Android/Sdk/platform-tools:$PATH")"
 
