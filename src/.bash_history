@@ -144,6 +144,7 @@ command -V command
 command -v gnome-shell
 command ssh ssh.ankitpati.in
 convert -density 300 filename.pdf filename-%d.png
+convert -density 300 filename.pdf filename-reduced.pdf
 convert ./*.jpg output.pdf
 copyq info
 cpan-outdated -p | xargs cpanm; echo $?; pip list --outdated --format=freeze | cut -d= -f1 | grep -Ev '^(GDAL|python-poppler-qt5|slip|wxPython)$' | xargs pip install --user -U; echo $?; mypy --install-types; echo $?; cargo install-update -a; echo $?; npm update -g; echo $?; sdk selfupdate; echo $?; sdk update; echo $?; for java_sdk in $(grep '^sdk install ' ~/.bash_history | cut -d' ' -f3 | sort -u); do sdk upgrade "$java_sdk"; done; find ~/.sdkman/ -type f \( -name '*.exe' -o -name '*.bat' \) -delete; vim +PlugUpgrade +PlugUpdate +qa; nvim +PlugUpgrade +PlugUpdate +qa; for codext in $(code --list-extensions); do code --install-extension "$codext" --force; done; echo $?; flutter upgrade; echo $?; flutter doctor -v; echo $?; gcloud components update; echo $?; steampipe plugin update --all; echo $?; tldr --update; echo $?
@@ -1395,6 +1396,7 @@ grep -E "^($(tail -n +2 brew-deps.csv | cut -d, -f1 | comm -23 - brew-install-li
 grep -E '^\s+keg_only' -r "$(brew --repo)/Library/Taps/homebrew/homebrew-core/Formula/"
 grep -Elr -- '^(<<<<<<< HEAD|=======|>>>>>>> [[:xdigit:]]+ .*)$' | sort -u | xargs -o vim
 grep -l search-string -r . | xargs -o vim
+gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.7 -dPDFSETTINGS=/screen -dNOPAUSE -dQUIET -dBATCH -sOutputFile=filename.pdf filename-reduced.pdf
 gsettings set org.gnome.shell.app-switcher current-workspace-only true
 gsutil cat gs://bucket-name/path/to/filename # $bucket_name =~ /^[a-z](?:[-a-z0-9]{4,28}[a-z0-9])$/
 gsutil cp gs://bucket-name/path/to/filename ./
@@ -1900,9 +1902,11 @@ pavumeter --record
 pbcopy < ~/.ssh/id_ed25519.pub
 pbpaste > ~/.ssh/authorized_keys
 pdf2svg filename.pdf filename-%d.svg all
+pdffonts filename.pdf
 pdfimages -all filename.pdf ./
 pdfimages -j filename.pdf ./
 pdfimages filename.pdf ./
+pdfinfo filename.pdf
 perl -0pE '$_ = "[" . join(",", /\{.*?}/gms) . "]"' < file-with-JSON-scattered-between-other-data.txt | jq '.[] | "\(.firstname) \(.lastname)"'
 perl -0pE 's/^(resource "google_kms_crypto_key" "example-key" {.*?^)(\s+lifecycle {.*?})/"$1".($2 =~ s{^}{#}rsmg)/esm' -i google-kms.tf
 perl -MModern::Perl=2020 -dE 0
@@ -2011,6 +2015,7 @@ pro security-status --thirdparty
 pro security-status --unavailable
 pro status
 ps -eo pid,args | grep -i command_substring
+ps2pdf -dPDFSETTINGS=/screen -dCompatibilityLevel=1.7 -dEmbedAllFonts=true -dSubsetFonts=true -dCompressFonts=true -dColorImageResolution=72 -dGrayImageResolution=72 -dMonoImageResolution=72 filename.pdf filename-reduced.pdf
 psql service=foiegras
 psql service=service_name
 pup 'css-selector' < filename.html
