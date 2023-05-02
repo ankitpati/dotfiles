@@ -1472,6 +1472,7 @@ iwconfig wlp2s0 freq 5.2G
 jamf enroll -prompt
 jamf manage
 jamf policy
+jamf policy -event eventName
 jamf recon
 java -version |& head -n 1
 jd --set 1.json 2.json
