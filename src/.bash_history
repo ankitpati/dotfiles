@@ -1797,6 +1797,7 @@ p4 change -o 12345
 p4 changes -c client_name -l
 p4 changes -e 12345 filename | cut -d' ' -f2 | xargs p4 describe -du5 | delta
 p4 changes -l
+p4 changes -m 1 //depot/directory/filename
 p4 changes -m 10 ... | cut -d' ' -f2 | xargs p4 describe -du5 | delta
 p4 changes -m 10 directory/...
 p4 changes -m 10 directory/....pl
@@ -1825,6 +1826,7 @@ p4 diff -du5 -Od -f //depot/directory/... | delta
 p4 diff -du5 -Od //depot/directory/... | delta
 p4 diff -du5 -f //depot/directory/... | delta
 p4 diff -du5 -f directory/filename | delta
+p4 diff -du5 //depot/directory/filename#123 //depot/directory/filename#124 | delta
 p4 diff -se //depot/directory/... | vipe | xargs p4 reconcile -n
 p4 dirs -H //depot/\*
 p4 dirs //depot/\*
