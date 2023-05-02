@@ -2124,6 +2124,7 @@ snap warnings
 snyk auth
 snyk auth "$(lpass show --password snyk_auth_token)"
 snyk monitor
+softwareupdate --verbose --agree-to-license --install --all --restart
 source ./.venv/bin/activate
 spctl developer-mode enable-terminal
 speedtest
