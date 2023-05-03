@@ -1313,6 +1313,9 @@ gh issue list
 gh pr list
 gh pr status
 git -C "$(git rev-parse --show-toplevel)" clean -ffdx && git submodule foreach git clean -ffdx
+git -C "$(git rev-parse --show-toplevel)" diff HEAD~1 ':^*.asc'
+git -C "$(git rev-parse --show-toplevel)" log -p ':^*.asc'
+git -C "$(git rev-parse --show-toplevel)" show -p ':^*.asc'
 git add -p
 git branch --format='%(refname:short)' | while read -r branch; do git checkout "$branch" || break; git rebase origin/main || break; done
 git branch -r | grep -E '^\s+origin/' | grep -v HEAD | cut -d/ -f2 | xargs git push ankitpati -d
@@ -1324,7 +1327,6 @@ git clone --recurse-submodules https://example.org/repo-with-submodules.git
 git commit --allow-empty -m empty
 git commit --amend -S --no-edit
 git config --show-origin credential.helper
-git diff HEAD~1 ':^*.asc'
 git diff HEAD~1 --name-only
 git difftool branchname -- filename
 git difftool branchname1 branchname2 -- path1/to/filename1 path2/to/filename2
@@ -1337,7 +1339,6 @@ git log --name-only --format= | uniq | less
 git log --pretty=email
 git log --pretty=format:%ae | sort -u | cut -d@ -f2- | sort -u
 git log -p
-git log -p ':^*.asc'
 git log -p --author='contact@ankitpati.in'
 git merge --ff-only branchname
 git merge-base HEAD branchname
@@ -1349,7 +1350,6 @@ git restore filename
 git show --format= --name-only
 git show --show-signature
 git show -U100
-git show -p ':^*.asc'
 git submodule add -b branch_name https://gitlab.com/ankitpati/rpg.git modules/ankitpati/rpg
 git submodule add https://github.com/ankitpati/rpg.git modules/ankitpati/rpg
 git submodule deinit -f submodule_directory/
