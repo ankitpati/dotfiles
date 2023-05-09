@@ -1814,6 +1814,9 @@ p4 clean -n ...
 p4 clean -n //depot/...
 p4 client
 p4 client -o
+p4 clients
+p4 clients -e 'boron*'
+p4 clients -e boron_workstation
 p4 delete -n -c 12345 //depot/directory/filename
 p4 describe -a 12345 | less
 p4 describe -du5 -O 12345 | delta
