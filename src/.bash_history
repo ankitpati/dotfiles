@@ -1265,6 +1265,10 @@ free -h
 fuser -v 8080/tcp
 fzf
 gcc -march=native -Q --help=target | grep -E -- '-m(arch|tune)='
+gcloud --project=project_id compute instances list --format='csv(name,zone,networkInterfaces[0].networkIP)' | grep -F 10.10.10.10
+gcloud --project=project_id compute instances list --format='json(name,zone,networkInterfaces[0].networkIP)' | grep -F 10.10.10.10
+gcloud --project=project_id compute instances list --format='table(name,zone,networkInterfaces[0].networkIP)' | grep -F 10.10.10.10 | tr -s ' '
+gcloud --project=project_id compute instances reset --zone=us-east1-b gce_vm_name
 gcloud auth application-default login
 gcloud auth application-default print-access-token
 gcloud auth configure-docker
@@ -2163,6 +2167,10 @@ steampipe plugin install aws
 steampipe plugin install gcp
 steampipe plugin list
 steampipe query
+steampipe query --output json 'select name, zone_name from gcp_project_project_name.gcp_compute_instance limit 1' | jq .
+steampipe service status
+steampipe service stop
+steampipe service stop --force
 strace -e open -o programname.strace programname programargs
 strace programname 2> programname.strace
 sudo bash -c 'apt update; apt-fast dist-upgrade -y; apt autoremove -y; apt clean; snap refresh; flatpak update; pkcon refresh force; pkcon update; fwupdmgr get-updates; fwupdmgr upgrade; chmod 0750 /usr/bin/nmap /usr/sbin/etherape; chown root:wireshark /usr/bin/nmap /usr/sbin/etherape; setcap cap_net_raw,cap_net_admin,cap_net_bind_service+eip /usr/bin/nmap cap_net_raw,cap_net_admin,cap_net_bind_service+eip /usr/sbin/etherape'
