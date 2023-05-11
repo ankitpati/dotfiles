@@ -8,14 +8,14 @@ connection "gcp_all" {
   connections = ["gcp_project_*"]
 }
 
-connection "gcp_project_technetium_mirror" {
+connection "gcp_project_technetium_development" {
   plugin  = "gcp"
-  project = "technetium-mirror"
+  project = "technetium-development"
 }
 
-connection "gcp_project_technetium_stage" {
+connection "gcp_project_technetium_staging" {
   plugin  = "gcp"
-  project = "technetium-stage"
+  project = "technetium-staging"
 }
 
 connection "gcp_project_technetium_production" {
