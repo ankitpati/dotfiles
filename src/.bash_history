@@ -197,7 +197,7 @@ curl -H "Authorization: token $(lpass show --password github_personal_access_tok
 curl -s -w '\n%{time_total} - %{time_starttransfer}\n' https://httpbin.org/get | tail -n 1 | bc
 curl -sX POST -d '{"commit":"6879efc2c1596d11a6a6ad296f80063b558d5e0f"}' https://api.osv.dev/v1/query | jq .
 curl -sX POST -d '{"version":"2.4.1","package":{"name":"jinja2","ecosystem":"PyPI"}}' https://api.osv.dev/v1/query | jq .
-curl -vvvpx https://squid.ankitpati.in:1080 https://ankitpati.in
+curl -vpx https://squid.ankitpati.in:1080 https://ankitpati.in
 curl http://localhost:8001 | jq -r '.["paths"][]' | while read -r k8s_api_endpoint; do printf '\n## `%s`\n\n```json\n%s\n```\n' "$k8s_api_endpoint" "$(curl "http://localhost:8001$k8s_api_endpoint")"; done > kubernetes_api_record.md
 curl https://ankitpati.in/gpg.asc -o /etc/apt/trusted.gpg.d/ankitpati.asc
 curl https://apt.ankitpati.in/ankitpati.list -o /etc/apt/sources.list.d/ankitpati.list
@@ -1404,6 +1404,7 @@ gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.7 -dPDFSETTINGS=/screen -dNOPAUSE -d
 gsettings set org.gnome.shell.app-switcher current-workspace-only true
 gsutil cat gs://bucket-name/path/to/filename # $bucket_name =~ /^[a-z](?:[-a-z0-9]{4,28}[a-z0-9])$/
 gsutil cp gs://bucket-name/path/to/filename ./
+gsutil signurl -d 8h service_account_key.json gs://bucket-name/path/to/filename
 guiscrcpy
 guiscrcpy config -r
 gunzip filename.gz
