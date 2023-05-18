@@ -182,6 +182,7 @@ crane ls quay.io/ankitpati/tigress
 crane manifest quay.io/ankitpati/tigress | jq .
 crontab -e
 csv -f protocol,root_domain,status < nextdns-log.csv | tail -n +2 | grep -v ',blocked$' | rev | cut -d, -f2- | rev | sort -u > nextdns-domain-list.csv
+csvprintf '%1$s\n' < filename.csv | wc -l
 csvprintf -n '%1$s %2$s %3$s\n' < filename.csv
 cue eval fields.cue
 cue export --out json filename.cue
