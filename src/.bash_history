@@ -1271,8 +1271,7 @@ gcc -march=native -Q --help=target | grep -E -- '-m(arch|tune)='
 gcloud --project=project_id compute instances list --format='csv(name,zone,networkInterfaces[0].networkIP)' | grep -F 10.10.10.10
 gcloud --project=project_id compute instances list --format='json(name,zone,networkInterfaces[0].networkIP)' | grep -F 10.10.10.10
 gcloud --project=project_id compute instances list --format='table(name,zone,networkInterfaces[0].networkIP)' | grep -F 10.10.10.10 | tr -s ' '
-gcloud --project=project_id compute instances reset --zone=us-central1-c instance_name
-gcloud --project=project_id compute instances reset --zone=us-east1-b gce_vm_name
+gcloud --project=project_id compute instances reset --zone=us-west1-a instance_name
 gcloud auth application-default login
 gcloud auth application-default print-access-token
 gcloud auth configure-docker
@@ -1285,14 +1284,14 @@ gcloud cloud-shell scp localhost:path/to/filename cloudshell:~/
 gcloud cloud-shell ssh
 gcloud components install gke-gcloud-auth-plugin
 gcloud compute images list
-gcloud compute instances list --project=project_id --zones=us-east1-b,us-east1-c,us-east1-d --limit=5 --filter='name~instance_name' --format=json
-gcloud compute instances start --zone=us-east1-b instance_name
-gcloud compute instances stop --zone=us-east1-b instance_name
+gcloud compute instances list --project=project_id --zones=us-west1-a,us-west1-b,us-west1-c --limit=5 --filter='name~instance_name' --format=json
+gcloud compute instances start --zone=us-west1-a instance_name
+gcloud compute instances stop --zone=us-west1-a instance_name
 gcloud compute networks list
 gcloud compute project-info describe --project=project_id
-gcloud compute regions describe us-east1 --project=project_id | yq .
-gcloud compute ssh --zone=us-east1-b --internal-ip instance_name
-gcloud compute ssh gke_node_name --project=project_id --zone=us-central1-b --troubleshoot --tunnel-through-iap
+gcloud compute regions describe us-west1 --project=project_id | yq .
+gcloud compute ssh --zone=us-west1-a --internal-ip instance_name
+gcloud compute ssh gke_node_name --project=project_id --zone=us-west1-a --troubleshoot --tunnel-through-iap
 gcloud compute zones list
 gcloud compute zones list --project=project_id
 gcloud config config-helper
@@ -1304,7 +1303,7 @@ gcloud config set compute/region us-west1
 gcloud config set compute/zone us-west1-a
 gcloud config set project project_id
 gcloud config unset project
-gcloud container clusters describe cluster_name --project=project_id --location=us-central1 2>/dev/null | yq .nodeConfig.oauthScopes
+gcloud container clusters describe cluster_name --project=project_id --location=us-west1 2>/dev/null | yq .nodeConfig.oauthScopes
 gcloud container clusters get-credentials cluster_name --region=region_name --project=project_id # appends to ~/.kube/config
 gcloud container get-server-config --format='yaml(defaultClusterVersion)'
 gcloud info
