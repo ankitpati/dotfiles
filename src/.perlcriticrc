@@ -1,5 +1,4 @@
 allow-unsafe = 0
-force = 1
 severity = brutal
 verbose = 11
 
