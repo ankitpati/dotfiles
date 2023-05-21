@@ -1271,6 +1271,7 @@ gcc -march=native -Q --help=target | grep -E -- '-m(arch|tune)='
 gcloud --project=project_id compute instances list --format='csv(name,zone,networkInterfaces[0].networkIP)' | grep -F 10.10.10.10
 gcloud --project=project_id compute instances list --format='json(name,zone,networkInterfaces[0].networkIP)' | grep -F 10.10.10.10
 gcloud --project=project_id compute instances list --format='table(name,zone,networkInterfaces[0].networkIP)' | grep -F 10.10.10.10 | tr -s ' '
+gcloud --project=project_id compute instances reset --zone=us-central1-c instance_name
 gcloud --project=project_id compute instances reset --zone=us-east1-b gce_vm_name
 gcloud auth application-default login
 gcloud auth application-default print-access-token
@@ -1303,6 +1304,7 @@ gcloud config set compute/region us-west1
 gcloud config set compute/zone us-west1-a
 gcloud config set project project_id
 gcloud config unset project
+gcloud container clusters describe cluster_name --project=project_id --location=us-central1 2>/dev/null | yq .nodeConfig.oauthScopes
 gcloud container clusters get-credentials cluster_name --region=region_name --project=project_id # appends to ~/.kube/config
 gcloud container get-server-config --format='yaml(defaultClusterVersion)'
 gcloud info
@@ -1571,6 +1573,7 @@ kubectl edit pod pod_name
 kubectl edit virtualservices.networking.istio.io virtual_service_name -n istio-system
 kubectl exec -it pod_name -- bash
 kubectl exec -it pod_name -c container_name -- bash
+kubectl exec deployments/deployment_name -- bash -l
 kubectl get configmaps
 kubectl get customresourcedefinitions.apiextensions.k8s.io
 kubectl get deploy -n istio-system
@@ -2223,6 +2226,7 @@ terraform show tfplan -no-color > tfplan-for-diff
 terraform show tfplan | landscape
 terraform show tfplan | less -R
 terraform state list
+terraform state rm null_resource.resource_name
 terraform state show module.compute.google_compute_address.compute-array[0]
 terraform validate
 timedatectl set-timezone Asia/Kolkata
