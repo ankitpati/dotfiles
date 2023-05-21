@@ -127,6 +127,7 @@ ciphey -gf filename.txt | grep hello
 code --install-extension ./filename.vsix
 code --install-extension eamodio.gitlens --force
 code --install-extension googlecloudtools.cloudcode --force
+code --install-extension hashicorp.terraform --force
 code --install-extension jock.svg --force
 code --install-extension mindaro.mindaro --force
 code --install-extension mjcrouch.perforce --force
