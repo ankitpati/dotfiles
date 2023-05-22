@@ -1,4 +1,7 @@
 {
+    "[markdown]": {
+        "editor.wordWrap": "off"
+    },
     "comments.useRelativeTime": false,
     "diffEditor.ignoreTrimWhitespace": false,
     "editor.acceptSuggestionOnEnter": "off",
