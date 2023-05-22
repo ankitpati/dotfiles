@@ -28,6 +28,7 @@
         100,
         120
     ],
+    "editor.scrollBeyondLastLine": false,
     "editor.scrollPredominantAxis": false,
     "editor.suggest.preview": true,
     "explorer.confirmDelete": false,
