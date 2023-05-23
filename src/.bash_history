@@ -1651,7 +1651,7 @@ lpass show --field='Public Key' unique_name
 lpass show --password docker_personal_access_token | crane auth login docker.io -u "$(lpass show --username docker_personal_access_token)" --password-stdin
 lpass show --password docker_personal_access_token | docker login -u "$(lpass show --username docker_personal_access_token)" --password-stdin
 lpass show --password docker_personal_access_token | skopeo login docker.io --tls-verify -u "$(lpass show --username docker_personal_access_token)" --password-stdin
-lpass show --password perforce | p4 login
+lpass show --password perforce | p4 login -a
 lpass show --password quay_encrypted_cli_password | skopeo login quay.io --tls-verify -u "$(lpass show --username quay_encrypted_cli_password)" --password-stdin
 lpass show --password unique_name
 lpass show --sync=now --all unique_name
