@@ -191,19 +191,19 @@ cue export --out yaml filename.cue
 cue fmt filename.cue
 curl 'https://example.org/untrustworthy.dat'; exec cat
 curl --connect-to example.org:80:localhost:8080 http://example.org
+curl --data '{"commit":"6879efc2c1596d11a6a6ad296f80063b558d5e0f"}' https://api.osv.dev/v1/query | jq .
+curl --data '{"version":"2.4.1","package":{"name":"jinja2","ecosystem":"PyPI"}}' https://api.osv.dev/v1/query | jq .
 curl --head https://example.org/filename
+curl --header "Authorization: token $(lpass show --password github_personal_access_token)" --remote-name https://github.example.org/raw/namespace/repo_name/branch_name/path/to/filename
+curl --header "Authorization: token $(lpass show --password github_personal_access_token)" --remote-name https://raw.githubusercontent.com/namespace/repo_name/branch_name/path/to/filename
 curl --key openssl.key --cert openssl.crt https://mtls.example.org
+curl --proxytunnel --proxy https://squid.ankitpati.in:1080 https://ankitpati.in
 curl --remote-name https://ankitpati.in/download?file=filename.c
 curl --resolve example.org:80:127.0.0.1 http://example.org
-curl -H "Authorization: token $(lpass show --password github_personal_access_token)" -o filename https://github.example.org/raw/namespace/repo_name/branch_name/path/to/filename
-curl -H "Authorization: token $(lpass show --password github_personal_access_token)" -o filename https://raw.githubusercontent.com/namespace/repo_name/branch_name/path/to/filename
-curl -s -w '\n%{time_total} - %{time_starttransfer}\n' https://httpbin.org/get | tail -n 1 | bc
-curl -sX POST -d '{"commit":"6879efc2c1596d11a6a6ad296f80063b558d5e0f"}' https://api.osv.dev/v1/query | jq .
-curl -sX POST -d '{"version":"2.4.1","package":{"name":"jinja2","ecosystem":"PyPI"}}' https://api.osv.dev/v1/query | jq .
-curl -vpx https://squid.ankitpati.in:1080 https://ankitpati.in
+curl --write-out '\n%{time_total} - %{time_starttransfer}\n' https://httpbin.org/get | tail -n 1 | bc
 curl http://localhost:8001 | jq -r '.["paths"][]' | while read -r k8s_api_endpoint; do printf '\n## `%s`\n\n```json\n%s\n```\n' "$k8s_api_endpoint" "$(curl "http://localhost:8001$k8s_api_endpoint")"; done > kubernetes_api_record.md
-curl https://ankitpati.in/gpg.asc -o /etc/apt/trusted.gpg.d/ankitpati.asc
-curl https://apt.ankitpati.in/ankitpati.list -o /etc/apt/sources.list.d/ankitpati.list
+curl https://ankitpati.in/gpg.asc --output /etc/apt/trusted.gpg.d/ankitpati.asc
+curl https://apt.ankitpati.in/ankitpati.list --output /etc/apt/sources.list.d/ankitpati.list
 curl https://github.com/web-flow.gpg | gpg --import
 curl https://gitlab.com/api/v4/users/ankitpati/projects | jq -r --arg random_index $((RANDOM % 13)) '.[$random_index | tonumber]'
 curl https://ident.me; echo; exec cat
