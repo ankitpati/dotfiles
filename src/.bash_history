@@ -200,6 +200,7 @@ curl --key openssl.key --cert openssl.crt https://mtls.example.org
 curl --proxytunnel --proxy https://squid.ankitpati.in:1080 https://ankitpati.in
 curl --remote-name https://ankitpati.in/download?file=filename.c
 curl --resolve example.org:80:127.0.0.1 http://example.org
+curl --silent --header "Authorization: Bearer $(gcloud auth application-default print-access-token)" 'https://www.googleapis.com/compute/v1/projects/project_id/zones/us-west1-a/instanceGroups/k8s-ig--0000000000000000' | jq .
 curl --write-out '\n%{time_total} - %{time_starttransfer}\n' https://httpbin.org/get | tail -n 1 | bc
 curl http://localhost:8001 | jq -r '.["paths"][]' | while read -r k8s_api_endpoint; do printf '\n## `%s`\n\n```json\n%s\n```\n' "$k8s_api_endpoint" "$(curl "http://localhost:8001$k8s_api_endpoint")"; done > kubernetes_api_record.md
 curl https://ankitpati.in/gpg.asc --output /etc/apt/trusted.gpg.d/ankitpati.asc
@@ -1283,6 +1284,7 @@ gcloud auth print-access-token
 gcloud cloud-shell scp localhost:path/to/filename cloudshell:~/
 gcloud cloud-shell ssh
 gcloud components install gke-gcloud-auth-plugin
+gcloud compute backend-services list --filter=name="($(gcloud compute forwarding-rules list --filter=IPAddress='(10.10.10.10)' --format=json'(name)' | jq -r .[0].name))" --format=json'(backends)' | jq .[0].backends[]
 gcloud compute images list
 gcloud compute instances list --project=project_id --zones=us-west1-a,us-west1-b,us-west1-c --limit=5 --filter='name~instance_name' --format=json
 gcloud compute instances start --zone=us-west1-a instance_name
@@ -1309,6 +1311,10 @@ gcloud container get-server-config --format='yaml(defaultClusterVersion)'
 gcloud info
 gcloud projects get-iam-policy project_id
 gcloud projects list
+gcloud storage objects describe gs://bucket-name/path/to/filename
+gcloud storage objects update gs://bucket-name/path/to/filename --clear-content-disposition
+gcloud storage objects update gs://bucket-name/path/to/filename --content-disposition=inline
+gcloud storage objects update gs://bucket-name/path/to/filename --content-type=text/plain
 gcloud topic filters
 gdb elfname
 gem install --user-install --no-format-executable rubocop
@@ -1408,7 +1414,7 @@ gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.7 -dPDFSETTINGS=/screen -dNOPAUSE -d
 gsettings set org.gnome.shell.app-switcher current-workspace-only true
 gsutil cat gs://bucket-name/path/to/filename # $bucket_name =~ /^[a-z](?:[-a-z0-9]{4,28}[a-z0-9])$/
 gsutil cp gs://bucket-name/path/to/filename ./
-gsutil signurl -d 8h service_account_key.json gs://bucket-name/path/to/filename
+gsutil signurl -d 7d service_account_key.json gs://bucket-name/path/to/filename
 guiscrcpy
 guiscrcpy config -r
 gunzip filename.gz
