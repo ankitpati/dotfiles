@@ -20,7 +20,10 @@
     },
     "presets": [],
     "previewNewDesign": true,
-    "siteList": [],
+    "siteList": [
+        "bard.google.com",
+        "music.amazon.in"
+    ],
     "siteListEnabled": [],
     "syncSettings": true,
     "syncSitesFixes": true,
