@@ -1492,6 +1492,7 @@ jamf policy -event eventName
 jamf recon
 java -version |& head -n 1
 jd --set 1.json 2.json
+jd --set <(jq .theme < .dark-reader.json) <(jq .customThemes[0].theme < .dark-reader.json)
 jd -f patch 1.json 2.json
 jd 1.json 2.json
 johnnydep --output-format dot package_name | apdot -Tpng | timg -
