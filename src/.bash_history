@@ -29,6 +29,7 @@ P4DIFF=vimdiff p4 diff -Od -f //depot/directory/...
 P4DIFF=vimdiff p4 diff -f //depot/directory/...
 P4DIFF=vimdiff p4 diff -f //depot/directory/filename
 PATH="$(echo "$PATH" | sed 's/:/\n/g' | grep -v binutils | paste -sd :)" cpan Unicode::GCString
+TF_LOG=debug terraform plan -out tfplan
 Xvfb :99 -screen 0 1024x768x24
 \ssh ssh.ankitpati.in
 aa-status
@@ -2221,11 +2222,10 @@ terraform graph | apdot -Tpng | timg -
 terraform graph | apdot -Tsvg > filename.svg
 terraform init
 terraform init -upgrade
-terraform init -verify-plugins=false
+terraform init -verify-plugins false
 terraform plan -destroy -out tfplan
-terraform plan -out tfplan
 terraform plan -out tfplan -target module.vpc1 -target module.vpc2
-terraform plan -out=tfplan -var boolean_var_name=true
+terraform plan -out tfplan -var boolean_var_name=true
 terraform refresh
 terraform show tfplan -no-color > tfplan-for-diff
 terraform show tfplan | landscape
