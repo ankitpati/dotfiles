@@ -7,7 +7,35 @@
         "mode": ""
     },
     "changeBrowserTheme": false,
-    "customThemes": [],
+    "customThemes": [
+        {
+            "theme": {
+                "brightness": 100,
+                "contrast": 100,
+                "darkColorScheme": "Default",
+                "darkSchemeBackgroundColor": "#000000",
+                "darkSchemeTextColor": "#ffffff",
+                "engine": "dynamicTheme",
+                "fontFamily": "Open Sans",
+                "grayscale": 0,
+                "immediateModify": false,
+                "lightColorScheme": "Default",
+                "lightSchemeBackgroundColor": "#ffffff",
+                "lightSchemeTextColor": "#000000",
+                "mode": 1,
+                "scrollbarColor": "auto",
+                "selectionColor": "auto",
+                "sepia": 0,
+                "styleSystemControls": false,
+                "stylesheet": "",
+                "textStroke": 0,
+                "useFont": false
+            },
+            "url": [
+                "iterm2.com"
+            ]
+        }
+    ],
     "detectDarkTheme": true,
     "enableContextMenus": false,
     "enableForPDF": true,
@@ -24,7 +52,9 @@
         "bard.google.com",
         "music.amazon.in"
     ],
-    "siteListEnabled": [],
+    "siteListEnabled": [
+        "iterm2.com"
+    ],
     "syncSettings": true,
     "syncSitesFixes": true,
     "theme": {
