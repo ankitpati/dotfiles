@@ -1,0 +1,53 @@
+{
+    "applyToListedOnly": false,
+    "automation": {
+        "behavior": "OnOff",
+        "enable": false,
+        "enabled": false,
+        "mode": ""
+    },
+    "changeBrowserTheme": false,
+    "customThemes": [],
+    "detectDarkTheme": true,
+    "enableContextMenus": false,
+    "enableForPDF": true,
+    "enableForProtectedPages": false,
+    "enabled": true,
+    "fetchNews": false,
+    "location": {
+        "latitude": null,
+        "longitude": null
+    },
+    "presets": [],
+    "previewNewDesign": true,
+    "siteList": [],
+    "siteListEnabled": [],
+    "syncSettings": true,
+    "syncSitesFixes": true,
+    "theme": {
+        "brightness": 100,
+        "contrast": 100,
+        "darkColorScheme": "Default",
+        "darkSchemeBackgroundColor": "#000000",
+        "darkSchemeTextColor": "#ffffff",
+        "engine": "svgFilter",
+        "fontFamily": "Open Sans",
+        "grayscale": 0,
+        "immediateModify": false,
+        "lightColorScheme": "Default",
+        "lightSchemeBackgroundColor": "#ffffff",
+        "lightSchemeTextColor": "#000000",
+        "mode": 1,
+        "scrollbarColor": "auto",
+        "selectionColor": "auto",
+        "sepia": 0,
+        "styleSystemControls": false,
+        "stylesheet": "",
+        "textStroke": 0,
+        "useFont": false
+    },
+    "time": {
+        "activation": "18:00",
+        "deactivation": "9:00"
+    }
+}
