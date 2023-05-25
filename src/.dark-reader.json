@@ -32,6 +32,7 @@
                 "useFont": false
             },
             "url": [
+                "github.blog",
                 "iterm2.com",
                 "ubuntu.com"
             ]
@@ -51,7 +52,8 @@
     "previewNewDesign": true,
     "siteList": [
         "bard.google.com",
-        "music.amazon.in"
+        "music.amazon.in",
+        "web.whatsapp.com"
     ],
     "siteListEnabled": [
         "iterm2.com"
