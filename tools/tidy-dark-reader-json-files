@@ -5,27 +5,16 @@ set -euo pipefail
 # Usage:
 #   ../tools/tidy-dark-reader-json-files [file-to-merge]...
 
+me="$(basename "$0")"
 mydir="$(dirname "$0")/"
 
 dark_reader_json_files=("$mydir/../src/.dark-reader.json" "$@")
 
 jq \
+    --from-file "$mydir/$me.jq" \
     --indent 4 \
     --null-input \
     --sort-keys \
-    '
-    [inputs]
-    |
-    map(
-        .customThemes[0].url = ([.customThemes[].url] | flatten) |
-        .customThemes = [.customThemes[0]]
-    )
-    |
-    .[0].customThemes[0].url = ([.[].customThemes[].url] | flatten | unique) |
-    .[0].siteList = ([.[].siteList[]] | unique) |
-    .[0].siteListEnabled = ([.[].siteListEnabled[]] | unique) |
-    .[0]
-    ' \
     -- \
     "${dark_reader_json_files[@]}" \
     | \
