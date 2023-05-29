@@ -2,27 +2,31 @@
 
 set -euo pipefail
 
-me="$(basename "$0")"
+# Usage:
+#   ../tools/tidy-dark-reader-json-files [file-to-merge]...
+
 mydir="$(dirname "$0")/"
 
-if (($# != 0))
-then
-    printf 'Usage: %s\n' "$me"
-    exit 1
-fi
-
-dark_reader_json_file="$mydir/../src/.dark-reader.json"
+dark_reader_json_files=("$mydir/../src/.dark-reader.json" "$@")
 
 jq \
-    --sort-keys \
     --indent 4 \
+    --null-input \
+    --sort-keys \
     '
-    .customThemes[0].url = (.customThemes[0:] | [.[].url] | flatten | sort) |
-    .customThemes = [.customThemes[0]] |
-    .siteList = (.siteList[0:] | sort) |
-    .siteListEnabled = (.siteListEnabled[0:] | sort)
+    [inputs]
+    |
+    map(
+        .customThemes[0].url = ([.customThemes[].url] | flatten) |
+        .customThemes = [.customThemes[0]]
+    )
+    |
+    .[0].customThemes[0].url = ([.[].customThemes[].url] | flatten | unique) |
+    .[0].siteList = ([.[].siteList[]] | unique) |
+    .[0].siteListEnabled = ([.[].siteListEnabled[]] | unique) |
+    .[0]
     ' \
     -- \
-    "$dark_reader_json_file" \
+    "${dark_reader_json_files[@]}" \
     | \
-    sponge "$dark_reader_json_file"
+    sponge "${dark_reader_json_files[0]}"
