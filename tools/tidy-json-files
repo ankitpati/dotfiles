@@ -15,5 +15,5 @@ mapfile -d '' jsonfiles < <(find "$mydir/../src/" -type f -iname '*.json' -print
 
 for jsonfile in "${jsonfiles[@]}"
 do
-    jq -S --indent 4 . -- "$jsonfile" | sponge "$jsonfile"
+    jq --sort-keys --indent 4 . -- "$jsonfile" | sponge "$jsonfile"
 done

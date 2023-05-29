@@ -11,5 +11,14 @@ then
     exit 1
 fi
 
-tidy -mciq --sort-attributes alpha --indent-spaces 4 -w 150 -xml -- \
+tidy \
+    --indent-spaces 4 \
+    --sort-attributes alpha \
+    -clean \
+    -indent \
+    -modify \
+    -quiet \
+    -wrap 150 \
+    -xml \
+    -- \
     "$mydir/../src/.local/share/kxmlgui5/konsole/"{konsoleui,sessionui}.rc
