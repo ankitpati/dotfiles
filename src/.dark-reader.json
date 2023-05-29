@@ -32,9 +32,21 @@
                 "useFont": false
             },
             "url": [
+                "access.redhat.com",
+                "blogs.perl.org",
+                "developers.redhat.com",
+                "forum.vivaldi.net",
                 "github.blog",
                 "iterm2.com",
-                "ubuntu.com"
+                "meet.google.com",
+                "quay.io",
+                "sso.redhat.com",
+                "ubuntu.com",
+                "www.androidcentral.com",
+                "www.omgubuntu.co.uk",
+                "www.pbs.org",
+                "www.phoronix.com",
+                "www.redhat.com"
             ]
         }
     ],
@@ -56,7 +68,10 @@
         "web.whatsapp.com"
     ],
     "siteListEnabled": [
-        "iterm2.com"
+        "blogs.perl.org",
+        "iterm2.com",
+        "www.omgubuntu.co.uk",
+        "www.phoronix.com"
     ],
     "syncSettings": true,
     "syncSitesFixes": true,
