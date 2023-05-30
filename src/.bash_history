@@ -126,6 +126,7 @@ chsh -s "$(brew --prefix)/bin/bash"
 ciphey -f filename.txt
 ciphey -gf filename.txt | grep hello
 code --install-extension ./filename.vsix
+code --install-extension aykutsarac.jsoncrack-vscode --force
 code --install-extension eamodio.gitlens --force
 code --install-extension googlecloudtools.cloudcode --force
 code --install-extension hashicorp.terraform --force
