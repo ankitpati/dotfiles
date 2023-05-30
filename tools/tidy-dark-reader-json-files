@@ -13,7 +13,7 @@ dark_reader_json_files=("$mydir/../src/.dark-reader.json" "$@")
 jq \
     --from-file "$mydir/$me.jq" \
     --indent 4 \
-    --null-input \
+    --slurp \
     --sort-keys \
     -- \
     "${dark_reader_json_files[@]}" \

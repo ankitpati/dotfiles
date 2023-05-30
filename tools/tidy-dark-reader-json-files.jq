@@ -1,6 +1,4 @@
-#!/usr/bin/env --split-string jq --indent 4 --null-input --sort-keys --from-file
-
-[inputs] |
+#!/usr/bin/env --split-string jq --indent 4 --slurp --sort-keys --from-file
 
 if length == 0 then
     error("Usage:\n\ttidy-dark-reader-json-files.jq <dark-reader-config-json>...")
