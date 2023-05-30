@@ -10,12 +10,7 @@ mydir="$(dirname "$0")/"
 
 dark_reader_json_files=("$mydir/../src/.dark-reader.json" "$@")
 
-jq \
-    --from-file "$mydir/$me.jq" \
-    --indent 4 \
-    --slurp \
-    --sort-keys \
+"$mydir/$me.jq" \
     -- \
-    "${dark_reader_json_files[@]}" \
-    | \
+    "${dark_reader_json_files[@]}" |
     sponge "${dark_reader_json_files[0]}"
