@@ -15,7 +15,7 @@
                 "darkColorScheme": "Default",
                 "darkSchemeBackgroundColor": "#000000",
                 "darkSchemeTextColor": "#ffffff",
-                "engine": "dynamicTheme",
+                "engine": "svgFilter",
                 "fontFamily": "Open Sans",
                 "grayscale": 0,
                 "immediateModify": false,
@@ -32,21 +32,7 @@
                 "useFont": false
             },
             "url": [
-                "access.redhat.com",
-                "blogs.perl.org",
-                "developers.redhat.com",
-                "forum.vivaldi.net",
-                "github.blog",
-                "iterm2.com",
-                "meet.google.com",
-                "quay.io",
-                "sso.redhat.com",
-                "ubuntu.com",
-                "www.androidcentral.com",
-                "www.omgubuntu.co.uk",
-                "www.pbs.org",
-                "www.phoronix.com",
-                "www.redhat.com"
+                "example.org"
             ]
         }
     ],
@@ -81,7 +67,7 @@
         "darkColorScheme": "Default",
         "darkSchemeBackgroundColor": "#000000",
         "darkSchemeTextColor": "#ffffff",
-        "engine": "svgFilter",
+        "engine": "dynamicTheme",
         "fontFamily": "Open Sans",
         "grayscale": 0,
         "immediateModify": false,
