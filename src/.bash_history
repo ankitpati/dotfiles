@@ -2,8 +2,6 @@
 ( GH_ORIGIN='origin'; PULL_REQUEST_ID='12345'; BRANCH_NAME='foo-bar'; git fetch "$GH_ORIGIN" "pull/$PULL_REQUEST_ID/head:$BRANCH_NAME" && git checkout "$BRANCH_NAME" )
 ( GH_ORIGIN='origin'; PULL_REQUEST_ID='12345'; git pull "$GH_ORIGIN" "pull/$PULL_REQUEST_ID/head" )
 ( GH_USERNAME='ankitpati'; age -r "$(curl -H "Authorization: token $(lpass show --password github_personal_access_token)" "https://github.example.org/api/v3/users/$GH_USERNAME/keys" | jq -r .[0].key)" -o cipher.txt.age plain.txt )
-( GIT_COMMITTER_NAME='Ankit Pati' GIT_COMMITTER_EMAIL='contact@ankitpati.in' git rebase branchname --exec 'git commit --amend --author="Ankit Pati <contact@ankitpati.in>" --no-edit' )
-( LESS='-I' git log )
 ( filename=depot/directory/filename; p4 sync "$filename#$(( "$(p4 have "$filename" | cut -d# -f2 | cut -d' ' -f1)" - 1 ))" )
 ( hostname='google.com'; openssl s_client -auth_level 2 -connect "$hostname":443 -servername "$hostname" -verify_hostname "$hostname" -verify_return_error )
 ( hostname='google.com'; openssl s_client -tls1_3 -auth_level 2 -connect "$hostname":443 -servername "$hostname" -verify_hostname "$hostname" -verify_return_error )
@@ -25,6 +23,8 @@
 /usr/libexec/java_home -V
 /usr/libexec/java_home -v 1.8
 CLASSPATH=. java ClassName
+GIT_COMMITTER_NAME='Ankit Pati' GIT_COMMITTER_EMAIL='contact@ankitpati.in' git rebase branchname --exec 'git commit --amend --author="Ankit Pati <contact@ankitpati.in>" --no-edit'
+LESS='-I' git log --graph --pretty=fuller --show-signature
 P4DIFF=vimdiff p4 diff -Od -f //depot/directory/...
 P4DIFF=vimdiff p4 diff -f //depot/directory/...
 P4DIFF=vimdiff p4 diff -f //depot/directory/filename
@@ -1349,7 +1349,6 @@ git fetch origin pull/1000/head:local-branchname # for GitHub
 git fsck --cache --no-reflogs --lost-found --dangling HEAD
 git lfs install
 git log --follow -- filename
-git log --graph --pretty=fuller --show-signature
 git log --name-only --format= | uniq | less
 git log --pretty=email
 git log --pretty=format:%ae | sort -u | cut -d@ -f2- | sort -u
