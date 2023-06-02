@@ -128,6 +128,7 @@ ciphey -gf filename.txt | grep hello
 code --install-extension ./filename.vsix
 code --install-extension aykutsarac.jsoncrack-vscode --force
 code --install-extension eamodio.gitlens --force
+code --install-extension esbenp.prettier-vscode --force
 code --install-extension googlecloudtools.cloudcode --force
 code --install-extension hashicorp.terraform --force
 code --install-extension jock.svg --force
@@ -140,6 +141,7 @@ code --install-extension ms-vscode-remote.vscode-remote-extensionpack --force
 code --install-extension sourcegraph.sourcegraph --force
 code --install-extension vscjava.vscode-java-pack --force
 code --install-extension vscodevim.vim --force
+code --install-extension yzane.markdown-pdf --force
 code --list-extensions
 code --locate-shell-integration-path bash
 code tunnel --accept-server-license-terms
