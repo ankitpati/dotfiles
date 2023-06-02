@@ -141,9 +141,9 @@ code --install-extension ms-vscode-remote.vscode-remote-extensionpack --force
 code --install-extension sourcegraph.sourcegraph --force
 code --install-extension vscjava.vscode-java-pack --force
 code --install-extension vscodevim.vim --force
-code --install-extension yzane.markdown-pdf --force
 code --list-extensions
 code --locate-shell-integration-path bash
+code --uninstall-extension yzane.markdown-pdf --force
 code tunnel --accept-server-license-terms
 comm -23 <(grep -P '^brew install (?!--cask )' ~/Code/Dotfiles/src/.bash_history | cut -d' ' -f3) <(brew leaves --installed-on-request)
 command -V command
