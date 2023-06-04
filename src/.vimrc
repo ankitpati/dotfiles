@@ -8,7 +8,6 @@ set nocompatible
         Plug 'dense-analysis/ale'
         Plug 'godlygeek/tabular'
         Plug 'gregsexton/MatchTag'
-        Plug 'mogelbrod/vim-jsonpath'
         Plug 'sheerun/vim-polyglot'
     call plug#end()
 
