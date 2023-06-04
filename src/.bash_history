@@ -1413,6 +1413,8 @@ grep -E "^($(tail -n +2 brew-deps.csv | cut -d, -f1 | comm -23 - brew-install-li
 grep -E '^\s+keg_only' -r "$(brew --repo)/Library/Taps/homebrew/homebrew-core/Formula/"
 grep -Elr -- '^(<<<<<<< HEAD|=======|>>>>>>> [[:xdigit:]]+ .*)$' | sort -u | xargs -o vim
 grep -l search-string -r . | xargs -o vim
+gron --ungron filename.gron > filename.json
+gron filename.json > filename.gron
 gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.7 -dPDFSETTINGS=/screen -dNOPAUSE -dQUIET -dBATCH -sOutputFile=filename.pdf filename-reduced.pdf
 gsettings set org.gnome.shell.app-switcher current-workspace-only true
 gsutil cat gs://bucket-name/path/to/filename # $bucket_name =~ /^[a-z](?:[-a-z0-9]{4,28}[a-z0-9])$/
