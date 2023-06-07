@@ -8,5 +8,9 @@
     "experimental": false,
     "features": {
         "buildkit": true
+    },
+    "proxies": {
+        "https-proxy": "https://squid.ankitpati.in:1080/",
+        "no-proxy": "docker.io,quay.io"
     }
 }
