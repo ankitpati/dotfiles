@@ -1656,6 +1656,10 @@ loginctl list-sessions
 loginctl show-session
 loginctl show-session 2 -p Type
 logname
+lowdown -tterm filename.md
+lowdown filename.md | xq
+lowdown-diff -tterm filename1.md filename2.md
+lowdown-diff filename1.md filename2.md | xq
 lpass edit --password unique_name
 lpass login contact@ankitpati.in
 lpass ls
