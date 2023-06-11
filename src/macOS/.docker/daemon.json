@@ -11,6 +11,6 @@
     },
     "proxies": {
         "https-proxy": "https://squid.ankitpati.in:1080/",
-        "no-proxy": "docker.io,quay.io"
+        "no-proxy": "amazon.com,amazonaws.com,azurecr.io,c8n.io,docker.com,docker.io,gcr.io,ghcr.io,github.com,gitlab.com,google.com,jfrog.com,jfrog.io,microsoft.com,quay.io"
     }
 }
