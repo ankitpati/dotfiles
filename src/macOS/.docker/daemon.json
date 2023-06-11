@@ -11,6 +11,6 @@
     },
     "proxies": {
         "https-proxy": "https://squid.ankitpati.in:1080/",
-        "no-proxy": "amazon.com,amazonaws.com,azurecr.io,c8n.io,docker.com,docker.io,gcr.io,ghcr.io,github.com,gitlab.com,google.com,jfrog.com,jfrog.io,microsoft.com,quay.io"
+        "no-proxy": "127.0.0.0/8,::1,alibabacloud.com,aliyun.com,aliyuncs.com,amazon.com,amazonaws.com,azurecr.io,c8n.io,canister.io,codeberg.org,docker.com,docker.io,gcr.io,ghcr.io,github.com,gitlab.com,goharbor.io,google.com,ibm.com,icr.io,jfrog.com,jfrog.io,local,localdomain,localhost,microsoft.com,oracle.com,quay.io,tencent.com,tencentcloud.com,tencentcloudcr.com"
     }
 }
