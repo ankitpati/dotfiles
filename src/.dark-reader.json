@@ -32,7 +32,9 @@
                 "useFont": false
             },
             "url": [
-                "example.org"
+                "example.org",
+                "jsoncrack.com",
+                "marpit.marp.app"
             ]
         }
     ],
@@ -50,12 +52,20 @@
     "previewNewDesign": true,
     "siteList": [
         "bard.google.com",
+        "chat.openai.com",
+        "docs.docker.com",
         "music.amazon.in",
         "web.whatsapp.com"
     ],
     "siteListEnabled": [
+        "azure.microsoft.com",
         "blogs.perl.org",
+        "forums.docker.com",
         "iterm2.com",
+        "linuxcommand.org",
+        "sso.redhat.com",
+        "wiki.squid-cache.org",
+        "www.linkedin.com",
         "www.omgubuntu.co.uk",
         "www.phoronix.com"
     ],
