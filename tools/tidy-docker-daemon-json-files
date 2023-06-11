@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+# Usage:
+#   ../tools/tidy-docker-daemon-json-files [file-to-merge]...
+
+me="$(basename "$0")"
+mydir="$(dirname "$0")/"
+
+docker_daemon_json_files=("$mydir/../src/macOS/.docker/daemon.json" "$@")
+
+"$mydir/$me.jq" \
+    -- \
+    "${docker_daemon_json_files[@]}" |
+    sponge "${docker_daemon_json_files[0]}"
