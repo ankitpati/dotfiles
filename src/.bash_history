@@ -24,6 +24,8 @@
 /usr/libexec/java_home -v 1.8
 CLASSPATH=. java ClassName
 GIT_COMMITTER_NAME='Ankit Pati' GIT_COMMITTER_EMAIL='contact@ankitpati.in' git rebase branchname --exec 'git commit --amend --author="Ankit Pati <contact@ankitpati.in>" --no-edit'
+HTTPS_PROXY="$(jq -r '.proxies."https-proxy"' < ~/.docker/daemon.json)" NO_PROXY="$(jq -r '.proxies."no-proxy"' < ~/.docker/daemon.json)" skopeo sync --dry-run --override-arch amd64 --override-os linux --src docker --dest docker docker.io/library/busybox gcr.io/project_id/namespace/
+HTTPS_PROXY="$(jq -r '.proxies."https-proxy"' < ~/.docker/daemon.json)" NO_PROXY="$(jq -r '.proxies."no-proxy"' < ~/.docker/daemon.json)" skopeo sync --dry-run --override-arch amd64 --override-os linux --src docker --dest docker docker.io/library/busybox:latest gcr.io/project_id/namespace/
 LESS='-I' git log --graph --pretty=fuller --show-signature
 P4DIFF=vimdiff p4 diff -Od -f //depot/directory/...
 P4DIFF=vimdiff p4 diff -f //depot/directory/...
@@ -205,6 +207,7 @@ curl --proxytunnel --proxy https://squid.ankitpati.in:1080 https://ankitpati.in
 curl --remote-name https://ankitpati.in/download?file=filename.c
 curl --resolve example.org:80:127.0.0.1 http://example.org
 curl --silent --header "Authorization: Bearer $(gcloud auth application-default print-access-token)" 'https://www.googleapis.com/compute/v1/projects/project_id/zones/us-west1-a/instanceGroups/k8s-ig--0000000000000000' | jq .
+curl --silent --include https://example.org | head -n 1 | cut -d' ' -f2
 curl --write-out '\n%{time_total} - %{time_starttransfer}\n' https://httpbin.org/get | tail -n 1 | bc
 curl http://localhost:8001 | jq -r '.["paths"][]' | while read -r k8s_api_endpoint; do printf '\n## `%s`\n\n```json\n%s\n```\n' "$k8s_api_endpoint" "$(curl "http://localhost:8001$k8s_api_endpoint")"; done > kubernetes_api_record.md
 curl https://ankitpati.in/gpg.asc --output /etc/apt/trusted.gpg.d/ankitpati.asc
@@ -1608,11 +1611,13 @@ kubectl get nodes -o jsonpath='{.items[*].status.conditions[?(@.type=="MemoryPre
 kubectl get poddisruptionbudgets.policy
 kubectl get pods
 kubectl get pods --context=kube-context
+kubectl get pods --namespace namespace --selector "$(kubectl get service service_name --namespace namespace --output yaml | yq .spec.selector | sed 's/: /=/')"
 kubectl get pods --selector app=app_name
 kubectl get pods -A
 kubectl get pods -n istio-system -l app=istiod
 kubectl get pods -o custom-columns=pods:.metadata.name | grep deployment_name | sort -V | while read -r pod; do kubectl top pod --no-headers "$pod"; done
 kubectl get pods | cut -d' ' -f1 | grep -E '(-[[:alnum:]]+){2}$' | sort -V | while read -r deployment; do kubectl logs "$deployment" -c "${deployment%%-+([[:alnum:]])-+([[:alnum:]])}"; done
+kubectl get secrets --namespace namespace --output json | jq .items[].data
 kubectl get services
 kubectl get services -A -o yaml | yq .items[].metadata.name | sort -V
 kubectl get svc -A
@@ -1850,12 +1855,13 @@ p4 describe -du5 -S 12345 | delta
 p4 describe -du5 12345 | delta
 p4 describe -du5 default | delta
 p4 describe 12345
-p4 diff -du5 '@=12345' | delta
+p4 diff -du5 -Od -f ... @=12345 | delta
 p4 diff -du5 -Od -f //depot/directory/... | delta
 p4 diff -du5 -Od //depot/directory/... | delta
 p4 diff -du5 -f //depot/directory/... | delta
 p4 diff -du5 -f directory/filename | delta
 p4 diff -du5 //depot/directory/filename#123 //depot/directory/filename#124 | delta
+p4 diff -du5 @=12345 | delta
 p4 diff -se //depot/directory/... | vipe | xargs p4 reconcile -n
 p4 dirs -H //depot/\*
 p4 dirs //depot/\*
@@ -2166,7 +2172,8 @@ sqlformat -k upper -i lower -r --indent_width 4 --indent_columns -s --comma_firs
 sqlite3 filename.sqlite
 sqlite3 ~/Library/Containers/org.p0deje.Maccy/Data/Library/Application\ Support/Maccy/Storage.sqlite 'select group_concat(zvalue, char(10)) from zhistoryitemcontent where zvalue regexp "^[a-z0-9-_@.]+$"' | xargs brew info
 sqlite3_analyzer filename.sqlite
-src search 'context:global repo:^github\.com/ankitpati/rpg$ bitcount patternType:literal case:yes'
+src search 'case:yes context:global file:filename.ext patternType:literal'
+src search 'case:yes context:global patternType:literal repo:^github\.com/ankitpati/rpg$ bitcount'
 src search 'type:repo tcount'
 ss -tulpn
 ssh -G ssh.ankitpati.in
@@ -2229,6 +2236,7 @@ terraform apply tfplan
 terraform fmt
 terraform graph | apdot -Tpng | timg -
 terraform graph | apdot -Tsvg > filename.svg
+terraform import module.dns.kube-dns kube-system/kube-dns
 terraform init
 terraform init -upgrade
 terraform init -verify-plugins false
@@ -2244,6 +2252,7 @@ terraform state rm null_resource.resource_name
 terraform state show module.compute.google_compute_address.compute-array[0]
 terraform validate
 timedatectl set-timezone Asia/Kolkata
+timeout --signal INT 3 sleep 10
 tmux a
 tmux kill-server
 tmux ls
