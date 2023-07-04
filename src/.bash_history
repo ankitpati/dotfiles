@@ -215,6 +215,7 @@ curl https://apt.ankitpati.in/ankitpati.list --output /etc/apt/sources.list.d/an
 curl https://github.com/web-flow.gpg | gpg --import
 curl https://gitlab.com/api/v4/users/ankitpati/projects | jq -r --arg random_index $((RANDOM % 13)) '.[$random_index | tonumber]'
 curl https://ident.me; echo; exec cat
+cut -f2,3 /proc/net/route | grep ^00000000 | cut -f2 | sed 's/../0x&\n/g' | tac | xargs printf '%u.%u.%u.%u\n'
 dart --disable-analytics
 date +%F
 date +%s
