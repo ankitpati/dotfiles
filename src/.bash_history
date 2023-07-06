@@ -1826,9 +1826,9 @@ p4 annotate -cu filename
 p4 annotate -u filename
 p4 annotate filename
 p4 change -o 12345
-p4 changes -c client_name -l
 p4 changes -e 12345 filename | cut -d' ' -f2 | xargs p4 describe -du5 | delta
 p4 changes -l
+p4 changes -lc client_name
 p4 changes -m 1 //depot/directory/filename
 p4 changes -m 10 ... | cut -d' ' -f2 | xargs p4 describe -du5 | delta
 p4 changes -m 10 directory/...
@@ -1838,31 +1838,31 @@ p4 changes -u username
 p4 changes -u username -s pending
 p4 changes ...
 p4 clean -n
-p4 clean -n -a
-p4 clean -n -d
-p4 clean -n -e
-p4 clean -n -m
 p4 clean -n ...
 p4 clean -n //depot/...
+p4 clean -na
+p4 clean -nd
+p4 clean -ne
+p4 clean -nm
 p4 client
 p4 client -o
 p4 clients
 p4 clients -e 'boron*'
 p4 clients -e boron_workstation
-p4 delete -n -c 12345 //depot/directory/filename
+p4 delete -nc 12345 //depot/directory/filename
+p4 describe -Odu5 12345 | delta
+p4 describe -Sdu5 12345 | delta
 p4 describe -a 12345 | less
-p4 describe -du5 -O 12345 | delta
-p4 describe -du5 -S 12345 | delta
 p4 describe -du5 12345 | delta
 p4 describe -du5 default | delta
 p4 describe 12345
-p4 diff -du5 -Od -f ... @=12345 | delta
-p4 diff -du5 -Od -f //depot/directory/... | delta
 p4 diff -du5 -Od //depot/directory/... | delta
-p4 diff -du5 -f //depot/directory/... | delta
-p4 diff -du5 -f directory/filename | delta
 p4 diff -du5 //depot/directory/filename#123 //depot/directory/filename#124 | delta
 p4 diff -du5 @=12345 | delta
+p4 diff -fdu5 -Od ... @=12345 | delta
+p4 diff -fdu5 -Od //depot/directory/... | delta
+p4 diff -fdu5 //depot/directory/... | delta
+p4 diff -fdu5 directory/filename | delta
 p4 diff -se //depot/directory/... | vipe | xargs p4 reconcile -n
 p4 dirs -H //depot/\*
 p4 dirs //depot/\*
@@ -1876,15 +1876,15 @@ p4 files //.../filename
 p4 files //depot/.../\*.pl
 p4 files //depot/.../filename
 p4 files //depot/...file\*.pl
-p4 grep -F -e expression //depot/...
-p4 grep -l -s -F -e expression //depot/... | cut -d# -f1 | xargs -o vim
+p4 grep -Fe expression //depot/...
+p4 grep -lsFe expression //depot/... | cut -d# -f1 | xargs -o vim
 p4 groups
 p4 groups username
 p4 have path/to/filename
 p4 help sizes
 p4 info
-p4 integrate -n -c 12345 directory/filename1 directory/filename2 directory/filename3
-p4 integrate -n -c 12346 //depot/directory/branch1...@12345,@12345 //depot/directory/branch2/...
+p4 integrate -nc 12345 directory/filename1 directory/filename2 directory/filename3
+p4 integrate -nc 12346 //depot/directory/branch1...@12345,@12345 //depot/directory/branch2/...
 p4 login
 p4 login -as
 p4 monitor show
@@ -1896,14 +1896,14 @@ p4 passwd -O "$(lpass show --password perforce)" -P "$(pwgen 20 1 | tee new_p4_p
 p4 reconcile //depot/...
 p4 reopen -c 12345 directory/filename1 directory/filename2 directory/filename3
 p4 resolve //depot/directory/...
-p4 revert -n -c default ...
 p4 revert -n //depot/directory/...
 p4 revert -n filename
+p4 revert -nc default ...
 p4 set
 p4 shelve -c 12345
-p4 shelve -d -c 12345
-p4 shelve -f -c 12345
-p4 shelve -r -c 12345
+p4 shelve -dc 12345
+p4 shelve -fc 12345
+p4 shelve -rc 12345
 p4 shelve //depot/...
 p4 sizes -sh //depot/directory/...
 p4 status
