@@ -1821,6 +1821,7 @@ osascript -e 'id of app "Visual Studio Code"'
 ovsx create-namespace ankitpati --pat SecretPersonalAccessToken
 ovsx publish --pat SecretPersonalAccessToken
 p4 --field Root=/path/to/old/workspace client -o | p4 client -i; mv /path/to/new/workspace /path/to/old/workspace
+p4 -z tag changes -m 10 directory/....pl
 p4 annotate -c filename
 p4 annotate -cu filename
 p4 annotate -u filename
@@ -1832,7 +1833,6 @@ p4 changes -lc client_name
 p4 changes -m 1 //depot/directory/filename
 p4 changes -m 10 ... | cut -d' ' -f2 | xargs p4 describe -du5 | delta
 p4 changes -m 10 directory/...
-p4 changes -m 10 directory/....pl
 p4 changes -u "$USER" -s submitted | head -5 | cut -d' ' -f2 | while read -r cl_number; do echo "@=$cl_number"; done | xargs p4 files -e | cut -d# -f1 | sort -u | while read -r source_depot_path; do p4 integrate "$source_depot_path" "${source_depot_path//\/directory1\///directory2/}"; done
 p4 changes -u username
 p4 changes -u username -s pending
