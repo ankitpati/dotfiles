@@ -334,7 +334,6 @@ main()
 
     # Oracle Database
     export ORACLE_HOME=''
-    export ORACLE_SID=''
 
     # PostgreSQL
     export PGSSLMODE='verify-full'
