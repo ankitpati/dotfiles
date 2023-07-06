@@ -333,7 +333,13 @@ main()
     export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
 
     # Oracle Database
-    export ORACLE_HOME=''
+    if [[ $(uname -s) == 'Darwin' ]]
+    then
+        local instantclient="$(brew --prefix)/Cellar/instantclient-basic"
+
+        # shellcheck disable=2012
+        export ORACLE_HOME="$instantclient/$(ls -vr "$instantclient" | head -1)/"
+    fi
 
     # PostgreSQL
     export PGSSLMODE='verify-full'
