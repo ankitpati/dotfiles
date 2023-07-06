@@ -335,6 +335,7 @@ main()
     # Oracle Database
     export ORACLE_HOME=''
     export ORACLE_SID=''
+    export TNS_ADMIN="$HOME/.tnsadmin/"
     alias S-ora-tns-rqlplus='rlwrap sqlplus user/pass@tns'
     alias S-ora-tns-sqlplus='sqlplus user/pass@tns'
     alias S-ora-tns-yasql='yasql user/pass@tns'
