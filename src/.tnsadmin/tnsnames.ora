@@ -1,0 +1,14 @@
+orclalias =
+   (DESCRIPTION =
+     (ADDRESS_LIST =
+       (FAILOVER = ON)
+       (LOAD_BALANCE = ON)
+       (ADDRESS = (PROTOCOL = TCP)(HOST = orclhost1.example.org)(PORT = 1521))
+       (ADDRESS = (PROTOCOL = TCP)(HOST = orclhost2.example.org)(PORT = 1521))
+       (ADDRESS = (PROTOCOL = TCP)(HOST = orclhost3.example.org)(PORT = 1521))
+     )
+     (CONNECT_DATA =
+       (SERVICE_NAME = orclservice)
+       (SID = ORCL)
+     )
+  )
