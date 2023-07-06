@@ -2099,6 +2099,7 @@ rg -L search-string
 rg -l search-string
 rg -uuu search-string
 rlwrap raku
+rlwrap sqlplus user/pass@orclalias
 rm "$(brew --prefix)/opt/openssl"; ln -s "$(brew --prefix)/opt/openssl@1.1/" "$(brew --prefix)/opt/openssl"
 rm -rf /Users/Shared/*Relocated\ Items*/
 rm -rf ~/.local/share/containers/ # podman and buildah
@@ -2173,6 +2174,7 @@ sqlformat -k upper -i lower -r --indent_width 4 --indent_columns -s --comma_firs
 sqlite3 filename.sqlite
 sqlite3 ~/Library/Containers/org.p0deje.Maccy/Data/Library/Application\ Support/Maccy/Storage.sqlite 'select group_concat(zvalue, char(10)) from zhistoryitemcontent where zvalue regexp "^[a-z0-9-_@.]+$"' | xargs brew info
 sqlite3_analyzer filename.sqlite
+sqlplus user/pass@orclalias
 src search 'case:yes context:global file:filename.ext patternType:literal'
 src search 'case:yes context:global patternType:literal repo:^github\.com/ankitpati/rpg$ bitcount'
 src search 'type:repo tcount'
@@ -2358,6 +2360,7 @@ xdotool click --repeat 5 1
 xmllint --format filename.xml | sponge filename.xml
 xz -v9e filename.tar
 yapf -i filename.py
+yasql user/pass@orclalias
 youtube-dl https://www.youtube.com/watch?v=VIDEO_ID -F
 youtube-dl https://www.youtube.com/watch?v=VIDEO_ID -f 248
 yq -P < filename.yaml
