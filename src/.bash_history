@@ -89,7 +89,7 @@ brew deps --topological google-java-format
 brew deps --tree google-java-format
 brew developer --verbose state
 brew developer on
-brew doctor
+brew doctor --debug --verbose
 brew help --prefix
 brew help developer
 brew info --json=v2 --cask visual-studio-code | jq .
