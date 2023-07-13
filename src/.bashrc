@@ -317,7 +317,7 @@ main()
     fi
 
     # Prompt configuration
-    PS1='$(printf %03u $?) $(date --iso-8601=seconds) '"$PS1"
+    PS1='$(printf %03u $?) $(date --iso-8601=seconds) \u@\h \w \$ '
 
     # Brew Prevent Time-Consuming Activities
     export HOMEBREW_NO_BOTTLE_SOURCE_FALLBACK='1'
