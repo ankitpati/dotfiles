@@ -316,6 +316,9 @@ main()
                                  | sed 's/__vte_prompt_command//g')"
     fi
 
+    # Prompt configuration
+    PS1="\$(date --iso-8601=seconds) $PS1"
+
     # Brew Prevent Time-Consuming Activities
     export HOMEBREW_NO_BOTTLE_SOURCE_FALLBACK='1'
 
