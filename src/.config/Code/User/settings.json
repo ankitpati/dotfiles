@@ -138,5 +138,6 @@
     "workbench.editor.untitled.hint": "hidden",
     "workbench.enableExperiments": false,
     "workbench.settings.enableNaturalLanguageSearch": false,
+    "workbench.sideBar.location": "right",
     "workbench.startupEditor": "newUntitledFile"
 }
