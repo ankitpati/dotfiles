@@ -17,15 +17,25 @@ sanitize_path()
 set_prompt()
 {
     local clear_format='\[\e[m\]'
-    local exit_code='\[\e[92m\]$(e=$?; if ((e != 0)); then printf \[\e[91m\]; fi; printf %03u $e)'
+    local bright_green='\[\e[92m\]'
+    local bright_red='\[\e[91m\]'
+    local dark_cyan='\[\e[36m\]'
+    local dark_magenta='\[\e[35m\]'
+    local dark_yellow='\[\e[33m\]'
+    local bright_cyan='\[\e[96m\]'
+    local bright_magenta='\[\e[95m\]'
+    local bright_yellow='\[\e[93m\]'
+    local dark_blue='\[\e[34m\]'
 
-    local year='\[\e[36m\]\D{%Y}'
-    local month='\[\e[35m\]\D{%m}'
-    local day_of_month='\[\e[33m\]\D{%d}'
-    local hour='\[\e[96m\]\D{%H}'
-    local minute='\[\e[95m\]\D{%M}'
-    local second='\[\e[93m\]\D{%S}'
-    local timezone='\[\e[34m\]\D{%z}'
+    local exit_code="$bright_green"'$(e=$?; if ((e != 0)); then printf '"$bright_red"'; fi; printf %03u $e)'
+
+    local year="$dark_cyan"'\D{%Y}'
+    local month="$dark_magenta"'\D{%m}'
+    local day_of_month="$dark_yellow"'\D{%d}'
+    local hour="$bright_cyan"'\D{%H}'
+    local minute="$bright_magenta"'\D{%M}'
+    local second="$bright_yellow"'\D{%S}'
+    local timezone="$dark_blue"'\D{%z}'
     local long_timestamp="$year$month$day_of_month$hour$minute$second$timezone"
     local short_timestamp="$hour$minute"
 
