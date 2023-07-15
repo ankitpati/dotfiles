@@ -318,7 +318,7 @@ main()
 
     # Prompt configuration
     # shellcheck disable=SC2154
-    PS1='\[\e[32m\]$(e=$?; if ((e != 0)); then printf \[\e[31m\]; fi; printf %03u $e)\[\e[0m\] \[\e[96m\]\D{%Y}\[\e[0m\]:\[\e[95m\]\D{%m}\[\e[0m\]:\[\e[93m\]\D{%d}\[\e[0m\]T\[\e[36m\]\D{%H}\[\e[0m\]:\[\e[35m\]\D{%M}\[\e[0m\]:\[\e[33m\]\D{%S}\[\e[34m\]\D{%z}\[\e[0m\] \u@\h \w \$ '
+    PS1='\[\e[92m\]$(e=$?; if ((e != 0)); then printf \[\e[91m\]; fi; printf %03u $e)\[\e[0m\] \[\e[36m\]\D{%Y}\[\e[0m\]:\[\e[35m\]\D{%m}\[\e[0m\]:\[\e[33m\]\D{%d}\[\e[0m\]T\[\e[96m\]\D{%H}\[\e[0m\]:\[\e[95m\]\D{%M}\[\e[0m\]:\[\e[93m\]\D{%S}\[\e[34m\]\D{%z}\[\e[0m\] \u@\h \w \$ '
 
     # Brew Prevent Time-Consuming Activities
     export HOMEBREW_NO_BOTTLE_SOURCE_FALLBACK='1'
