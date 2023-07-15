@@ -317,7 +317,7 @@ main()
     fi
 
     # Prompt configuration
-    PS1='$(case $? in 0) printf \[\e[32m\]%03u\[\e[0m\] $? ;; *) printf \[\e[31m\]%03u\[\e[0m\] $? ;; esac) $(printf \[\e[96m\])\D{%Y}$(printf \[\e[0m\]):$(printf \[\e[95m\])\D{%m}$(printf \[\e[0m\]):$(printf \[\e[93m\])\D{%d}$(printf \[\e[0m\])T$(printf \[\e[36m\])\D{%H}$(printf \[\e[0m\]):$(printf \[\e[35m\])\D{%M}$(printf \[\e[0m\]):$(printf \[\e[33m\])\D{%S}$(printf \[\e[0m\])\D{%z} \u@\h \w \$ '
+    PS1='$(case $? in 0) printf \[\e[32m\]%03u\[\e[0m\] $? ;; *) printf \[\e[31m\]%03u\[\e[0m\] $? ;; esac) $(printf \[\e[96m\])\D{%Y}$(printf \[\e[0m\]):$(printf \[\e[95m\])\D{%m}$(printf \[\e[0m\]):$(printf \[\e[93m\])\D{%d}$(printf \[\e[0m\])T$(printf \[\e[36m\])\D{%H}$(printf \[\e[0m\]):$(printf \[\e[35m\])\D{%M}$(printf \[\e[0m\]):$(printf \[\e[33m\])\D{%S}$(printf \[\e[0m\])$(printf \[\e[34m\])\D{%z}$(printf \[\e[0m\]) \u@\h \w \$ '
 
     # Brew Prevent Time-Consuming Activities
     export HOMEBREW_NO_BOTTLE_SOURCE_FALLBACK='1'
