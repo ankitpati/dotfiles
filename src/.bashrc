@@ -16,7 +16,8 @@ sanitize_path()
 
 set_prompt()
 {
-    local exit_code='\[\e[0;92m\]$(e=$?; if ((e != 0)); then printf \[\e[91m\]; fi; printf %03u $e)'
+    local clear_format='\[\e[m\]'
+    local exit_code='\[\e[92m\]$(e=$?; if ((e != 0)); then printf \[\e[91m\]; fi; printf %03u $e)'
 
     local year='\[\e[36m\]\D{%Y}'
     local month='\[\e[35m\]\D{%m}'
@@ -25,20 +26,23 @@ set_prompt()
     local minute='\[\e[95m\]\D{%M}'
     local second='\[\e[93m\]\D{%S}'
     local timezone='\[\e[34m\]\D{%z}'
-    local long_timestamp="$year$month$day_of_month$hour$minute$second$timezone"'\[\e[m\]'
-    local short_timestamp="$hour$minute"'\[\e[m\]'
+    local long_timestamp="$year$month$day_of_month$hour$minute$second$timezone"
+    local short_timestamp="$hour$minute"
 
     local situation='\u@\h \w'
     local euid_indicator='\$'
 
-    local long_prompt="$exit_code $long_timestamp $situation $euid_indicator "
-    local short_prompt="$exit_code $short_timestamp $euid_indicator "
+    local long_common="$clear_format$exit_code $long_timestamp$clear_format"
+    local short_common="$clear_format$exit_code $short_timestamp$clear_format"
+
+    local long_prompt="$long_common $situation $euid_indicator "
+    local short_prompt="$short_common $euid_indicator "
 
     # For `git-sh`. Set `ADD_ON_PS1` in `~/.gitshrc`.
     if [[ -n $ADD_ON_PS1 ]]
     then
-        long_prompt="$exit_code $long_timestamp $ADD_ON_PS1"
-        short_prompt="$exit_code $short_timestamp $ADD_ON_PS1"
+        long_prompt="$long_common $ADD_ON_PS1"
+        short_prompt="$short_common $ADD_ON_PS1"
     fi
 
     local expanded_long_prompt="${long_prompt@P}"
