@@ -14,6 +14,49 @@ sanitize_path()
     ;
 }
 
+# shellcheck disable=SC2120
+set_prompt()
+{
+    local exit_code='\[\e[0;92m\]$(e=$?; if ((e != 0)); then printf \[\e[91m\]; fi; printf %03u $e)\[\e[m\]'
+
+    local year='\[\e[36m\]\D{%Y}\[\e[m\]'
+    local month='\[\e[35m\]\D{%m}\[\e[m\]'
+    local day_of_month='\[\e[33m\]\D{%d}\[\e[m\]'
+    local hour='\[\e[96m\]\D{%H}\[\e[m\]'
+    local minute='\[\e[95m\]\D{%M}\[\e[m\]'
+    local second='\[\e[93m\]\D{%S}\[\e[m\]'
+    local timezone='\[\e[34m\]\D{%z}\[\e[m\]'
+    local long_timestamp="$year:$month:${day_of_month}T$hour:$minute:$second$timezone"
+    local short_timestamp="$hour$minute"
+
+    local situation='\u@\h \w'
+    local euid_indicator='\$'
+
+    # For `git-sh`. Call `set_prompt "$PS1"` from `~/.gitshrc`.
+    local add_on="${1:-}"
+
+    local long_prompt="$exit_code $long_timestamp $situation $euid_indicator "
+    local short_prompt="$exit_code $short_timestamp $euid_indicator "
+
+    if [[ -n $add_on ]]
+    then
+        long_prompt="$exit_code $long_timestamp $add_on"
+        short_prompt="$exit_code $short_timestamp $add_on"
+    fi
+
+    local expanded_long_prompt="${long_prompt@P}"
+    local discoloured_expanded_long_prompt="${expanded_long_prompt//$'\001'*([^$'\002'])$'\002'}"
+
+    local long_prompt_legroom='10'
+
+    if ((${#discoloured_expanded_long_prompt} <= COLUMNS - long_prompt_legroom))
+    then
+        PS1="$long_prompt"
+    else
+        PS1="$short_prompt"
+    fi
+}
+
 # Prepend old binaries to PATH
 B-oldbin()
 {
@@ -316,10 +359,6 @@ main()
                                  | sed 's/__vte_prompt_command//g')"
     fi
 
-    # Prompt configuration
-    # shellcheck disable=SC2154
-    PS1='\[\e[0;92m\]$(e=$?; if ((e != 0)); then printf \[\e[91m\]; fi; printf %03u $e)\[\e[m\] \[\e[36m\]\D{%Y}\[\e[m\]:\[\e[35m\]\D{%m}\[\e[m\]:\[\e[33m\]\D{%d}\[\e[m\]T\[\e[96m\]\D{%H}\[\e[m\]:\[\e[95m\]\D{%M}\[\e[m\]:\[\e[93m\]\D{%S}\[\e[34m\]\D{%z}\[\e[m\] \u@\h \w \$ '
-
     # Brew Prevent Time-Consuming Activities
     export HOMEBREW_NO_BOTTLE_SOURCE_FALLBACK='1'
 
@@ -407,6 +446,7 @@ main()
 
     # Bash
     export -f sanitize_path
+    set_prompt
 
     if [[ $(id -u) != '0' ]]
     then
