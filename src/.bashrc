@@ -447,6 +447,7 @@ main()
     # Bash
     export -f sanitize_path
     set_prompt
+    trap set_prompt SIGWINCH
 
     if [[ $(id -u) != '0' ]]
     then
