@@ -1,3 +1,5 @@
 #!/usr/bin/env bash
 
-set_prompt "$PS1"
+# This is referenced in `~/.bashrc`.
+# shellcheck disable=2034
+ADD_ON_PS1="$PS1"
