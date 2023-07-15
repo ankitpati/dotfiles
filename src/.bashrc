@@ -14,7 +14,6 @@ sanitize_path()
     ;
 }
 
-# shellcheck disable=SC2120
 set_prompt()
 {
     local exit_code='\[\e[0;92m\]$(e=$?; if ((e != 0)); then printf \[\e[91m\]; fi; printf %03u $e)\[\e[m\]'
@@ -32,16 +31,14 @@ set_prompt()
     local situation='\u@\h \w'
     local euid_indicator='\$'
 
-    # For `git-sh`. Call `set_prompt "$PS1"` from `~/.gitshrc`.
-    local add_on="${1:-}"
-
     local long_prompt="$exit_code $long_timestamp $situation $euid_indicator "
     local short_prompt="$exit_code $short_timestamp $euid_indicator "
 
-    if [[ -n $add_on ]]
+    # For `git-sh`. Set `ADD_ON_PS1` in `~/.gitshrc`.
+    if [[ -n $ADD_ON_PS1 ]]
     then
-        long_prompt="$exit_code $long_timestamp $add_on"
-        short_prompt="$exit_code $short_timestamp $add_on"
+        long_prompt="$exit_code $long_timestamp $ADD_ON_PS1"
+        short_prompt="$exit_code $short_timestamp $ADD_ON_PS1"
     fi
 
     local expanded_long_prompt="${long_prompt@P}"
@@ -355,7 +352,7 @@ main()
     export HISTSIZE=''
     if ! printf '%s\n' "$PROMPT_COMMAND" | grep -q '\bhistory\b'
     then
-        export PROMPT_COMMAND="$(printf 'history -a; history -n; %s\n' "$PROMPT_COMMAND" \
+        export PROMPT_COMMAND="$(printf 'history -a; history -n; set_prompt; %s\n' "$PROMPT_COMMAND" \
                                  | sed 's/__vte_prompt_command//g')"
     fi
 
