@@ -14,7 +14,7 @@ sanitize_path()
     ;
 }
 
-set_prompt()
+setup_prompt()
 {
     local clear_format='\[\e[m\]'
     local bright_green='\[\e[92m\]'
@@ -42,25 +42,31 @@ set_prompt()
     local situation='\u@\h \w'
     local euid_indicator='\$'
 
-    local long_common="$clear_format$exit_code $long_timestamp$clear_format"
-    local short_common="$clear_format$exit_code $short_timestamp$clear_format"
+    readonly LONG_PROMPT_LEGROOM='10'
 
-    local long_prompt="$long_common $situation $euid_indicator "
-    local short_prompt="$short_common $euid_indicator "
+    readonly LONG_COMMON_PROMPT="$clear_format$exit_code $long_timestamp$clear_format"
+    readonly SHORT_COMMON_PROMPT="$clear_format$exit_code $short_timestamp$clear_format"
+
+    readonly LONG_PROMPT="$LONG_COMMON_PROMPT $situation $euid_indicator "
+    readonly SHORT_PROMPT="$SHORT_COMMON_PROMPT $euid_indicator "
+}
+
+set_prompt()
+{
+    local long_prompt="$LONG_PROMPT"
+    local short_prompt="$SHORT_PROMPT"
 
     # For `git-sh`. Set `ADD_ON_PS1` in `~/.gitshrc`.
     if [[ -n $ADD_ON_PS1 ]]
     then
-        long_prompt="$long_common $ADD_ON_PS1"
-        short_prompt="$short_common $ADD_ON_PS1"
+        long_prompt="$LONG_COMMON_PROMPT $ADD_ON_PS1"
+        short_prompt="$SHORT_COMMON_PROMPT $ADD_ON_PS1"
     fi
 
     local expanded_long_prompt="${long_prompt@P}"
     local discoloured_expanded_long_prompt="${expanded_long_prompt//$'\001'*([^$'\002'])$'\002'}"
 
-    local long_prompt_legroom='10'
-
-    if ((${#discoloured_expanded_long_prompt} <= COLUMNS - long_prompt_legroom))
+    if ((${#discoloured_expanded_long_prompt} <= COLUMNS - LONG_PROMPT_LEGROOM))
     then
         PS1="$long_prompt"
     else
@@ -455,9 +461,12 @@ main()
     add_brewed_items_to_env
     unset -f add_brewed_items_to_env
 
+    setup_prompt
+    unset -f setup_prompt
+    set_prompt
+
     # Bash
     export -f sanitize_path
-    set_prompt
 
     if [[ $(id -u) != '0' ]]
     then
