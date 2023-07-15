@@ -14,66 +14,6 @@ sanitize_path()
     ;
 }
 
-setup_prompt()
-{
-    local clear_format='\[\e[m\]'
-    local bright_green='\[\e[92m\]'
-    local bright_red='\[\e[91m\]'
-    local dark_cyan='\[\e[36m\]'
-    local dark_magenta='\[\e[35m\]'
-    local dark_yellow='\[\e[33m\]'
-    local bright_cyan='\[\e[96m\]'
-    local bright_magenta='\[\e[95m\]'
-    local bright_yellow='\[\e[93m\]'
-    local dark_blue='\[\e[34m\]'
-
-    local exit_code="$bright_green"'$(e=$?; if ((e != 0)); then printf '"$bright_red"'; fi; printf %03u $e)'
-
-    local year="$dark_cyan"'\D{%Y}'
-    local month="$dark_magenta"'\D{%m}'
-    local day_of_month="$dark_yellow"'\D{%d}'
-    local hour="$bright_cyan"'\D{%H}'
-    local minute="$bright_magenta"'\D{%M}'
-    local second="$bright_yellow"'\D{%S}'
-    local timezone="$dark_blue"'\D{%z}'
-    local long_timestamp="$year$month$day_of_month$hour$minute$second$timezone"
-    local short_timestamp="$hour$minute"
-
-    local situation='\u@\h \w'
-    local euid_indicator='\$'
-
-    readonly LONG_PROMPT_LEGROOM='10'
-
-    readonly LONG_COMMON_PROMPT="$clear_format$exit_code $long_timestamp$clear_format"
-    readonly SHORT_COMMON_PROMPT="$clear_format$exit_code $short_timestamp$clear_format"
-
-    readonly LONG_PROMPT="$LONG_COMMON_PROMPT $situation $euid_indicator "
-    readonly SHORT_PROMPT="$SHORT_COMMON_PROMPT $euid_indicator "
-}
-
-set_prompt()
-{
-    local long_prompt="$LONG_PROMPT"
-    local short_prompt="$SHORT_PROMPT"
-
-    # For `git-sh`. Set `ADD_ON_PS1` in `~/.gitshrc`.
-    if [[ -n $ADD_ON_PS1 ]]
-    then
-        long_prompt="$LONG_COMMON_PROMPT $ADD_ON_PS1"
-        short_prompt="$SHORT_COMMON_PROMPT $ADD_ON_PS1"
-    fi
-
-    local expanded_long_prompt="${long_prompt@P}"
-    local discoloured_expanded_long_prompt="${expanded_long_prompt//$'\001'*([^$'\002'])$'\002'}"
-
-    if ((${#discoloured_expanded_long_prompt} <= COLUMNS - LONG_PROMPT_LEGROOM))
-    then
-        PS1="$long_prompt"
-    else
-        PS1="$short_prompt"
-    fi
-}
-
 # Prepend old binaries to PATH
 B-oldbin()
 {
@@ -309,6 +249,66 @@ add_brewed_items_to_env()
         then
             source "$completion_file"
         fi
+    fi
+}
+
+setup_prompt()
+{
+    local clear_format='\[\e[m\]'
+    local bright_green='\[\e[92m\]'
+    local bright_red='\[\e[91m\]'
+    local dark_cyan='\[\e[36m\]'
+    local dark_magenta='\[\e[35m\]'
+    local dark_yellow='\[\e[33m\]'
+    local bright_cyan='\[\e[96m\]'
+    local bright_magenta='\[\e[95m\]'
+    local bright_yellow='\[\e[93m\]'
+    local dark_blue='\[\e[34m\]'
+
+    local exit_code="$bright_green"'$(e=$?; if ((e != 0)); then printf '"$bright_red"'; fi; printf %03u $e)'
+
+    local year="$dark_cyan"'\D{%Y}'
+    local month="$dark_magenta"'\D{%m}'
+    local day_of_month="$dark_yellow"'\D{%d}'
+    local hour="$bright_cyan"'\D{%H}'
+    local minute="$bright_magenta"'\D{%M}'
+    local second="$bright_yellow"'\D{%S}'
+    local timezone="$dark_blue"'\D{%z}'
+    local long_timestamp="$year$month$day_of_month$hour$minute$second$timezone"
+    local short_timestamp="$hour$minute"
+
+    local situation='\u@\h \w'
+    local euid_indicator='\$'
+
+    readonly LONG_PROMPT_LEGROOM='10'
+
+    readonly LONG_COMMON_PROMPT="$clear_format$exit_code $long_timestamp$clear_format"
+    readonly SHORT_COMMON_PROMPT="$clear_format$exit_code $short_timestamp$clear_format"
+
+    readonly LONG_PROMPT="$LONG_COMMON_PROMPT $situation $euid_indicator "
+    readonly SHORT_PROMPT="$SHORT_COMMON_PROMPT $euid_indicator "
+}
+
+set_prompt()
+{
+    local long_prompt="$LONG_PROMPT"
+    local short_prompt="$SHORT_PROMPT"
+
+    # For `git-sh`. Set `ADD_ON_PS1` in `~/.gitshrc`.
+    if [[ -n $ADD_ON_PS1 ]]
+    then
+        long_prompt="$LONG_COMMON_PROMPT $ADD_ON_PS1"
+        short_prompt="$SHORT_COMMON_PROMPT $ADD_ON_PS1"
+    fi
+
+    local expanded_long_prompt="${long_prompt@P}"
+    local discoloured_expanded_long_prompt="${expanded_long_prompt//$'\001'*([^$'\002'])$'\002'}"
+
+    if ((${#discoloured_expanded_long_prompt} <= COLUMNS - LONG_PROMPT_LEGROOM))
+    then
+        PS1="$long_prompt"
+    else
+        PS1="$short_prompt"
     fi
 }
 
