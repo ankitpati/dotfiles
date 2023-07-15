@@ -16,17 +16,17 @@ sanitize_path()
 
 set_prompt()
 {
-    local exit_code='\[\e[0;92m\]$(e=$?; if ((e != 0)); then printf \[\e[91m\]; fi; printf %03u $e)\[\e[m\]'
+    local exit_code='\[\e[0;92m\]$(e=$?; if ((e != 0)); then printf \[\e[91m\]; fi; printf %03u $e)'
 
-    local year='\[\e[36m\]\D{%Y}\[\e[m\]'
-    local month='\[\e[35m\]\D{%m}\[\e[m\]'
-    local day_of_month='\[\e[33m\]\D{%d}\[\e[m\]'
-    local hour='\[\e[96m\]\D{%H}\[\e[m\]'
-    local minute='\[\e[95m\]\D{%M}\[\e[m\]'
-    local second='\[\e[93m\]\D{%S}\[\e[m\]'
-    local timezone='\[\e[34m\]\D{%z}\[\e[m\]'
-    local long_timestamp="$year$month$day_of_month$hour$minute$second$timezone"
-    local short_timestamp="$hour$minute"
+    local year='\[\e[36m\]\D{%Y}'
+    local month='\[\e[35m\]\D{%m}'
+    local day_of_month='\[\e[33m\]\D{%d}'
+    local hour='\[\e[96m\]\D{%H}'
+    local minute='\[\e[95m\]\D{%M}'
+    local second='\[\e[93m\]\D{%S}'
+    local timezone='\[\e[34m\]\D{%z}'
+    local long_timestamp="$year$month$day_of_month$hour$minute$second$timezone"'\[\e[m\]'
+    local short_timestamp="$hour$minute"'\[\e[m\]'
 
     local situation='\u@\h \w'
     local euid_indicator='\$'
