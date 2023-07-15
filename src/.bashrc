@@ -317,7 +317,7 @@ main()
     fi
 
     # Prompt configuration
-    PS1='$(case $? in 0) printf \[\e[32m\]%03u\[\e[0m\] $? ;; *) printf \[\e[31m\]%03u\[\e[0m\] $? ;; esac) \D{%FT%T%z} \u@\h \w \$ '
+    PS1='$(case $? in 0) printf \[\e[32m\]%03u\[\e[0m\] $? ;; *) printf \[\e[31m\]%03u\[\e[0m\] $? ;; esac) \D{%F}T$(printf \[\e[36m\])\D{%H}$(printf \[\e[0m\]):$(printf \[\e[35m\])\D{%M}$(printf \[\e[0m\]):$(printf \[\e[33m\])\D{%S}$(printf \[\e[0m\])\D{%z} \u@\h \w \$ '
 
     # Brew Prevent Time-Consuming Activities
     export HOMEBREW_NO_BOTTLE_SOURCE_FALLBACK='1'
