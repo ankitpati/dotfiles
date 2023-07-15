@@ -25,7 +25,7 @@ set_prompt()
     local minute='\[\e[95m\]\D{%M}\[\e[m\]'
     local second='\[\e[93m\]\D{%S}\[\e[m\]'
     local timezone='\[\e[34m\]\D{%z}\[\e[m\]'
-    local long_timestamp="$year$month$day_of_month $hour$minute$second$timezone"
+    local long_timestamp="$year$month$day_of_month$hour$minute$second$timezone"
     local short_timestamp="$hour$minute"
 
     local situation='\u@\h \w'
