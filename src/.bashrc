@@ -367,13 +367,13 @@ main()
     # History configuration
     shopt -s histappend
     unset HISTTIMEFORMAT
-    export HISTCONTROL='ignoreboth'
-    export HISTFILESIZE=''
-    export HISTSIZE=''
+    HISTCONTROL='ignoreboth'
+    HISTFILESIZE=''
+    HISTSIZE=''
     if ! printf '%s\n' "$PROMPT_COMMAND" | grep -q '\bhistory\b'
     then
-        export PROMPT_COMMAND="$(printf 'history -a; history -n; set_prompt; %s\n' "$PROMPT_COMMAND" \
-                                 | sed 's/__vte_prompt_command//g')"
+        PROMPT_COMMAND="$(printf 'history -a; history -n; set_prompt; %s\n' "$PROMPT_COMMAND" \
+                          | sed 's/__vte_prompt_command//g')"
     fi
 
     # Brew Prevent Time-Consuming Activities
