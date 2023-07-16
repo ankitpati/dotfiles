@@ -416,10 +416,10 @@ main()
     HISTCONTROL='ignoreboth'
     HISTFILESIZE=''
     HISTSIZE=''
-    if ! printf '%s\n' "$PROMPT_COMMAND" | grep -q '\bhistory\b'
+    if [[ $PROMPT_COMMAND != *history* ]]
     then
-        PROMPT_COMMAND="$(printf 'history -a; history -n; set_prompt; %s\n' "$PROMPT_COMMAND" \
-                          | sed 's/__vte_prompt_command//g')"
+        local prompt_command="history -a; history -n; set_prompt; $PROMPT_COMMAND"
+        PROMPT_COMMAND=${prompt_command//__vte_prompt_command}
     fi
 
     # Brew Prevent Time-Consuming Activities
