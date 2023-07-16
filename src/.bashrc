@@ -14,6 +14,17 @@ sanitize_path()
     ;
 }
 
+discolour_enclosed_ansi()
+{
+    # Utility function to remove ANSI colours from strings with correctly
+    # enclosed colours.
+    #
+    # Enclosing should be as expected by Bash for `PS1`:
+    #  ^A (`\[` or `$'\001'`) to start colour codes,
+    #  ^B (`\]` or `$'\002'`) to end colour codes.
+    printf '%s' "${1//$'\001'*([^$'\002'])$'\002'}"
+}
+
 # Prepend old binaries to PATH
 B-oldbin()
 {
@@ -279,36 +290,50 @@ setup_prompt()
 
     local situation='\u@\h \w'
     local euid_indicator='\$'
+    local coloured_euid_indicator="$bright_green"'$(e=$?; if ((e != 0)); then printf '"$bright_red"'; fi)\$'"$clear_format"
 
-    readonly LONG_PROMPT_LEGROOM='10'
+    readonly PROMPT_LEGROOM='10'
 
     readonly LONG_COMMON_PROMPT="$clear_format$exit_code $long_timestamp$clear_format"
     readonly SHORT_COMMON_PROMPT="$clear_format$exit_code $short_timestamp$clear_format"
+    readonly SHORTEST_COMMON_PROMPT="$clear_format"
 
     readonly LONG_PROMPT="$LONG_COMMON_PROMPT $situation $euid_indicator "
     readonly SHORT_PROMPT="$SHORT_COMMON_PROMPT $euid_indicator "
+    readonly SHORTEST_PROMPT="$SHORTEST_COMMON_PROMPT$coloured_euid_indicator "
 }
 
 set_prompt()
 {
+    local max_prompt_length=$((COLUMNS - PROMPT_LEGROOM))
     local long_prompt="$LONG_PROMPT"
     local short_prompt="$SHORT_PROMPT"
+    local shortest_prompt="$SHORTEST_PROMPT"
 
     # For `git-sh`. Set `ADD_ON_PS1` in `~/.gitshrc`.
     if [[ -n $ADD_ON_PS1 ]]
     then
         long_prompt="$LONG_COMMON_PROMPT $ADD_ON_PS1"
         short_prompt="$SHORT_COMMON_PROMPT $ADD_ON_PS1"
+        shortest_prompt="$SHORTEST_COMMON_PROMPT$ADD_ON_PS1"
     fi
 
     local expanded_long_prompt="${long_prompt@P}"
-    local discoloured_expanded_long_prompt="${expanded_long_prompt//$'\001'*([^$'\002'])$'\002'}"
+    local discoloured_expanded_long_prompt="$(discolour_enclosed_ansi "$expanded_long_prompt")"
 
-    if ((${#discoloured_expanded_long_prompt} <= COLUMNS - LONG_PROMPT_LEGROOM))
+    if ((${#discoloured_expanded_long_prompt} <= max_prompt_length))
     then
         PS1="$long_prompt"
     else
-        PS1="$short_prompt"
+        local expanded_short_prompt="${short_prompt@P}"
+        local discoloured_expanded_short_prompt="$(discolour_enclosed_ansi "$expanded_short_prompt")"
+
+        if ((${#discoloured_expanded_short_prompt} <= max_prompt_length))
+        then
+            PS1="$short_prompt"
+        else
+            PS1="$shortest_prompt"
+        fi
     fi
 }
 
