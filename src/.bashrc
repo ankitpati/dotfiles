@@ -43,7 +43,9 @@ discolour_enclosed_ansi()
     # Enclosing should be as expected by Bash for `PS1`:
     #  ^A (`\[` or `$'\001'`) to start colour codes,
     #  ^B (`\]` or `$'\002'`) to end colour codes.
-    printf '%s' "${1//$'\001'*([^$'\002'])$'\002'}"
+
+    local -n coloured_enclosed_ansi=$1
+    coloured_enclosed_ansi="${coloured_enclosed_ansi//$'\001'*([^$'\002'])$'\002'}"
 }
 
 # Prepend old binaries to PATH
@@ -340,16 +342,16 @@ set_prompt()
     fi
 
     local expanded_long_prompt="${long_prompt@P}"
-    local discoloured_expanded_long_prompt="$(discolour_enclosed_ansi "$expanded_long_prompt")"
+    discolour_enclosed_ansi expanded_long_prompt
 
-    if ((${#discoloured_expanded_long_prompt} <= max_prompt_length))
+    if ((${#expanded_long_prompt} <= max_prompt_length))
     then
         PS1="$long_prompt"
     else
         local expanded_short_prompt="${short_prompt@P}"
-        local discoloured_expanded_short_prompt="$(discolour_enclosed_ansi "$expanded_short_prompt")"
+        discolour_enclosed_ansi expanded_short_prompt
 
-        if ((${#discoloured_expanded_short_prompt} <= max_prompt_length))
+        if ((${#expanded_short_prompt} <= max_prompt_length))
         then
             PS1="$short_prompt"
         else
