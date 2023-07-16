@@ -45,13 +45,13 @@ discolour_enclosed_ansi()
     #  ^B (`\]` or `$'\002'`) to end colour codes.
 
     local -n coloured_enclosed_ansi=$1
-    coloured_enclosed_ansi="${coloured_enclosed_ansi//$'\001'*([^$'\002'])$'\002'}"
+    coloured_enclosed_ansi=${coloured_enclosed_ansi//$'\001'*([^$'\002'])$'\002'}
 }
 
 # Prepend old binaries to PATH
 B-oldbin()
 {
-    export PATH="$(sanitize_path "$HOME/oldbin:$PATH")"
+    export PATH=$(sanitize_path "$HOME/oldbin:$PATH")
     hash -r
 }
 
@@ -210,19 +210,19 @@ add_brewed_items_to_env()
 
         if (($(id -u) != 0))
         then
-            local oraclepath="$ORACLE_HOME"
+            local oraclepath=$ORACLE_HOME
             if [[ -d $oraclepath ]]
             then
                 extra_binaries="$oraclepath:$extra_binaries"
             fi
 
-            local oracledyldpath="$ORACLE_HOME"
+            local oracledyldpath=$ORACLE_HOME
             if [[ -d $oracledyldpath ]]
             then
                 extra_dyldpath="$oracledyldpath:$extra_dyldpath"
             fi
 
-            local oracleclaspath="$ORACLE_HOME"
+            local oracleclaspath=$ORACLE_HOME
             if [[ -d $oracleclaspath ]]
             then
                 extra_claspath="$oracleclaspath:$extra_claspath"
@@ -257,11 +257,11 @@ add_brewed_items_to_env()
             local extra_manpages="$admin_user_home/man:$admin_user_home/.local/share/man:$extra_manpages"
         fi
 
-        export CLASSPATH="$(sanitize_path "$extra_claspath:$CLASSPATH")"
-        export DYLD_LIBRARY_PATH="$(sanitize_path "$extra_dyldpath:$DYLD_LIBRARY_PATH")"
-        export MANPATH="$(sanitize_path "$extra_manpages:$MANPATH")"
-        export PATH="$(sanitize_path "$extra_binaries:$PATH")"
-        export PKG_CONFIG_PATH="$(sanitize_path "$extra_pkgpaths:$PKG_CONFIG_PATH")"
+        export CLASSPATH=$(sanitize_path "$extra_claspath:$CLASSPATH")
+        export DYLD_LIBRARY_PATH=$(sanitize_path "$extra_dyldpath:$DYLD_LIBRARY_PATH")
+        export MANPATH=$(sanitize_path "$extra_manpages:$MANPATH")
+        export PATH=$(sanitize_path "$extra_binaries:$PATH")
+        export PKG_CONFIG_PATH=$(sanitize_path "$extra_pkgpaths:$PKG_CONFIG_PATH")
 
         # Google Cloud SDK
         if (($(id -u) != 0))
@@ -329,9 +329,9 @@ setup_prompt()
 set_prompt()
 {
     local max_prompt_length=$((COLUMNS - PROMPT_LEGROOM))
-    local long_prompt="$LONG_PROMPT"
-    local short_prompt="$SHORT_PROMPT"
-    local shortest_prompt="$SHORTEST_PROMPT"
+    local long_prompt=$LONG_PROMPT
+    local short_prompt=$SHORT_PROMPT
+    local shortest_prompt=$SHORTEST_PROMPT
 
     # For `git-sh`. Set `ADD_ON_PS1` in `~/.gitshrc`.
     if [[ -n $ADD_ON_PS1 ]]
@@ -341,21 +341,21 @@ set_prompt()
         shortest_prompt="$SHORTEST_COMMON_PROMPT$ADD_ON_PS1"
     fi
 
-    local expanded_long_prompt="${long_prompt@P}"
+    local expanded_long_prompt=${long_prompt@P}
     discolour_enclosed_ansi expanded_long_prompt
 
     if ((${#expanded_long_prompt} <= max_prompt_length))
     then
-        PS1="$long_prompt"
+        PS1=$long_prompt
     else
-        local expanded_short_prompt="${short_prompt@P}"
+        local expanded_short_prompt=${short_prompt@P}
         discolour_enclosed_ansi expanded_short_prompt
 
         if ((${#expanded_short_prompt} <= max_prompt_length))
         then
-            PS1="$short_prompt"
+            PS1=$short_prompt
         else
-            PS1="$shortest_prompt"
+            PS1=$shortest_prompt
         fi
     fi
 }
@@ -392,15 +392,15 @@ main()
 
     if [[ $(uname -s) == 'Linux' ]]
     then
-        export PATH="$(sanitize_path "/home/linuxbrew/.linuxbrew/bin:$PATH")"
+        export PATH=$(sanitize_path "/home/linuxbrew/.linuxbrew/bin:$PATH")
     fi
 
-    local brew_prefix="$(command -v brew &>/dev/null && brew --prefix)"
+    local brew_prefix=$(command -v brew &>/dev/null && brew --prefix)
 
     # Ensure `source`s below this see the correct `$MANPATH`.
-    local manpath="$MANPATH"
+    local manpath=$MANPATH
     unset MANPATH
-    export MANPATH="$(sanitize_path "$manpath:$(manpath)")"
+    export MANPATH=$(sanitize_path "$manpath:$(manpath)")
 
     # Text editors
     export EDITOR='vim'
@@ -467,11 +467,11 @@ main()
     export PYENV_ROOT="$HOME/.pyenv/"
 
     # Perl
-    export PERL5LIB="$(sanitize_path "$HOME/perl5/lib/perl5:$PERL5LIB")"
+    export PERL5LIB=$(sanitize_path "$HOME/perl5/lib/perl5:$PERL5LIB")
     export PERLBREW_CPAN_MIRROR='https://www.cpan.org/'
     export PERLCRITIC="$HOME/.perlcriticrc"
     export PERL_CPANM_OPT='--from https://www.cpan.org/ --verify'
-    export PERL_LOCAL_LIB_ROOT="$(sanitize_path "$HOME/perl5:$PERL_LOCAL_LIB_ROOT")"
+    export PERL_LOCAL_LIB_ROOT=$(sanitize_path "$HOME/perl5:$PERL_LOCAL_LIB_ROOT")
     export PERL_MB_OPT="--install_base '$HOME/perl5'"
     export PERL_MM_OPT="INSTALL_BASE=$HOME/perl5"
 
@@ -529,21 +529,21 @@ main()
         fi
 
         # Perl local::lib
-        export PATH="$(sanitize_path "$HOME/perl5/bin:$PATH")"
-        export MANPATH="$(sanitize_path "$HOME/perl5/man:$MANPATH")"
+        export PATH=$(sanitize_path "$HOME/perl5/bin:$PATH")
+        export MANPATH=$(sanitize_path "$HOME/perl5/man:$MANPATH")
 
         # Cargo
-        export PATH="$(sanitize_path "$HOME/.cargo/bin:$PATH")"
+        export PATH=$(sanitize_path "$HOME/.cargo/bin:$PATH")
 
         # Go
-        export PATH="$(sanitize_path "$HOME/go/bin:$PATH")"
+        export PATH=$(sanitize_path "$HOME/go/bin:$PATH")
 
         # Composer
-        export PATH="$(sanitize_path "$HOME/.composer/vendor/bin:$PATH")"
+        export PATH=$(sanitize_path "$HOME/.composer/vendor/bin:$PATH")
 
         # NPM
         #npm config set prefix "$NPM_PACKAGES"
-        export PATH="$(sanitize_path "$NPM_PACKAGES/bin:$PATH")"
+        export PATH=$(sanitize_path "$NPM_PACKAGES/bin:$PATH")
 
         # SDKMAN!
         local sdkman_init="$SDKMAN_DIR/bin/sdkman-init.sh"
@@ -557,24 +557,24 @@ main()
         if [[ -n $(ls "$ruby_gems" 2>/dev/null) ]]
         then
             # shellcheck disable=2012
-            export PATH="$(sanitize_path "$ruby_gems/$(ls -vr "$ruby_gems" | head -1)/bin:$PATH")"
+            export PATH=$(sanitize_path "$ruby_gems/$(ls -vr "$ruby_gems" | head -1)/bin:$PATH")
         fi
 
         # .NET
-        export PATH="$(sanitize_path "$HOME/.dotnet/tools:$PATH")"
+        export PATH=$(sanitize_path "$HOME/.dotnet/tools:$PATH")
 
         # Android
-        export PATH="$(sanitize_path "$HOME/Android/Sdk/platform-tools:$PATH")"
+        export PATH=$(sanitize_path "$HOME/Android/Sdk/platform-tools:$PATH")
 
         # User-installed tools
-        export CLASSPATH="$(sanitize_path "$HOME/jar:$HOME/.local/jar:$CLASSPATH")"
+        export CLASSPATH=$(sanitize_path "$HOME/jar:$HOME/.local/jar:$CLASSPATH")
         if [[ $(uname -s) == 'Darwin' ]]
         then
-            export DYLD_LIBRARY_PATH="$(sanitize_path "$HOME/lib:$HOME/.local/lib:$DYLD_LIBRARY_PATH")"
+            export DYLD_LIBRARY_PATH=$(sanitize_path "$HOME/lib:$HOME/.local/lib:$DYLD_LIBRARY_PATH")
         fi
-        export MANPATH="$(sanitize_path "$HOME/man:$HOME/.local/share/man:$MANPATH")"
-        export PATH="$(sanitize_path "$HOME/bin:$HOME/.local/bin:$PATH")"
-        export PERL5LIB="$(sanitize_path "$HOME/lib/perl5:$HOME/.local/lib/perl5:$PERL5LIB")"
+        export MANPATH=$(sanitize_path "$HOME/man:$HOME/.local/share/man:$MANPATH")
+        export PATH=$(sanitize_path "$HOME/bin:$HOME/.local/bin:$PATH")
+        export PERL5LIB=$(sanitize_path "$HOME/lib/perl5:$HOME/.local/lib/perl5:$PERL5LIB")
     fi
 
     # Colours for `tree`
