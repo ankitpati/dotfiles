@@ -7,7 +7,7 @@ sanitize_path()
     local -a paths
 
     # remove repeated '/'
-    input=${input//+(\/)//}
+    input=${input//\/+(\/)//}
 
     read -ra paths <<< "$input"
 
