@@ -511,9 +511,6 @@ main()
     unset -f setup_prompt
     set_prompt
 
-    # Bash
-    export -f sanitize_path
-
     if (($(id -u) != 0))
     then
         # pyenv
