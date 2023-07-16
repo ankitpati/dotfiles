@@ -185,7 +185,7 @@ add_brewed_items_to_env()
             extra_binaries="$brewsbinpath:$extra_binaries"
         fi
 
-        if [[ $(id -u) != '0' ]]
+        if (($(id -u) != 0))
         then
             local oraclepath="$ORACLE_HOME"
             if [[ -d $oraclepath ]]
@@ -225,7 +225,7 @@ add_brewed_items_to_env()
         fi
 
         # Clean and export the fruits of the above labour
-        if [[ $(id -u) == '0' ]]
+        if (($(id -u) == 0))
         then
             local admin_user_home='/Users/ankitpati'
             local extra_binaries="$admin_user_home/bin:$admin_user_home/.local/bin:$extra_binaries"
@@ -241,7 +241,7 @@ add_brewed_items_to_env()
         export PKG_CONFIG_PATH="$(sanitize_path "$extra_pkgpaths:$PKG_CONFIG_PATH")"
 
         # Google Cloud SDK
-        if [[ $(id -u) != '0' ]]
+        if (($(id -u) != 0))
         then
             local gcloud_sdk="$brew_prefix/Caskroom/google-cloud-sdk/latest/google-cloud-sdk"
             if [[ -f $gcloud_sdk/path.bash.inc ]]
@@ -292,7 +292,7 @@ setup_prompt()
     local euid_indicator='\$'
     local coloured_euid_indicator="$bright_green"'$(e=$?; if ((e != 0)); then printf '"$bright_red"'; fi)\$'"$clear_format"
 
-    readonly PROMPT_LEGROOM='10'
+    readonly PROMPT_LEGROOM=10
 
     readonly LONG_COMMON_PROMPT="$clear_format$exit_code $long_timestamp$clear_format"
     readonly SHORT_COMMON_PROMPT="$clear_format$exit_code $short_timestamp$clear_format"
@@ -339,7 +339,7 @@ set_prompt()
 
 main()
 {
-    if [[ $(uname -s) == 'Darwin' && $(id -u) == '0' ]]
+    if [[ $(uname -s) == 'Darwin' && $(id -u) == 0 ]]
     then
         # Clear out `$PATH` before sourcing `/etc/profile` for root.
         #
@@ -355,7 +355,7 @@ main()
         return 0
     fi
 
-    readonly BASHRC_MAIN_SOURCED='1'
+    readonly BASHRC_MAIN_SOURCED=1
 
     # Source global definitions
     local global_profile='/etc/profile'
@@ -384,10 +384,10 @@ main()
     export MERGE='vimdiff'
 
     # Telemetry
-    export DOTNET_CLI_TELEMETRY_OPTOUT='1'
-    export HOMEBREW_NO_ANALYTICS='1'
-    export POWERSHELL_TELEMETRY_OPTOUT='1'
-    export SRC_DISABLE_USER_AGENT_TELEMETRY='1'
+    export DOTNET_CLI_TELEMETRY_OPTOUT=1
+    export HOMEBREW_NO_ANALYTICS=1
+    export POWERSHELL_TELEMETRY_OPTOUT=1
+    export SRC_DISABLE_USER_AGENT_TELEMETRY=1
 
     # History configuration
     shopt -s histappend
@@ -402,13 +402,13 @@ main()
     fi
 
     # Brew Prevent Time-Consuming Activities
-    export HOMEBREW_NO_BOTTLE_SOURCE_FALLBACK='1'
+    export HOMEBREW_NO_BOTTLE_SOURCE_FALLBACK=1
 
     # Secure Brew
-    export HOMEBREW_NO_INSECURE_REDIRECT='1'
+    export HOMEBREW_NO_INSECURE_REDIRECT=1
 
     # Syntax-highlighted Brew Output
-    export HOMEBREW_BAT='1'
+    export HOMEBREW_BAT=1
 
     # RLWrap
     export RLWRAP_EDITOR="vim '+call cursor(%L,%C)'"
@@ -459,7 +459,7 @@ main()
     fi
 
     # No `man` Prompts on Namesake Pages
-    export MAN_POSIXLY_CORRECT='1'
+    export MAN_POSIXLY_CORRECT=1
 
     alias chomp='perl -pi -E "chomp if eof"'
     alias cpan-outdated='cpan-outdated --mirror="$PERLBREW_CPAN_MIRROR"'
@@ -493,7 +493,7 @@ main()
     # Bash
     export -f sanitize_path
 
-    if [[ $(id -u) != '0' ]]
+    if (($(id -u) != 0))
     then
         # pyenv
         if [[ -d $PYENV_ROOT ]]
