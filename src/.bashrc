@@ -2,16 +2,37 @@
 
 sanitize_path()
 {
-    # Utility function to sanitize PATH-like specifications.
-    # Do not allow
-    # 1. repeated elements,
-    # 2. repeated, starting, or ending `:`, and
-    # 3. repeated `/`.
-    printf '%s' "$1" \
-        | sed 's/::*/:/g;s/^://;s_//*_/_g' \
-        | awk -v 'RS=:' -v 'ORS=:' '!seen[$0]++' \
-        | sed 's/:$//' \
-    ;
+    local input=$1
+    local IFS=':'
+    local -a paths
+
+    # remove repeated '/'
+    input=${input//+(\/)//}
+
+    read -ra paths <<< "$input"
+
+    local -A paths_map
+    local -a sanitized_paths
+
+    for path in "${paths[@]}"
+    do
+        if [[ -z $path ]]
+        then
+            # remove repeated, starting, or ending `:`
+            continue
+        fi
+
+        # remove repeated elements
+        if [[ ! -v paths_map[$path] ]]
+        then
+            paths_map[$path]=1
+            sanitized_paths+=("$path")
+        fi
+    done
+
+    input=${sanitized_paths[*]}
+
+    printf '%s' "$input"
 }
 
 discolour_enclosed_ansi()
