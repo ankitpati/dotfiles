@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 set -euo pipefail
+shopt -s extglob
 
 mydir="$(dirname "$0")/"
 
