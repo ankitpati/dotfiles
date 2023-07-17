@@ -450,6 +450,7 @@ main()
     # Ensure `source`s below this see the correct `$MANPATH`.
     local manpath=$MANPATH
     unset MANPATH
+    export MANPATH
     MANPATH="$manpath:$(manpath)"
     sanitize_path MANPATH
 
