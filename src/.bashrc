@@ -41,7 +41,7 @@ discolour_enclosed_ansi()
     # Utility function to remove ANSI colours from strings with correctly
     # enclosed colours.
     #
-    # Enclosing should be as expected by Bash for `PS1`:
+    # Enclosing should be as Bash expects for `PS1`:
     #  ^A (`\[` or `$'\001'`) to start colour codes,
     #  ^B (`\]` or `$'\002'`) to end colour codes.
 
@@ -293,11 +293,28 @@ add_brewed_items_to_env()
     fi
 }
 
+set_red_if_failed()
+{
+    local exit_code=$?
+    local should_print_code=$1
+
+    local bright_red='\001\e[91m\002'
+
+    if ((exit_code != 0))
+    then
+        printf '%b' "$bright_red"
+    fi
+
+    if ((should_print_code == 1))
+    then
+        printf '%03u' "$exit_code"
+    fi
+}
+
 setup_prompt()
 {
     local clear_format='\[\e[m\]'
     local bright_green='\[\e[92m\]'
-    local bright_red='\[\e[91m\]'
     local dark_cyan='\[\e[36m\]'
     local dark_magenta='\[\e[35m\]'
     local dark_yellow='\[\e[33m\]'
@@ -306,7 +323,7 @@ setup_prompt()
     local bright_yellow='\[\e[93m\]'
     local dark_blue='\[\e[34m\]'
 
-    local exit_code="$bright_green"'$(e=$?; if ((e != 0)); then printf '"$bright_red"'; fi; printf %03u $e)'
+    local exit_code="$bright_green"'$(set_red_if_failed 1)'
 
     local year="$dark_cyan"'\D{%Y}'
     local month="$dark_magenta"'\D{%m}'
@@ -320,7 +337,7 @@ setup_prompt()
 
     local situation='\u@\h \w'
     local euid_indicator='\$'
-    local coloured_euid_indicator="$bright_green"'$(e=$?; if ((e != 0)); then printf '"$bright_red"'; fi)\$'"$clear_format"
+    local coloured_euid_indicator="$bright_green"'$(set_red_if_failed 0)\$'"$clear_format"
 
     readonly PROMPT_LEGROOM=10
 
