@@ -2,7 +2,7 @@
 
 sanitize_path()
 {
-    local input=$1
+    local -n input=$1
     local IFS=':'
     local -a paths
 
@@ -16,6 +16,7 @@ sanitize_path()
     local -A paths_map
     local -a sanitized_paths
 
+    local path
     for path in "${paths[@]}"
     do
         if [[ -z $path ]]
@@ -33,8 +34,6 @@ sanitize_path()
     done
 
     input=${sanitized_paths[*]}
-
-    printf '%s' "$input"
 }
 
 discolour_enclosed_ansi()
@@ -53,7 +52,8 @@ discolour_enclosed_ansi()
 # Prepend old binaries to PATH
 B-oldbin()
 {
-    export PATH=$(sanitize_path "$HOME/oldbin:$PATH")
+    PATH="$HOME/oldbin:$PATH"
+    sanitize_path PATH
     hash -r
 }
 
@@ -259,11 +259,16 @@ add_brewed_items_to_env()
             local extra_manpages="$admin_user_home/man:$admin_user_home/.local/share/man:$extra_manpages"
         fi
 
-        export CLASSPATH=$(sanitize_path "$extra_claspath:$CLASSPATH")
-        export DYLD_LIBRARY_PATH=$(sanitize_path "$extra_dyldpath:$DYLD_LIBRARY_PATH")
-        export MANPATH=$(sanitize_path "$extra_manpages:$MANPATH")
-        export PATH=$(sanitize_path "$extra_binaries:$PATH")
-        export PKG_CONFIG_PATH=$(sanitize_path "$extra_pkgpaths:$PKG_CONFIG_PATH")
+        export CLASSPATH="$extra_claspath:$CLASSPATH"
+        sanitize_path CLASSPATH
+        export DYLD_LIBRARY_PATH="$extra_dyldpath:$DYLD_LIBRARY_PATH"
+        sanitize_path DYLD_LIBRARY_PATH
+        export MANPATH="$extra_manpages:$MANPATH"
+        sanitize_path MANPATH
+        PATH="$extra_binaries:$PATH"
+        sanitize_path PATH
+        export PKG_CONFIG_PATH="$extra_pkgpaths:$PKG_CONFIG_PATH"
+        sanitize_path PKG_CONFIG_PATH
 
         # Google Cloud SDK
         if (($(id -u) != 0))
@@ -394,7 +399,8 @@ main()
 
     if [[ $(uname -s) == 'Linux' ]]
     then
-        export PATH=$(sanitize_path "/home/linuxbrew/.linuxbrew/bin:$PATH")
+        PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
+        sanitize_path PATH
     fi
 
     local brew_prefix=$(command -v brew &>/dev/null && brew --prefix)
@@ -402,7 +408,8 @@ main()
     # Ensure `source`s below this see the correct `$MANPATH`.
     local manpath=$MANPATH
     unset MANPATH
-    export MANPATH=$(sanitize_path "$manpath:$(manpath)")
+    export MANPATH="$manpath:$(manpath)"
+    sanitize_path MANPATH
 
     # Text editors
     export EDITOR='vim'
@@ -469,11 +476,13 @@ main()
     export PYENV_ROOT="$HOME/.pyenv/"
 
     # Perl
-    export PERL5LIB=$(sanitize_path "$HOME/perl5/lib/perl5:$PERL5LIB")
+    export PERL5LIB="$HOME/perl5/lib/perl5:$PERL5LIB"
+    sanitize_path PERL5LIB
     export PERLBREW_CPAN_MIRROR='https://www.cpan.org/'
     export PERLCRITIC="$HOME/.perlcriticrc"
     export PERL_CPANM_OPT='--from https://www.cpan.org/ --verify'
-    export PERL_LOCAL_LIB_ROOT=$(sanitize_path "$HOME/perl5:$PERL_LOCAL_LIB_ROOT")
+    export PERL_LOCAL_LIB_ROOT="$HOME/perl5:$PERL_LOCAL_LIB_ROOT"
+    sanitize_path PERL_LOCAL_LIB_ROOT
     export PERL_MB_OPT="--install_base '$HOME/perl5'"
     export PERL_MM_OPT="INSTALL_BASE=$HOME/perl5"
 
@@ -531,21 +540,27 @@ main()
         fi
 
         # Perl local::lib
-        export PATH=$(sanitize_path "$HOME/perl5/bin:$PATH")
-        export MANPATH=$(sanitize_path "$HOME/perl5/man:$MANPATH")
+        PATH="$HOME/perl5/bin:$PATH"
+        sanitize_path PATH
+        export MANPATH="$HOME/perl5/man:$MANPATH"
+        sanitize_path MANPATH
 
         # Cargo
-        export PATH=$(sanitize_path "$HOME/.cargo/bin:$PATH")
+        PATH="$HOME/.cargo/bin:$PATH"
+        sanitize_path PATH
 
         # Go
-        export PATH=$(sanitize_path "$HOME/go/bin:$PATH")
+        PATH="$HOME/go/bin:$PATH"
+        sanitize_path PATH
 
         # Composer
-        export PATH=$(sanitize_path "$HOME/.composer/vendor/bin:$PATH")
+        PATH="$HOME/.composer/vendor/bin:$PATH"
+        sanitize_path PATH
 
         # NPM
         #npm config set prefix "$NPM_PACKAGES"
-        export PATH=$(sanitize_path "$NPM_PACKAGES/bin:$PATH")
+        PATH="$NPM_PACKAGES/bin:$PATH"
+        sanitize_path PATH
 
         # SDKMAN!
         local sdkman_init="$SDKMAN_DIR/bin/sdkman-init.sh"
@@ -559,24 +574,32 @@ main()
         if [[ -n $(ls "$ruby_gems" 2>/dev/null) ]]
         then
             # shellcheck disable=2012
-            export PATH=$(sanitize_path "$ruby_gems/$(ls -vr "$ruby_gems" | head -1)/bin:$PATH")
+            PATH="$ruby_gems/$(ls -vr "$ruby_gems" | head -1)/bin:$PATH"
+            sanitize_path PATH
         fi
 
         # .NET
-        export PATH=$(sanitize_path "$HOME/.dotnet/tools:$PATH")
+        PATH="$HOME/.dotnet/tools:$PATH"
+        sanitize_path PATH
 
         # Android
-        export PATH=$(sanitize_path "$HOME/Android/Sdk/platform-tools:$PATH")
+        PATH="$HOME/Android/Sdk/platform-tools:$PATH"
+        sanitize_path PATH
 
         # User-installed tools
-        export CLASSPATH=$(sanitize_path "$HOME/jar:$HOME/.local/jar:$CLASSPATH")
+        export CLASSPATH="$HOME/jar:$HOME/.local/jar:$CLASSPATH"
+        sanitize_path CLASSPATH
         if [[ $(uname -s) == 'Darwin' ]]
         then
-            export DYLD_LIBRARY_PATH=$(sanitize_path "$HOME/lib:$HOME/.local/lib:$DYLD_LIBRARY_PATH")
+            export DYLD_LIBRARY_PATH="$HOME/lib:$HOME/.local/lib:$DYLD_LIBRARY_PATH"
+            sanitize_path DYLD_LIBRARY_PATH
         fi
-        export MANPATH=$(sanitize_path "$HOME/man:$HOME/.local/share/man:$MANPATH")
-        export PATH=$(sanitize_path "$HOME/bin:$HOME/.local/bin:$PATH")
-        export PERL5LIB=$(sanitize_path "$HOME/lib/perl5:$HOME/.local/lib/perl5:$PERL5LIB")
+        export MANPATH="$HOME/man:$HOME/.local/share/man:$MANPATH"
+        sanitize_path MANPATH
+        PATH="$HOME/bin:$HOME/.local/bin:$PATH"
+        sanitize_path PATH
+        export PERL5LIB="$HOME/lib/perl5:$HOME/.local/lib/perl5:$PERL5LIB"
+        sanitize_path PERL5LIB
     fi
 
     # Colours for `tree`
