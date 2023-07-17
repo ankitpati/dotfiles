@@ -64,7 +64,7 @@ add_brewed_items_to_env()
         return
     fi
 
-    if [[ $(uname -s) == 'Linux' ]]
+    if [[ $OSTYPE == *linux* ]]
     then
         # Completion for brewed binaries
         local completions_dir="$brew_prefix/etc/bash_completion.d"
@@ -76,7 +76,7 @@ add_brewed_items_to_env()
                 source "$completion_file"
             done
         fi
-    elif [[ $(uname -s) == 'Darwin' ]]
+    elif [[ $OSTYPE == *darwin* ]]
     then
         local brew_postgresql_latest_formula=("$(brew formulae | grep '^postgresql@' | sort -rV | head -n 1)")
         if [[ -z ${brew_postgresql_latest_formula[0]} ]]
@@ -418,7 +418,7 @@ main()
         SRC_ENDPOINT \
     ;
 
-    if [[ $(uname -s) == 'Darwin' && $UID == 0 ]]
+    if [[ $OSTYPE == *darwin* && $UID == 0 ]]
     then
         # Clear out `$PATH` before sourcing `/etc/profile` for root.
         #
@@ -439,7 +439,7 @@ main()
 
     mesg n || :
 
-    if [[ $(uname -s) == 'Linux' ]]
+    if [[ $OSTYPE == *linux* ]]
     then
         PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
         sanitize_path PATH
@@ -493,7 +493,7 @@ main()
     RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
 
     # Oracle Database
-    if [[ $(uname -s) == 'Darwin' ]]
+    if [[ $OSTYPE == *darwin* ]]
     then
         local instantclient="$(brew --prefix)/Cellar/instantclient-basic"
 
@@ -632,7 +632,7 @@ main()
         # User-installed tools
         CLASSPATH="$HOME/jar:$HOME/.local/jar:$CLASSPATH"
         sanitize_path CLASSPATH
-        if [[ $(uname -s) == 'Darwin' ]]
+        if [[ $OSTYPE == *darwin* ]]
         then
             DYLD_LIBRARY_PATH="$HOME/lib:$HOME/.local/lib:$DYLD_LIBRARY_PATH"
             sanitize_path DYLD_LIBRARY_PATH
