@@ -210,7 +210,7 @@ add_brewed_items_to_env()
             extra_binaries="$brewsbinpath:$extra_binaries"
         fi
 
-        if (($(id -u) != 0))
+        if ((UID != 0))
         then
             local oraclepath=$ORACLE_HOME
             if [[ -d $oraclepath ]]
@@ -250,7 +250,7 @@ add_brewed_items_to_env()
         fi
 
         # Clean and export the fruits of the above labour
-        if (($(id -u) == 0))
+        if ((UID == 0))
         then
             local admin_user_home='/Users/ankitpati'
             local extra_binaries="$admin_user_home/bin:$admin_user_home/.local/bin:$extra_binaries"
@@ -271,7 +271,7 @@ add_brewed_items_to_env()
         sanitize_path PKG_CONFIG_PATH
 
         # Google Cloud SDK
-        if (($(id -u) != 0))
+        if ((UID != 0))
         then
             local gcloud_sdk="$brew_prefix/Caskroom/google-cloud-sdk/latest/google-cloud-sdk"
             if [[ -f $gcloud_sdk/path.bash.inc ]]
@@ -418,7 +418,7 @@ main()
         SRC_ENDPOINT \
     ;
 
-    if [[ $(uname -s) == 'Darwin' && $(id -u) == 0 ]]
+    if [[ $(uname -s) == 'Darwin' && $UID == 0 ]]
     then
         # Clear out `$PATH` before sourcing `/etc/profile` for root.
         #
@@ -567,7 +567,7 @@ main()
     unset -f setup_prompt
     set_prompt
 
-    if (($(id -u) != 0))
+    if ((UID != 0))
     then
         # pyenv
         if [[ -d $PYENV_ROOT ]]
