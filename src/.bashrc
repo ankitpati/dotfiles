@@ -6,8 +6,10 @@ sanitize_path()
     local IFS=':'
     local -a paths
 
-    # remove repeated '/'
+    # remove repeated or ending '/'
     input=${input//\/+(\/)//}
+    input=${input%/}
+    input=${input//\/:/:}
 
     read -ra paths <<< "$input"
 
