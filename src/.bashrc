@@ -369,6 +369,13 @@ set_prompt()
 
 main()
 {
+    if [[ -n $BASHRC_MAIN_SOURCED ]]
+    then
+        return 0
+    fi
+
+    readonly BASHRC_MAIN_SOURCED=1
+
     if [[ $(uname -s) == 'Darwin' && $(id -u) == 0 ]]
     then
         # Clear out `$PATH` before sourcing `/etc/profile` for root.
@@ -379,13 +386,6 @@ main()
         # shellcheck disable=SC2123
         PATH=''
     fi
-
-    if [[ -n $BASHRC_MAIN_SOURCED ]]
-    then
-        return 0
-    fi
-
-    readonly BASHRC_MAIN_SOURCED=1
 
     # Source global definitions
     local global_profile='/etc/profile'
