@@ -10,11 +10,12 @@ source <(perl -0pE '/^sanitize_path\(\).{.*?^}/sm; $_=$&' < "$mydir/../src/.bash
 declare -A dirty_clean_paths_map=(
     ['/a/b:/a/c:/a/d:/a/b:/a/e:/a/f']='/a/b:/a/c:/a/d:/a/e:/a/f'
     ['/a/b:/a/c:::/a/d::::/a/e::/a/f']='/a/b:/a/c:/a/d:/a/e:/a/f'
-    [':/a/b:/a/c:/a/d:/a/e:/a/f']='/a/b:/a/c:/a/d:/a/e:/a/f'
+    [':/a/b:/a/c:/a/d:/a/e:/a/f/']='/a/b:/a/c:/a/d:/a/e:/a/f'
     ['/a/b:/a/c:/a/d:/a/e:/a/f:']='/a/b:/a/c:/a/d:/a/e:/a/f'
+    ['/a/b/:/a/c:/a/d/:/a/e///:/a/f:']='/a/b:/a/c:/a/d:/a/e:/a/f'
     ['::/a/b:/a/c:::/a/d::::/a/e::/a/f:']='/a/b:/a/c:/a/d:/a/e:/a/f'
-    ['//a///b:/a///c:/a///d:/a/e:/a//f']='/a/b:/a/c:/a/d:/a/e:/a/f'
-    ['::://a//b::/a///c::/a///d:///a//b:/a/e:/a//f:']='/a/b:/a/c:/a/d:/a/e:/a/f'
+    ['//a///b:/a///c:/a///d:/a/e:/a//f/////']='/a/b:/a/c:/a/d:/a/e:/a/f'
+    ['::://a//b////::/a///c::/a///d//:///a//b//:/a/e:/a//f:']='/a/b:/a/c:/a/d:/a/e:/a/f'
 )
 
 printf '1..%s\n' "${#dirty_clean_paths_map[@]}"
