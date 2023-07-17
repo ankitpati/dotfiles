@@ -259,15 +259,15 @@ add_brewed_items_to_env()
             local extra_manpages="$admin_user_home/man:$admin_user_home/.local/share/man:$extra_manpages"
         fi
 
-        export CLASSPATH="$extra_claspath:$CLASSPATH"
+        CLASSPATH="$extra_claspath:$CLASSPATH"
         sanitize_path CLASSPATH
-        export DYLD_LIBRARY_PATH="$extra_dyldpath:$DYLD_LIBRARY_PATH"
+        DYLD_LIBRARY_PATH="$extra_dyldpath:$DYLD_LIBRARY_PATH"
         sanitize_path DYLD_LIBRARY_PATH
-        export MANPATH="$extra_manpages:$MANPATH"
+        MANPATH="$extra_manpages:$MANPATH"
         sanitize_path MANPATH
         PATH="$extra_binaries:$PATH"
         sanitize_path PATH
-        export PKG_CONFIG_PATH="$extra_pkgpaths:$PKG_CONFIG_PATH"
+        PKG_CONFIG_PATH="$extra_pkgpaths:$PKG_CONFIG_PATH"
         sanitize_path PKG_CONFIG_PATH
 
         # Google Cloud SDK
@@ -376,6 +376,48 @@ main()
 
     readonly BASHRC_MAIN_SOURCED=1
 
+    export \
+        ANDROID_HOME \
+        CLASSPATH \
+        DOCKER_HOST \
+        DOTNET_CLI_TELEMETRY_OPTOUT \
+        DYLD_LIBRARY_PATH \
+        EDITOR \
+        GH_HOST \
+        HOMEBREW_BAT \
+        HOMEBREW_NO_ANALYTICS \
+        HOMEBREW_NO_BOTTLE_SOURCE_FALLBACK \
+        HOMEBREW_NO_INSECURE_REDIRECT \
+        JAVA_HOME \
+        MANPATH \
+        MAN_POSIXLY_CORRECT \
+        MERGE \
+        MYPYPATH \
+        MYPY_CACHE_DIR \
+        NEXUS_PASSWORD \
+        NEXUS_URL \
+        NEXUS_USERNAME \
+        NPM_PACKAGES \
+        ORACLE_HOME \
+        PERL5LIB \
+        PERLBREW_CPAN_MIRROR \
+        PERLCRITIC \
+        PERL_CPANM_OPT \
+        PERL_LOCAL_LIB_ROOT \
+        PERL_MB_OPT \
+        PERL_MM_OPT \
+        PGSSLMODE \
+        PKG_CONFIG_PATH \
+        POWERSHELL_TELEMETRY_OPTOUT \
+        PYENV_ROOT \
+        RIPGREP_CONFIG_PATH \
+        RLWRAP_EDITOR \
+        RLWRAP_HOME \
+        SDKMAN_DIR \
+        SRC_DISABLE_USER_AGENT_TELEMETRY \
+        SRC_ENDPOINT \
+    ;
+
     if [[ $(uname -s) == 'Darwin' && $(id -u) == 0 ]]
     then
         # Clear out `$PATH` before sourcing `/etc/profile` for root.
@@ -408,18 +450,18 @@ main()
     # Ensure `source`s below this see the correct `$MANPATH`.
     local manpath=$MANPATH
     unset MANPATH
-    export MANPATH="$manpath:$(manpath)"
+    MANPATH="$manpath:$(manpath)"
     sanitize_path MANPATH
 
     # Text editors
-    export EDITOR='vim'
-    export MERGE='vimdiff'
+    EDITOR='vim'
+    MERGE='vimdiff'
 
     # Telemetry
-    export DOTNET_CLI_TELEMETRY_OPTOUT=1
-    export HOMEBREW_NO_ANALYTICS=1
-    export POWERSHELL_TELEMETRY_OPTOUT=1
-    export SRC_DISABLE_USER_AGENT_TELEMETRY=1
+    DOTNET_CLI_TELEMETRY_OPTOUT=1
+    HOMEBREW_NO_ANALYTICS=1
+    POWERSHELL_TELEMETRY_OPTOUT=1
+    SRC_DISABLE_USER_AGENT_TELEMETRY=1
 
     # History configuration
     shopt -s histappend
@@ -434,20 +476,20 @@ main()
     fi
 
     # Brew Prevent Time-Consuming Activities
-    export HOMEBREW_NO_BOTTLE_SOURCE_FALLBACK=1
+    HOMEBREW_NO_BOTTLE_SOURCE_FALLBACK=1
 
     # Secure Brew
-    export HOMEBREW_NO_INSECURE_REDIRECT=1
+    HOMEBREW_NO_INSECURE_REDIRECT=1
 
     # Syntax-highlighted Brew Output
-    export HOMEBREW_BAT=1
+    HOMEBREW_BAT=1
 
     # RLWrap
-    export RLWRAP_EDITOR="vim '+call cursor(%L,%C)'"
-    export RLWRAP_HOME="$HOME/.rlwrap"
+    RLWRAP_EDITOR="vim '+call cursor(%L,%C)'"
+    RLWRAP_HOME="$HOME/.rlwrap"
 
     # ripgrep
-    export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
+    RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
 
     # Oracle Database
     if [[ $(uname -s) == 'Darwin' ]]
@@ -455,45 +497,45 @@ main()
         local instantclient="$(brew --prefix)/Cellar/instantclient-basic"
 
         # shellcheck disable=2012
-        export ORACLE_HOME="$instantclient/$(ls -vr "$instantclient" | head -1)/"
+        ORACLE_HOME="$instantclient/$(ls -vr "$instantclient" | head -1)/"
     fi
 
     # PostgreSQL
-    export PGSSLMODE='verify-full'
+    PGSSLMODE='verify-full'
 
     # SDKMAN!
-    export SDKMAN_DIR="$HOME/.sdkman/"
+    SDKMAN_DIR="$HOME/.sdkman/"
 
     # Android
-    export ANDROID_HOME="$HOME/Android/Sdk/"
+    ANDROID_HOME="$HOME/Android/Sdk/"
 
     # NPM
-    export NPM_PACKAGES="$HOME/.npm/packages/"
+    NPM_PACKAGES="$HOME/.npm/packages/"
 
     # Python
-    export MYPYPATH="$HOME/.mypy_stubs/"
-    export MYPY_CACHE_DIR="$HOME/.mypy_cache/"
-    export PYENV_ROOT="$HOME/.pyenv/"
+    MYPYPATH="$HOME/.mypy_stubs/"
+    MYPY_CACHE_DIR="$HOME/.mypy_cache/"
+    PYENV_ROOT="$HOME/.pyenv/"
 
     # Perl
-    export PERL5LIB="$HOME/perl5/lib/perl5:$PERL5LIB"
+    PERL5LIB="$HOME/perl5/lib/perl5:$PERL5LIB"
     sanitize_path PERL5LIB
-    export PERLBREW_CPAN_MIRROR='https://www.cpan.org/'
-    export PERLCRITIC="$HOME/.perlcriticrc"
-    export PERL_CPANM_OPT='--from https://www.cpan.org/ --verify'
-    export PERL_LOCAL_LIB_ROOT="$HOME/perl5:$PERL_LOCAL_LIB_ROOT"
+    PERLBREW_CPAN_MIRROR='https://www.cpan.org/'
+    PERLCRITIC="$HOME/.perlcriticrc"
+    PERL_CPANM_OPT='--from https://www.cpan.org/ --verify'
+    PERL_LOCAL_LIB_ROOT="$HOME/perl5:$PERL_LOCAL_LIB_ROOT"
     sanitize_path PERL_LOCAL_LIB_ROOT
-    export PERL_MB_OPT="--install_base '$HOME/perl5'"
-    export PERL_MM_OPT="INSTALL_BASE=$HOME/perl5"
+    PERL_MB_OPT="--install_base '$HOME/perl5'"
+    PERL_MM_OPT="INSTALL_BASE=$HOME/perl5"
 
     # Podman
     if command -v podman &>/dev/null && [[ -n $XDG_RUNTIME_DIR ]]
     then
-        export DOCKER_HOST="unix://$XDG_RUNTIME_DIR/podman/podman.sock"
+        DOCKER_HOST="unix://$XDG_RUNTIME_DIR/podman/podman.sock"
     fi
 
     # No `man` Prompts on Namesake Pages
-    export MAN_POSIXLY_CORRECT=1
+    MAN_POSIXLY_CORRECT=1
 
     alias chomp='perl -pi -E "chomp if eof"'
     alias cpan-outdated='cpan-outdated --mirror="$PERLBREW_CPAN_MIRROR"'
@@ -542,7 +584,7 @@ main()
         # Perl local::lib
         PATH="$HOME/perl5/bin:$PATH"
         sanitize_path PATH
-        export MANPATH="$HOME/perl5/man:$MANPATH"
+        MANPATH="$HOME/perl5/man:$MANPATH"
         sanitize_path MANPATH
 
         # Cargo
@@ -587,18 +629,18 @@ main()
         sanitize_path PATH
 
         # User-installed tools
-        export CLASSPATH="$HOME/jar:$HOME/.local/jar:$CLASSPATH"
+        CLASSPATH="$HOME/jar:$HOME/.local/jar:$CLASSPATH"
         sanitize_path CLASSPATH
         if [[ $(uname -s) == 'Darwin' ]]
         then
-            export DYLD_LIBRARY_PATH="$HOME/lib:$HOME/.local/lib:$DYLD_LIBRARY_PATH"
+            DYLD_LIBRARY_PATH="$HOME/lib:$HOME/.local/lib:$DYLD_LIBRARY_PATH"
             sanitize_path DYLD_LIBRARY_PATH
         fi
-        export MANPATH="$HOME/man:$HOME/.local/share/man:$MANPATH"
+        MANPATH="$HOME/man:$HOME/.local/share/man:$MANPATH"
         sanitize_path MANPATH
         PATH="$HOME/bin:$HOME/.local/bin:$PATH"
         sanitize_path PATH
-        export PERL5LIB="$HOME/lib/perl5:$HOME/.local/lib/perl5:$PERL5LIB"
+        PERL5LIB="$HOME/lib/perl5:$HOME/.local/lib/perl5:$PERL5LIB"
         sanitize_path PERL5LIB
     fi
 
