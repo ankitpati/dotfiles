@@ -79,6 +79,7 @@ set hlsearch
 set incsearch
 set nomodeline
 set redrawtime=10000
+set scrolloff=5
 set shiftwidth=4
 set synmaxcol=0
 set tabstop=4
