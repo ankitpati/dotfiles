@@ -95,6 +95,7 @@
     "vim.surround": false,
     "vim.useCtrlKeys": true,
     "window.enableMenuBarMnemonics": false,
+    "window.restoreWindows": "none",
     "window.titleBarStyle": "custom",
     "window.zoomLevel": 2,
     "workbench.activityBar.visible": false,
