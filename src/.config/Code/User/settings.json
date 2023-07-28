@@ -132,6 +132,7 @@
     },
     "workbench.colorTheme": "Default High Contrast",
     "workbench.editor.closeOnFileDelete": true,
+    "workbench.editor.focusRecentEditorAfterClose": false,
     "workbench.editor.limit.enabled": true,
     "workbench.editor.openPositioning": "last",
     "workbench.editor.restoreViewState": false,
