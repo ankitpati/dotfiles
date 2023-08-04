@@ -550,6 +550,9 @@ main()
     if command -v podman &>/dev/null && [[ -n $XDG_RUNTIME_DIR ]]
     then
         DOCKER_HOST="unix://$XDG_RUNTIME_DIR/podman/podman.sock"
+    elif command -v docker &>/dev/null && [[ $OSTYPE == *darwin* ]]
+    then
+        DOCKER_HOST="unix://$HOME/.docker/run/docker.sock"
     fi
 
     # No `man` Prompts on Namesake Pages
