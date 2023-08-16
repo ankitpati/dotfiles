@@ -593,6 +593,10 @@ main()
         PATH="$HOME/.arkade/bin:$PATH"
         sanitize_path PATH
 
+        # krew
+        PATH="$HOME/.krew/bin:$PATH"
+        sanitize_path PATH
+
         # pyenv
         if [[ -d $PYENV_ROOT ]]
         then
