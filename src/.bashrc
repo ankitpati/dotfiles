@@ -260,15 +260,10 @@ add_brewed_items_to_env()
         fi
 
         CLASSPATH="$extra_claspath:$CLASSPATH"
-        sanitize_path CLASSPATH
         DYLD_LIBRARY_PATH="$extra_dyldpath:$DYLD_LIBRARY_PATH"
-        sanitize_path DYLD_LIBRARY_PATH
         MANPATH="$extra_manpages:$MANPATH"
-        sanitize_path MANPATH
         PATH="$extra_binaries:$PATH"
-        sanitize_path PATH
         PKG_CONFIG_PATH="$extra_pkgpaths:$PKG_CONFIG_PATH"
-        sanitize_path PKG_CONFIG_PATH
 
         # Google Cloud SDK
         if ((UID != 0))
@@ -459,7 +454,6 @@ main()
     if [[ $OSTYPE == *linux* ]]
     then
         PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
-        sanitize_path PATH
     fi
 
     local brew_prefix=$(command -v brew &>/dev/null && brew --prefix)
@@ -469,7 +463,6 @@ main()
     unset MANPATH
     export MANPATH
     MANPATH="$manpath:$(manpath)"
-    sanitize_path MANPATH
 
     # Text editors
     EDITOR='vim'
@@ -537,12 +530,10 @@ main()
 
     # Perl
     PERL5LIB="$HOME/perl5/lib/perl5:$PERL5LIB"
-    sanitize_path PERL5LIB
     PERLBREW_CPAN_MIRROR='https://www.cpan.org/'
     PERLCRITIC="$HOME/.perlcriticrc"
     PERL_CPANM_OPT='--from https://www.cpan.org/ --verify'
     PERL_LOCAL_LIB_ROOT="$HOME/perl5:$PERL_LOCAL_LIB_ROOT"
-    sanitize_path PERL_LOCAL_LIB_ROOT
     PERL_MB_OPT="--install_base '$HOME/perl5'"
     PERL_MM_OPT="INSTALL_BASE=$HOME/perl5"
 
@@ -591,11 +582,9 @@ main()
     then
         # arkade
         PATH="$HOME/.arkade/bin:$PATH"
-        sanitize_path PATH
 
         # krew
         PATH="$HOME/.krew/bin:$PATH"
-        sanitize_path PATH
 
         # pyenv
         if [[ -d $PYENV_ROOT ]]
@@ -612,26 +601,20 @@ main()
 
         # Perl local::lib
         PATH="$HOME/perl5/bin:$PATH"
-        sanitize_path PATH
         MANPATH="$HOME/perl5/man:$MANPATH"
-        sanitize_path MANPATH
 
         # Cargo
         PATH="$HOME/.cargo/bin:$PATH"
-        sanitize_path PATH
 
         # Go
         PATH="$HOME/go/bin:$PATH"
-        sanitize_path PATH
 
         # Composer
         PATH="$HOME/.composer/vendor/bin:$PATH"
-        sanitize_path PATH
 
         # NPM
         #npm config set prefix "$NPM_PACKAGES"
         PATH="$NPM_PACKAGES/bin:$PATH"
-        sanitize_path PATH
 
         # SDKMAN!
         local sdkman_init="$SDKMAN_DIR/bin/sdkman-init.sh"
@@ -646,35 +629,35 @@ main()
         then
             # shellcheck disable=2012
             PATH="$ruby_gems/$(ls -vr "$ruby_gems" | head -1)/bin:$PATH"
-            sanitize_path PATH
         fi
 
         # .NET
         PATH="$HOME/.dotnet/tools:$PATH"
-        sanitize_path PATH
 
         # Android
         PATH="$HOME/Android/Sdk/platform-tools:$PATH"
-        sanitize_path PATH
 
         # User-installed tools
         CLASSPATH="$HOME/jar:$HOME/.local/jar:$CLASSPATH"
-        sanitize_path CLASSPATH
         if [[ $OSTYPE == *darwin* ]]
         then
             DYLD_LIBRARY_PATH="$HOME/lib:$HOME/.local/lib:$DYLD_LIBRARY_PATH"
-            sanitize_path DYLD_LIBRARY_PATH
         fi
         MANPATH="$HOME/man:$HOME/.local/share/man:$MANPATH"
-        sanitize_path MANPATH
         PATH="$HOME/bin:$HOME/.local/bin:$PATH"
-        sanitize_path PATH
         PERL5LIB="$HOME/lib/perl5:$HOME/.local/lib/perl5:$PERL5LIB"
-        sanitize_path PERL5LIB
     fi
 
     # Colours for `tree`
     source <(dircolors -b)
+
+    sanitize_path CLASSPATH
+    sanitize_path DYLD_LIBRARY_PATH
+    sanitize_path MANPATH
+    sanitize_path PATH
+    sanitize_path PERL5LIB
+    sanitize_path PERL_LOCAL_LIB_ROOT
+    sanitize_path PKG_CONFIG_PATH
 
     return 0
 }
