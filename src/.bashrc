@@ -589,6 +589,10 @@ main()
 
     if ((UID != 0))
     then
+        # arkade
+        PATH="$HOME/.arkade/bin:$PATH"
+        sanitize_path PATH
+
         # pyenv
         if [[ -d $PYENV_ROOT ]]
         then
