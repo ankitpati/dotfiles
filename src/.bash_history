@@ -58,7 +58,10 @@ apt-cache rdepends python-apt-common
 apt-mark auto ubuntu-restricted-addons
 apt-mark showmanual
 aria2c -c -x 16 https://ankitpati.in/filename.br
+arkade get --format=markdown
+arkade get krew
 arkade info inlets-operator
+arkade install --print-table
 arkade install istio
 banner Type your message here.
 base64 -w0
@@ -158,6 +161,7 @@ copyq info
 cpan-outdated -p | xargs cpanm; echo $?; pip list --outdated --format=freeze | cut -d= -f1 | grep -Ev '^(GDAL|python-poppler-qt5|slip|wxPython)$' | xargs pip install --user -U; echo $?; mypy --install-types; echo $?; cargo install-update -a; echo $?; npm update -g; echo $?; sdk selfupdate; echo $?; sdk update; echo $?; for java_sdk in $(grep '^sdk install ' ~/.bash_history | cut -d' ' -f3 | sort -u); do sdk upgrade "$java_sdk"; done; find ~/.sdkman/ -type f \( -name '*.exe' -o -name '*.bat' \) -delete; vim +PlugUpgrade +PlugUpdate +qa; nvim +PlugUpgrade +PlugUpdate +qa; for codext in $(code --list-extensions); do code --install-extension "$codext" --force; done; echo $?; flutter upgrade; echo $?; flutter doctor -v; echo $?; gcloud components update; echo $?; steampipe plugin update --all; echo $?; tldr --update; echo $?
 cpanm --uninstall Term::ReadLine::Perl
 cpanm App::cpanoutdated
+cpanm Crypt::JWT
 cpanm DBD::Oracle
 cpanm DBI
 cpanm Data::Printer
@@ -188,6 +192,7 @@ cpanm WWW::Mechanize::Chrome
 cpanm XML::Bare
 cpanm XML::Parser
 cpanm XML::SAX::Expat
+cpanm YAML::XS
 cpio -idv < filename.cpio
 crane catalog docker.io
 crane ls quay.io/ankitpati/tigress
@@ -196,6 +201,7 @@ crontab -e
 csv -f protocol,root_domain,status < nextdns-log.csv | tail --lines=+2 | grep -v ',blocked$' | rev | cut -d, -f2- | rev | sort -u > nextdns-domain-list.csv
 csvprintf '%1$s\n' < filename.csv | wc -l
 csvprintf -n '%1$s %2$s %3$s\n' < filename.csv
+csvq 'select username from lpass_export where username like "prefix_%"'
 cue eval fields.cue
 cue export --out json filename.cue
 cue export --out yaml filename.cue
@@ -204,9 +210,11 @@ curl 'https://example.org/untrustworthy.dat'; exec cat
 curl --connect-to example.org:80:localhost:8080 http://example.org
 curl --data '{"commit":"6879efc2c1596d11a6a6ad296f80063b558d5e0f"}' https://api.osv.dev/v1/query | jq .
 curl --data '{"version":"2.4.1","package":{"name":"jinja2","ecosystem":"PyPI"}}' https://api.osv.dev/v1/query | jq .
+curl --head --header 'Accept: application/json, */*' --output /dev/null --silent --write-out 'scale = 3; (%{size_header} + %{size_download}) / %{size_request}\n' 'https://example.org' | bc
 curl --head https://example.org/filename
 curl --header "Authorization: token $(lpass show --password github_personal_access_token)" --remote-name https://github.example.org/raw/namespace/repo_name/branch_name/path/to/filename
 curl --header "Authorization: token $(lpass show --password github_personal_access_token)" --remote-name https://raw.githubusercontent.com/namespace/repo_name/branch_name/path/to/filename
+curl --header 'Accept: application/json, */*' --output /dev/null --silent --write-out 'scale = 3; (%{size_header} + %{size_download}) / %{size_request}\n' 'https://example.org' | bc
 curl --key openssl.key --cert openssl.crt https://mtls.example.org
 curl --proxytunnel --proxy https://squid.ankitpati.in:1080 https://ankitpati.in
 curl --remote-name https://ankitpati.in/download?file=filename.c
@@ -1283,6 +1291,7 @@ gcloud container get-server-config --format='yaml(defaultClusterVersion)'
 gcloud info
 gcloud projects get-iam-policy project_id
 gcloud projects list
+gcloud recommender insights list --insight-type=google.container.DiagnosisInsight --location=us-west1 --project=project_id
 gcloud storage objects describe gs://bucket-name/path/to/filename
 gcloud storage objects update gs://bucket-name/path/to/filename --clear-content-disposition
 gcloud storage objects update gs://bucket-name/path/to/filename --content-disposition=inline
@@ -1481,6 +1490,7 @@ jq '.globalState | fromjson' filename.code-profile
 jq '.name | ascii_downcase' <<<'{ "name": "Ankit" }'
 jq '.resources[] | select(.type == "google_container_node_pool" and .instances[].attributes.autoscaling[].total_max_node_count == 0)' < terraform.tfstate
 jq '.settings | fromjson.settings | fromjson' filename.code-profile
+jq --raw-input 'split(".") | .[0],.[1] | @base64d | fromjson' <(kubectl exec deployment/deployment_name --container=container_name -- cat /var/run/secrets/kubernetes.io/serviceaccount/token)
 jq -R 'split(".") | .[0],.[1] | @base64d | fromjson' < JWT.asc
 jq -S --indent 4 . < filename.json
 jq -r .zerosuggest.cachedresults < ~/.config/google-chrome/Default/Preferences | tail --lines=+2 | jq .
@@ -1507,6 +1517,9 @@ kind get clusters
 kind get kubeconfig
 kind get nodes
 kind load docker-image image_name
+krew info deprecations
+krew install deprecations
+krew list
 kubecm --config kubeconfig.yaml list
 kubecm list
 kubectl api-resources
@@ -1531,6 +1544,7 @@ kubectl delete configmap/kube-dns --namespace=kube-system
 kubectl delete configmap/kube-dns-autoscaler --namespace=kube-system
 kubectl delete namespace/istio-system
 kubectl delete pod/pod_name
+kubectl deprecations
 kubectl describe deployments.apps
 kubectl describe namespace/istio-system
 kubectl describe namespaces
@@ -1549,6 +1563,8 @@ kubectl exec --stdin --tty pod_name -- bash
 kubectl exec --stdin --tty pod_name --container=container_name -- bash
 kubectl exec deployment/deployment_name -- bash --login
 kubectl get configmap/istio-sidecar-injector --namespace=istio-system --output=jsonpath='{.data.config}' | yq .
+kubectl get deployment/deployment_name --output=json | jq '.spec.template.spec.containers[1].livenessProbe'
+kubectl get events --output=jsonpath='{range .items[?(@.type=="Warning")]}{.metadata.name}{"\t"}{.message}{"\n"}{end}'
 kubectl get namespace/default --output=json | jq '.metadata.labels."istio.io/dataplane-mode"'
 kubectl get namespaces --label-columns=istio.io/rev,istio-injection
 kubectl get namespaces --show-labels
@@ -1569,6 +1585,7 @@ kubectl get pods --selector=app=app_name
 kubectl get pods | cut --delimiter=' ' --fields=1 | grep --extended-regexp '(-[[:alnum:]]+){2}$' | sort --version-sort | while read -r deployment; do kubectl logs "$deployment" --container="${deployment%%-+([[:alnum:]])-+([[:alnum:]])}"; done
 kubectl get secrets --output=json | gojq '.items[].data | map_values(@base64d | try fromjson // .)'
 kubectl get secrets --output=json | jq '.items[].data'
+kubectl get secrets --output=json | json-recursive-decode | jq --indent 4 --sort-keys .
 kubectl label namespace/default --list
 kubectl label namespace/default --overwrite istio-injection- istio.io/rev=default
 kubectl label namespace/default istio-injection- istio.io/rev=1-16-0
@@ -1610,6 +1627,7 @@ loginctl list-sessions
 loginctl show-session
 loginctl show-session 2 -p Type
 logname
+lorem --randomize --lines=10
 lowdown -tterm filename.md
 lowdown filename.md | xq
 lowdown-diff -tterm filename1.md filename2.md
@@ -1676,6 +1694,7 @@ mvn -U clean install -Ddependency-check.skip=true
 mvn -U dependency:tree
 mvn clean install -Dmaven.test.skip=true
 mvn exec:java -Dexec.mainClass=in.ankitpati.ClassName
+mvn help:effective-pom
 mypy --config-file ~/.mypy.ini
 namei -l "$(command -v perl6)"
 namei -om /bin/perl6
@@ -1758,6 +1777,7 @@ openssl req -x509 -days 36500 -new -key id_rsa -out id_rsa.x509
 openssl rsa -in openssl.key -pubout -out openssl.pub
 openssl rsa -in openssl.key -text -noout
 openssl rsa -noout -modulus -in filename.key | sha512sum
+openssl s_client -showcerts -servername example.org -connect example.org:443 <<<'' 2>/dev/null | tr '\n' '^' | grep --only-matching --extended-regexp -- '-----BEGIN CERTIFICATE-----\^[^-]+\^-----END CERTIFICATE-----' | tail --lines=1 | tr '^' '\n' | openssl x509 -noout -text
 openssl s_client -tls1_3 -auth_level 2 -connect 172.67.192.178:443 -servername ankitpati.in -verify_hostname ankitpati.in -verify_return_error
 openssl storeutl -noout -text -certs filename-bundle.crt | grep -E '^\s+(Subject|Issuer):' | sed 's/^.*CN=//'
 openssl verify -CAfile fullchain.pem cert.pem
@@ -1861,6 +1881,7 @@ p4 sync //depot/directory/...
 p4 sync //depot/directory/...#none
 p4 sync //depot/directory/filename
 p4 trust
+p4 undo -n -c 12346 @12345
 p4 undo -n ...@12345,@12345
 p4 undo @12345
 p4 unshelve -s 12345 -c 12346
@@ -2158,8 +2179,8 @@ spctl developer-mode enable-terminal
 speedtest
 speedtest-cli
 sqlcmd -S localhost -U SA -P p@5Sword
-sqlfluff fix --force --dialect postgres filename.sql
-sqlformat -k upper -i lower -r --indent_width 4 --indent_columns -s --comma_first True filename.sql
+sqlfluff fix --force --dialect=postgres filename.sql
+sqlformat --keywords=upper --identifiers=lower --reindent --indent_width=4 --indent_after_first --indent_columns --reindent_aligned --use_space_around_operators filename.sql | sponge filename.sql
 sqlite3 filename.sqlite
 sqlite3 ~/Library/Containers/org.p0deje.Maccy/Data/Library/Application\ Support/Maccy/Storage.sqlite 'select group_concat(zvalue, char(10)) from zhistoryitemcontent where zvalue regexp "^[a-z0-9-_@.]+$"' | xargs brew info
 sqlite3_analyzer filename.sqlite
@@ -2201,6 +2222,7 @@ sudo ifconfig awdl0 down # on macOS, disable Apple Wireless Direct Link
 sudo ifconfig awdl0 up
 sudo inxi -SMCDG
 sudo kubectl port-forward pod_name 80:8080
+sudo rm /Library/Internet\ Plug-Ins/{.,}*
 sudo usermod -a -G microk8s "$USER"
 svg2png filename.svg
 systemctl --user enable --now podman.socket
@@ -2301,6 +2323,7 @@ vim -i NONE -u NONE ~/.viminfo
 vim -i NONE ~/.viminfo
 vim -u NONE ~/.viminfo
 vim /etc/shells
+vimdiff <(cat filename1) <(cat filename2)
 vipe --suffix pl < filename | perl
 vipe < filename | cat
 virsh -c qemu:///system list --all
@@ -2326,6 +2349,7 @@ wappalyzer https://ankitpati.in | jq .
 wash -i wlp2s0
 watch -n 10 du -sh
 watch du -sh
+wc --bytes --total=never filename*
 wget https://www.toptal.com/developers/gitignore/api/java,netbeans,eclipse,jetbrains,android,androidstudio -O .gitignore
 whatchanged origin/development..
 while :; do kubectl get pods --watch --selector=app=app_name; done
