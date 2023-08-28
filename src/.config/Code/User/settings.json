@@ -85,6 +85,7 @@
     "terminal.integrated.localEchoLatencyThreshold": -1,
     "terminal.integrated.minimumContrastRatio": 1,
     "terminal.integrated.scrollback": 20000,
+    "terminal.integrated.sendKeybindingsToShell": true,
     "terminal.integrated.smoothScrolling": true,
     "terminal.integrated.tabs.focusMode": "singleClick",
     "update.mode": "none",
