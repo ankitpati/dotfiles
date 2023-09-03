@@ -2,6 +2,7 @@
     "[markdown]": {
         "editor.wordWrap": "off"
     },
+    "cody.telemetry.level": "off",
     "comments.useRelativeTime": false,
     "diffEditor.ignoreTrimWhitespace": false,
     "editor.acceptSuggestionOnEnter": "off",
