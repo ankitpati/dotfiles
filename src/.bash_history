@@ -1491,6 +1491,7 @@ jq '.name | ascii_downcase' <<<'{ "name": "Ankit" }'
 jq '.resources[] | select(.type == "google_container_node_pool" and .instances[].attributes.autoscaling[].total_max_node_count == 0)' < terraform.tfstate
 jq '.settings | fromjson.settings | fromjson' filename.code-profile
 jq --raw-input 'split(".") | .[0],.[1] | @base64d | fromjson' <(kubectl exec deployment/deployment_name --container=container_name -- cat /var/run/secrets/kubernetes.io/serviceaccount/token)
+jq --raw-output '. | keys | .[]' <<<'{ "key1": "value1", "key2": "value2" }'
 jq -R 'split(".") | .[0],.[1] | @base64d | fromjson' < JWT.asc
 jq -S --indent 4 . < filename.json
 jq -r .zerosuggest.cachedresults < ~/.config/google-chrome/Default/Preferences | tail --lines=+2 | jq .
