@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 ( GH_ORIGIN='origin'; PULL_REQUEST_ID='12345'; BRANCH_NAME='foo-bar'; git fetch "$GH_ORIGIN" "pull/$PULL_REQUEST_ID/head:$BRANCH_NAME" && git checkout "$BRANCH_NAME" )
 ( GH_ORIGIN='origin'; PULL_REQUEST_ID='12345'; git pull "$GH_ORIGIN" "pull/$PULL_REQUEST_ID/head" )
-( GH_USERNAME='ankitpati'; age -r "$(curl --header "Authorization: token $(lpass show --password github_personal_access_token)" "https://github.example.org/api/v3/users/$GH_USERNAME/keys" | jq -r .[0].key)" --output cipher.txt.age plain.txt )
+( GH_USERNAME='ankitpati'; age -r "$(curl --header "Authorization: token $(lpass show --password github_personal_access_token)" "https://github.example.org/api/v3/users/$GH_USERNAME/keys" | jq --raw-output .[0].key)" --output cipher.txt.age plain.txt )
 ( filename=depot/directory/filename; p4 sync "$filename#$(( "$(p4 have "$filename" | cut -d# -f2 | cut -d' ' -f1)" - 1 ))" )
 ( hostname='google.com'; openssl s_client -auth_level 2 -connect "$hostname":443 -servername "$hostname" -verify_hostname "$hostname" -verify_return_error )
 ( hostname='google.com'; openssl s_client -tls1_3 -auth_level 2 -connect "$hostname":443 -servername "$hostname" -verify_hostname "$hostname" -verify_return_error )
@@ -24,8 +24,8 @@
 /usr/libexec/java_home -v 1.8
 CLASSPATH=. java ClassName
 GIT_COMMITTER_NAME='Ankit Pati' GIT_COMMITTER_EMAIL='contact@ankitpati.in' git rebase branchname --exec 'git commit --amend --author="Ankit Pati <contact@ankitpati.in>" --no-edit'
-HTTPS_PROXY="$(jq -r '.proxies."https-proxy"' < ~/.docker/daemon.json)" NO_PROXY="$(jq -r '.proxies."no-proxy"' < ~/.docker/daemon.json)" skopeo sync --dry-run --override-arch amd64 --override-os linux --src docker --dest docker docker.io/library/busybox gcr.io/project_id/namespace/
-HTTPS_PROXY="$(jq -r '.proxies."https-proxy"' < ~/.docker/daemon.json)" NO_PROXY="$(jq -r '.proxies."no-proxy"' < ~/.docker/daemon.json)" skopeo sync --dry-run --override-arch amd64 --override-os linux --src docker --dest docker docker.io/library/busybox:latest gcr.io/project_id/namespace/
+HTTPS_PROXY="$(jq --raw-output '.proxies."https-proxy"' < ~/.docker/daemon.json)" NO_PROXY="$(jq --raw-output '.proxies."no-proxy"' < ~/.docker/daemon.json)" skopeo sync --dry-run --override-arch amd64 --override-os linux --src docker --dest docker docker.io/library/busybox gcr.io/project_id/namespace/
+HTTPS_PROXY="$(jq --raw-output '.proxies."https-proxy"' < ~/.docker/daemon.json)" NO_PROXY="$(jq --raw-output '.proxies."no-proxy"' < ~/.docker/daemon.json)" skopeo sync --dry-run --override-arch amd64 --override-os linux --src docker --dest docker docker.io/library/busybox:latest gcr.io/project_id/namespace/
 LESS='-I' git log --graph --pretty=fuller --show-signature
 P4DIFF=vimdiff p4 diff -Od -f //depot/directory/...
 P4DIFF=vimdiff p4 diff -f //depot/directory/...
@@ -222,11 +222,11 @@ curl --resolve example.org:80:127.0.0.1 http://example.org
 curl --silent --header "Authorization: Bearer $(gcloud auth application-default print-access-token)" 'https://www.googleapis.com/compute/v1/projects/project_id/zones/us-west1-a/instanceGroups/k8s-ig--0000000000000000' | jq .
 curl --silent --include https://example.org | head --lines=1 | cut -d' ' -f2
 curl --write-out '\n%{time_total} - %{time_starttransfer}\n' https://httpbin.org/get | tail --lines=1 | bc
-curl http://localhost:8001 | jq -r '.["paths"][]' | while read -r k8s_api_endpoint; do printf '\n## `%s`\n\n```json\n%s\n```\n' "$k8s_api_endpoint" "$(curl "http://localhost:8001$k8s_api_endpoint")"; done > kubernetes_api_record.md
+curl http://localhost:8001 | jq --raw-output '.["paths"][]' | while read -r k8s_api_endpoint; do printf '\n## `%s`\n\n```json\n%s\n```\n' "$k8s_api_endpoint" "$(curl "http://localhost:8001$k8s_api_endpoint")"; done > kubernetes_api_record.md
 curl https://ankitpati.in/gpg.asc --output /etc/apt/trusted.gpg.d/ankitpati.asc
 curl https://apt.ankitpati.in/ankitpati.list --output /etc/apt/sources.list.d/ankitpati.list
 curl https://github.com/web-flow.gpg | gpg --import
-curl https://gitlab.com/api/v4/users/ankitpati/projects | jq -r --arg random_index $((RANDOM % 13)) '.[$random_index | tonumber]'
+curl https://gitlab.com/api/v4/users/ankitpati/projects | jq --raw-output --arg random_index $((RANDOM % 13)) '.[$random_index | tonumber]'
 curl https://ident.me; echo; exec cat
 cut -f2,3 /proc/net/route | grep ^00000000 | cut -f2 | sed 's/../0x&\n/g' | tac | xargs printf '%u.%u.%u.%u\n'
 dart --disable-analytics
@@ -1258,7 +1258,7 @@ gcloud cloud-shell scp localhost:path/to/filename cloudshell:~/
 gcloud cloud-shell ssh
 gcloud components install gke-gcloud-auth-plugin
 gcloud compute addresses list --project=project_id --filter='name:gce_vm_name' --format='table(name,address)'
-gcloud compute backend-services list --filter=name="($(gcloud compute forwarding-rules list --filter=IPAddress='(10.10.10.10)' --format=json'(name)' | jq -r .[0].name))" --format=json'(backends)' | jq .[0].backends[]
+gcloud compute backend-services list --filter=name="($(gcloud compute forwarding-rules list --filter=IPAddress='(10.10.10.10)' --format=json'(name)' | jq --raw-output .[0].name))" --format=json'(backends)' | jq .[0].backends[]
 gcloud compute images list
 gcloud compute images list --project=project_id --format='value(name)'
 gcloud compute instances delete gce_vm_name --quiet --project=project_id --zone="$(gcloud compute instances list --project=project_id --filter='name <= gce_vm_name AND name >= gce_vm_name' --format='value(zone.basename())')"
@@ -1492,10 +1492,10 @@ jq '.resources[] | select(.type == "google_container_node_pool" and .instances[]
 jq '.settings | fromjson.settings | fromjson' filename.code-profile
 jq --raw-input 'split(".") | .[0],.[1] | @base64d | fromjson' <(kubectl exec deployment/deployment_name --container=container_name -- cat /var/run/secrets/kubernetes.io/serviceaccount/token)
 jq --raw-output '. | keys | .[]' <<<'{ "key1": "value1", "key2": "value2" }'
-jq -R 'split(".") | .[0],.[1] | @base64d | fromjson' < JWT.asc
-jq -S --indent 4 . < filename.json
-jq -r .zerosuggest.cachedresults < ~/.config/google-chrome/Default/Preferences | tail --lines=+2 | jq .
-jq -rj '.logs[] | select(.type != "phase").message' < quay-build-log.json ; echo
+jq --raw-input 'split(".") | .[0],.[1] | @base64d | fromjson' < JWT.asc
+jq --sort-keys --indent 4 . < filename.json
+jq --raw-output .zerosuggest.cachedresults < ~/.config/google-chrome/Default/Preferences | tail --lines=+2 | jq .
+jq --raw-output --join-output '.logs[] | select(.type != "phase").message' < quay-build-log.json ; echo
 jq . < filename.json
 jq builtins <<<0
 js-beautify filename.js
@@ -1647,7 +1647,7 @@ lpass show --sync=now --all unique_name
 lpass show --username unique_name
 lpass show unique_name
 ls "$(brew --prefix)/bin/g"* | rev | cut -d/ -f1 | rev | cut -dg -f2- | xargs -r command -v 2>/dev/null | grep -v "^$(brew --prefix)/" | rev | cut -d/ -f1 | rev | while read -r binary; do printf '%s/bin/g%s\n' "$(brew --prefix)" "$binary"; done | xargs -r ls -l | rev | cut -d/ -f4 | rev | sort -u
-ls *.json | while read -r jsonfile; do jq -S --indent 4 . < "$jsonfile" | sponge "$jsonfile"; done
+ls *.json | while read -r jsonfile; do jq --sort-keys --indent 4 . < "$jsonfile" | sponge "$jsonfile"; done
 ls /Library/Launch{Agents,Daemons}
 ls ~/Library/Application\ Support/Code/User/settings.json
 lsattr filename
@@ -1675,7 +1675,7 @@ meson x --buildtype release --strip -Db_lto=true
 microk8s kubectl get all --all-namespaces
 microk8s status --wait-ready
 minikube config set driver docker
-minikube config set kubernetes-version "$(brew livecheck --json kubernetes-cli | jq -r '.[0].version.latest')"
+minikube config set kubernetes-version "$(brew livecheck --json kubernetes-cli | jq --raw-output '.[0].version.latest')"
 minikube config set kubernetes-version "$(git ls-remote --sort=v:refname --tags https://github.com/kubernetes/kubernetes.git 'v*^{}' | cut -dv -f2 | cut -d^ -f1 | grep -P '^\d+\.\d+\.\d+$' | tail --lines=1)"
 minikube config view
 minikube delete
@@ -2147,9 +2147,9 @@ shellharden filename.bash
 shfmt -w -s filename.bash
 skaffold help
 skopeo inspect docker://quay.io/ankitpati/tigress | jq .
-skopeo list-tags --override-arch amd64 --override-os linux docker://kindest/node | jq -r .Tags[] | sort -V
-skopeo list-tags docker://hashicorp/terraform | jq -r .Tags[] | while read -r tag; do skopeo inspect docker://hashicorp/terraform:"$tag" | jq -j '[.Created,.Labels."com.hashicorp.terraform.version"] | join(" ")'; printf ' %s\n' "$tag"; done | sort -V
-skopeo list-tags docker://quay.io/ankitpati/tigress | jq -r .Tags[]
+skopeo list-tags --override-arch amd64 --override-os linux docker://kindest/node | jq --raw-output .Tags[] | sort -V
+skopeo list-tags docker://hashicorp/terraform | jq --raw-output .Tags[] | while read -r tag; do skopeo inspect docker://hashicorp/terraform:"$tag" | jq --join-output '[.Created,.Labels."com.hashicorp.terraform.version"] | join(" ")'; printf ' %s\n' "$tag"; done | sort -V
+skopeo list-tags docker://quay.io/ankitpati/tigress | jq --raw-output .Tags[]
 skopeo sync --all --src docker --dest docker gcr.io/project_id/namespace/image_name quay.io/namespace/image_name
 skopeo sync --dry-run --all --src docker --dest docker gcr.io/project_id/namespace/image_name quay.io/namespace/image_name
 skopeo sync --override-arch amd64 --override-os linux --src docker --dest docker gcr.io/project_id/namespace/image_name:tag_name quay.io/namespace/
