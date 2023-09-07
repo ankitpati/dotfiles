@@ -7,10 +7,12 @@ install:
 	cp -rL src/. "$$HOME"/
 	rm -rf "$$HOME"/macOS/
 	chmod 0700 \
+		"$$HOME/.gnupg/" \
 		"$$HOME/.kube/" \
 		"$$HOME/.ssh/" \
 	;
 	chmod 0600 \
+		"$$HOME/.gnupg/"* \
 		"$$HOME/.kube/"* \
 		"$$HOME/.netrc" \
 		"$$HOME/.pgpass" \
