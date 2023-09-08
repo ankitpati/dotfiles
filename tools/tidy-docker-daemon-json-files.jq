@@ -2,8 +2,6 @@
 
 if length == 0 then
     error("Usage:\n\ttidy-docker-daemon-json-files.jq <docker-daemon-config-json>...")
-else
-    .
 end |
 
 .[0].proxies."no-proxy" = (

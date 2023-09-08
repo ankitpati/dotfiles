@@ -2,8 +2,6 @@
 
 if length == 0 then
     error("Usage:\n\ttidy-dark-reader-json-files.jq <dark-reader-config-json>...")
-else
-    .
 end |
 
 .[0].customThemes[0].theme.engine as $zeroth_engine |
