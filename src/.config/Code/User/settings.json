@@ -96,6 +96,7 @@
     "vim.incsearch": true,
     "vim.surround": false,
     "vim.useCtrlKeys": true,
+    "window.commandCenter": false,
     "window.enableMenuBarMnemonics": false,
     "window.restoreWindows": "none",
     "window.titleBarStyle": "custom",
