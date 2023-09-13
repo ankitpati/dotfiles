@@ -306,6 +306,18 @@ set_red_if_failed()
     fi
 }
 
+put_lf_unless_cursor_at_start() {
+    local newline='\001\n\002'
+
+    local _ cursor_position_x
+    IFS='[;' read -p $'\001\e[6n\002' -d R -rs _ _ cursor_position_x _
+
+    if ((cursor_position_x != 1))
+    then
+        printf '%b' "$newline"
+    fi
+}
+
 setup_prompt()
 {
     local clear_format='\[\e[m\]'
@@ -334,11 +346,13 @@ setup_prompt()
     local euid_indicator='\$'
     local coloured_euid_indicator="$bright_green"'$(set_red_if_failed 0)\$'"$clear_format"
 
+    local common_prompt="$clear_format"'$(put_lf_unless_cursor_at_start)'
+
     readonly PROMPT_LEGROOM=10
 
-    readonly LONG_COMMON_PROMPT="$clear_format$exit_code $long_timestamp$clear_format"
-    readonly SHORT_COMMON_PROMPT="$clear_format$exit_code $short_timestamp$clear_format"
-    readonly SHORTEST_COMMON_PROMPT="$clear_format"
+    readonly LONG_COMMON_PROMPT="$common_prompt$exit_code $long_timestamp$clear_format"
+    readonly SHORT_COMMON_PROMPT="$common_prompt$exit_code $short_timestamp$clear_format"
+    readonly SHORTEST_COMMON_PROMPT="$common_prompt"
 
     readonly LONG_PROMPT="$LONG_COMMON_PROMPT $situation $euid_indicator "
     readonly SHORT_PROMPT="$SHORT_COMMON_PROMPT $euid_indicator "
