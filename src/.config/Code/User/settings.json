@@ -15,7 +15,7 @@
     "editor.dragAndDrop": false,
     "editor.emptySelectionClipboard": false,
     "editor.find.addExtraSpaceOnTop": false,
-    "editor.fontFamily": "'Source Code Pro', 'Ubuntu Mono', 'Monaco', monospace",
+    "editor.fontFamily": "'Source Code Pro', 'Ubuntu Mono', 'CodeNewRomanNFM', monospace",
     "editor.inlayHints.enabled": "offUnlessPressed",
     "editor.inlayHints.fontSize": 9,
     "editor.largeFileOptimizations": true,
