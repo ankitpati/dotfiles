@@ -1446,24 +1446,21 @@ ipcs -l
 ipcs -m
 ipcs -s
 istioctl analyze --all-namespaces --revision=1-16-0 | cut --delimiter=[ --fields=2 | cut --delimiter=] --fields=1 | sort --unique
-istioctl analyze --namespace namespace
-istioctl analyze -A
+istioctl analyze --namespace=namespace_name
 istioctl dashboard envoy pod_name.default
-istioctl install --dry-run --revision 1-16-0 --filename istio-config.yaml
-istioctl install --revision 1-16-0
-istioctl install --set profile=ambient
-istioctl install --set revision=release
+istioctl install --dry-run --revision=1-16-0 --filename=istio-config.yaml
+istioctl install --revision=1-16-0
+istioctl install --set=profile=ambient
+istioctl install --set=revision=release
 istioctl operator dump | yq .
 istioctl proxy-status
-istioctl proxy-status --revision 1-16-0
-istioctl proxy-status --revision default
+istioctl proxy-status --revision=1-16-0
 istioctl proxy-status --revision=1-16-0 | tail --lines=+2 | cut --delimiter=' ' -f1 | cut --delimiter=. --fields=1,2 --output-delimiter=' ' | while read -r pod namespace; do kubectl delete pod "$pod" --namespace="$namespace"; done
+istioctl proxy-status --revision=default
 istioctl proxy-status | grep "$(kubectl get pods --namespace=istio-system --selector=app=istio-ingressgateway --output=jsonpath='{.items..metadata.name}')"
 istioctl tag list
-istioctl tag set default --revision 1-16-0
+istioctl tag set default --revision=1-16-0
 istioctl uninstall --purge
-istioctl uninstall --revision 1-16-0
-istioctl uninstall --revision default
 istioctl uninstall --revision=1-16-0
 istioctl uninstall --revision=default
 istioctl verify-install
