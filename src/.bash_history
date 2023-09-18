@@ -98,7 +98,7 @@ brew help developer
 brew info --json=v2 --cask visual-studio-code | jq .
 brew leaves --installed-as-dependency
 brew leaves --installed-on-request
-brew leaves | grep -Ev '^(bash-completion@2|flyctl|gcc|git-delta|kind|terraform)$' | xargs -o brew uninstall
+brew leaves | grep -Ev '^(bash-completion@2|flyctl|gcc|git-delta|kind|terraform)$' | xargs --open-tty brew uninstall
 brew linkage
 brew list --casks
 brew livecheck --debug kubernetes-cli
@@ -1158,6 +1158,7 @@ export JAVA_HOME="$(/usr/libexec/java_home -v 1.8)"
 export KUBECONFIG='kubeconfig.yaml'
 export P4CLIENT="$(p4 clients -u "$(p4 client -o | grep '^Owner:' | cut -f2)" | cut -d' ' -f1-5 | grep " /client/root\$" | cut -d' ' -f2)"
 export SRC_ACCESS_TOKEN="$(lpass show --password sourcegraph_access_token)"
+eza --all --classify --git --group-directories-first --header --icons --inode --long
 factor 1849
 fallocate -l 100M hundred-MiB-file
 fallocate -l 1K one-kb-file
@@ -1191,7 +1192,7 @@ figlet Type your message here.
 file -i filename
 find "$HOME/.local/share/gem/ruby" -mindepth 1 -maxdepth 1 -type d | sort -V
 find . -exec sha256sum {} + 2>/dev/null | cut -d' ' -f1 | paste -sd' ' | sed 's/ //g' | perl -pi -E 'chomp if eof' | sha256sum
-find . -maxdepth 1 -print0 | xargs -0 -L 1 du -sh | sort -h
+find . -maxdepth 1 -print0 | xargs --null --max-args 1 du --human-readable --summarize | sort --human-numeric-sort
 find . -maxdepth 1 -type d -mtime 0
 find . -maxdepth 1 -type d -mtime 2
 find . -not -group ankitpati
@@ -1388,8 +1389,8 @@ grep '\bcertificate-authority-data\b' kubeconfig.yaml | cut -d: -f2 | cut -d' ' 
 grep '^p4 sync ' ~/.bash_history | cut -d' ' -f3- | sort -u | while read -r p4dir; do p4 sync "$p4dir"; done
 grep -E "^($(tail --lines=+2 brew-deps.csv | cut -d, -f1 | comm -23 - brew-install-list.txt | paste -sd'|'))" brew-deps.csv | grep -v ,
 grep -E '^\s+keg_only' -r "$(brew --repo)/Library/Taps/homebrew/homebrew-core/Formula/"
-grep -Elr -- '^(<<<<<<< HEAD|=======|>>>>>>> [[:xdigit:]]+ .*)$' | sort -u | xargs -o vim
-grep -l search-string -r . | xargs -o vim
+grep -Elr -- '^(<<<<<<< HEAD|=======|>>>>>>> [[:xdigit:]]+ .*)$' | sort -u | xargs --open-tty vim
+grep -l search-string -r . | xargs --open-tty vim
 gron --ungron filename.gron > filename.json
 gron filename.json > filename.gron
 gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.7 -dPDFSETTINGS=/screen -dNOPAUSE -dQUIET -dBATCH -sOutputFile=filename.pdf filename-reduced.pdf
@@ -1409,11 +1410,13 @@ hdparm --user-master m --security-unlock SecretPassword /dev/sdb
 hdparm --user-master u --security-disable SecretPassword /dev/sdb
 hdparm --user-master u --security-unlock SecretPassword /dev/sdb
 hdparm -I /dev/sdb
-helm get all release_name | yq .
-helm history release_name
+helm get all chart_name | yq .
+helm get manifest chart_name --revision=12345 | yq 'select(.spec.template.spec.containers[1].image) | .spec.template.spec.containers[1].image'
+helm history chart_name
 helm list
-helm rollback --dry-run release_name
-helm rollback release_name 5
+helm list | tail --lines=+2 | tr '\t' ' ' | tr --squeeze-repeats ' ' | sort --key=4,5 --numeric-sort
+helm rollback --dry-run chart_name
+helm rollback chart_name 5
 help '{ ... }'
 hexdump -C filename.dat
 hexdump -C ~/Applications/Chrome\ Apps.localized/Icon$'\r'/..namedfork/rsrc
@@ -1442,6 +1445,7 @@ ipcrm shm 262162
 ipcs -l
 ipcs -m
 ipcs -s
+istioctl analyze --all-namespaces --revision=1-16-0 | cut --delimiter=[ --fields=2 | cut --delimiter=] --fields=1 | sort --unique
 istioctl analyze --namespace namespace
 istioctl analyze -A
 istioctl dashboard envoy pod_name.default
@@ -1453,12 +1457,15 @@ istioctl operator dump | yq .
 istioctl proxy-status
 istioctl proxy-status --revision 1-16-0
 istioctl proxy-status --revision default
+istioctl proxy-status --revision=1-16-0 | tail --lines=+2 | cut --delimiter=' ' -f1 | cut --delimiter=. --fields=1,2 --output-delimiter=' ' | while read -r pod namespace; do kubectl delete pod "$pod" --namespace="$namespace"; done
 istioctl proxy-status | grep "$(kubectl get pods --namespace=istio-system --selector=app=istio-ingressgateway --output=jsonpath='{.items..metadata.name}')"
 istioctl tag list
 istioctl tag set default --revision 1-16-0
 istioctl uninstall --purge
 istioctl uninstall --revision 1-16-0
 istioctl uninstall --revision default
+istioctl uninstall --revision=1-16-0
+istioctl uninstall --revision=default
 istioctl verify-install
 istioctl version
 istioctl x precheck
@@ -1490,12 +1497,12 @@ jq '.globalState | fromjson' filename.code-profile
 jq '.name | ascii_downcase' <<<'{ "name": "Ankit" }'
 jq '.resources[] | select(.type == "google_container_node_pool" and .instances[].attributes.autoscaling[].total_max_node_count == 0)' < terraform.tfstate
 jq '.settings | fromjson.settings | fromjson' filename.code-profile
+jq --raw-input 'split(".") | .[0],.[1] | @base64d | fromjson' < JWT.asc
 jq --raw-input 'split(".") | .[0],.[1] | @base64d | fromjson' <(kubectl exec deployment/deployment_name --container=container_name -- cat /var/run/secrets/kubernetes.io/serviceaccount/token)
 jq --raw-output '. | keys | .[]' <<<'{ "key1": "value1", "key2": "value2" }'
-jq --raw-input 'split(".") | .[0],.[1] | @base64d | fromjson' < JWT.asc
-jq --sort-keys --indent 4 . < filename.json
-jq --raw-output .zerosuggest.cachedresults < ~/.config/google-chrome/Default/Preferences | tail --lines=+2 | jq .
 jq --raw-output --join-output '.logs[] | select(.type != "phase").message' < quay-build-log.json ; echo
+jq --raw-output .zerosuggest.cachedresults < ~/.config/google-chrome/Default/Preferences | tail --lines=+2 | jq .
+jq --sort-keys --indent 4 . < filename.json
 jq . < filename.json
 jq builtins <<<0
 js-beautify filename.js
@@ -1569,7 +1576,7 @@ kubectl get events --output=jsonpath='{range .items[?(@.type=="Warning")]}{.meta
 kubectl get namespace/default --output=json | jq '.metadata.labels."istio.io/dataplane-mode"'
 kubectl get namespaces --label-columns=istio.io/rev,istio-injection
 kubectl get namespaces --show-labels
-kubectl get nodes --all-namespaces | grep --fixed-strings v1.20. | cut --delimiter=' ' --fields=1 | xargs -L 1 kubectl describe node
+kubectl get nodes --all-namespaces | grep --fixed-strings v1.20. | cut --delimiter=' ' --fields=1 | xargs --max-args 1 kubectl describe node
 kubectl get nodes --output=json | jq '[.items[] | select(.status.conditions[] | select(.type == "MemoryPressure" and .status == "True"))]'
 kubectl get nodes --output=jsonpath='{.items[*].status.conditions[?(@.type=="MemoryPressure")]}'
 kubectl get nodes --output=wide
@@ -1646,7 +1653,7 @@ lpass show --password unique_name
 lpass show --sync=now --all unique_name
 lpass show --username unique_name
 lpass show unique_name
-ls "$(brew --prefix)/bin/g"* | rev | cut -d/ -f1 | rev | cut -dg -f2- | xargs -r command -v 2>/dev/null | grep -v "^$(brew --prefix)/" | rev | cut -d/ -f1 | rev | while read -r binary; do printf '%s/bin/g%s\n' "$(brew --prefix)" "$binary"; done | xargs -r ls -l | rev | cut -d/ -f4 | rev | sort -u
+ls "$(brew --prefix)/bin/g"* | rev | cut -d/ -f1 | rev | cut -dg -f2- | xargs --no-run-if-empty command -v 2>/dev/null | grep -v "^$(brew --prefix)/" | rev | cut -d/ -f1 | rev | while read -r binary; do printf '%s/bin/g%s\n' "$(brew --prefix)" "$binary"; done | xargs --no-run-if-empty ls -l | rev | cut -d/ -f4 | rev | sort -u
 ls *.json | while read -r jsonfile; do jq --sort-keys --indent 4 . < "$jsonfile" | sponge "$jsonfile"; done
 ls /Library/Launch{Agents,Daemons}
 ls ~/Library/Application\ Support/Code/User/settings.json
@@ -1846,7 +1853,7 @@ p4 files //depot/.../\*.pl
 p4 files //depot/.../filename
 p4 files //depot/...file\*.pl
 p4 grep -Fe expression //depot/...
-p4 grep -lsFe expression //depot/... | cut -d# -f1 | xargs -o vim
+p4 grep -lsFe expression //depot/... | cut -d# -f1 | xargs --open-tty vim
 p4 groups
 p4 groups username
 p4 have path/to/filename
@@ -1857,7 +1864,7 @@ p4 integrate -nc 12346 //depot/directory/branch1...@12345,@12345 //depot/directo
 p4 login
 p4 login -as
 p4 monitor show
-p4 monitor show | grep -v ' monitor $' | grep -F " $USER " | sed 's/^ \+//' | cut -d' ' -f1 | xargs -L1 p4 monitor terminate
+p4 monitor show | grep -v ' monitor $' | grep -F " $USER " | sed 's/^ \+//' | cut -d' ' -f1 | xargs --max-args 1 p4 monitor terminate
 p4 monitor terminate 12345
 p4 move -n directory/filename.old directory/filename.new
 p4 opened
@@ -2199,6 +2206,7 @@ ssh-copy-id -o PasswordAuthentication=yes ssh.ankitpati.in
 ssh-keygen -R ssh.ankitpati.in
 ssh-keygen -l -v -f ~/.ssh/id_ed25519
 ssh-keygen -l -v -f ~/.ssh/id_ed25519.pub
+ssh-keygen -m PEM -t rsa -b 2048 -P '' -C '' -f ./rsa_private_key.pem
 ssh-keygen -t ed25519
 ssh-keygen -t ed25519 -P '' -f ~/.ssh/id_ed25519
 ssh-keygen -y -f ~/.ssh/id_ed25519 > ~/.ssh/id_ed25519.pub
@@ -2223,6 +2231,7 @@ sudo ifconfig awdl0 down # on macOS, disable Apple Wireless Direct Link
 sudo ifconfig awdl0 up
 sudo inxi -SMCDG
 sudo kubectl port-forward pod_name 80:8080
+sudo powermetrics --samplers smc
 sudo rm /Library/Internet\ Plug-Ins/{.,}*
 sudo usermod -a -G microk8s "$USER"
 svg2png filename.svg
@@ -2252,6 +2261,8 @@ terraform apply tfplan
 terraform fmt
 terraform graph | apdot -Tpng | timg -
 terraform graph | apdot -Tsvg > filename.svg
+terraform graph | terraform-graph-beautifier -output-type=graphviz | apdot -Tpng | timg -
+terraform graph | terraform-graph-beautifier -output=terraform-graph.html
 terraform import module.dns.kube-dns kube-system/kube-dns
 terraform init
 terraform init -upgrade
@@ -2286,6 +2297,7 @@ tweak filename.txt
 typespeed
 ufw allow in ssh
 ufw enable
+ugrep --only-matching --perl-regexp -- '-{5}BEGIN ([^-]*KEY[^-]*-{5})(.|\n)+?-{5}END \1' < ascii-armoured-keys | xargs --delimiter=$'\n' printf '%b\n' | while read -r line; do if [[ $line =~ ^-{5}BEGIN ]]; then continue; elif [[ $line =~ ^-{5}END ]]; then echo; else printf '%s' "$line"; fi done | sort --unique
 ugrep -Q
 ugrep -Q -.
 umount /data
@@ -2361,7 +2373,7 @@ while read -r gitdir; do ( cd "$gitdir/"; git pull ) done < <(ls)
 wl-copy < filename.txt
 write ankitpati :1
 write ankitpati tty4
-xargs -l -o rg < file-with-search-terms.txt
+xargs --max-lines 1 --open-tty rg < file-with-search-terms.txt
 xattr -l filename
 xattr filename
 xclip < ~/.ssh/id_ed25519.pub
@@ -2379,6 +2391,7 @@ yasql user/pass@orclalias
 youtube-dl https://www.youtube.com/watch?v=VIDEO_ID -F
 youtube-dl https://www.youtube.com/watch?v=VIDEO_ID -f 248
 yq -P < filename.yaml
+yq eval-all '[.] | to_json' < filename.yaml > filename.json
 zbarimg filename.jpg > filename.dat
 zlib-flate -uncompress < filename.dfl > filename.txt
 zypper --gpg-auto-import-keys refresh
