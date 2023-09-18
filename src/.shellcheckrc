@@ -6,7 +6,7 @@
 # `.shellcheckrc` file. That means changes made to this file will override
 # `~/.shellcheckrc` within this repo.
 #
-# The overriding is complete, and isn’t just a merge. `~/.shellcheckrc` will be
+# The overriding is complete, and isn't just a merge. `~/.shellcheckrc` will be
 # COMPLETELY ignored. Bearing this in mind makes development on this file
 # easier.
 

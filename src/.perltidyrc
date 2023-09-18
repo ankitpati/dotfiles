@@ -1,4 +1,4 @@
-# Ankit Pati’s Opinionated `.perltidyrc`
+# Ankit Pati's Opinionated `.perltidyrc`
 # contact@ankitpati.in
 
 # Encoding
@@ -18,7 +18,7 @@
 --block-brace-tightness=0           # grep { /^$regex$/ }
 --brace-tightness=1                 # $ohash{ $ihash{hkey} }
 --cuddled-else                      # } else {
---noblanks-before-comments          # Don’t add blank line before comment.
+--noblanks-before-comments          # Don't add blank line before comment.
 --nospace-for-semicolon             # Applies to C-style `for` loops.
 --opening-brace-always-on-right     # if ($longer_than_80) {
 --opening-token-right               # Opening braces on same line.
@@ -34,11 +34,11 @@
 # Indentation
 --continuation-indentation=4        # 4-space indent if breaking long lines.
 --extended-continuation-indentation # Better nested indentation.
---nooutdent-labels                  # Don’t unindent labels.
---nooutdent-long-comments           # Don’t unindent long comments.
---nooutdent-long-lines              # Don’t unindent long lines.
+--nooutdent-labels                  # Don't unindent labels.
+--nooutdent-long-comments           # Don't unindent long comments.
+--nooutdent-long-lines              # Don't unindent long lines.
 
 # Miscellaneous
 --converge                          # Iterate until convergence.
---nocode-skipping                   # Don’t skip parsing marked code.
+--nocode-skipping                   # Don't skip parsing marked code.
 --trim-pod                          # Remove trailing whitespace from POD.
