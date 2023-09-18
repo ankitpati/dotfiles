@@ -304,9 +304,13 @@ set_red_if_failed()
     then
         printf '%03u' "$exit_code"
     fi
+
+    return "$exit_code"
 }
 
 put_lf_unless_cursor_at_start() {
+    local exit_code=$?
+
     local newline='\001\n\002'
 
     local _ cursor_position_x
@@ -316,6 +320,8 @@ put_lf_unless_cursor_at_start() {
     then
         printf '%b' "$newline"
     fi
+
+    return "$exit_code"
 }
 
 setup_prompt()
