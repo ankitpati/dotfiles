@@ -361,6 +361,8 @@ setup_prompt()
 
 set_prompt()
 {
+    local move_up='\[\e[1A\]'
+
     local max_prompt_length=$((COLUMNS - PROMPT_LEGROOM))
     local long_prompt=$LONG_PROMPT
     local short_prompt=$SHORT_PROMPT
@@ -391,6 +393,8 @@ set_prompt()
             PS1=$shortest_prompt
         fi
     fi
+
+    PS0="$move_up$PS1"'\n'
 }
 
 main()
