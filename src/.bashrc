@@ -584,6 +584,7 @@ main()
     alias ssh-copy-id='ssh-copy-id -oPasswordAuthentication=yes'
     alias ssh='exec ssh'
     alias telnet='exec telnet'
+    alias tmux='tmux -u'
     alias tohex="hexdump -ve '1/1 \"%.2x\" '"
     alias tree='tree -I ".git|.terraform|node_modules"'
     # shellcheck disable=SC2154
