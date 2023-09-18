@@ -1416,7 +1416,7 @@ helm history chart_name
 helm list
 helm list | tail --lines=+2 | tr '\t' ' ' | tr --squeeze-repeats ' ' | sort --key=4,5 --numeric-sort
 helm rollback --dry-run chart_name
-helm rollback chart_name 5
+helm rollback chart_name 12345
 help '{ ... }'
 hexdump -C filename.dat
 hexdump -C ~/Applications/Chrome\ Apps.localized/Icon$'\r'/..namedfork/rsrc
