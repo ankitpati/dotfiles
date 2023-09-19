@@ -475,6 +475,23 @@ main()
 
     mesg n || :
 
+    local lc_ctype=$(locale)
+    lc_ctype=${lc_ctype##*LC_CTYPE=\"}
+    lc_ctype=${lc_ctype%%\"*}
+
+    if ! [[ ${lc_ctype^^} =~ UTF-?8 ]]
+    then
+        export LC_CTYPE
+
+        if [[ $OSTYPE == *linux* ]]
+        then
+            LC_CTYPE='C.UTF-8'
+        elif [[ $OSTYPE == *darwin* ]]
+        then
+            LC_CTYPE='UTF-8'
+        fi
+    fi
+
     if [[ $OSTYPE == *linux* ]]
     then
         PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
@@ -590,7 +607,6 @@ main()
     alias ssh-copy-id='ssh-copy-id -oPasswordAuthentication=yes'
     alias ssh='exec ssh'
     alias telnet='exec telnet'
-    alias tmux='tmux -u'
     alias tohex="hexdump -ve '1/1 \"%.2x\" '"
     alias tree='tree -I ".git|.terraform|node_modules"'
     # shellcheck disable=SC2154
