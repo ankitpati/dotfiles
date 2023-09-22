@@ -1465,6 +1465,8 @@ istioctl uninstall --revision=1-16-0
 istioctl uninstall --revision=default
 istioctl verify-install
 istioctl version
+istioctl version --remote=false
+istioctl version --short=false
 istioctl x precheck
 iw dev wlp2s0
 iw dev wlp2s0 info
