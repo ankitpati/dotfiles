@@ -221,6 +221,7 @@ curl --remote-name https://ankitpati.in/download?file=filename.c
 curl --resolve example.org:80:127.0.0.1 http://example.org
 curl --silent --header "Authorization: Bearer $(gcloud auth application-default print-access-token)" 'https://www.googleapis.com/compute/v1/projects/project_id/zones/us-west1-a/instanceGroups/k8s-ig--0000000000000000' | jq .
 curl --silent --include https://example.org | head --lines=1 | cut -d' ' -f2
+curl --verbose --location 'https://example.org/12345' 2>&1 | dos2unix | grep --only-matching --perl-regexp '(?<=^< location: ).*$' | grep --colour 12345
 curl --write-out '\n%{time_total} - %{time_starttransfer}\n' https://httpbin.org/get | tail --lines=1 | bc
 curl http://localhost:8001 | jq --raw-output '.["paths"][]' | while read -r k8s_api_endpoint; do printf '\n## `%s`\n\n```json\n%s\n```\n' "$k8s_api_endpoint" "$(curl "http://localhost:8001$k8s_api_endpoint")"; done > kubernetes_api_record.md
 curl https://ankitpati.in/gpg.asc --output /etc/apt/trusted.gpg.d/ankitpati.asc
@@ -1343,6 +1344,8 @@ git remote -v | sed --regexp-extended 's/ \((fetch|push)\)$//' | sort -u | while
 git remote add origin https://github.com/ankitpati/rpg.git
 git restore filename
 git show --format= --name-only
+git show --pretty= --unified=0 | cat
+git show --pretty= --unified=0 | grep --only-matching --extended-regexp '([0-9]+\.){3}[0-9]+/[0-9]+' | while read -r subnet; do subnetcalc "$subnet" -n; printf '\n~~~~\n\n'; done
 git show --show-signature
 git show -U100
 git submodule add -b branch_name https://gitlab.com/ankitpati/rpg.git modules/ankitpati/rpg
@@ -1417,6 +1420,8 @@ helm list
 helm list | tail --lines=+2 | tr '\t' ' ' | tr --squeeze-repeats ' ' | sort --key=4,5 --numeric-sort
 helm rollback --dry-run chart_name
 helm rollback chart_name 12345
+helm template chart_name chart/ --values=values.yaml --output-dir="$HOME/Code/chart_name/"
+helm template chart_name chart/ --values=values.yaml | yq .
 help '{ ... }'
 hexdump -C filename.dat
 hexdump -C ~/Applications/Chrome\ Apps.localized/Icon$'\r'/..namedfork/rsrc
@@ -1566,6 +1571,7 @@ kubectl describe services --namespace=istio-system istiod-1-16-0
 kubectl describe virtualservices.networking.istio.io/virtual_service_name --namespace=istio-system
 kubectl edit pod/pod_name
 kubectl edit virtualservices.networking.istio.io/virtual_service_name --namespace=istio-system
+kubectl exec --stdin --tty --container=container_name --namespace=namespace_name --stdin --tty pod_name -- bash -c 'while :; do nc --listen --source-port=8443 --sh-exec="nc 10.10.10.10 8443"; done'
 kubectl exec --stdin --tty pod_name -- bash
 kubectl exec --stdin --tty pod_name --container=container_name -- bash
 kubectl exec deployment/deployment_name -- bash --login
@@ -1709,6 +1715,7 @@ nc -lp 5432
 nc -zvv ankitpati.in 443
 ncdu
 neofetch
+netcat --listen --local-port=8080
 networkQuality -v
 newgrp groupname
 ng new my-app
@@ -1987,6 +1994,7 @@ plackup filename.psgi
 plantuml -theme black-knight filename.uml && timg filename.png
 plantuml -tsvg filename.uml
 plasma-nm
+pluto detect-all-in-cluster
 pmset -g
 pmset -g log
 pmset -g therm
@@ -2071,6 +2079,8 @@ pro security-status --unavailable
 pro status
 ps -eo pid,args | grep -i command_substring
 ps2pdf -dPDFSETTINGS=/screen -dCompatibilityLevel=1.7 -dEmbedAllFonts=true -dSubsetFonts=true -dCompressFonts=true -dColorImageResolution=72 -dGrayImageResolution=72 -dMonoImageResolution=72 filename.pdf filename-reduced.pdf
+psql 'host=localhost port=5432 dbname=database_name user=username sslmode=disable' --password
+psql 'host=localhost port=5432 dbname=database_name user=username sslmode=verify-full' --password
 psql service=foiegras
 psql service=service_name
 pup 'css-selector' < filename.html
@@ -2223,6 +2233,7 @@ steampipe service stop
 steampipe service stop --force
 strace -e open -o programname.strace programname programargs
 strace programname 2> programname.strace
+subnetcalc 10.10.10.10/24 -n
 sudo bash -c 'apt update; apt-fast dist-upgrade -y; apt autoremove -y; apt clean; snap refresh; flatpak update; pkcon refresh force; pkcon update; fwupdmgr get-updates; fwupdmgr upgrade; chmod 0750 /usr/bin/nmap /usr/sbin/etherape; chown root:wireshark /usr/bin/nmap /usr/sbin/etherape; setcap cap_net_raw,cap_net_admin,cap_net_bind_service+eip /usr/bin/nmap cap_net_raw,cap_net_admin,cap_net_bind_service+eip /usr/sbin/etherape'
 sudo bash -c 'dnf upgrade --refresh; snap refresh; flatpak update; pkcon refresh force; pkcon update; fwupdmgr get-updates; fwupdmgr upgrade; chmod 0750 /usr/bin/nmap /usr/sbin/etherape; chown root:wireshark /usr/bin/nmap /usr/sbin/etherape; setcap cap_net_raw,cap_net_admin,cap_net_bind_service+eip /usr/bin/nmap cap_net_raw,cap_net_admin,cap_net_bind_service+eip /usr/sbin/etherape'
 sudo bash -c 'rfkill unblock bluetooth; systemctl restart bluetooth.service'
@@ -2365,6 +2376,7 @@ wc --bytes --total=never filename*
 wget https://www.toptal.com/developers/gitignore/api/java,netbeans,eclipse,jetbrains,android,androidstudio -O .gitignore
 whatchanged origin/development..
 while :; do kubectl get pods --watch --selector=app=app_name; done
+while :; do kubectl port-forward --namespace=namespace_name pod/pod_name 8443; done
 while :; do virsh -c qemu:///system send-key Windows-10 KEY_J; sleep 120; done
 while :; do xdotool mousemove --sync 1000 10 sleep 0.5 mousemove restore; sleep 120; done
 while read -r directory; do find "$(case "$directory" in -*) printf ./ ;; esac; printf '%s' "$directory")" \( -type f -exec ls -lt -- {} \; -exec md5sum -- {} \; \) -o \( -type d -exec ls -ltd -- {} \; -exec printf '%s %s' 'directory' {} \; \); done < directory-list.txt
