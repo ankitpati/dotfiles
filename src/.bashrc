@@ -429,7 +429,7 @@ main()
         NEXUS_PASSWORD \
         NEXUS_URL \
         NEXUS_USERNAME \
-        NPM_ACCESS_TOKEN \
+        NPM_TOKEN \
         NPM_PACKAGES \
         ORACLE_HOME \
         PERL5LIB \
