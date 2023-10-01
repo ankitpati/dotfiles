@@ -421,6 +421,7 @@ main()
         HOMEBREW_NO_BOTTLE_SOURCE_FALLBACK \
         HOMEBREW_NO_INSECURE_REDIRECT \
         JAVA_HOME \
+        KIND_EXPERIMENTAL_PROVIDER \
         MANPATH \
         MAN_POSIXLY_CORRECT \
         MERGE \
@@ -429,8 +430,8 @@ main()
         NEXUS_PASSWORD \
         NEXUS_URL \
         NEXUS_USERNAME \
-        NPM_TOKEN \
         NPM_PACKAGES \
+        NPM_TOKEN \
         ORACLE_HOME \
         PERL5LIB \
         PERLBREW_CPAN_MIRROR \
@@ -576,9 +577,18 @@ main()
     PERL_MM_OPT="INSTALL_BASE=$HOME/perl5"
 
     # Podman
-    if command -v podman &>/dev/null && [[ -n $XDG_RUNTIME_DIR ]]
+    if command -v podman &>/dev/null
     then
-        DOCKER_HOST="unix://$XDG_RUNTIME_DIR/podman/podman.sock"
+        local podman_socket_runtime_dir
+        if [[ -n $XDG_RUNTIME_DIR ]]
+        then
+            podman_socket_runtime_dir=$XDG_RUNTIME_DIR
+        else
+            podman_socket_runtime_dir="/run/user/$UID"
+        fi
+
+        DOCKER_HOST="unix://$podman_socket_runtime_dir/podman/podman.sock"
+        KIND_EXPERIMENTAL_PROVIDER='podman'
     elif command -v docker &>/dev/null && [[ $OSTYPE == *darwin* ]]
     then
         DOCKER_HOST="unix://$HOME/.docker/run/docker.sock"
