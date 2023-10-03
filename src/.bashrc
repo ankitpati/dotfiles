@@ -615,7 +615,6 @@ main()
     alias ssh='exec ssh'
     alias telnet='exec telnet'
     alias tohex="hexdump -ve '1/1 \"%.2x\" '"
-    alias tree='tree -I ".git|.terraform|node_modules"'
     # shellcheck disable=SC2154
     alias unchomp='sed -i -e \$a\\ '
 
