@@ -1,1 +1,1 @@
---glob=!*.min.*
+--max-columns=120
