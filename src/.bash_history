@@ -142,6 +142,8 @@ code --install-extension mjcrouch.perforce --force
 code --install-extension ms-azuretools.vscode-docker --force
 code --install-extension ms-kubernetes-tools.vscode-kubernetes-tools --force
 code --install-extension ms-ossdata.vscode-postgresql --force
+code --install-extension ms-python.python --force
+code --install-extension ms-python.vscode-pylance --force
 code --install-extension ms-vscode-remote.vscode-remote-extensionpack --force
 code --install-extension sourcegraph.sourcegraph --force
 code --install-extension vscjava.vscode-java-pack --force
