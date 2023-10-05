@@ -66,6 +66,7 @@
     "markdown.preview.fontFamily": "'Ubuntu', sans-serif",
     "markdown.preview.linkify": false,
     "markdown.validate.enabled": true,
+    "mypy-type-checker.preferDaemon": true,
     "notebook.formatOnCellExecution": true,
     "prettier.arrowParens": "avoid",
     "prettier.bracketSameLine": true,
