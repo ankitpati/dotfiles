@@ -143,6 +143,7 @@ code --install-extension ms-azuretools.vscode-docker --force
 code --install-extension ms-kubernetes-tools.vscode-kubernetes-tools --force
 code --install-extension ms-ossdata.vscode-postgresql --force
 code --install-extension ms-python.isort --force
+code --install-extension ms-python.mypy-type-checker --force
 code --install-extension ms-python.python --force
 code --install-extension ms-python.vscode-pylance --force
 code --install-extension ms-vscode-remote.vscode-remote-extensionpack --force
