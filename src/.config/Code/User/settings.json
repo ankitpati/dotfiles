@@ -100,6 +100,7 @@
     "vim.surround": false,
     "vim.useCtrlKeys": true,
     "window.commandCenter": false,
+    "window.density.editorTabHeight": "compact",
     "window.enableMenuBarMnemonics": false,
     "window.restoreWindows": "none",
     "window.titleBarStyle": "custom",
