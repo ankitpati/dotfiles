@@ -696,7 +696,10 @@ main()
     fi
 
     # Colours for `tree`
-    source <(dircolors -b)
+    if command -v dircolors &>/dev/null
+    then
+        source <(dircolors --bourne-shell)
+    fi
 
     sanitize_path CLASSPATH
     sanitize_path DYLD_LIBRARY_PATH
