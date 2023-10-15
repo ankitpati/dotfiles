@@ -471,9 +471,12 @@ main()
         source "$global_profile"
     fi
 
-    mesg n || :
+    if command -v mesg &>/dev/null
+    then
+        mesg n || :
+    fi
 
-    local lc_ctype=$(locale)
+    local lc_ctype=$(command -v locale &>/dev/null && locale)
     lc_ctype=${lc_ctype##*LC_CTYPE=\"}
     lc_ctype=${lc_ctype%%\"*}
 
@@ -499,8 +502,6 @@ main()
 
     # Ensure `source`s below this see the correct `$MANPATH`.
     local manpath=$MANPATH
-    unset MANPATH
-    export MANPATH
     MANPATH="$manpath:$(manpath)"
 
     # Text editors
@@ -708,6 +709,11 @@ main()
     sanitize_path PERL5LIB
     sanitize_path PERL_LOCAL_LIB_ROOT
     sanitize_path PKG_CONFIG_PATH
+
+    if [[ $MANPATH == '' ]]
+    then
+        unset MANPATH
+    fi
 
     return 0
 }
