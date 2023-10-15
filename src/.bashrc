@@ -261,7 +261,10 @@ add_brewed_items_to_env()
 
         CLASSPATH="$extra_claspath:$CLASSPATH"
         DYLD_LIBRARY_PATH="$extra_dyldpath:$DYLD_LIBRARY_PATH"
-        MANPATH="$extra_manpages:$MANPATH"
+        if [[ -n $MANPATH ]]
+        then
+            MANPATH="$extra_manpages:$MANPATH"
+        fi
         PATH="$extra_binaries:$PATH"
         PKG_CONFIG_PATH="$extra_pkgpaths:$PKG_CONFIG_PATH"
 
@@ -505,6 +508,7 @@ main()
     if command -v manpath &>/dev/null
     then
         MANPATH="$manpath:$(manpath)"
+        sanitize_path MANPATH
     fi
 
     # Text editors
@@ -652,7 +656,10 @@ main()
 
         # Perl local::lib
         PATH="$HOME/perl5/bin:$PATH"
-        MANPATH="$HOME/perl5/man:$MANPATH"
+        if [[ -n $MANPATH ]]
+        then
+            MANPATH="$HOME/perl5/man:$MANPATH"
+        fi
 
         # Cargo
         PATH="$HOME/.cargo/bin:$PATH"
@@ -694,7 +701,10 @@ main()
         then
             DYLD_LIBRARY_PATH="$HOME/lib:$HOME/.local/lib:$DYLD_LIBRARY_PATH"
         fi
-        MANPATH="$HOME/man:$HOME/.local/share/man:$MANPATH"
+        if [[ -n $MANPATH ]]
+        then
+            MANPATH="$HOME/man:$HOME/.local/share/man:$MANPATH"
+        fi
         PATH="$HOME/bin:$HOME/.local/bin:$PATH"
         PERL5LIB="$HOME/lib/perl5:$HOME/.local/lib/perl5:$PERL5LIB"
     fi
@@ -713,7 +723,7 @@ main()
     sanitize_path PERL_LOCAL_LIB_ROOT
     sanitize_path PKG_CONFIG_PATH
 
-    if [[ $MANPATH == '' ]]
+    if [[ -z $MANPATH ]]
     then
         unset MANPATH
     fi
