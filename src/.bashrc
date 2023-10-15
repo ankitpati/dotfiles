@@ -502,7 +502,10 @@ main()
 
     # Ensure `source`s below this see the correct `$MANPATH`.
     local manpath=$MANPATH
-    MANPATH="$manpath:$(manpath)"
+    if command -v manpath &>/dev/null
+    then
+        MANPATH="$manpath:$(manpath)"
+    fi
 
     # Text editors
     EDITOR='vim'
