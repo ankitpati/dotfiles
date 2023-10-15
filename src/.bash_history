@@ -2346,6 +2346,7 @@ vctl system stop
 vctl volume
 vctl volume prune
 vdpauinfo
+vim "$PREFIX/etc/ssh/sshd_config" # Termux
 vim -i NONE -u NONE ~/.viminfo
 vim -i NONE ~/.viminfo
 vim -u NONE ~/.viminfo
