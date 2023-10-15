@@ -1680,6 +1680,7 @@ luarocks completion bash
 luarocks install --local dump
 luarocks path
 luarocks show dump
+makewhatis "$PREFIX/share/man"
 mapfile -t < newline-separated-item-list.txt
 markdownlint '**/*.md' 2> errors.txt
 massren --config editor vim
