@@ -507,7 +507,7 @@ main()
     local manpath=$MANPATH
     if command -v manpath &>/dev/null
     then
-        MANPATH="$manpath:$(manpath)"
+        MANPATH="$manpath:$(manpath 2>/dev/null)"
         sanitize_path MANPATH
     fi
 
