@@ -6,9 +6,6 @@
         }
     },
     "experimental": false,
-    "features": {
-        "buildkit": true
-    },
     "proxies": {
         "https-proxy": "https://squid.ankitpati.in:1080/",
         "no-proxy": "127.0.0.0/8,::1,alibabacloud.com,aliyun.com,aliyuncs.com,amazon.com,amazonaws.com,azurecr.io,c8n.io,canister.io,centos.org,chinacloudapi.cn,cloudfront.net,codeberg.org,digitalocean.com,docker.com,docker.io,ecr.aws,fedoraproject.org,gcr.io,ghcr.io,github.com,gitlab.com,goharbor.io,google.com,googleapis.com,heroku.com,ibm.com,icr.io,jfrog.com,jfrog.io,local,localdomain,localhost,microsoft.com,ocir.io,opensuse.org,oracle.com,pkg.dev,quay.io,redhat.com,redhat.io,salesforce.com,scaleway.com,scw.cloud,sonatype.com,suse.com,tencent.com,tencentcloud.com,tencentcloudcr.com,usgovcloudapi.net,windows.net"
