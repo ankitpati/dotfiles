@@ -314,7 +314,17 @@ set_red_if_failed()
 put_lf_unless_cursor_at_start() {
     local exit_code=$?
 
-    local newline='\001\n\002'
+    # `\n` doesn't need to be enclosed in `\[` & `\]`, but a single `\n`
+    # doesn't print. Probably a bug in Bash.
+    #
+    # The workaround is to have at least one character, even a non-printing
+    # one, immediately after the newline.
+    #
+    # Since any non-printing character must be enclosed, and the enclosing
+    # characters themselves cause the newline to be printed, the shortest
+    # solution is to enclose the empty string, which is technically a
+    # zero-length non-printing string.
+    local newline='\n\001\002'
 
     local _ cursor_position_x
     IFS='[;' read -p $'\001\e[6n\002' -d R -rs _ _ cursor_position_x _
