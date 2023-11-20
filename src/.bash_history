@@ -32,6 +32,7 @@ P4DIFF=vimdiff p4 diff -f //depot/directory/...
 P4DIFF=vimdiff p4 diff -f //depot/directory/filename
 PATH="$(grep --invert-match binutils <<<"${PATH//:/$'\n'}" | paste --delimiters=':' --serial)" cpan Unicode::GCString
 TF_LOG=debug terraform plan -out tfplan
+TZ= date
 Xvfb :99 -screen 0 1024x768x24
 \ssh ssh.ankitpati.in
 aa-status
@@ -57,6 +58,7 @@ apt-cache policy snapd
 apt-cache rdepends python-apt-common
 apt-mark auto ubuntu-restricted-addons
 apt-mark showmanual
+argo list --namespace=namespace_name
 aria2c -c -x 16 https://ankitpati.in/filename.br
 arkade get --format=markdown
 arkade get krew
@@ -219,6 +221,7 @@ curl --head https://example.org/filename
 curl --header "Authorization: token $(lpass show --password github_personal_access_token)" --remote-name https://github.example.org/raw/namespace/repo_name/branch_name/path/to/filename
 curl --header "Authorization: token $(lpass show --password github_personal_access_token)" --remote-name https://raw.githubusercontent.com/namespace/repo_name/branch_name/path/to/filename
 curl --header 'Accept: application/json, */*' --output /dev/null --silent --write-out 'scale = 3; (%{size_header} + %{size_download}) / %{size_request}\n' 'https://example.org' | bc
+curl --header 'Authorization: Bearer QQ==' --output blob 'https://ghcr.io/v2/path/to/project/blobs/sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef'
 curl --key openssl.key --cert openssl.crt https://mtls.example.org
 curl --proxytunnel --proxy https://squid.ankitpati.in:1080 https://ankitpati.in
 curl --remote-name https://ankitpati.in/download?file=filename.c
@@ -237,6 +240,7 @@ cut -f2,3 /proc/net/route | grep ^00000000 | cut -f2 | sed 's/../0x&\n/g' | tac 
 dart --disable-analytics
 date +%F
 date +%s
+date --utc
 date --utc --date "@$((1601234567890 / 1000))" +%Y%m%d
 date -Is
 date -d 'Wed Dec 13 05:43:21 GMT 1995'
@@ -246,10 +250,16 @@ dd if=/dev/urandom count=1 2>/dev/null | git hash-object --stdin
 deactivate
 declare -p | grep '^declare -- '
 defaults read com.apple.DictionaryServices DCSActiveDictionaries
-defaults write "$(osascript -e 'id of app "Visual Studio Code"')" ApplePressAndHoldEnabled -bool false
+defaults write com.apple.Terminal ApplePressAndHoldEnabled -bool false
+defaults write com.google.Chrome AppleEnableSwipeNavigateWithScrolls -bool false
+defaults write com.google.Chrome ApplePressAndHoldEnabled -bool false
+defaults write com.googlecode.iterm2 ApplePressAndHoldEnabled -bool false
 defaults write com.jetbrains.intellij ApplePressAndHoldEnabled -bool false
 defaults write com.microsoft.VSCode ApplePressAndHoldEnabled -bool false
+defaults write com.microsoft.edgemac AppleEnableSwipeNavigateWithScrolls -bool false
 defaults write com.visualstudio.code.oss ApplePressAndHoldEnabled -bool false
+defaults write com.vivaldi.Vivaldi AppleEnableSwipeNavigateWithScrolls -bool false
+defaults write com.vivaldi.Vivaldi ApplePressAndHoldEnabled -bool false
 df -h
 df -i
 diff -u5 -r directory1/ directory2/ | delta
@@ -1115,6 +1125,13 @@ dnstracer -s . ankitpati.in
 dnstracer ankitpati.in
 do-release-upgrade
 docker build --progress=plain --tag=image_name .
+docker buildx build --platform=linux/amd64,linux/arm64 --output=type=oci,dest=/path/to/filename.tar .
+docker buildx build --platform=linux/amd64,linux/arm64 --output=type=tar,dest=/path/to/filename.tar .
+docker buildx build --platform=linux/amd64,linux/arm64 --tag=image_name:tag_name --output=type=registry .
+docker buildx create --name=builder_name --driver=docker-container --config=buildkitd.toml --use
+docker buildx inspect --bootstrap
+docker buildx ls
+docker buildx rm builder_name
 docker network list --quiet | xargs --no-run-if-empty docker network inspect --verbose
 docker run --interactive --pid=host --privileged --pull=always --rm --tty busybox nsenter --ipc --mount --net --target=1 --uts # Linuxkit access on Docker for Mac
 docker scan --accept-license --version
@@ -1164,6 +1181,7 @@ export KUBECONFIG='kubeconfig.yaml'
 export P4CLIENT="$(p4 clients -u "$(p4 client -o | grep '^Owner:' | cut -f2)" | cut -d' ' -f1-5 | grep " /client/root\$" | cut -d' ' -f2)"
 export SRC_ACCESS_TOKEN="$(lpass show --password sourcegraph_access_token)"
 eza --all --classify --git --group-directories-first --header --icons --inode --long
+eza --tree
 factor 1849
 fallocate -l 100M hundred-MiB-file
 fallocate -l 1K one-kb-file
@@ -1203,6 +1221,7 @@ find . -maxdepth 1 -type d -mtime 2
 find . -not -group ankitpati
 find . -not -user ankitpati
 find . -type d -empty -delete
+find . -type d -name .git -printf '%h\n' | while read -r directory; do cd "$directory"; pwd; git-ssh2https; cd - &>/dev/null; done
 find . -type f -exec chmod 0600 {} + -exec dos2unix {} +
 find . -type f -exec mv -t /directory/ {} +
 find . -type f -exec perl -pi -E 's{#!\s*(?:/usr)?/bin/(?!env\b)(\S+)([ \t]*(?=\S))}{#!/usr/bin/env ${\($2 ? "-S " : "")}$1$2}' {} +
@@ -1263,11 +1282,14 @@ gcloud auth print-access-token | docker login gcr.io --username=oauth2accesstoke
 gcloud cloud-shell scp localhost:path/to/filename cloudshell:~/
 gcloud cloud-shell ssh
 gcloud components install gke-gcloud-auth-plugin
+gcloud components list
+gcloud components repositories list
 gcloud compute addresses list --project=project_id --filter='name:gce_vm_name' --format='table(name,address)'
 gcloud compute backend-services list --filter=name="($(gcloud compute forwarding-rules list --filter=IPAddress='(10.10.10.10)' --format=json'(name)' | jq --raw-output .[0].name))" --format=json'(backends)' | jq .[0].backends[]
 gcloud compute images list
 gcloud compute images list --project=project_id --format='value(name)'
 gcloud compute instances delete gce_vm_name --quiet --project=project_id --zone="$(gcloud compute instances list --project=project_id --filter='name <= gce_vm_name AND name >= gce_vm_name' --format='value(zone.basename())')"
+gcloud compute instances describe --project=project_id --zone=us-west1-a instance_name | yq '. | to_json' | json-recursive-decode | jq .
 gcloud compute instances list --project=project_id --format='csv(name,zone,networkInterfaces[0].networkIP)' | grep --fixed-strings 10.10.10.10
 gcloud compute instances list --project=project_id --format='json(name,zone,networkInterfaces[0].networkIP)' | grep --fixed-strings 10.10.10.10
 gcloud compute instances list --project=project_id --format='table(name,zone,networkInterfaces[0].networkIP)' | grep --fixed-strings 10.10.10.10 | tr --squeeze-repeats ' '
@@ -1276,6 +1298,7 @@ gcloud compute instances reset --project=project_id --zone=us-west1-a instance_n
 gcloud compute instances start --zone=us-west1-a instance_name
 gcloud compute instances stop --zone=us-west1-a instance_name
 gcloud compute networks list
+gcloud compute networks subnets describe --project=project_id --region=us-west1 subnet_name | yq .
 gcloud compute project-info describe --project=project_id
 gcloud compute regions describe us-west1 --project=project_id | yq .
 gcloud compute ssh --zone=us-west1-a --internal-ip instance_name
@@ -1292,7 +1315,7 @@ gcloud config set compute/zone us-west1-a
 gcloud config set project project_id
 gcloud config unset project
 gcloud container clusters describe cluster_name --project=project_id --location=us-west1 2>/dev/null | yq .nodeConfig.oauthScopes
-gcloud container clusters get-credentials cluster_name --region=region_name --project=project_id # appends to ~/.kube/config
+gcloud container clusters get-credentials cluster_name --region=us-west1 --project=project_id # appends to ~/.kube/config
 gcloud container get-server-config --format='yaml(defaultClusterVersion)'
 gcloud info
 gcloud projects get-iam-policy project_id
@@ -1548,9 +1571,10 @@ kubectl config get-contexts
 kubectl config use-context cluster_name
 kubectl config view
 kubectl config view --minify --raw --output=jsonpath='{..cluster.certificate-authority-data}'
-kubectl cp filename pod_name:/path/to/filename --container=container_name
+kubectl cp filename pod_name:/path/to/filename --container=container_name --retries=10
 kubectl cp filename pod_name:filename --container=container_name
 kubectl create --filename=https://ankitpati.in/example.yaml
+kubectl create job job_name --from=cronjob/cronjob_name
 kubectl debug container_name --stdin --tty --image=image_name --target=pod_name
 kubectl debug node/kind-control-plane --stdin --tty --image=image_name
 kubectl debug node/kind-worker --stdin --tty --image=image_name
@@ -1575,13 +1599,16 @@ kubectl describe services --namespace=istio-system istiod-1-16-0
 kubectl describe virtualservices.networking.istio.io/virtual_service_name --namespace=istio-system
 kubectl edit pod/pod_name
 kubectl edit virtualservices.networking.istio.io/virtual_service_name --namespace=istio-system
+kubectl events --for=deployment/deployment_name --watch
 kubectl exec --stdin --tty --container=container_name --namespace=namespace_name --stdin --tty pod_name -- bash -c 'while :; do nc --listen --source-port=8443 --sh-exec="nc 10.10.10.10 8443"; done'
-kubectl exec --stdin --tty pod_name -- bash
-kubectl exec --stdin --tty pod_name --container=container_name -- bash
+kubectl exec --stdin --tty pod_name -- bash --login
+kubectl exec --stdin --tty pod_name --container=container_name -- bash --login
 kubectl exec deployment/deployment_name -- bash --login
 kubectl get configmap/istio-sidecar-injector --namespace=istio-system --output=jsonpath='{.data.config}' | yq .
+kubectl get configmaps --selector=owner=helm
 kubectl get deployment/deployment_name --output=json | jq '.spec.template.spec.containers[1].livenessProbe'
 kubectl get events --output=jsonpath='{range .items[?(@.type=="Warning")]}{.metadata.name}{"\t"}{.message}{"\n"}{end}'
+kubectl get gateway/mirror --context=mirror-us-central1-abs-0 --namespace=istio-system --output=yaml | yq '.spec.servers[2].hosts'
 kubectl get namespace/default --output=json | jq '.metadata.labels."istio.io/dataplane-mode"'
 kubectl get namespaces --label-columns=istio.io/rev,istio-injection
 kubectl get namespaces --show-labels
@@ -1592,13 +1619,17 @@ kubectl get nodes --output=wide
 kubectl get nodes --selector=cloud.google.com/gke-nodepool=nodepool_name --label-columns=topology.kubernetes.io/zone
 kubectl get nodes --show-labels
 kubectl get pods --all-namespaces
+kubectl get pods --all-namespaces --output=json | jq --raw-output '.items[] | (.metadata.name + "," + .metadata.namespace + "," + .spec.nodeName)'
+kubectl get pods --all-namespaces --selector='app in (istiod, istio-ingressgateway)' --output=json | jq --raw-output '.items[].spec.nodeName' | sort --unique | while read -r node_name; do printf '%s,' "$node_name"; kubectl get "node/$node_name" --output=json | jq --raw-output '[.status.nodeInfo.kubeProxyVersion, .status.nodeInfo.kubeletVersion] | join(",")'; done
 kubectl get pods --context=kube-context
 kubectl get pods --kubeconfig=filename.yaml
+kubectl get pods --namespace=istio-system --selector=app=istio-ingressgateway --output=json | jq --raw-output '.items[].status.podIP'
 kubectl get pods --namespace=istio-system --selector=app=istio-ingressgateway --output=jsonpath='{.items..metadata.name}' | sed --regexp-extended 's/ |$/\n/g'
 kubectl get pods --namespace=istio-system --selector=app=istiod
 kubectl get pods --output=custom-columns=pods:.metadata.name | grep deployment_name | sort --version-sort | while read -r pod; do kubectl top pod/"$pod" --no-headers; done
 kubectl get pods --selector="$(kubectl get service/service_name --output=yaml | yq .spec.selector | sed 's/: /=/')"
 kubectl get pods --selector=app=app_name
+kubectl get pods --selector=app=app_name --output=name | while read -r pod_name; do kubectl logs "$pod_name" --container=container_name --follow & done; wait
 kubectl get pods | cut --delimiter=' ' --fields=1 | grep --extended-regexp '(-[[:alnum:]]+){2}$' | sort --version-sort | while read -r deployment; do kubectl logs "$deployment" --container="${deployment%%-+([[:alnum:]])-+([[:alnum:]])}"; done
 kubectl get secrets --output=json | gojq '.items[].data | map_values(@base64d | try fromjson // .)'
 kubectl get secrets --output=json | jq '.items[].data'
@@ -2145,6 +2176,9 @@ scour filename.svg filename-scour.svg -v --no-renderer-workaround --strip-xml-pr
 scrcpy --force-adb-forward -b 1000
 scrcpy -b 1000
 script -T timing script
+script -dp typescript
+script -p typescript
+script -r
 scriptreplay -t timing script
 scriptreplay typescript
 sdk install btrace
@@ -2167,6 +2201,8 @@ shellharden --replace filename.bash
 shellharden filename.bash
 shfmt -w -s filename.bash
 skaffold help
+skopeo --debug inspect docker://docker.repo.local.sfdc.net/sfci/docker-images/golang_build
+skopeo inspect --daemon-host="$DOCKER_HOST" docker-daemon:image_name:tag_name | jq .
 skopeo inspect docker://quay.io/ankitpati/tigress | jq .
 skopeo list-tags --override-arch amd64 --override-os linux docker://kindest/node | jq --raw-output .Tags[] | sort -V
 skopeo list-tags docker://hashicorp/terraform | jq --raw-output .Tags[] | while read -r tag; do skopeo inspect docker://hashicorp/terraform:"$tag" | jq --join-output '[.Created,.Labels."com.hashicorp.terraform.version"] | join(" ")'; printf ' %s\n' "$tag"; done | sort -V
