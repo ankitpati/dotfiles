@@ -1127,7 +1127,9 @@ do-release-upgrade
 docker build --progress=plain --tag=image_name .
 docker buildx build --platform=linux/amd64,linux/arm64 --output=type=oci,dest=/path/to/filename.tar .
 docker buildx build --platform=linux/amd64,linux/arm64 --output=type=tar,dest=/path/to/filename.tar .
+docker buildx build --platform=linux/amd64,linux/arm64 --tag=image_name:tag_name --output=type=image,push=false .
 docker buildx build --platform=linux/amd64,linux/arm64 --tag=image_name:tag_name --output=type=registry .
+docker buildx build --platform=linux/arm64 --output=type=docker,dest=/path/to/filename.tar .
 docker buildx create --name=builder_name --driver=docker-container --config=buildkitd.toml --use
 docker buildx inspect --bootstrap
 docker buildx ls
@@ -1227,6 +1229,7 @@ find . -type f -exec mv -t /directory/ {} +
 find . -type f -exec perl -pi -E 's{#!\s*(?:/usr)?/bin/(?!env\b)(\S+)([ \t]*(?=\S))}{#!/usr/bin/env ${\($2 ? "-S " : "")}$1$2}' {} +
 find . -type f -name '*.expanded-csr' -exec openssl req -noout -text -in {} \; | grep -E '^\s+DNS:' | sed 's/, /\n/g' | cut -d: -f2- | sort -u | paste -sd,
 find . -type f -name '*.lastUpdated' -delete
+find . -type f -name 'filename_with_ip_addresses' -exec grep --perl-regexp --only-matching --no-filename '(?:[0-9]+\.){3}[0-9]+/[0-9]+' {} + | sort --unique | while read -r subnet; do subnetcalc "$subnet" -n; done
 find . -type f -name requirements.txt -exec pip install -r {} \;
 firewall-cmd --add-forward-port=port=443:proto=tcp:toport=8443
 firewall-cmd --add-masquerade
@@ -1738,6 +1741,7 @@ mount /dev/sda1 -o subvolid=123 /btrfs-subvolume-mount
 mount /dev/sda1 /data
 msfconsole
 msfdb stop
+mvn --debug --errors versions:set -DnextSnapshot=true
 mvn --encrypt-master-password 'maven-master-password'
 mvn --encrypt-password 'maven-server-password'
 mvn -U clean install -Ddependency-check.skip=true
@@ -1828,6 +1832,7 @@ openssl req -x509 -days 36500 -new -key id_rsa -out id_rsa.x509
 openssl rsa -in openssl.key -pubout -out openssl.pub
 openssl rsa -in openssl.key -text -noout
 openssl rsa -noout -modulus -in filename.key | sha512sum
+openssl s_client -showcerts -connect example.org:443 <<<'' 2>/dev/null | openssl x509 -noout -text | grep 'Not After'
 openssl s_client -showcerts -servername example.org -connect example.org:443 <<<'' 2>/dev/null | tr '\n' '^' | grep --only-matching --extended-regexp -- '-----BEGIN CERTIFICATE-----\^[^-]+\^-----END CERTIFICATE-----' | tail --lines=1 | tr '^' '\n' | openssl x509 -noout -text
 openssl s_client -tls1_3 -auth_level 2 -connect 172.67.192.178:443 -servername ankitpati.in -verify_hostname ankitpati.in -verify_return_error
 openssl storeutl -noout -text -certs filename-bundle.crt | grep -E '^\s+(Subject|Issuer):' | sed 's/^.*CN=//'
@@ -1845,6 +1850,9 @@ p4 annotate -c filename
 p4 annotate -cu filename
 p4 annotate -u filename
 p4 annotate filename
+p4 branch -o branch_name
+p4 branches -e 'branch_name_*'
+p4 branches //depot/directory/...
 p4 change -o 12345
 p4 changes -e 12345 filename | cut -d' ' -f2 | xargs p4 describe -du5 | delta
 p4 changes -l
@@ -2329,6 +2337,7 @@ terraform show tfplan | less -R
 terraform state list
 terraform state rm null_resource.resource_name
 terraform state show module.compute.google_compute_address.compute-array[0]
+terraform taint module.module_name
 terraform validate
 timedatectl set-timezone Asia/Kolkata
 timeout --signal INT 3 sleep 10
