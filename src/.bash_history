@@ -1440,6 +1440,7 @@ hdparm --user-master m --security-unlock SecretPassword /dev/sdb
 hdparm --user-master u --security-disable SecretPassword /dev/sdb
 hdparm --user-master u --security-unlock SecretPassword /dev/sdb
 hdparm -I /dev/sdb
+head --quiet --bytes=16 /dev/urandom | md5sum | cut --delimiter=' ' --fields=1
 helm get all chart_name | yq .
 helm get manifest chart_name --revision=12345 | yq 'select(.spec.template.spec.containers[1].image) | .spec.template.spec.containers[1].image'
 helm history chart_name
@@ -2438,6 +2439,7 @@ xdg-open .
 xdg-open filename
 xdotool click --repeat 5 1
 xmllint --format filename.xml | sponge filename.xml
+xxd -plain -l 16 </dev/urandom
 xz -v9e filename.tar
 yapf -i filename.py
 yasql user/pass@orclalias
