@@ -1118,8 +1118,8 @@ podman commit container_name image_name
 podman container list
 podman container list --all
 podman container stop container_name
-podman exec --interactive --tty --user=root container_name bash
-podman exec --interactive --tty container_name bash
+podman exec --interactive --tty --user=root container_name bash --login
+podman exec --interactive --tty container_name bash --login
 podman images
 podman images --all
 podman images --no-trunc --digests image_name
@@ -1440,7 +1440,7 @@ vctl pull rockylinux
 vctl rm -a
 vctl rm rockylinux-12ef
 vctl rmi -a
-vctl run -it rockylinux bash
+vctl run -it rockylinux bash --login
 vctl system info
 vctl system start
 vctl system stop
