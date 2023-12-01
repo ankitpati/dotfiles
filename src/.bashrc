@@ -241,12 +241,6 @@ add_brewed_items_to_env()
             then
                 extra_binaries="$pyenvpath:$extra_binaries"
             fi
-
-            #local vctlpath="$HOME/.vctl/bin"
-            #if [[ -d $vctlpath ]]
-            #then
-            #    extra_binaries="$vctlpath:$extra_binaries"
-            #fi
         fi
 
         # Clean and export the fruits of the above labour
