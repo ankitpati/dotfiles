@@ -646,6 +646,7 @@ join filename1 filename2
 journalctl
 journalctl --rotate --vacuum-time 1s
 journalctl -f -o cat "$(command -v gnome-shell)"
+jps
 jq '.["dashed-key-name"] | to_entries | [.[] | select(.value."inner-dashed-key-name" == "bar")] | from_entries' <<<'{"dashed-key-name":{"12345":{"inner-dashed-key-name":"foo"},"12346":{"inner-dashed-key-name":"bar"},"12347":{"inner-dashed-key-name":"baz"}}}'
 jq '.extensions | fromjson' filename.code-profile
 jq '.globalState | fromjson' filename.code-profile
