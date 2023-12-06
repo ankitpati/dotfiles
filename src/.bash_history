@@ -111,6 +111,7 @@ brew search --fedora perl-Mojolicious
 brew search --ubuntu libmojolicious-perl
 brew services info --all
 brew shellenv
+brew unlink docker && brew link --overwrite docker
 brew untap homebrew/cask
 brew untap homebrew/core
 brew uses curl
