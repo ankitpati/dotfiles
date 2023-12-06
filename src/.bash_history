@@ -975,7 +975,7 @@ p4 describe -Sdu5 12345 | delta
 p4 describe -a 12345 | less
 p4 describe -du5 12345 | delta
 p4 describe -du5 default | delta
-p4 describe 12345
+p4 describe 12345 | grep '^Affected files ' --after-context=1000 | tail --lines=+3 | head --lines=-1 | cut --delimiter='#' --fields=1 | cut --delimiter=/ --fields=6- | tar --append --file=p4-cl-12345.tar --verbatim-files-from --files-from=-
 p4 diff -du5 -Od //depot/directory/... | delta
 p4 diff -du5 //depot/directory/filename#123 //depot/directory/filename#124 | delta
 p4 diff -du5 @=12345 | delta
