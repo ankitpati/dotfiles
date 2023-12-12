@@ -901,6 +901,7 @@ nmcli radio wifi off
 nmcli radio wifi on
 npm cache clean --force
 npm config set prefix "$NPM_PACKAGES"
+npm install --legacy-peer-deps
 npx asar
 nslookup ankitpati.in
 nslookup ankitpati.in 1.1.1.1
