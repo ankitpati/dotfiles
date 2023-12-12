@@ -4,6 +4,7 @@
 ( GH_ORIGIN='origin'; PULL_REQUEST_ID='12345'; git pull "$GH_ORIGIN" "pull/$PULL_REQUEST_ID/head" )
 ( GH_USERNAME='ankitpati'; age -r "$(curl --header "Authorization: token $(lpass show --password github_personal_access_token)" "https://github.example.org/api/v3/users/$GH_USERNAME/keys" | jq --raw-output .[0].key)" --output cipher.txt.age plain.txt )
 ( filename=depot/directory/filename; p4 sync "$filename#$(( "$(p4 have "$filename" | cut -d# -f2 | cut -d' ' -f1)" - 1 ))" )
+( find . -type f -iname '*.py' ; grep --ignore-case --files-with-matches --extended-regexp '/(env )?python' --recursive . 2>/dev/null ) | sort --unique | xargs --open-tty vim
 ( hostname='google.com'; openssl s_client -auth_level 2 -connect "$hostname":443 -servername "$hostname" -verify_hostname "$hostname" -verify_return_error )
 ( hostname='google.com'; openssl s_client -tls1_3 -auth_level 2 -connect "$hostname":443 -servername "$hostname" -verify_hostname "$hostname" -verify_return_error )
 ( perforce_dir=//depot/directory; p4 dirs "$perforce_dir/*" | while read -r perforce_subdir; do p4 grep -e 'search-expression' "$perforce_subdir/..."; done )
