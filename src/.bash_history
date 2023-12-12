@@ -21,8 +21,8 @@
 ./manage.py startapp
 /bin/ls -l@
 /usr/libexec/java_home
-/usr/libexec/java_home -V
-/usr/libexec/java_home -v 1.8
+/usr/libexec/java_home --verbose
+/usr/libexec/java_home --version=1.8
 CLASSPATH=. java ClassName
 GIT_COMMITTER_NAME='Ankit Pati' GIT_COMMITTER_EMAIL='contact@ankitpati.in' git rebase branchname --exec 'git commit --amend --author="Ankit Pati <contact@ankitpati.in>" --no-edit'
 HTTPS_PROXY="$(jq --raw-output '.proxies."https-proxy"' < ~/.docker/daemon.json)" NO_PROXY="$(jq --raw-output '.proxies."no-proxy"' < ~/.docker/daemon.json)" skopeo sync --dry-run --override-arch amd64 --override-os linux --src docker --dest docker docker.io/library/busybox gcr.io/project_id/namespace/
@@ -316,7 +316,7 @@ exiftool -p '$XResolution,$YResolution' filename.jpg
 export DISPLAY=':99.0'
 export GH_TOKEN="$(lpass show --password github_personal_access_token)"
 export GITHUB_PERSONAL_ACCESS_TOKEN="$(lpass show --password github_personal_access_token)"
-export JAVA_HOME="$(/usr/libexec/java_home -v 1.8)"
+export JAVA_HOME="$(/usr/libexec/java_home --failfast --version=11)"
 export KUBECONFIG='kubeconfig.yaml'
 export P4CLIENT="$(p4 clients -u "$(p4 client -o | grep '^Owner:' | cut -f2)" | cut -d' ' -f1-5 | grep " /client/root\$" | cut -d' ' -f2)"
 export SRC_ACCESS_TOKEN="$(lpass show --password sourcegraph_access_token)"
