@@ -50,6 +50,11 @@ advzip --recompress -4 --iter 1000 filename.zip
 age -R ~/.ssh/authorized_keys -o cipher.txt.age plain.txt
 age -d -i ~/.ssh/id_ed25519 -o plain.txt cipher.txt.age
 age-keygen -o ~/.age/key.txt
+alternatives --config java
+alternatives --config javac
+alternatives --config jre_openjdk
+alternatives --list
+alternatives --set editor "$(command -v vim)"
 apdot filename.dot -Tpng | timg -
 apktool d filename.apk
 apt -o APT::Get::Always-Include-Phased-Updates=true full-upgrade
@@ -1424,9 +1429,6 @@ umount /data
 uname -a
 uname -r
 unix2dos filename.txt
-update-alternatives --config java
-update-alternatives --config javac
-update-alternatives --set editor "$(command -v vim)"
 update-desktop-database
 update-mime-database
 updatedb
