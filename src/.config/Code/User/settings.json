@@ -105,7 +105,7 @@
     "window.restoreWindows": "none",
     "window.titleBarStyle": "custom",
     "window.zoomLevel": 2,
-    "workbench.activityBar.visible": false,
+    "workbench.activityBar.location": "hidden",
     "workbench.colorCustomizations": {
         "[Default High Contrast]": {
             "contrastActiveBorder": "#444",
