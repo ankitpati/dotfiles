@@ -84,7 +84,7 @@
                 "Green Component": 0.3333333432674408,
                 "Red Component": 1
             },
-            "BM Growl": true,
+            "BM Growl": false,
             "Background Color": {
                 "Blue Component": 0,
                 "Green Component": 0,
@@ -346,7 +346,11 @@
                 "Green Component": 0.8353000283241272,
                 "Red Component": 0.70980000495910645
             },
+            "Send Bell Alert": false,
             "Send Code When Idle": false,
+            "Send Session Ended Alert": false,
+            "Send Terminal Generated Alerts": false,
+            "Session Close Undo Timeout": 1,
             "Shortcut": "",
             "Show Mark Indicators": false,
             "Silence Bell": false,
@@ -360,7 +364,7 @@
             "Use Italic Font": true,
             "Use Non-ASCII Font": false,
             "Vertical Spacing": 1,
-            "Visual Bell": true,
+            "Visual Bell": false,
             "Window Type": 1,
             "Working Directory": "/Users/ankit.pati"
         }
