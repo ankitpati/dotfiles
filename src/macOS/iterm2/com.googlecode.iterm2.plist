@@ -18,6 +18,8 @@
 	<false/>
 	<key>DimOnlyText</key>
 	<true/>
+	<key>DisableFullscreenTransparency</key>
+	<true/>
 	<key>EnableDivisionView</key>
 	<false/>
 	<key>EnterCopyModeAutomatically</key>
@@ -111,6 +113,8 @@
 	</dict>
 	<key>HapticFeedbackForEsc</key>
 	<false/>
+	<key>HideActivityIndicator</key>
+	<true/>
 	<key>HideScrollbar</key>
 	<true/>
 	<key>HideTabNumber</key>
@@ -275,7 +279,7 @@
 				<real>1</real>
 			</dict>
 			<key>BM Growl</key>
-			<true/>
+			<false/>
 			<key>Background Color</key>
 			<dict>
 				<key>Blue Component</key>
@@ -742,8 +746,16 @@
 				<key>Red Component</key>
 				<real>0.70980000495910645</real>
 			</dict>
+			<key>Send Bell Alert</key>
+			<false/>
 			<key>Send Code When Idle</key>
 			<false/>
+			<key>Send Session Ended Alert</key>
+			<false/>
+			<key>Send Terminal Generated Alerts</key>
+			<false/>
+			<key>Session Close Undo Timeout</key>
+			<integer>1</integer>
 			<key>Shortcut</key>
 			<string></string>
 			<key>Show Mark Indicators</key>
@@ -771,7 +783,7 @@
 			<key>Vertical Spacing</key>
 			<real>1</real>
 			<key>Visual Bell</key>
-			<true/>
+			<false/>
 			<key>Window Type</key>
 			<integer>1</integer>
 			<key>Working Directory</key>
@@ -787,7 +799,7 @@
 	<key>PasteTabToStringTabStopSize</key>
 	<integer>4</integer>
 	<key>PerPaneBackgroundImage</key>
-	<true/>
+	<false/>
 	<key>PointerActions</key>
 	<dict>
 		<key>Button,1,1,,</key>
@@ -828,24 +840,7 @@
 	<key>TmuxWarnBeforePausing</key>
 	<false/>
 	<key>URLHandlersByGuid</key>
-	<dict>
-		<key>gopher</key>
-		<string>EDFCA3ED-21CF-4897-B37B-E94E4236200C</string>
-		<key>news</key>
-		<string>EDFCA3ED-21CF-4897-B37B-E94E4236200C</string>
-		<key>nntp</key>
-		<string>EDFCA3ED-21CF-4897-B37B-E94E4236200C</string>
-		<key>ssh</key>
-		<string>EDFCA3ED-21CF-4897-B37B-E94E4236200C</string>
-		<key>telnet</key>
-		<string>EDFCA3ED-21CF-4897-B37B-E94E4236200C</string>
-		<key>wais</key>
-		<string>EDFCA3ED-21CF-4897-B37B-E94E4236200C</string>
-		<key>whois</key>
-		<string>EDFCA3ED-21CF-4897-B37B-E94E4236200C</string>
-		<key>x-man-page</key>
-		<string>EDFCA3ED-21CF-4897-B37B-E94E4236200C</string>
-	</dict>
+	<dict/>
 	<key>UseTmuxStatusBar</key>
 	<false/>
 	<key>VisualIndicatorForEsc</key>
