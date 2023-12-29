@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+( CHANGELIST=12345; p4 describe "$CHANGELIST" | grep -v ' delete$' | sed '0,/^Affected files /d' | tail --lines=+2 | head --lines=-1 | cut --delimiter='#' --fields=1 | cut --delimiter=/ --fields=6- | tar --append --file="p4-cl-$CHANGELIST.tar" --verbatim-files-from --files-from=- )
 ( GH_ORIGIN='origin'; PULL_REQUEST_ID='12345'; BRANCH_NAME='foo-bar'; git fetch "$GH_ORIGIN" "pull/$PULL_REQUEST_ID/head:$BRANCH_NAME" && git checkout "$BRANCH_NAME" )
 ( GH_ORIGIN='origin'; PULL_REQUEST_ID='12345'; git fetch "$GH_ORIGIN" "pull/$PULL_REQUEST_ID/head" )
 ( GH_ORIGIN='origin'; PULL_REQUEST_ID='12345'; git pull "$GH_ORIGIN" "pull/$PULL_REQUEST_ID/head" )
@@ -963,7 +964,6 @@ p4 describe -Sdu5 12345 | delta
 p4 describe -a 12345 | less
 p4 describe -du5 12345 | delta
 p4 describe -du5 default | delta
-p4 describe 12345 | grep '^Affected files ' --after-context=1000 | tail --lines=+3 | head --lines=-1 | cut --delimiter='#' --fields=1 | cut --delimiter=/ --fields=6- | tar --append --file=p4-cl-12345.tar --verbatim-files-from --files-from=-
 p4 diff -du5 -Od //depot/directory/... | delta
 p4 diff -du5 //depot/directory/filename#123 //depot/directory/filename#124 | delta
 p4 diff -du5 @=12345 | delta
@@ -1093,6 +1093,7 @@ plackup filename.psgi
 plantuml -theme black-knight filename.uml && timg filename.png
 plantuml -tsvg filename.uml
 plasma-nm
+plistutil --infile filename.plist | plistutil --sort | sponge filename.plist # segfault-prone
 pluto detect-all-in-cluster
 pmset -g
 pmset -g log
@@ -1328,6 +1329,7 @@ steampipe service stop
 steampipe service stop --force
 strace -e open -o programname.strace programname programargs
 strace programname 2> programname.strace
+stty sane
 subnetcalc 10.10.10.10/24 -n
 sudo bash -c 'apt update; apt-fast dist-upgrade -y; apt autoremove -y; apt clean; snap refresh; flatpak update; pkcon refresh force; pkcon update; fwupdmgr get-updates; fwupdmgr upgrade; chmod 0750 /usr/bin/nmap /usr/sbin/etherape; chown root:wireshark /usr/bin/nmap /usr/sbin/etherape; setcap cap_net_raw,cap_net_admin,cap_net_bind_service+eip /usr/bin/nmap cap_net_raw,cap_net_admin,cap_net_bind_service+eip /usr/sbin/etherape'
 sudo bash -c 'dnf upgrade --refresh; snap refresh; flatpak update; pkcon refresh force; pkcon update; fwupdmgr get-updates; fwupdmgr upgrade; chmod 0750 /usr/bin/nmap /usr/sbin/etherape; chown root:wireshark /usr/bin/nmap /usr/sbin/etherape; setcap cap_net_raw,cap_net_admin,cap_net_bind_service+eip /usr/bin/nmap cap_net_raw,cap_net_admin,cap_net_bind_service+eip /usr/sbin/etherape'
