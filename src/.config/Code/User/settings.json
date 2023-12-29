@@ -2,7 +2,6 @@
     "[markdown]": {
         "editor.wordWrap": "off"
     },
-    "cody.telemetry.level": "off",
     "comments.useRelativeTime": false,
     "diffEditor.ignoreTrimWhitespace": false,
     "editor.acceptSuggestionOnEnter": "off",
@@ -93,7 +92,6 @@
     "terminal.integrated.smoothScrolling": true,
     "terminal.integrated.tabs.focusMode": "singleClick",
     "update.mode": "none",
-    "vim.debug.silent": true,
     "vim.hlsearch": true,
     "vim.ignorecase": false,
     "vim.incsearch": true,
