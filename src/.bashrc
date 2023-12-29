@@ -424,6 +424,7 @@ main()
         EDITOR \
         GH_HOST \
         HOMEBREW_BAT \
+        HOMEBREW_BUNDLE_NO_LOCK \
         HOMEBREW_NO_ANALYTICS \
         HOMEBREW_NO_BOTTLE_SOURCE_FALLBACK \
         HOMEBREW_NO_INSECURE_REDIRECT \
@@ -545,6 +546,9 @@ main()
 
     # Syntax-highlighted Brew Output
     HOMEBREW_BAT=1
+
+    # Brew Bundle Prevent Lockfiles
+    HOMEBREW_BUNDLE_NO_LOCK=1
 
     # RLWrap
     RLWRAP_EDITOR="vim '+call cursor(%L,%C)'"
