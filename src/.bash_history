@@ -3,7 +3,7 @@
 ( GH_ORIGIN='origin'; PULL_REQUEST_ID='12345'; BRANCH_NAME='foo-bar'; git fetch "$GH_ORIGIN" "pull/$PULL_REQUEST_ID/head:$BRANCH_NAME" && git checkout "$BRANCH_NAME" )
 ( GH_ORIGIN='origin'; PULL_REQUEST_ID='12345'; git fetch "$GH_ORIGIN" "pull/$PULL_REQUEST_ID/head" )
 ( GH_ORIGIN='origin'; PULL_REQUEST_ID='12345'; git pull "$GH_ORIGIN" "pull/$PULL_REQUEST_ID/head" )
-( GH_USERNAME='ankitpati'; age -r "$(curl --header "Authorization: token $(lpass show --password github_personal_access_token)" "https://github.example.org/api/v3/users/$GH_USERNAME/keys" | jq --raw-output .[0].key)" --output cipher.txt.age plain.txt )
+( GH_USERNAME='ankitpati'; age -r "$(curl --header "Authorization: token $(op read op://Private/github_personal_access_token/password)" "https://github.example.org/api/v3/users/$GH_USERNAME/keys" | jq --raw-output .[0].key)" --output cipher.txt.age plain.txt )
 ( filename=depot/directory/filename; p4 sync "$filename#$(( "$(p4 have "$filename" | cut -d# -f2 | cut -d' ' -f1)" - 1 ))" )
 ( find . -type f -iname '*.py' ; grep --ignore-case --files-with-matches --extended-regexp '/(env )?python' --recursive . 2>/dev/null ) | sort --unique | xargs --open-tty vim
 ( hostname='google.com'; openssl s_client -auth_level 2 -connect "$hostname":443 -servername "$hostname" -verify_hostname "$hostname" -verify_return_error )
@@ -172,8 +172,8 @@ curl --data '{"commit":"6879efc2c1596d11a6a6ad296f80063b558d5e0f"}' https://api.
 curl --data '{"version":"2.4.1","package":{"name":"jinja2","ecosystem":"PyPI"}}' https://api.osv.dev/v1/query | jq .
 curl --head --header 'Accept: application/json, */*' --output /dev/null --silent --write-out 'scale = 3; (%{size_header} + %{size_download}) / %{size_request}\n' 'https://example.org' | bc
 curl --head https://example.org/filename
-curl --header "Authorization: token $(lpass show --password github_personal_access_token)" --remote-name https://github.example.org/raw/namespace/repo_name/branch_name/path/to/filename
-curl --header "Authorization: token $(lpass show --password github_personal_access_token)" --remote-name https://raw.githubusercontent.com/namespace/repo_name/branch_name/path/to/filename
+curl --header "Authorization: token $(op read op://Private/github_personal_access_token/password)" --remote-name https://github.example.org/raw/namespace/repo_name/branch_name/path/to/filename
+curl --header "Authorization: token $(op read op://Private/github_personal_access_token/password)" --remote-name https://raw.githubusercontent.com/namespace/repo_name/branch_name/path/to/filename
 curl --header 'Accept: application/json, */*' --output /dev/null --silent --write-out 'scale = 3; (%{size_header} + %{size_download}) / %{size_request}\n' 'https://example.org' | bc
 curl --header 'Authorization: Bearer QQ==' --output blob 'https://ghcr.io/v2/path/to/project/blobs/sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef'
 curl --key openssl.key --cert openssl.crt https://mtls.example.org
@@ -263,7 +263,7 @@ docker buildx rm builder_name
 docker network list --quiet | xargs --no-run-if-empty docker network inspect --verbose
 docker run --interactive --pid=host --privileged --pull=always --rm --tty busybox nsenter --ipc --mount --net --target=1 --uts # Linuxkit access on Docker for Mac
 docker scan --accept-license --version
-docker scan --login --token="$(lpass show --password snyk_auth_token)"
+docker scan --login --token="$(op read op://Private/snyk_auth_token/password)"
 docker scan image_name
 docker-compose build
 docker-compose stop
@@ -302,12 +302,12 @@ exec sudo -i
 exec sudo -u ankitpati -i
 exiftool -p '$XResolution,$YResolution' filename.jpg
 export DISPLAY=':99.0'
-export GH_TOKEN="$(lpass show --password github_personal_access_token)"
-export GITHUB_PERSONAL_ACCESS_TOKEN="$(lpass show --password github_personal_access_token)"
+export GH_TOKEN="$(op read op://Private/github_personal_access_token/password)"
+export GITHUB_PERSONAL_ACCESS_TOKEN="$(op read op://Private/github_personal_access_token/password)"
 export JAVA_HOME="$(/usr/libexec/java_home --failfast --version=11)"
 export KUBECONFIG='kubeconfig.yaml'
 export P4CLIENT="$(p4 clients -u "$(p4 client -o | grep '^Owner:' | cut -f2)" | cut -d' ' -f1-5 | grep " /client/root\$" | cut -d' ' -f2)"
-export SRC_ACCESS_TOKEN="$(lpass show --password sourcegraph_access_token)"
+export SRC_ACCESS_TOKEN="$(op read op://Private/sourcegraph_access_token/password)"
 eza --all --classify --git --group-directories-first --header --icons --inode --long
 eza --tree
 factor 1849
@@ -798,14 +798,7 @@ lpass edit --password unique_name
 lpass login contact@ankitpati.in
 lpass ls
 lpass show --field='Public Key' unique_name
-lpass show --password docker_personal_access_token | crane auth login docker.io -u "$(lpass show --username docker_personal_access_token)" --password-stdin
-lpass show --password docker_personal_access_token | docker login -u "$(lpass show --username docker_personal_access_token)" --password-stdin
-lpass show --password docker_personal_access_token | skopeo login docker.io --tls-verify -u "$(lpass show --username docker_personal_access_token)" --password-stdin
-lpass show --password perforce | p4 login -a
-lpass show --password quay_encrypted_cli_password | skopeo login quay.io --tls-verify -u "$(lpass show --username quay_encrypted_cli_password)" --password-stdin
-lpass show --password unique_name
 lpass show --sync=now --all unique_name
-lpass show --username unique_name
 lpass show unique_name
 ls "$(brew --prefix)/bin/g"* | rev | cut -d/ -f1 | rev | cut -dg -f2- | xargs --no-run-if-empty command -v 2>/dev/null | grep -v "^$(brew --prefix)/" | rev | cut -d/ -f1 | rev | while read -r binary; do printf '%s/bin/g%s\n' "$(brew --prefix)" "$binary"; done | xargs --no-run-if-empty ls -l | rev | cut -d/ -f4 | rev | sort -u
 ls *.json | while read -r jsonfile; do jq --sort-keys --indent 4 . < "$jsonfile" | sponge "$jsonfile"; done
@@ -898,6 +891,14 @@ objdump -S elf-binary-filename
 objdump -d elf-binary-filename
 objdump -g elf-binary-filename
 objdump -r elf-binary-filename
+op read op://Private/docker_personal_access_token/password | crane auth login docker.io -u "$(op read op://Private/docker_personal_access_token/username)" --password-stdin
+op read op://Private/docker_personal_access_token/password | docker login -u "$(op read op://Private/docker_personal_access_token/username)" --password-stdin
+op read op://Private/docker_personal_access_token/password | skopeo login docker.io --tls-verify -u "$(op read op://Private/docker_personal_access_token/username)" --password-stdin
+op read op://Private/perforce/password | p4 login -a
+op read op://Private/quay_encrypted_cli_password/password | skopeo login quay.io --tls-verify -u "$(op read op://Private/quay_encrypted_cli_password/username)" --password-stdin
+op read op://Private/unique_name/password
+op read op://Private/unique_name/username
+op vault list
 openfortivpn fortigate.ankitpati.in -u ankitpati -p SecretPassword -o 012345
 openssl asn1parse -in openssl.key
 openssl genpkey -algorithm Ed25519 -out root.key
@@ -1000,7 +1001,7 @@ p4 monitor show | grep -v ' monitor $' | grep -F " $USER " | sed 's/^ \+//' | cu
 p4 monitor terminate 12345
 p4 move -n directory/filename.old directory/filename.new
 p4 opened
-p4 passwd -O "$(lpass show --password perforce)" -P "$(pwgen 20 1 | tee new_p4_pass)" && lpass edit --non-interactive --password perforce < new_p4_pass && rm new_p4_pass
+p4 passwd -O "$(op read op://Private/perforce/password)" -P "$(pwgen 20 1 | tee new_p4_pass)" && lpass edit --non-interactive --password perforce < new_p4_pass && rm new_p4_pass
 p4 reconcile //depot/...
 p4 reopen -c 12345 directory/filename1 directory/filename2 directory/filename3
 p4 resolve //depot/directory/...
@@ -1284,7 +1285,7 @@ snap start snapd-desktop-integration
 snap stop snapd-desktop-integration
 snap warnings
 snyk auth
-snyk auth "$(lpass show --password snyk_auth_token)"
+snyk auth "$(op read op://Private/snyk_auth_token/password)"
 snyk monitor
 softwareupdate --verbose --agree-to-license --install --all --restart
 source ./.venv/bin/activate
