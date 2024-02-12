@@ -461,7 +461,7 @@ git cherry-pick branchname~2..branchname
 git clean -ffdxn
 git clone --recurse-submodules https://example.org/repo-with-submodules.git
 git commit --allow-empty -m empty
-git commit --amend -S --no-edit
+git commit --amend --gpg-sign --no-edit
 git config --show-origin credential.helper
 git diff HEAD~1 --name-only
 git difftool branchname -- filename
