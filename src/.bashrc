@@ -57,6 +57,14 @@ B-oldbin()
     hash -r
 }
 
+# Prepend temporary binaries to PATH
+B-tmpbin()
+{
+    PATH="$HOME/tmpbin:$PATH"
+    sanitize_path PATH
+    hash -r
+}
+
 add_brewed_items_to_env()
 {
     if [[ -z $brew_prefix ]]
