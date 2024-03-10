@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-( CHANGELIST=12345; p4 describe "$CHANGELIST" | grep -v ' delete$' | sed '0,/^Affected files /d' | tail --lines=+2 | head --lines=-1 | cut --delimiter='#' --fields=1 | cut --delimiter=/ --fields=6- | tar --append --file="p4-cl-$CHANGELIST.tar" --verbatim-files-from --files-from=- )
+( CHANGELIST=12345; p4 describe "$CHANGELIST" | grep -v ' delete$' | sed '0,/^Affected files /d' | tail --lines=+2 | head --lines=-1 | cut --delimiter='#' --fields=1 | cut --delimiter='/' --fields=6- | tar --append --file="p4-cl-$CHANGELIST.tar" --verbatim-files-from --files-from=- )
 ( GH_ORIGIN='origin'; PULL_REQUEST_ID='12345'; BRANCH_NAME='foo-bar'; git fetch "$GH_ORIGIN" "pull/$PULL_REQUEST_ID/head:$BRANCH_NAME" && git checkout "$BRANCH_NAME" )
 ( GH_ORIGIN='origin'; PULL_REQUEST_ID='12345'; git fetch "$GH_ORIGIN" "pull/$PULL_REQUEST_ID/head" )
 ( GH_ORIGIN='origin'; PULL_REQUEST_ID='12345'; git pull "$GH_ORIGIN" "pull/$PULL_REQUEST_ID/head" )
@@ -67,6 +67,11 @@ apt-cache rdepends python-apt-common
 apt-mark auto ubuntu-restricted-addons
 apt-mark showmanual
 argo list --namespace=namespace_name
+argo logs cron-job-workflow_name
+argo submit --dry-run --from=CronWorkflow/cron-job-workflow_name --output=yaml
+argo submit --log --from=CronWorkflow/cron-job-workflow_name
+argo submit --output=yaml --from=CronWorkflow/cron-job-workflow_name
+argo submit --watch --from=CronWorkflow/cron-job-workflow_name
 aria2c -c -x 16 https://ankitpati.in/filename.br
 arkade get --format=markdown
 arkade get krew
@@ -74,7 +79,7 @@ arkade info inlets-operator
 arkade install --print-table
 arkade install istio
 banner Type your message here.
-base64 -w0
+base64 --wrap=0 filename
 bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 bash -c 'dscacheutil -flushcache; killall -HUP mDNSResponder'
 bash <(curl https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh | perl -0pE 's/^have_sudo_access\(\) {.*?^}/have_sudo_access() { HAVE_SUDO_ACCESS=0; return 0; }/sm' | perl -0pE 's/^execute_sudo\(\) {.*?^}/execute_sudo() { ohai "\$\@"; execute "\$\@"; }/sm')
@@ -85,6 +90,8 @@ bazel build //:TargetName
 bazel clean
 bazel help query
 bazel query --notool_deps --noimplicit_deps deps\(//:TargetName\) --output graph | apdot -Tpng | timg -
+bazel run //:target
+bazel shutdown
 below
 below replay --time '5 minutes ago'
 bind -P
@@ -177,6 +184,7 @@ curl --header "Authorization: token $(op read op://Private/github_personal_acces
 curl --header 'Accept: application/json, */*' --output /dev/null --silent --write-out 'scale = 3; (%{size_header} + %{size_download}) / %{size_request}\n' 'https://example.org' | bc
 curl --header 'Authorization: Bearer QQ==' --output blob 'https://ghcr.io/v2/path/to/project/blobs/sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef'
 curl --key openssl.key --cert openssl.crt https://mtls.example.org
+curl --netrc https://github.example.org/api/v3/user
 curl --proxytunnel --proxy https://squid.ankitpati.in:1080 https://ankitpati.in
 curl --remote-name https://ankitpati.in/download?file=filename.c
 curl --resolve example.org:80:127.0.0.1 http://example.org
@@ -430,7 +438,10 @@ gcloud config unset project
 gcloud container clusters describe cluster_name --project=project_id --location=us-west1 2>/dev/null | yq .nodeConfig.oauthScopes
 gcloud container clusters get-credentials cluster_name --region=us-west1 --project=project_id # appends to ~/.kube/config
 gcloud container get-server-config --format='yaml(defaultClusterVersion)'
+gcloud functions delete function_name --quiet --project=project_id
+gcloud functions list
 gcloud info
+gcloud projects add-iam-policy-binding project_id --member=user:contact@ankitpati.in --role=roles/compute.instanceAdmin.v1
 gcloud projects get-iam-policy project_id
 gcloud projects list
 gcloud recommender insights list --insight-type=google.container.DiagnosisInsight --location=us-west1 --project=project_id
@@ -529,6 +540,7 @@ gradle
 gradle --stop
 grep '\bcertificate-authority-data\b' kubeconfig.yaml | cut -d: -f2 | cut -d' ' -f2 | while read -r certbase64; do base64 -d <<<"$certbase64" | openssl x509 -text -noout; done
 grep '^p4 sync ' ~/.bash_history | cut -d' ' -f3- | sort -u | while read -r p4dir; do p4 sync "$p4dir"; done
+grep --extended-regexp --line-regexp "$(paste --serial --delimiters='|' <<<"$(command -v grep cut sed watch tail bash dos2unix jq | rev | cut --delimiter='/' --fields=2- | rev | sort --unique)")" <<<"${PATH//:/$'\n'}" | sed 's,^/usr/local/,$(brew --prefix)/,' | paste --serial --delimiters=':'
 grep -E "^($(tail --lines=+2 brew-deps.csv | cut -d, -f1 | comm -23 - brew-install-list.txt | paste -sd'|'))" brew-deps.csv | grep -v ,
 grep -E '^\s+keg_only' -r "$(brew --repo)/Library/Taps/homebrew/homebrew-core/Formula/"
 grep -Elr -- '^(<<<<<<< HEAD|=======|>>>>>>> [[:xdigit:]]+ .*)$' | sort -u | xargs --open-tty vim
@@ -560,6 +572,7 @@ helm list
 helm list | tail --lines=+2 | tr '\t' ' ' | tr --squeeze-repeats ' ' | sort --key=4,5 --numeric-sort
 helm rollback --dry-run chart_name
 helm rollback chart_name 12345
+helm status chart_name
 helm template chart_name chart/ --values=values.yaml --output-dir="$HOME/Code/chart_name/"
 helm template chart_name chart/ --values=values.yaml | yq .
 help '{ ... }'
@@ -590,7 +603,7 @@ ipcrm shm 262162
 ipcs -l
 ipcs -m
 ipcs -s
-istioctl analyze --all-namespaces --revision=1-16-0 | cut --delimiter=[ --fields=2 | cut --delimiter=] --fields=1 | sort --unique
+istioctl analyze --all-namespaces --revision=1-16-0 | cut --delimiter='[' --fields=2 | cut --delimiter=']' --fields=1 | sort --unique
 istioctl analyze --namespace=namespace_name
 istioctl dashboard envoy pod_name.default
 istioctl install --dry-run --revision=1-16-0 --filename=istio-config.yaml
@@ -600,7 +613,7 @@ istioctl install --set=revision=release
 istioctl operator dump | yq .
 istioctl proxy-status
 istioctl proxy-status --revision=1-16-0
-istioctl proxy-status --revision=1-16-0 | tail --lines=+2 | cut --delimiter=' ' -f1 | cut --delimiter=. --fields=1,2 --output-delimiter=' ' | while read -r pod namespace; do kubectl delete pod "$pod" --namespace="$namespace"; done
+istioctl proxy-status --revision=1-16-0 | tail --lines=+2 | cut --delimiter=' ' -f1 | cut --delimiter='.' --fields=1,2 --output-delimiter=' ' | while read -r pod namespace; do kubectl delete pod "$pod" --namespace="$namespace"; done
 istioctl proxy-status --revision=default
 istioctl proxy-status | grep "$(kubectl get pods --namespace=istio-system --selector=app=istio-ingressgateway --output=jsonpath='{.items..metadata.name}')"
 istioctl tag list
@@ -742,6 +755,7 @@ kubectl get pods --namespace=istio-system --selector=app=istio-ingressgateway --
 kubectl get pods --namespace=istio-system --selector=app=istiod
 kubectl get pods --output=custom-columns=pods:.metadata.name | grep deployment_name | sort --version-sort | while read -r pod; do kubectl top pod/"$pod" --no-headers; done
 kubectl get pods --selector="$(kubectl get service/service_name --output=yaml | yq .spec.selector | sed 's/: /=/')"
+kubectl get pods --selector=app.kubernetes.io/name=app_name --output=json | jq --raw-output '.items[].spec.nodeName' | sort --unique | while read -r node_name; do printf '%s,' "$node_name"; kubectl get "node/$node_name" --output=json | jq --raw-output '[.status.nodeInfo.kubeProxyVersion, .status.nodeInfo.kubeletVersion] | join(",")'; done
 kubectl get pods --selector=app=app_name
 kubectl get pods --selector=app=app_name --output=name | while read -r pod_name; do kubectl logs "$pod_name" --container=container_name --follow & done; wait
 kubectl get pods | cut --delimiter=' ' --fields=1 | grep --extended-regexp '(-[[:alnum:]]+){2}$' | sort --version-sort | while read -r deployment; do kubectl logs "$deployment" --container="${deployment%%-+([[:alnum:]])-+([[:alnum:]])}"; done
@@ -905,6 +919,7 @@ openssl genpkey -algorithm Ed25519 -out root.key
 openssl genpkey -algorithm RSA -aes128 -out openssl.key
 openssl genrsa 2048 -out openssl.key
 openssl help x509 2>&1 | less
+openssl pkcs12 -export -out certificate.pfx -inkey privkey.pem -in cert.pem -certfile chain.pem
 openssl pkcs8 -in openssl.key | openssl pkcs8 -topk8 -v2 aes128 -out openssl.key
 openssl pkey -aes128 -in openssl.key -text
 openssl rand -out 128_bit_key.dat 32
@@ -1082,6 +1097,7 @@ pidof chrome
 ping -s 1500 ankitpati.in
 pip install --upgrade 'pip < 21'
 pip install -r requirements.txt
+pip install black[python2]==21.12b0 # last Python 2-compatible Black
 pipdeptree --json-tree -p installed_package_name | jq .
 pipdeptree -p installed_package_name
 pkill -9 -x chrome
@@ -1247,6 +1263,7 @@ script -r
 scriptreplay -t timing script
 scriptreplay typescript
 sed '/^$/d' file-with-blank-lines.txt
+sed --in-place --regexp-extended 's,lpass show --(username|password) ([^ )]+),op read op://Private/\2/\1,g' file-with-lpass-usage
 sed --regexp-extended 's/ /\n/g' < /proc/cmdline
 sed -i -E 's|#!/usr/bin/octave -q|#!/usr/bin/env -S octave -q|g' -- *.m
 sendmail -v contact@ankitpati.in <<<'Subject: Hello\n'
@@ -1260,6 +1277,7 @@ shellharden filename.bash
 shfmt -w -s filename.bash
 skaffold help
 skopeo --debug inspect docker://docker.repo.local.sfdc.net/sfci/docker-images/golang_build
+skopeo copy docker-archive:filename.tar docker://quay.io/namespace/image_name:tag_name
 skopeo inspect --daemon-host="$DOCKER_HOST" docker-daemon:image_name:tag_name | jq .
 skopeo inspect docker://quay.io/ankitpati/tigress | jq .
 skopeo list-tags --override-arch amd64 --override-os linux docker://kindest/node | jq --raw-output .Tags[] | sort -V
