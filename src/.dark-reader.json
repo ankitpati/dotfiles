@@ -6,6 +6,7 @@
         "enabled": false,
         "mode": ""
     },
+    "automationBehaviour": "OnOff",
     "changeBrowserTheme": false,
     "customThemes": [
         {
