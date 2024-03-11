@@ -39,29 +39,19 @@
         }
     ],
     "detectDarkTheme": true,
-    "disabledFor": [],
-    "enableContextMenus": false,
-    "enableForPDF": true,
-    "enableForProtectedPages": false,
-    "enabled": true,
-    "enabledByDefault": true,
-    "enabledFor": [],
-    "fetchNews": false,
-    "location": {
-        "latitude": null,
-        "longitude": null
-    },
-    "presets": [],
-    "previewNewDesign": true,
-    "schemeVersion": 2,
-    "siteList": [
+    "disabledFor": [
         "chat.openai.com",
         "docs.docker.com",
         "gemini.google.com",
         "music.amazon.in",
         "web.whatsapp.com"
     ],
-    "siteListEnabled": [
+    "enableContextMenus": false,
+    "enableForPDF": true,
+    "enableForProtectedPages": false,
+    "enabled": true,
+    "enabledByDefault": true,
+    "enabledFor": [
         "azure.microsoft.com",
         "blogs.perl.org",
         "forums.docker.com",
@@ -73,6 +63,16 @@
         "www.omgubuntu.co.uk",
         "www.phoronix.com"
     ],
+    "fetchNews": false,
+    "location": {
+        "latitude": null,
+        "longitude": null
+    },
+    "presets": [],
+    "previewNewDesign": true,
+    "schemeVersion": 2,
+    "siteList": [],
+    "siteListEnabled": [],
     "syncSettings": true,
     "syncSitesFixes": true,
     "theme": {
