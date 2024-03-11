@@ -55,9 +55,9 @@
     "previewNewDesign": true,
     "schemeVersion": 2,
     "siteList": [
-        "bard.google.com",
         "chat.openai.com",
         "docs.docker.com",
+        "gemini.google.com",
         "music.amazon.in",
         "web.whatsapp.com"
     ],
