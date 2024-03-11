@@ -39,10 +39,13 @@
         }
     ],
     "detectDarkTheme": true,
+    "disabledFor": [],
     "enableContextMenus": false,
     "enableForPDF": true,
     "enableForProtectedPages": false,
     "enabled": true,
+    "enabledByDefault": true,
+    "enabledFor": [],
     "fetchNews": false,
     "location": {
         "latitude": null,
@@ -50,6 +53,7 @@
     },
     "presets": [],
     "previewNewDesign": true,
+    "schemeVersion": 2,
     "siteList": [
         "bard.google.com",
         "chat.openai.com",
