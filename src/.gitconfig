@@ -25,6 +25,7 @@
 [gpg "ssh"]
     allowedSignersFile = ~/.ssh/allowed_signers
 [gpg]
+    format = ssh
     program = gpg2
 [init]
     defaultBranch = main
@@ -40,4 +41,4 @@
 [user]
     email = contact@ankitpati.in
     name = Ankit Pati
-    signingkey = B8BBCEBCBD6C4BF0599C40F9360A96429F7A69DC
+    signingkey = ~/.ssh/id_ed25519.pub
