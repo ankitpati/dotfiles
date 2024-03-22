@@ -22,6 +22,8 @@
     process = git-lfs filter-process
     required = true
     smudge = git-lfs smudge -- %f
+[gpg "ssh"]
+    allowedSignersFile = ~/.ssh/allowed_signers
 [gpg]
     program = gpg2
 [init]
