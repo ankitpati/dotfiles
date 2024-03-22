@@ -9,8 +9,8 @@
     pager = delta
 #   pager = diff-so-fancy | less --tabs=4 -RFX
 [delta]
-    max-line-length = 0
     max-line-distance = 1.0
+    max-line-length = 0
 [diff-so-fancy]
     markEmptyLines = false
 [diff]
@@ -30,8 +30,8 @@
 [init]
     defaultBranch = main
 [log]
-    showSignature = false
     date = iso-strict
+    showSignature = false
 [merge]
     tool = vimdiff
 [pull]
