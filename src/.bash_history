@@ -26,7 +26,7 @@
 /usr/libexec/java_home --verbose
 /usr/libexec/java_home --version=1.8
 CLASSPATH=. java ClassName
-GIT_COMMITTER_NAME='Ankit Pati' GIT_COMMITTER_EMAIL='contact@ankitpati.in' git rebase branchname --exec 'git commit --amend --author="Ankit Pati <contact@ankitpati.in>" --no-edit'
+GIT_COMMITTER_NAME='Ankit Pati' GIT_COMMITTER_EMAIL='contact@ankitpati.in' git rebase branchname --exec 'git commit --amend --author="Ankit Pati <contact@ankitpati.in>" --no-edit --no-gpg-sign'
 HTTPS_PROXY="$(jq --raw-output '.proxies."https-proxy"' < ~/.docker/daemon.json)" NO_PROXY="$(jq --raw-output '.proxies."no-proxy"' < ~/.docker/daemon.json)" skopeo sync --dry-run --override-arch amd64 --override-os linux --src docker --dest docker docker.io/library/busybox gcr.io/project_id/namespace/
 HTTPS_PROXY="$(jq --raw-output '.proxies."https-proxy"' < ~/.docker/daemon.json)" NO_PROXY="$(jq --raw-output '.proxies."no-proxy"' < ~/.docker/daemon.json)" skopeo sync --dry-run --override-arch amd64 --override-os linux --src docker --dest docker docker.io/library/busybox:latest gcr.io/project_id/namespace/
 LESS='-I' git log --graph --pretty=fuller --show-signature
