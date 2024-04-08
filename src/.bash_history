@@ -1016,7 +1016,7 @@ p4 monitor show | grep -v ' monitor $' | grep -F " $USER " | sed 's/^ \+//' | cu
 p4 monitor terminate 12345
 p4 move -n directory/filename.old directory/filename.new
 p4 opened
-p4 passwd -O "$(op read op://Private/perforce/password)" -P "$(pwgen 20 1 | tee new_p4_pass)" && lpass edit --non-interactive --password perforce < new_p4_pass && rm new_p4_pass
+p4 passwd -O "$(op read op://Private/perforce/password)" -P "$(pwgen 20 1 | tee new_p4_pass)" && op item edit perforce password="$(< new_p4_pass)" >/dev/null && rm new_p4_pass
 p4 reconcile //depot/...
 p4 reopen -c 12345 directory/filename1 directory/filename2 directory/filename3
 p4 resolve //depot/directory/...
