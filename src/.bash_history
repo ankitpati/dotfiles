@@ -1376,6 +1376,8 @@ systemctl enable --now sssd-kcm.socket
 systemctl list-units --type=service --state=active
 systemctl list-units --type=service --state=running
 systemctl mask sleep.target suspend.target hibernate.target suspend-then-hibernate.target hybrid-sleep.target
+systemctl set-property service_name.service CPUQuota=1%
+systemctl set-property service_name.service IOWeight=1
 systemctl status snap.microk8s.daemon-containerd.service
 systemctl stop gdm.service
 systemd-analyze cat-config systemd/resolved.conf
