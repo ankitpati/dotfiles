@@ -38,6 +38,8 @@
     ff = only
 [receive]
     denyCurrentBranch = updateInstead
+[tag]
+    gpgsign = true
 [user]
     email = contact@ankitpati.in
     name = Ankit Pati
