@@ -36,6 +36,7 @@
     tool = vimdiff
 [pull]
     ff = only
+    rebase = false
 [receive]
     denyCurrentBranch = updateInstead
 [tag]
