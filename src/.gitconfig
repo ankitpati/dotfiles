@@ -3,7 +3,7 @@
 [alias]
     patch = !git --no-pager diff --no-color
 [commit]
-    gpgsign = false
+    gpgSign = false
 [core]
     editor = vim
     pager = delta
@@ -39,8 +39,8 @@
 [receive]
     denyCurrentBranch = updateInstead
 [tag]
-    gpgsign = true
+    gpgSign = true
 [user]
     email = contact@ankitpati.in
     name = Ankit Pati
-    signingkey = ~/.ssh/id_ed25519.pub
+    signingKey = ~/.ssh/id_ed25519.pub
