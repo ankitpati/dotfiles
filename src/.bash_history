@@ -4,6 +4,7 @@
 ( GH_ORIGIN='origin'; PULL_REQUEST_ID='12345'; git fetch "$GH_ORIGIN" "pull/$PULL_REQUEST_ID/head" )
 ( GH_ORIGIN='origin'; PULL_REQUEST_ID='12345'; git pull "$GH_ORIGIN" "pull/$PULL_REQUEST_ID/head" )
 ( GH_USERNAME='ankitpati'; age -r "$(curl --header "Authorization: token $(op read op://Private/github_personal_access_token/password)" "https://github.example.org/api/v3/users/$GH_USERNAME/keys" | jq --raw-output .[0].key)" --output cipher.txt.age plain.txt )
+( GH_USERNAME='ankitpati'; curl --silent "https://api.github.com/users/$GH_USERNAME/repos?per_page=$(curl --silent "https://api.github.com/users/$GH_USERNAME" | jq --raw-output .public_repos)" ) | jq --raw-output0 '.[].html_url + ".git"' | xargs --no-run-if-empty --null --max-args 1 git clone --recurse-submodules
 ( filename=depot/directory/filename; p4 sync "$filename#$(( "$(p4 have "$filename" | cut -d# -f2 | cut -d' ' -f1)" - 1 ))" )
 ( find . -type f -iname '*.py' ; grep --ignore-case --files-with-matches --extended-regexp '/(env )?python' --recursive . 2>/dev/null ) | sort --unique | xargs --open-tty vim
 ( hostname='google.com'; openssl s_client -auth_level 2 -connect "$hostname":443 -servername "$hostname" -verify_hostname "$hostname" -verify_return_error )
@@ -66,6 +67,8 @@ apt-cache policy snapd
 apt-cache rdepends python-apt-common
 apt-mark auto ubuntu-restricted-addons
 apt-mark showmanual
+argo cron list --all-namespaces
+argo cron suspend cron-job-workflow_name
 argo list --namespace=namespace_name
 argo logs cron-job-workflow_name
 argo submit --dry-run --from=CronWorkflow/cron-job-workflow_name --output=yaml
@@ -386,6 +389,7 @@ flutter config --no-analytics
 flutter doctor -v
 fly auth signup
 for i in {0..127}; do printf '%u' "$i" | pbcopy; sleep 1; done
+for i in {0..20}; do src search -json '"exact_string"' | jq --raw-output --sort-keys '.Results[].repository.name'; done | sort --unique
 foremost
 fpaste filename.txt
 free -h
@@ -408,10 +412,13 @@ gcloud components list
 gcloud components repositories list
 gcloud compute addresses list --project=project_id --filter='name:gce_vm_name' --format='table(name,address)'
 gcloud compute backend-services list --filter=name="($(gcloud compute forwarding-rules list --filter=IPAddress='(10.10.10.10)' --format=json'(name)' | jq --raw-output .[0].name))" --format=json'(backends)' | jq .[0].backends[]
+gcloud compute firewall-rules list --format=json --filter='allowed.ports[0] = ("1234") AND allowed.ports[1] = ("2345")' | jq .
+gcloud compute firewall-rules update rule_name --allow='tcp:53,tcp:80,tcp:443,udp:53'
 gcloud compute images list
 gcloud compute images list --project=project_id --format='value(name)'
 gcloud compute instances delete gce_vm_name --quiet --project=project_id --zone="$(gcloud compute instances list --project=project_id --filter='name <= gce_vm_name AND name >= gce_vm_name' --format='value(zone.basename())')"
 gcloud compute instances describe --project=project_id --zone=us-west1-a instance_name | yq '. | to_json' | json-recursive-decode | jq .
+gcloud compute instances list --filter='name~^instance_name_' --format='table(name, networkInterfaces[0].networkIP)'
 gcloud compute instances list --project=project_id --format='csv(name,zone,networkInterfaces[0].networkIP)' | grep --fixed-strings 10.10.10.10
 gcloud compute instances list --project=project_id --format='json(name,zone,networkInterfaces[0].networkIP)' | grep --fixed-strings 10.10.10.10
 gcloud compute instances list --project=project_id --format='table(name,zone,networkInterfaces[0].networkIP)' | grep --fixed-strings 10.10.10.10 | tr --squeeze-repeats ' '
@@ -474,6 +481,8 @@ git clean -ffdxn
 git clone --recurse-submodules https://example.org/repo-with-submodules.git
 git commit --allow-empty -m empty
 git commit --amend --gpg-sign --no-edit
+git config --add credential.helper ''
+git config --show-origin --get credential.helper
 git config --show-origin credential.helper
 git diff HEAD~1 --name-only
 git difftool branchname -- filename
@@ -541,6 +550,7 @@ gradle
 gradle --stop
 grep '\bcertificate-authority-data\b' kubeconfig.yaml | cut -d: -f2 | cut -d' ' -f2 | while read -r certbase64; do base64 -d <<<"$certbase64" | openssl x509 -text -noout; done
 grep '^p4 sync ' ~/.bash_history | cut -d' ' -f3- | sort -u | while read -r p4dir; do p4 sync "$p4dir"; done
+grep --extended-regexp --line-regexp "$(paste --serial --delimiters='|' <<<"$(command -v bash cut dos2unix grep jq sed tail watch | rev | cut --delimiter=/ --fields=2- | rev | sort --unique)")" <<<"${PATH//:/$'\n'}" | sed 's,^/usr/local/,$(brew --prefix)/,' | paste --serial --delimiters=:
 grep --extended-regexp --line-regexp "$(paste --serial --delimiters='|' <<<"$(command -v grep cut sed watch tail bash dos2unix jq | rev | cut --delimiter='/' --fields=2- | rev | sort --unique)")" <<<"${PATH//:/$'\n'}" | sed 's,^/usr/local/,$(brew --prefix)/,' | paste --serial --delimiters=':'
 grep -E "^($(tail --lines=+2 brew-deps.csv | cut -d, -f1 | comm -23 - brew-install-list.txt | paste -sd'|'))" brew-deps.csv | grep -v ,
 grep -E '^\s+keg_only' -r "$(brew --repo)/Library/Taps/homebrew/homebrew-core/Formula/"
@@ -568,6 +578,7 @@ hdparm -I /dev/sdb
 head --quiet --bytes=16 /dev/urandom | md5sum | cut --delimiter=' ' --fields=1
 helm get all chart_name | yq .
 helm get manifest chart_name --revision=12345 | yq 'select(.spec.template.spec.containers[1].image) | .spec.template.spec.containers[1].image'
+helm get values chart_name | yq .
 helm history chart_name
 helm list
 helm list | tail --lines=+2 | tr '\t' ' ' | tr --squeeze-repeats ' ' | sort --key=4,5 --numeric-sort
@@ -924,6 +935,7 @@ openssl pkcs12 -export -out certificate.pfx -inkey privkey.pem -in cert.pem -cer
 openssl pkcs8 -in openssl.key | openssl pkcs8 -topk8 -v2 aes128 -out openssl.key
 openssl pkey -aes128 -in openssl.key -text
 openssl rand -out 128_bit_key.dat 32
+openssl req -in filename.csr -noout -subject -verify | grep --only-matching --perl-regexp '(?<= CN=)[^,]+'
 openssl req -in request.csr -text -noout -verify
 openssl req -new -key openssl.key -out openssl.csr -config openssl.conf
 openssl req -noout -modulus -in filename.csr | sha512sum
@@ -1096,6 +1108,7 @@ pgrep -x chrome
 pidof -s chrome
 pidof chrome
 ping -s 1500 ankitpati.in
+pip freeze | cut --delimiter='=' --fields=1 | xargs pip install --upgrade
 pip install --upgrade 'pip < 21'
 pip install -r requirements.txt
 pip install black[python2]==21.12b0 # last Python 2-compatible Black
@@ -1228,6 +1241,7 @@ python -m pdb filename.py
 python -m timeit '"-".join(str(n) for n in range(100))'
 python -m venv .venv
 qemu-img convert filename.vmdk filename.qcow2
+qpdf --decrypt --password=super_secret encrypted-filename.pdf decrypted-filename.pdf
 raku -E 'say "hello"'
 range2cidr 1.1.1.0-1.1.1.255
 readelf -x .rodata elf-binary-filename
@@ -1238,6 +1252,7 @@ resolvectl flush-caches
 resolvectl query ankitpati.in
 resolvectl status
 restorecon -rvn /etc/X11/xorg.conf.d/
+rg --pcre2 --ignore-case --only-matching --no-filename --no-line-number '(?<= image: .*cent.*).*$' | cut --delimiter="'" --fields=2 | cut --delimiter=: --fields=1 | sort --unique
 rg -F -- '$_ =~ '
 rg -L search-string
 rg -l search-string
@@ -1277,9 +1292,11 @@ shellharden --replace filename.bash
 shellharden filename.bash
 shfmt -w -s filename.bash
 skaffold help
-skopeo --debug inspect docker://docker.repo.local.sfdc.net/sfci/docker-images/golang_build
+skopeo --debug inspect docker://quay.io/namespace/image_name
 skopeo copy docker-archive:filename.tar docker://quay.io/namespace/image_name:tag_name
 skopeo inspect --daemon-host="$DOCKER_HOST" docker-daemon:image_name:tag_name | jq .
+skopeo inspect --no-tags docker://quay.io/namespace/image_name:tag_name | jq .
+skopeo inspect --raw docker://quay.io/namespace/image_name:tag_name | jq .
 skopeo inspect docker://quay.io/ankitpati/tigress | jq .
 skopeo list-tags --override-arch amd64 --override-os linux docker://kindest/node | jq --raw-output .Tags[] | sort -V
 skopeo list-tags docker://hashicorp/terraform | jq --raw-output .Tags[] | while read -r tag; do skopeo inspect docker://hashicorp/terraform:"$tag" | jq --join-output '[.Created,.Labels."com.hashicorp.terraform.version"] | join(" ")'; printf ' %s\n' "$tag"; done | sort -V
@@ -1347,6 +1364,7 @@ steampipe query --output json 'select name, zone_name from gcp_project_project_n
 steampipe service status
 steampipe service stop
 steampipe service stop --force
+stern deployment/deployment_name --container=container_name --since=2h
 strace -e open -o programname.strace programname programargs
 strace programname 2> programname.strace
 stty sane
@@ -1521,6 +1539,7 @@ yasql user/pass@orclalias
 youtube-dl https://www.youtube.com/watch?v=VIDEO_ID -F
 youtube-dl https://www.youtube.com/watch?v=VIDEO_ID -f 248
 yq -P < filename.yaml
+yq @json < filename.yaml | jq --sort-keys . > filename.json
 yq eval-all '[.] | to_json' < filename.yaml > filename.json
 zbarimg filename.jpg > filename.dat
 zlib-flate -uncompress < filename.dfl > filename.txt
