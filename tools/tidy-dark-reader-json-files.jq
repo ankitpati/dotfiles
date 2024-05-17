@@ -26,6 +26,6 @@ map(
     unique
 ) |
 
-.[0].siteList = ([.[].siteList[]] | unique) |
-.[0].siteListEnabled = ([.[].siteListEnabled[]] | unique) |
+.[0].disabledFor = ([.[].disabledFor[]] | unique) |
+.[0].enabledFor = ([.[].enabledFor[]] | unique) |
 .[0]
