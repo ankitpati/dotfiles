@@ -33,6 +33,8 @@
                 "useFont": false
             },
             "url": [
+                "calendar.google.com",
+                "console.cloud.google.com",
                 "example.org",
                 "jsoncrack.com",
                 "marpit.marp.app"
@@ -43,6 +45,7 @@
     "disabledFor": [
         "chat.openai.com",
         "docs.docker.com",
+        "drive.google.com",
         "gemini.google.com",
         "music.amazon.in",
         "web.whatsapp.com"
@@ -58,6 +61,7 @@
         "forums.docker.com",
         "iterm2.com",
         "linuxcommand.org",
+        "sites.google.com",
         "sso.redhat.com",
         "wiki.squid-cache.org",
         "www.linkedin.com",
