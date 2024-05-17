@@ -46,9 +46,11 @@
         "chat.openai.com",
         "docs.docker.com",
         "drive.google.com",
+        "forums.appleinsider.com",
         "gemini.google.com",
         "music.amazon.in",
-        "web.whatsapp.com"
+        "web.whatsapp.com",
+        "www.openinterpreter.com"
     ],
     "enableContextMenus": false,
     "enableForPDF": true,
@@ -63,6 +65,7 @@
         "linuxcommand.org",
         "sites.google.com",
         "sso.redhat.com",
+        "store.steampowered.com",
         "wiki.squid-cache.org",
         "www.linkedin.com",
         "www.omgubuntu.co.uk",
