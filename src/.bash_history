@@ -491,6 +491,7 @@ git fsck --cache --no-reflogs --lost-found --dangling HEAD
 git lfs install
 git log --follow -- filename
 git log --name-only --format= | uniq | less
+git log --patch -G search_term
 git log --pretty=email
 git log --pretty=format:%ae | sort -u | cut -d@ -f2- | sort -u
 git log -p
