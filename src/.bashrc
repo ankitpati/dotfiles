@@ -466,6 +466,7 @@ main()
         SDKMAN_DIR \
         SRC_DISABLE_USER_AGENT_TELEMETRY \
         SRC_ENDPOINT \
+        TFENV_AUTO_INSTALL \
     ;
 
     if [[ $OSTYPE == *darwin* && $UID == 0 ]]
@@ -617,6 +618,9 @@ main()
     then
         DOCKER_HOST="unix://$HOME/.docker/run/docker.sock"
     fi
+
+    # Terraform
+    TFENV_AUTO_INSTALL='false'
 
     # No `man` Prompts on Namesake Pages
     MAN_POSIXLY_CORRECT=1
