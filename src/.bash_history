@@ -140,6 +140,7 @@ brotli -d filename.br
 brotli filename
 browserslist 'last 1 Chrome versions'
 btrfs subvolume list /data
+caffeinate -dims
 cat ./*.tf | vipe --suffix=tf >/dev/null
 cat <(curl https://truststore.pki.rds.amazonaws.com/global/global-bundle.pem) <(curl https://truststore.pki.us-gov-west-1.rds.amazonaws.com/global/global-bundle.pem) > ~/.postgresql/root.crt
 ccd2iso disk-image.bin disk-image.iso
