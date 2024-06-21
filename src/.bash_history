@@ -206,6 +206,7 @@ cut -f2,3 /proc/net/route | grep ^00000000 | cut -f2 | sed 's/../0x&\n/g' | tac 
 dart --disable-analytics
 date +%F
 date +%s
+date --date='2 days ago' --utc +%Y-%m-%dT%H:%M:%SZ
 date --utc
 date --utc --date "@$((1601234567890 / 1000))" +%Y%m%d
 date -Is
