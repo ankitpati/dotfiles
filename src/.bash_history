@@ -490,6 +490,7 @@ git difftool branchname -- filename
 git difftool branchname1 branchname2 -- path1/to/filename1 path2/to/filename2
 git fetch origin pull/1000/head:local-branchname # for GitHub
 git fsck --cache --no-reflogs --lost-found --dangling HEAD
+git fsck --full --no-reflogs --unreachable --lost-found 2>/dev/null | grep blob | rev | cut --delimiter=' ' --fields=1 | rev
 git lfs install
 git log --follow -- filename
 git log --name-only --format= | uniq | less
