@@ -513,6 +513,9 @@ main()
     if [[ $OSTYPE == *linux* ]]
     then
         PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
+    elif [[ $OSTYPE == *darwin* && $MACHTYPE =~ ^aarch64 ]]
+    then
+        PATH="/opt/homebrew/bin:$PATH"
     fi
 
     local brew_prefix=$(command -v brew &>/dev/null && brew --prefix)
