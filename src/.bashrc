@@ -617,10 +617,9 @@ main()
 
         DOCKER_HOST="unix://$podman_socket_runtime_dir/podman/podman.sock"
         KIND_EXPERIMENTAL_PROVIDER='podman'
-    elif [[ $OSTYPE == *darwin* ]]
+    elif command -v docker &>/dev/null && [[ $OSTYPE == *darwin* ]]
     then
         DOCKER_HOST="unix://$HOME/.docker/run/docker.sock"
-        PATH="$HOME/.docker/bin:$PATH"
     fi
 
     # Terraform
