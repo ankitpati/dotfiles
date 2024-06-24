@@ -3,7 +3,7 @@
 set -euo pipefail
 shopt -s extglob
 
-mydir="$(dirname "$0")/"
+mydir=${0%/*}
 
 source <(perl -0pE '/^sanitize_path\(\).{.*?^}/sm; $_=$&' < "$mydir/../src/.bashrc")
 

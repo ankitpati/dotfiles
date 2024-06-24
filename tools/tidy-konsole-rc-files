@@ -2,8 +2,8 @@
 
 set -euo pipefail
 
-me="$(basename "$0")"
-mydir="$(dirname "$0")/"
+me=${0##*/}
+mydir=${0%/*}
 
 if (($# != 0))
 then

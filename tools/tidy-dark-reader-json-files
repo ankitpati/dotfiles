@@ -5,8 +5,8 @@ set -euo pipefail
 # Usage:
 #   ../tools/tidy-dark-reader-json-files [file-to-merge]...
 
-me="$(basename "$0")"
-mydir="$(dirname "$0")/"
+me=${0##*/}
+mydir=${0%/*}
 
 dark_reader_json_files=("$mydir/../src/.dark-reader.json" "$@")
 
