@@ -746,6 +746,12 @@ main()
         source <(pmd generate-completion)
     fi
 
+    # Buildpacks.io
+    if command -v pack &>/dev/null
+    then
+        source "$(pack completion)"
+    fi
+
     sanitize_path CLASSPATH
     sanitize_path DYLD_LIBRARY_PATH
     sanitize_path MANPATH
