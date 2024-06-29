@@ -444,6 +444,7 @@ main()
         MYPYPATH \
         MYPY_CACHE_DIR \
         NEXUS_PASSWORD \
+        NEXUS_TOKEN \
         NEXUS_URL \
         NEXUS_USERNAME \
         NPM_PACKAGES \
