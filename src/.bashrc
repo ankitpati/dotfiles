@@ -92,6 +92,16 @@ add_brewed_items_to_env()
             brew_postgresql_latest_formula=()
         fi
 
+        local instantclient_basic="$brew_prefix/Cellar/instantclient-basic"
+
+        # shellcheck disable=2012
+        instantclient_basic="$instantclient_basic/$(ls -vr "$instantclient_basic" | head -1)"
+        ORACLE_HOME=$instantclient_basic
+
+        local instantclient_sdk="$brew_prefix/Cellar/instantclient-sdk"
+        # shellcheck disable=2012
+        instantclient_sdk="$instantclient_sdk/$(ls -vr "$instantclient_sdk" | head -1)"
+
         # Get the superior versions of common binaries
         local extra_binaries=''
         local extra_claspath=''
@@ -226,10 +236,16 @@ add_brewed_items_to_env()
                 extra_binaries="$oraclepath:$extra_binaries"
             fi
 
-            local oracledyldpath=$ORACLE_HOME
+            local oracledyldpath="$instantclient_basic/lib"
             if [[ -d $oracledyldpath ]]
             then
                 extra_dyldpath="$oracledyldpath:$extra_dyldpath"
+            fi
+
+            local oraclesdkdyldpath="$instantclient_sdk/lib"
+            if [[ -d $oraclesdkdyldpath ]]
+            then
+                extra_dyldpath="$oraclesdkdyldpath:$extra_dyldpath"
             fi
 
             local oracleclaspath=$ORACLE_HOME
@@ -569,15 +585,6 @@ main()
 
     # ripgrep
     RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
-
-    # Oracle Database
-    if [[ $OSTYPE == *darwin* ]]
-    then
-        local instantclient="$(brew --prefix)/Cellar/instantclient-basic"
-
-        # shellcheck disable=2012
-        ORACLE_HOME="$instantclient/$(ls -vr "$instantclient" | head -1)/"
-    fi
 
     # PostgreSQL
     PGSSLMODE='verify-full'
