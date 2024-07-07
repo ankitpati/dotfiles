@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
-sanitize_path()
-{
+function sanitize_path {
     local -n input=$1
     local IFS=':'
     local -a paths
@@ -36,8 +35,7 @@ sanitize_path()
     input=${sanitized_paths[*]}
 }
 
-discolour_enclosed_ansi()
-{
+function discolour_enclosed_ansi {
     # Utility function to remove ANSI colours from strings with correctly
     # enclosed colours.
     #
@@ -50,23 +48,20 @@ discolour_enclosed_ansi()
 }
 
 # Prepend old binaries to PATH
-B-oldbin()
-{
+function B-oldbin {
     PATH="$HOME/oldbin:$PATH"
     sanitize_path PATH
     hash -r
 }
 
 # Prepend temporary binaries to PATH
-B-tmpbin()
-{
+function B-tmpbin {
     PATH="$HOME/tmpbin:$PATH"
     sanitize_path PATH
     hash -r
 }
 
-add_brewed_items_to_env()
-{
+function add_brewed_items_to_env {
     if [[ -z $brew_prefix ]]
     then
         return
@@ -309,8 +304,7 @@ add_brewed_items_to_env()
     fi
 }
 
-set_red_if_failed()
-{
+function set_red_if_failed {
     local exit_code=$?
     local should_print_code=$1
 
@@ -355,8 +349,7 @@ put_lf_unless_cursor_at_start() {
     return "$exit_code"
 }
 
-setup_prompt()
-{
+function setup_prompt {
     local clear_format='\[\e[m\]'
     local bright_green='\[\e[92m\]'
     local dark_cyan='\[\e[36m\]'
@@ -396,8 +389,7 @@ setup_prompt()
     readonly SHORTEST_PROMPT="$SHORTEST_COMMON_PROMPT$coloured_euid_indicator "
 }
 
-set_prompt()
-{
+function set_prompt {
     local max_prompt_length=$((COLUMNS - PROMPT_LEGROOM))
     local long_prompt=$LONG_PROMPT
     local short_prompt=$SHORT_PROMPT
@@ -430,8 +422,7 @@ set_prompt()
     fi
 }
 
-main()
-{
+function main {
     if [[ -n $BASHRC_MAIN_SOURCED ]]
     then
         return 0
