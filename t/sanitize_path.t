@@ -5,7 +5,7 @@ shopt -s extglob
 
 mydir=${0%/*}
 
-source <(perl -0pE '/^sanitize_path\(\).{.*?^}/sm; $_=$&' < "$mydir/../src/.bashrc")
+source <(perl -0pE '/^function sanitize_path.{.*?^}/sm; $_=$&' < "$mydir/../src/.bashrc")
 
 declare -A dirty_clean_paths_map=(
     ['//a///b:/a///c:/a///d:/a/e:/a//f/////']='/a/b:/a/c:/a/d:/a/e:/a/f'
