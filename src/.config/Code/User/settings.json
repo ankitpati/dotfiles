@@ -59,6 +59,7 @@
     "gitlens.currentLine.format": "${email} ${date} ${message|50?}",
     "gitlens.currentLine.pullRequests.enabled": false,
     "gitlens.hovers.currentLine.over": "line",
+    "gitlens.launchpad.indicator.enabled": false,
     "gitlens.statusBar.enabled": false,
     "java.debug.settings.enableRunDebugCodeLens": false,
     "java.saveActions.organizeImports": true,
@@ -81,6 +82,7 @@
     "settingsSync.ignoredSettings": [
         "sourcegraph.accessToken"
     ],
+    "sqldeveloper.telemetry.enabled": false,
     "svg.completion.showAdvanced": true,
     "svg.preview.mode": "svg",
     "telemetry.telemetryLevel": "off",
