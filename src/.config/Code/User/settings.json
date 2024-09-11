@@ -130,6 +130,8 @@
             "tab.border": "#000",
             "terminal.selectionBackground": "#4448",
             "terminal.selectionForeground": "#fff",
+            "textPreformat.background": "#000",
+            "textPreformat.foreground": "#f00",
             "titleBar.border": "#000",
             "window.activeBorder": "#000",
             "window.inactiveBorder": "#000"
