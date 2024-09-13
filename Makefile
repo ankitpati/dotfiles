@@ -4,8 +4,9 @@ test:
 	prove -v
 
 install:
+	rm -rf src/macOS/
 	cp -rL src/. "$$HOME"/
-	rm -rf "$$HOME"/macOS/
+	git checkout src/macOS/
 	chmod 0700 \
 		"$$HOME/.gnupg/" \
 		"$$HOME/.kube/" \
