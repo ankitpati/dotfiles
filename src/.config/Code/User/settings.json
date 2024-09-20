@@ -3,6 +3,7 @@
         "editor.wordWrap": "off"
     },
     "comments.useRelativeTime": false,
+    "connections.tnsConfiguration.path": "/home/ankitpati/.tnsadmin/",
     "diffEditor.ignoreTrimWhitespace": false,
     "editor.acceptSuggestionOnEnter": "off",
     "editor.accessibilitySupport": "off",
@@ -109,7 +110,7 @@
     "workbench.colorCustomizations": {
         "[Default High Contrast]": {
             "contrastActiveBorder": "#444",
-            "contrastBorder": "#000",
+            "contrastBorder": "#444",
             "editor.findMatchBackground": "#00f8",
             "editor.findMatchHighlightBackground": "#00f8",
             "editor.selectionBackground": "#4448",
@@ -119,7 +120,6 @@
             "editorGroup.border": "#000",
             "editorGroupHeader.border": "#000",
             "focusBorder": "#444",
-            "input.border": "#000",
             "scrollbarSlider.activeBackground": "#4447",
             "scrollbarSlider.background": "#4445",
             "scrollbarSlider.hoverBackground": "#4446",
