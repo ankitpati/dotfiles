@@ -215,6 +215,14 @@ function add_brewed_items_to_env {
 
         if ((UID != 0))
         then
+            # shellcheck disable=2012
+            local sqlclversion=$(ls -vr "$brew_prefix/Caskroom/sqlcl" | head -1)
+            local sqlclpath="$brew_prefix/Caskroom/sqlcl/$sqlclversion/sqlcl/bin"
+            if [[ -d $sqlclpath ]]
+            then
+                extra_binaries="$sqlclpath:$extra_binaries"
+            fi
+
             local flutterpath="$HOME/flutter/bin"
             if [[ -d $flutterpath ]]
             then
