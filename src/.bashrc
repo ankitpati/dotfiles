@@ -87,16 +87,6 @@ function add_brewed_items_to_env {
             brew_postgresql_latest_formula=()
         fi
 
-        local instantclient_basic="$brew_prefix/Cellar/instantclient-basic"
-
-        # shellcheck disable=2012
-        instantclient_basic="$instantclient_basic/$(ls -vr "$instantclient_basic" | head -1)"
-        ORACLE_HOME=$instantclient_basic
-
-        local instantclient_sdk="$brew_prefix/Cellar/instantclient-sdk"
-        # shellcheck disable=2012
-        instantclient_sdk="$instantclient_sdk/$(ls -vr "$instantclient_sdk" | head -1)"
-
         # Get the superior versions of common binaries
         local extra_binaries=''
         local extra_claspath=''
@@ -225,30 +215,6 @@ function add_brewed_items_to_env {
 
         if ((UID != 0))
         then
-            local oraclepath=$ORACLE_HOME
-            if [[ -d $oraclepath ]]
-            then
-                extra_binaries="$oraclepath:$extra_binaries"
-            fi
-
-            local oracledyldpath="$instantclient_basic/lib"
-            if [[ -d $oracledyldpath ]]
-            then
-                extra_dyldpath="$oracledyldpath:$extra_dyldpath"
-            fi
-
-            local oraclesdkdyldpath="$instantclient_sdk/lib"
-            if [[ -d $oraclesdkdyldpath ]]
-            then
-                extra_dyldpath="$oraclesdkdyldpath:$extra_dyldpath"
-            fi
-
-            local oracleclaspath=$ORACLE_HOME
-            if [[ -d $oracleclaspath ]]
-            then
-                extra_claspath="$oracleclaspath:$extra_claspath"
-            fi
-
             local flutterpath="$HOME/flutter/bin"
             if [[ -d $flutterpath ]]
             then
@@ -456,7 +422,6 @@ function main {
         NEXUS_USERNAME \
         NPM_PACKAGES \
         NPM_TOKEN \
-        ORACLE_HOME \
         PERL5LIB \
         PERLBREW_CPAN_MIRROR \
         PERLCRITIC \
