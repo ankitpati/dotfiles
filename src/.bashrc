@@ -448,6 +448,7 @@ function main {
         SRC_DISABLE_USER_AGENT_TELEMETRY \
         SRC_ENDPOINT \
         TFENV_AUTO_INSTALL \
+        TNS_ADMIN \
     ;
 
     if [[ $OSTYPE == *darwin* && $UID == 0 ]]
@@ -596,6 +597,9 @@ function main {
 
     # Terraform
     TFENV_AUTO_INSTALL='false'
+
+    # Oracle
+    TNS_ADMIN="$HOME/.tnsadmin"
 
     # No `man` Prompts on Namesake Pages
     MAN_POSIXLY_CORRECT=1
