@@ -32,6 +32,7 @@ set nocompatible
         python:     ['isort', 'black'    ],
         ruby:       ['prettier'          ],
         sh:         ['shfmt'             ],
+        sql:        ['sqlfluff'          ],
         terraform:  ['terraform'         ],
         typescript: ['prettier'          ],
         xml:        ['xmllint'           ],
