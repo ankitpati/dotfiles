@@ -278,25 +278,6 @@ function add_brewed_items_to_env {
     fi
 }
 
-function set_red_if_failed {
-    local exit_code=$?
-    local should_print_code=$1
-
-    local bright_red='\001\e[91m\002'
-
-    if ((exit_code != 0))
-    then
-        printf '%b' "$bright_red"
-    fi
-
-    if ((should_print_code == 1))
-    then
-        printf '%03u' "$exit_code"
-    fi
-
-    return "$exit_code"
-}
-
 put_lf_unless_cursor_at_start() {
     local _ cursor_position_x
     IFS='[;' read -p $'\001\e[6n\002' -d R -rs _ _ cursor_position_x _
@@ -309,7 +290,6 @@ put_lf_unless_cursor_at_start() {
 
 function setup_prompt {
     local clear_format='\[\e[m\]'
-    local bright_green='\[\e[92m\]'
     local dark_cyan='\[\e[36m\]'
     local dark_magenta='\[\e[35m\]'
     local dark_yellow='\[\e[33m\]'
@@ -317,8 +297,6 @@ function setup_prompt {
     local bright_magenta='\[\e[95m\]'
     local bright_yellow='\[\e[93m\]'
     local dark_blue='\[\e[34m\]'
-
-    local exit_code="$bright_green"'$(set_red_if_failed 1)'
 
     local year="$dark_cyan"'\D{%Y}'
     local month="$dark_magenta"'\D{%m}'
@@ -332,20 +310,23 @@ function setup_prompt {
 
     local situation='\u@\h \w'
     local euid_indicator='\$'
-    local coloured_euid_indicator="$bright_green"'$(set_red_if_failed 0)\$'"$clear_format"
 
     readonly PROMPT_LEGROOM=10
 
-    readonly LONG_COMMON_PROMPT="$clear_format$exit_code $long_timestamp$clear_format"
-    readonly SHORT_COMMON_PROMPT="$clear_format$exit_code $short_timestamp$clear_format"
-    readonly SHORTEST_COMMON_PROMPT="$clear_format"
+    readonly LONG_COMMON_PROMPT="$clear_format%coloured_exit_code% $long_timestamp$clear_format"
+    readonly SHORT_COMMON_PROMPT="$clear_format%coloured_exit_code% $short_timestamp$clear_format"
+    readonly SHORTEST_COMMON_PROMPT=$clear_format
 
     readonly LONG_PROMPT="$LONG_COMMON_PROMPT $situation $euid_indicator "
     readonly SHORT_PROMPT="$SHORT_COMMON_PROMPT $euid_indicator "
-    readonly SHORTEST_PROMPT="$SHORTEST_COMMON_PROMPT$coloured_euid_indicator "
+    readonly SHORTEST_PROMPT="$SHORTEST_COMMON_PROMPT%coloured_euid_indicator%$clear_format "
 }
 
 function set_prompt {
+    local exit_code=$?
+
+    put_lf_unless_cursor_at_start
+
     local max_prompt_length=$((COLUMNS - PROMPT_LEGROOM))
     local long_prompt=$LONG_PROMPT
     local short_prompt=$SHORT_PROMPT
@@ -376,6 +357,32 @@ function set_prompt {
             PS1=$shortest_prompt
         fi
     fi
+
+    local bright_green='\[\e[92m\]'
+    local bright_red='\[\e[91m\]'
+
+    local coloured_exit_code
+    local coloured_euid_indicator
+
+    if ((exit_code == 0))
+    then
+        coloured_exit_code=$bright_green
+        coloured_euid_indicator=$bright_green
+    else
+        coloured_exit_code=$bright_red
+        coloured_euid_indicator=$bright_red
+    fi
+
+    local formatted_exit_code
+    printf -v formatted_exit_code '%03u' "$exit_code"
+    coloured_exit_code+=$formatted_exit_code
+
+    local euid_indicator='\$'
+
+    coloured_euid_indicator+=$euid_indicator
+
+    PS1=${PS1/'%coloured_exit_code%'/$coloured_exit_code}
+    PS1=${PS1/'%coloured_euid_indicator%'/$coloured_euid_indicator}
 }
 
 function main {
@@ -510,7 +517,7 @@ function main {
     HISTSIZE=''
     if [[ $PROMPT_COMMAND != *history* ]]
     then
-        local prompt_command="history -a; history -n; put_lf_unless_cursor_at_start; set_prompt; $PROMPT_COMMAND"
+        local prompt_command="set_prompt; history -a; history -n; $PROMPT_COMMAND"
         PROMPT_COMMAND=${prompt_command//__vte_prompt_command}
     fi
 
