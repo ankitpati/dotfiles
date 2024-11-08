@@ -278,16 +278,6 @@ function add_brewed_items_to_env {
     fi
 }
 
-put_lf_unless_cursor_at_start() {
-    local _ cursor_position_x
-    IFS='[;' read -p $'\001\e[6n\002' -d R -rs _ _ cursor_position_x _
-
-    if ((cursor_position_x != 1))
-    then
-        printf '\n'
-    fi
-}
-
 function setup_prompt {
     local clear_format='\[\e[m\]'
     local dark_cyan='\[\e[36m\]'
@@ -325,7 +315,12 @@ function setup_prompt {
 function set_prompt {
     local exit_code=$?
 
-    put_lf_unless_cursor_at_start
+    local _ cursor_position_x
+    IFS='[;' read -p $'\001\e[6n\002' -d R -rs _ _ cursor_position_x _
+    if ((cursor_position_x != 1))
+    then
+        echo
+    fi
 
     local max_prompt_length=$((COLUMNS - PROMPT_LEGROOM))
     local long_prompt=$LONG_PROMPT
