@@ -298,29 +298,13 @@ function set_red_if_failed {
 }
 
 put_lf_unless_cursor_at_start() {
-    local exit_code=$?
-
-    # `\n` doesn't need to be enclosed in `\[` & `\]`, but a single `\n`
-    # doesn't print. Probably a bug in Bash.
-    #
-    # The workaround is to have at least one character, even a non-printing
-    # one, immediately after the newline.
-    #
-    # Since any non-printing character must be enclosed, and the enclosing
-    # characters themselves cause the newline to be printed, the shortest
-    # solution is to enclose the empty string, which is technically a
-    # zero-length non-printing string.
-    local newline='\n\001\002'
-
     local _ cursor_position_x
     IFS='[;' read -p $'\001\e[6n\002' -d R -rs _ _ cursor_position_x _
 
     if ((cursor_position_x != 1))
     then
-        printf '%b' "$newline"
+        printf '\n'
     fi
-
-    return "$exit_code"
 }
 
 function setup_prompt {
@@ -350,13 +334,11 @@ function setup_prompt {
     local euid_indicator='\$'
     local coloured_euid_indicator="$bright_green"'$(set_red_if_failed 0)\$'"$clear_format"
 
-    local common_prompt="$clear_format"'$(put_lf_unless_cursor_at_start)'
-
     readonly PROMPT_LEGROOM=10
 
-    readonly LONG_COMMON_PROMPT="$common_prompt$exit_code $long_timestamp$clear_format"
-    readonly SHORT_COMMON_PROMPT="$common_prompt$exit_code $short_timestamp$clear_format"
-    readonly SHORTEST_COMMON_PROMPT="$common_prompt"
+    readonly LONG_COMMON_PROMPT="$clear_format$exit_code $long_timestamp$clear_format"
+    readonly SHORT_COMMON_PROMPT="$clear_format$exit_code $short_timestamp$clear_format"
+    readonly SHORTEST_COMMON_PROMPT="$clear_format"
 
     readonly LONG_PROMPT="$LONG_COMMON_PROMPT $situation $euid_indicator "
     readonly SHORT_PROMPT="$SHORT_COMMON_PROMPT $euid_indicator "
@@ -528,7 +510,7 @@ function main {
     HISTSIZE=''
     if [[ $PROMPT_COMMAND != *history* ]]
     then
-        local prompt_command="history -a; history -n; set_prompt; $PROMPT_COMMAND"
+        local prompt_command="history -a; history -n; put_lf_unless_cursor_at_start; set_prompt; $PROMPT_COMMAND"
         PROMPT_COMMAND=${prompt_command//__vte_prompt_command}
     fi
 
