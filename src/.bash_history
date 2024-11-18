@@ -37,6 +37,9 @@ P4DIFF=vimdiff p4 diff -f //depot/directory/filename
 PATH="$(grep --invert-match binutils <<<"${PATH//:/$'\n'}" | paste --delimiters=':' --serial)" cpan Unicode::GCString
 TF_LOG=debug terraform plan -out tfplan
 TZ= date
+TZ=-5:30 date
+TZ=Asia/Kolkata date
+TZ=UTC0 git log --date='format-local:%Y-%m-%dT%H:%M:%SZ'
 Xvfb :99 -screen 0 1024x768x24
 \ssh ssh.ankitpati.in
 aa-status
@@ -172,6 +175,7 @@ csv -f protocol,root_domain,status < nextdns-log.csv | tail --lines=+2 | grep -v
 csvprintf '%1$s\n' < filename.csv | wc -l
 csvprintf -n '%1$s %2$s %3$s\n' < filename.csv
 csvq 'select username from lpass_export where username like "prefix_%"'
+csvq --without-header --format=FIXED 'select tags from `table_name` limit 1' | sed "s/'/\"/g" | jq .
 cue eval fields.cue
 cue export --out json filename.cue
 cue export --out yaml filename.cue
@@ -273,11 +277,14 @@ docker buildx create --name=builder_name --driver=docker-container --config=buil
 docker buildx inspect --bootstrap
 docker buildx ls
 docker buildx rm builder_name
+docker images --format=json | jq --raw-output 'select(.Repository | endswith("'"$(git remote get-url --no-push origin | rev | cut --delimiter=/ --fields=1,2 | cut --delimiter=. --fields=2- | rev)"'")) | "\(.Repository):\(.Tag)"' | xargs docker image rm --
+docker network inspect bridge | jq --raw-output '.[].IPAM.Config[].Subnet'
 docker network list --quiet | xargs --no-run-if-empty docker network inspect --verbose
 docker run --interactive --pid=host --privileged --pull=always --rm --tty busybox nsenter --ipc --mount --net --target=1 --uts # Linuxkit access on Docker for Mac
 docker scan --accept-license --version
 docker scan --login --token="$(op read op://Private/snyk_auth_token/password)"
 docker scan image_name
+docker tag image:tag "image:$(printf '%(%s)T' -1)-$(git rev-parse --short HEAD)"
 docker-compose build
 docker-compose stop
 docker-compose up
@@ -355,6 +362,7 @@ fdupes .
 figlet Type your message here.
 file -i filename
 find "$HOME/.local/share/gem/ruby" -mindepth 1 -maxdepth 1 -type d | sort -V
+find "$HOME/Pictures/Photos Library.photoslibrary/originals/" -type f \( -name '*.heic' -o -name '*.mov' \) -exec cp --target-directory="$HOME/Pictures/Exported/" {} +
 find . -exec sha256sum {} + 2>/dev/null | cut -d' ' -f1 | paste -sd' ' | sed 's/ //g' | perl -pi -E 'chomp if eof' | sha256sum
 find . -maxdepth 1 -print0 | xargs --null --max-args 1 du --human-readable --summarize | sort --human-numeric-sort
 find . -maxdepth 1 -type d -mtime 0
@@ -389,6 +397,7 @@ flatpak uninstall org.freedesktop.Platform.GL.nvidia-465-24-02
 flutter config --no-analytics
 flutter doctor -v
 fly auth signup
+for csr in *.csr; do mv -- "$csr" "$(openssl req -noout -subject -in "$csr" | grep --perl-regexp --only-matching '(?<=CN=)[^/,$]+').csr"; done
 for i in {0..127}; do printf '%u' "$i" | pbcopy; sleep 1; done
 for i in {0..20}; do src search -json '"exact_string"' | jq --raw-output --sort-keys '.Results[].repository.name'; done | sort --unique
 foremost
@@ -411,14 +420,19 @@ gcloud cloud-shell ssh
 gcloud components install gke-gcloud-auth-plugin
 gcloud components list
 gcloud components repositories list
-gcloud compute addresses list --project=project_id --filter='name:gce_vm_name' --format='table(name,address)'
+gcloud compute addresses list --project=project_id --filter='name:instance_name' --format='table(name,address)'
 gcloud compute backend-services list --filter=name="($(gcloud compute forwarding-rules list --filter=IPAddress='(10.10.10.10)' --format=json'(name)' | jq --raw-output .[0].name))" --format=json'(backends)' | jq .[0].backends[]
+gcloud compute connect-to-serial-port instance_name --project=project_id --zone=us-west1-a --port=1
+gcloud compute disks resize instance_name --project=project_id --zone=us-west1-a --size=25GB
 gcloud compute firewall-rules list --format=json --filter='allowed.ports[0] = ("1234") AND allowed.ports[1] = ("2345")' | jq .
 gcloud compute firewall-rules update rule_name --allow='tcp:53,tcp:80,tcp:443,udp:53'
+gcloud compute images create image_name --project=project_id --source-image=source_image_name --source-image-project=source_project_id
 gcloud compute images list
 gcloud compute images list --project=project_id --format='value(name)'
-gcloud compute instances delete gce_vm_name --quiet --project=project_id --zone="$(gcloud compute instances list --project=project_id --filter='name <= gce_vm_name AND name >= gce_vm_name' --format='value(zone.basename())')"
+gcloud compute instances add-metadata instance_name --project=project_id --metadata=serial-port-enable=TRUE --zone=us-west1-a
+gcloud compute instances delete instance_name --project=project_id --zone="$(gcloud compute instances list --project=project_id --filter='name <= instance_name AND name >= instance_name' --format='value(zone.basename())')"
 gcloud compute instances describe --project=project_id --zone=us-west1-a instance_name | yq '. | to_json' | json-recursive-decode | jq .
+gcloud compute instances get-serial-port-output instance_name --project=project_id --zone=us-west1-a --port=1
 gcloud compute instances list --filter='name~^instance_name_' --format='table(name, networkInterfaces[0].networkIP)'
 gcloud compute instances list --project=project_id --format='csv(name,zone,networkInterfaces[0].networkIP)' | grep --fixed-strings 10.10.10.10
 gcloud compute instances list --project=project_id --format='json(name,zone,networkInterfaces[0].networkIP)' | grep --fixed-strings 10.10.10.10
@@ -447,7 +461,7 @@ gcloud config unset project
 gcloud container clusters describe cluster_name --project=project_id --location=us-west1 2>/dev/null | yq .nodeConfig.oauthScopes
 gcloud container clusters get-credentials cluster_name --region=us-west1 --project=project_id # appends to ~/.kube/config
 gcloud container get-server-config --format='yaml(defaultClusterVersion)'
-gcloud functions delete function_name --quiet --project=project_id
+gcloud functions delete function_name --project=project_id
 gcloud functions list
 gcloud info
 gcloud projects add-iam-policy-binding project_id --member=user:contact@ankitpati.in --role=roles/compute.instanceAdmin.v1
@@ -463,6 +477,7 @@ gdb elfname
 getcap "$(command -v nmap)"
 getfacl "$(command -v nmap)"
 getfattr "$(command -v nmap)"
+gh auth login --git-protocol=https --hostname=github.example.org --web
 gh config list
 gh config set git_protocol ssh
 gh issue list
@@ -470,13 +485,14 @@ gh pr list
 gh pr status
 git -C "$(git rev-parse --show-toplevel)" clean -ffdx && git submodule foreach git clean -ffdx
 git -C "$(git rev-parse --show-toplevel)" diff HEAD~1 ':^*.asc'
-git -C "$(git rev-parse --show-toplevel)" log -p ':^*.asc'
-git -C "$(git rev-parse --show-toplevel)" show -p ':^*.asc'
-git add -p
+git -C "$(git rev-parse --show-toplevel)" log --patch ':^*.asc'
+git -C "$(git rev-parse --show-toplevel)" log origin/main..branch_name --format=%H -- '*search_term*' | tac | xargs --max-args=1 -- git cherry-pick --
+git -C "$(git rev-parse --show-toplevel)" show --patch ':^*.asc'
+git add --patch
 git branch --format='%(refname:short)' | while read -r branch; do git checkout "$branch" || break; git rebase origin/main || break; done
 git branch -r | grep -E '^\s+origin/' | grep -v HEAD | cut -d/ -f2 | xargs git push ankitpati -d
 git branch -vv
-git checkout -p
+git checkout --patch
 git cherry-pick branchname~2..branchname
 git clean -ffdxn
 git clone --recurse-submodules https://example.org/repo-with-submodules.git
@@ -494,11 +510,12 @@ git fsck --full --no-reflogs --unreachable --lost-found 2>/dev/null | grep blob 
 git lfs install
 git log --follow -- filename
 git log --name-only --format= | uniq | less
+git log --patch
+git log --patch --author='contact@ankitpati.in'
 git log --patch -G search_term
 git log --pretty=email
 git log --pretty=format:%ae | sort -u | cut -d@ -f2- | sort -u
-git log -p
-git log -p --author='contact@ankitpati.in'
+git ls-files -v | grep '^H '
 git merge --ff-only branchname
 git merge-base HEAD branchname
 git p4 clone //depot/directory@all --verbose
@@ -587,6 +604,7 @@ helm list
 helm list | tail --lines=+2 | tr '\t' ' ' | tr --squeeze-repeats ' ' | sort --key=4,5 --numeric-sort
 helm rollback --dry-run chart_name
 helm rollback chart_name 12345
+helm show all chart_name
 helm status chart_name
 helm template chart_name chart/ --values=values.yaml --output-dir="$HOME/Code/chart_name/"
 helm template chart_name chart/ --values=values.yaml | yq .
@@ -655,6 +673,11 @@ jd --set 1.json 2.json
 jd --set <(jq .theme < .dark-reader.json) <(jq .customThemes[0].theme < .dark-reader.json)
 jd -f patch 1.json 2.json
 jd 1.json 2.json
+jfrog config show
+jfrog login
+jfrog rt curl /api/repositories | jq --raw-output '.[].key'
+jfrog rt ping
+jfrog rt search kubectl
 johnnydep --output-format dot package_name | apdot -Tpng | timg -
 johnnydep --output-format json package_name | jq .
 join --nocheck-order -1 2 filename1 filename2
@@ -704,6 +727,7 @@ krew list
 kubecm --config kubeconfig.yaml list
 kubecm list
 kubectl api-resources
+kubectl api-resources --output=name | xargs --max-args=1 kubectl get --show-kind --ignore-not-found --all-namespaces --output=name -- 2>/dev/null | grep --extended-regexp '\bcommon-string-' | xargs --max-args=1 kubectl delete --
 kubectl apply --filename=filename.yaml
 kubectl cluster-info
 kubectl cluster-info --context=docker-desktop
@@ -749,12 +773,14 @@ kubectl exec deployment/deployment_name -- bash --login
 kubectl get configmap/istio-sidecar-injector --namespace=istio-system --output=jsonpath='{.data.config}' | yq .
 kubectl get configmaps --selector=owner=helm
 kubectl get deployment/deployment_name --output=json | jq '.spec.template.spec.containers[1].livenessProbe'
+kubectl get deployment/deployment_name --output=json | jq --raw-output '.spec.template.spec.containers[] | select(has("livenessProbe")) | "Liveness Timeout: \(.livenessProbe.timeoutSeconds)\nReadiness Timeout: \(.readinessProbe.timeoutSeconds)"'
 kubectl get events --output=jsonpath='{range .items[?(@.type=="Warning")]}{.metadata.name}{"\t"}{.message}{"\n"}{end}'
 kubectl get gateway/mirror --context=mirror-us-central1-abs-0 --namespace=istio-system --output=yaml | yq '.spec.servers[2].hosts'
 kubectl get namespace/default --output=json | jq '.metadata.labels."istio.io/dataplane-mode"'
 kubectl get namespaces --label-columns=istio.io/rev,istio-injection
 kubectl get namespaces --show-labels
 kubectl get nodes --all-namespaces | grep --fixed-strings v1.20. | cut --delimiter=' ' --fields=1 | xargs --max-args 1 kubectl describe node
+kubectl get nodes --output=custom-columns=CREATION_TIME:.metadata.creationTimestamp,NAME:.metadata.name,TAINTS:.spec.taints --no-headers | sort --version-sort | tail --lines=1
 kubectl get nodes --output=json | jq '[.items[] | select(.status.conditions[] | select(.type == "MemoryPressure" and .status == "True"))]'
 kubectl get nodes --output=jsonpath='{.items[*].status.conditions[?(@.type=="MemoryPressure")]}'
 kubectl get nodes --output=wide
@@ -764,6 +790,7 @@ kubectl get pods --all-namespaces
 kubectl get pods --all-namespaces --output=json | jq --raw-output '.items[] | (.metadata.name + "," + .metadata.namespace + "," + .spec.nodeName)'
 kubectl get pods --all-namespaces --selector='app in (istiod, istio-ingressgateway)' --output=json | jq --raw-output '.items[].spec.nodeName' | sort --unique | while read -r node_name; do printf '%s,' "$node_name"; kubectl get "node/$node_name" --output=json | jq --raw-output '[.status.nodeInfo.kubeProxyVersion, .status.nodeInfo.kubeletVersion] | join(",")'; done
 kubectl get pods --context=kube-context
+kubectl get pods --field-selector=status.phase=Failed --output=json | jq --raw-output '.items[] | select(.status.reason == "Evicted") | select(.status.startTime < "'"$(date --date='2 days ago' --utc +%Y-%m-%dT%H:%M:%SZ)"'")'
 kubectl get pods --kubeconfig=filename.yaml
 kubectl get pods --namespace=istio-system --selector=app=istio-ingressgateway --output=json | jq --raw-output '.items[].status.podIP'
 kubectl get pods --namespace=istio-system --selector=app=istio-ingressgateway --output=jsonpath='{.items..metadata.name}' | sed --regexp-extended 's/ |$/\n/g'
@@ -774,6 +801,7 @@ kubectl get pods --selector=app.kubernetes.io/name=app_name --output=json | jq -
 kubectl get pods --selector=app=app_name
 kubectl get pods --selector=app=app_name --output=name | while read -r pod_name; do kubectl logs "$pod_name" --container=container_name --follow & done; wait
 kubectl get pods | cut --delimiter=' ' --fields=1 | grep --extended-regexp '(-[[:alnum:]]+){2}$' | sort --version-sort | while read -r deployment; do kubectl logs "$deployment" --container="${deployment%%-+([[:alnum:]])-+([[:alnum:]])}"; done
+kubectl get pods | grep ImagePull | tr --squeeze-repeats ' ' | cut --delimiter=' ' --fields=1 | sort --unique | while read -r pod; do kubectl describe pod "$pod" | grep --perl-regexp '^\s+Image:\s+' | tr --squeeze-repeats ' ' | cut --delimiter=' ' --fields=3; done | sort --unique
 kubectl get secrets --output=json | gojq '.items[].data | map_values(@base64d | try fromjson // .)'
 kubectl get secrets --output=json | jq '.items[].data'
 kubectl get secrets --output=json | json-recursive-decode | jq --indent 4 --sort-keys .
@@ -787,6 +815,8 @@ kubectl logs --follow deployment/deployment_name --container=container_name
 kubectl logs --follow pod_name
 kubectl logs pod_name --container=container_name --since=1h
 kubectl options
+kubectl patch deployment/deployment_name --patch='{"spec":{"template":{"spec":{"nodeSelector":{"node-pool-type":"new_type_name"}}}}}'
+kubectl patch deployment/deployment_name --type=json --patch='[{"op": "replace", "path": "/spec/template/spec/containers/1/livenessProbe/timeoutSeconds", "value": 120}]'
 kubectl port-forward pod_name 8080:8000
 kubectl port-forward service/service_name 12345
 kubectl proxy
@@ -796,6 +826,8 @@ kubectl rollout restart statefulset/statefulset_name
 kubectl run --stdin --tty --rm --restart=Never busybox --image=gcr.io/google-containers/busybox sh
 kubectl scale deployment/kube-dns-autoscaler --namespace=kube-system --replicas=0
 kubectl scale deployment/kube-dns-autoscaler --namespace=kube-system --replicas=1
+kubectl taint node/node_name nodelocal-config=unconfigured:NoSchedule
+kubectl top nodes --selector=node-pool-type=type_name
 kubectl top pod
 kubectl top pod --containers
 kubectl version --client --output=json | jq --raw-output .clientVersion.gitVersion
@@ -846,6 +878,7 @@ lsusb
 luarocks completion bash
 luarocks path
 luarocks show dump
+magick -density 300 filename.pdf filename-%d.png
 makewhatis "$PREFIX/share/man"
 mapfile -t < newline-separated-item-list.txt
 markdownlint '**/*.md' 2> errors.txt
@@ -875,9 +908,8 @@ msfdb stop
 mvn --debug --errors versions:set -DnextSnapshot=true
 mvn --encrypt-master-password 'maven-master-password'
 mvn --encrypt-password 'maven-server-password'
-mvn -U clean install -Ddependency-check.skip=true
+mvn --update-snapshots clean install -Dmaven.test.skip=true -Ddependency-check.skip=true -Dpmd.skip=true
 mvn -U dependency:tree
-mvn clean install -Dmaven.test.skip=true
 mvn exec:java -Dexec.mainClass=in.ankitpati.ClassName
 mvn help:effective-pom
 mypy --config-file ~/.mypy.ini
@@ -923,6 +955,7 @@ objdump -r elf-binary-filename
 op read op://Private/docker_personal_access_token/password | crane auth login docker.io -u "$(op read op://Private/docker_personal_access_token/username)" --password-stdin
 op read op://Private/docker_personal_access_token/password | docker login -u "$(op read op://Private/docker_personal_access_token/username)" --password-stdin
 op read op://Private/docker_personal_access_token/password | skopeo login docker.io --tls-verify -u "$(op read op://Private/docker_personal_access_token/username)" --password-stdin
+op read op://Private/note_name/notesPlain
 op read op://Private/perforce/password | p4 login -a
 op read op://Private/quay_encrypted_cli_password/password | skopeo login quay.io --tls-verify -u "$(op read op://Private/quay_encrypted_cli_password/username)" --password-stdin
 op read op://Private/unique_name/password
@@ -992,6 +1025,7 @@ p4 clients -e 'boron*'
 p4 clients -e boron_workstation
 p4 delete -nc 12345 //depot/directory/filename
 p4 describe -Odu5 12345 | delta
+p4 describe -Sdu5 "$(p4 changes -u "$USER" | grep --fixed-strings ' *pending* ' | head --lines=1 | cut --delimiter=' ' --fields=2)" | delta
 p4 describe -Sdu5 12345 | delta
 p4 describe -a 12345 | less
 p4 describe -du5 12345 | delta
@@ -1068,8 +1102,11 @@ package-cleanup --leaves
 package-cleanup --orphans
 package-cleanup --problems
 packer build .
+packer build filename.pkr.hcl
 packer fmt -recursive .
 packer init -upgrade .
+packer init -upgrade filename.pkr.hcl
+packer plugins install github.com/hashicorp/googlecompute
 packer validate .
 pactl info
 pactl list sinks
@@ -1087,6 +1124,7 @@ pdfimages -all filename.pdf ./
 pdfimages -j filename.pdf ./
 pdfimages filename.pdf ./
 pdfinfo filename.pdf
+pdftk filename.pdf cat 123-end output filename-trimmed.pdf
 perl -0pE '$_ = "[" . join(",", /\{.*?}/gms) . "]"' < file-with-JSON-scattered-between-other-data.txt | jq '.[] | "\(.firstname) \(.lastname)"'
 perl -0pE 's/^(resource "google_kms_crypto_key" "example-key" {.*?^)(\s+lifecycle {.*?})/"$1".($2 =~ s{^}{#}rsmg)/esm' -i google-kms.tf
 perl -MModern::Perl=2020 -dE 0
@@ -1094,7 +1132,9 @@ perl -MModule::CoreList -E 'say Module::CoreList->first_release(q{File::Path})'
 perl -MModule::CoreList -E 'say foreach Module::CoreList->find_modules'
 perl -MModule::CoreList -E 'say foreach Module::CoreList->find_modules(qr/path/i)'
 perl -dE 0
+perl -pi -E "s[{redacted}][$(mvn --encrypt-master-password "$(openssl rand -base64 32)")]" ~/.m2/settings-security.xml
 perl -pi -E 'chomp if eof' filename.txt
+perl -pi -E 's/(?<=^|,)(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})(?=[, ])/\1-\2-\3-\4.nip.io/g' ~/.ssh/known_hosts
 perlbrew list-modules
 perlbrew upgrade-perl
 perldoc -U -f split
@@ -1260,6 +1300,7 @@ rg -F -- '$_ =~ '
 rg -L search-string
 rg -l search-string
 rg -uuu search-string
+rich --print "$(lorem --randomize --lines=10)" --center --text-full --width=40
 rlwrap raku
 rlwrap sqlplus user/pass@orclalias
 rm "$(brew --prefix)/opt/openssl"; ln -s "$(brew --prefix)/opt/openssl@1.1/" "$(brew --prefix)/opt/openssl"
@@ -1284,6 +1325,7 @@ scriptreplay typescript
 sed '/^$/d' file-with-blank-lines.txt
 sed --in-place --regexp-extended 's,lpass show --(username|password) ([^ )]+),op read op://Private/\2/\1,g' file-with-lpass-usage
 sed --regexp-extended 's/ /\n/g' < /proc/cmdline
+sed --regexp-extended --in-place 's/^([a-zA-Z0-9_-]+)\(\)$/function \1 {/;/^\{$/d' filename.bash
 sed -i -E 's|#!/usr/bin/octave -q|#!/usr/bin/env -S octave -q|g' -- *.m
 sendmail -v contact@ankitpati.in <<<'Subject: Hello\n'
 sensors
@@ -1331,6 +1373,8 @@ source ./.venv/bin/activate
 spctl developer-mode enable-terminal
 speedtest
 speedtest-cli
+sql -name orclalias -tnsadmin ~/.tnsadmin/
+sql user/pass@orclalias
 sqlcmd -S localhost -U SA -P p@5Sword
 sqlfluff fix --force --dialect=postgres filename.sql
 sqlformat --keywords=upper --identifiers=lower --reindent --indent_width=4 --indent_after_first --indent_columns --reindent_aligned --use_space_around_operators filename.sql | sponge filename.sql
@@ -1363,10 +1407,11 @@ steampipe plugin install aws
 steampipe plugin install gcp
 steampipe plugin list
 steampipe query
-steampipe query --output json 'select name, zone_name from gcp_project_project_name.gcp_compute_instance limit 1' | jq .
+steampipe query --output json 'select name, zone_name from gcp_project_project_id.gcp_compute_instance limit 1' | jq .
 steampipe service status
 steampipe service stop
 steampipe service stop --force
+stern 'service_name-\d+' --max-log-requests=5000 --since=2h
 stern deployment/deployment_name --container=container_name --since=2h
 strace -e open -o programname.strace programname programargs
 strace programname 2> programname.strace
@@ -1404,9 +1449,13 @@ systemctl status snap.microk8s.daemon-containerd.service
 systemctl stop gdm.service
 systemd-analyze cat-config systemd/resolved.conf
 tail --lines=+2 brew-deps.csv | cut -d, -f1 | comm -23 - brew-install-list.txt | while read -r brew_formula; do grep "^$brew_formula" brew-deps.csv; done
+tar --list --file=filename.tar
 tccutil reset ScreenCapture com.google.Chrome
 telnet google.com & telnet_pid="$!" && ( sleep 5; kill "$telnet_pid" ) && fg; unset telnet_pid
 terminal-notifier <<<'macOS Notification Text'
+terraform 0.12checklist
+terraform 0.12upgrade -yes
+terraform 0.13upgrade -yes
 terraform apply tfplan
 terraform fmt
 terraform graph | apdot -Tpng | timg -
@@ -1421,6 +1470,7 @@ terraform plan -destroy -out tfplan
 terraform plan -out tfplan -target module.vpc1 -target module.vpc2
 terraform plan -out tfplan -var boolean_var_name=true
 terraform refresh
+terraform show -no-color tfplan | tail --lines=1 | cut --delimiter=: --fields=2- | sed 's/" => "/---\\n/' | xargs printf '%b\n' | yq .
 terraform show tfplan -no-color > tfplan-for-diff
 terraform show tfplan | landscape
 terraform show tfplan | less -R
@@ -1535,6 +1585,7 @@ xdg-open .
 xdg-open filename
 xdotool click --repeat 5 1
 xmllint --format filename.xml | sponge filename.xml
+xq --xpath //project/version pom.xml
 xxd -plain -l 16 </dev/urandom
 xz -v9e filename.tar
 yapf -i filename.py
