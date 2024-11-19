@@ -322,37 +322,6 @@ function set_prompt {
         echo
     fi
 
-    local max_prompt_length=$((COLUMNS - PROMPT_LEGROOM))
-    local long_prompt=$LONG_PROMPT
-    local short_prompt=$SHORT_PROMPT
-    local shortest_prompt=$SHORTEST_PROMPT
-
-    # For `git-sh`. Set `ADD_ON_PS1` in `~/.gitshrc`.
-    if [[ -n $ADD_ON_PS1 ]]
-    then
-        long_prompt="$LONG_COMMON_PROMPT $ADD_ON_PS1"
-        short_prompt="$SHORT_COMMON_PROMPT $ADD_ON_PS1"
-        shortest_prompt="$SHORTEST_COMMON_PROMPT$ADD_ON_PS1"
-    fi
-
-    local expanded_long_prompt=${long_prompt@P}
-    discolour_enclosed_ansi expanded_long_prompt
-
-    if ((${#expanded_long_prompt} <= max_prompt_length))
-    then
-        PS1=$long_prompt
-    else
-        local expanded_short_prompt=${short_prompt@P}
-        discolour_enclosed_ansi expanded_short_prompt
-
-        if ((${#expanded_short_prompt} <= max_prompt_length))
-        then
-            PS1=$short_prompt
-        else
-            PS1=$shortest_prompt
-        fi
-    fi
-
     local bright_green='\[\e[92m\]'
     local bright_red='\[\e[91m\]'
 
@@ -375,6 +344,39 @@ function set_prompt {
     local euid_indicator='\$'
 
     coloured_euid_indicator+=$euid_indicator
+
+    local max_prompt_length=$((COLUMNS - PROMPT_LEGROOM))
+    local long_prompt=$LONG_PROMPT
+    local short_prompt=$SHORT_PROMPT
+    local shortest_prompt=$SHORTEST_PROMPT
+
+    # For `git-sh`. Set `ADD_ON_PS1` in `~/.gitshrc`.
+    if [[ -n $ADD_ON_PS1 ]]
+    then
+        long_prompt="$LONG_COMMON_PROMPT $ADD_ON_PS1"
+        short_prompt="$SHORT_COMMON_PROMPT $ADD_ON_PS1"
+        shortest_prompt="$SHORTEST_COMMON_PROMPT$ADD_ON_PS1"
+    fi
+
+    long_prompt=${long_prompt/'%coloured_exit_code%'/$coloured_exit_code}
+    long_prompt=${long_prompt/'%coloured_euid_indicator%'/$coloured_euid_indicator}
+    local expanded_long_prompt=${long_prompt@P}
+    discolour_enclosed_ansi expanded_long_prompt
+
+    if ((${#expanded_long_prompt} <= max_prompt_length))
+    then
+        PS1=$long_prompt
+    else
+        local expanded_short_prompt=${short_prompt@P}
+        discolour_enclosed_ansi expanded_short_prompt
+
+        if ((${#expanded_short_prompt} <= max_prompt_length))
+        then
+            PS1=$short_prompt
+        else
+            PS1=$shortest_prompt
+        fi
+    fi
 
     PS1=${PS1/'%coloured_exit_code%'/$coloured_exit_code}
     PS1=${PS1/'%coloured_euid_indicator%'/$coloured_euid_indicator}
