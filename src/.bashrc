@@ -590,7 +590,7 @@ function main {
 
     alias chomp='perl -pi -E "chomp if eof"'
     alias cpan-outdated='cpan-outdated --mirror="$PERLBREW_CPAN_MIRROR"'
-    alias git-sh='source "$(command -v git-sh.bash)"; unalias git-sh'
+    alias git-sh='source "$(command -v git-sh-bash)"; unalias git-sh'
     alias grep='grep --color=auto'
     alias grepp='grep -P'
     alias l.='ls -d .*'
