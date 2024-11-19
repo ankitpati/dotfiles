@@ -361,25 +361,25 @@ function set_prompt {
     long_prompt=${long_prompt/'%coloured_exit_code%'/$coloured_exit_code}
     long_prompt=${long_prompt/'%coloured_euid_indicator%'/$coloured_euid_indicator}
     local expanded_long_prompt=${long_prompt@P}
+    PS1=$expanded_long_prompt
     discolour_enclosed_ansi expanded_long_prompt
 
-    if ((${#expanded_long_prompt} <= max_prompt_length))
+    if ((${#expanded_long_prompt} > max_prompt_length))
     then
-        PS1=$long_prompt
-    else
+        short_prompt=${short_prompt/'%coloured_exit_code%'/$coloured_exit_code}
+        short_prompt=${short_prompt/'%coloured_euid_indicator%'/$coloured_euid_indicator}
         local expanded_short_prompt=${short_prompt@P}
+        PS1=$expanded_short_prompt
         discolour_enclosed_ansi expanded_short_prompt
 
-        if ((${#expanded_short_prompt} <= max_prompt_length))
+        if ((${#expanded_short_prompt} > max_prompt_length))
         then
-            PS1=$short_prompt
-        else
-            PS1=$shortest_prompt
+            shortest_prompt=${shortest_prompt/'%coloured_exit_code%'/$coloured_exit_code}
+            shortest_prompt=${shortest_prompt/'%coloured_euid_indicator%'/$coloured_euid_indicator}
+            local expanded_shortest_prompt=${shortest_prompt@P}
+            PS1=$expanded_shortest_prompt
         fi
     fi
-
-    PS1=${PS1/'%coloured_exit_code%'/$coloured_exit_code}
-    PS1=${PS1/'%coloured_euid_indicator%'/$coloured_euid_indicator}
 }
 
 function main {
