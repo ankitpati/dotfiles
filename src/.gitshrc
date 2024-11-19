@@ -1,17 +1,5 @@
 #!/usr/bin/env bash
 
-function gitsh_prompt {
-    _git_headname
-    _git_upstream_state
-    printf '!'
-    _git_repo_state
-    _git_workdir
-    _git_dirty
-    _git_dirty_stash
-}
-
-PS1='$(gitsh_prompt)> '
-
 # This is referenced in `~/.bashrc`.
 # shellcheck disable=2034
 ADD_ON_PS1=$PS1
