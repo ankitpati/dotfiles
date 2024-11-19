@@ -501,6 +501,7 @@ git commit --amend --gpg-sign --no-edit
 git config --add credential.helper ''
 git config --show-origin --get credential.helper
 git config --show-origin credential.helper
+git config get --type=color --default='blue reverse' nonexistent.property | cat -v
 git diff HEAD~1 --name-only
 git difftool branchname -- filename
 git difftool branchname1 branchname2 -- path1/to/filename1 path2/to/filename2
