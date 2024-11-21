@@ -1473,6 +1473,7 @@ terraform plan -destroy -out tfplan
 terraform plan -out tfplan -target module.vpc1 -target module.vpc2
 terraform plan -out tfplan -var boolean_var_name=true
 terraform refresh
+terraform show -json tfplan | jq '.resource_changes[] | select(.address == "module.example_module.kubernetes_secret.example_secret").change' > tempdiff; diff --unified <(jq --raw-output '.before.data."service.properties"' < tempdiff) <(jq --raw-output '.after.data."service.properties"' < tempdiff) | delta; rm tempdiff
 terraform show -no-color tfplan | tail --lines=1 | cut --delimiter=: --fields=2- | sed 's/" => "/---\\n/' | xargs printf '%b\n' | yq .
 terraform show tfplan -no-color > tfplan-for-diff
 terraform show tfplan | landscape
