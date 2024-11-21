@@ -405,6 +405,7 @@ function main {
         HOMEBREW_NO_INSECURE_REDIRECT \
         JAVA_HOME \
         KIND_EXPERIMENTAL_PROVIDER \
+        LC_CTYPE \
         MANPATH \
         MAN_POSIXLY_CORRECT \
         MERGE \
@@ -467,8 +468,6 @@ function main {
 
     if ! [[ ${lc_ctype^^} =~ UTF-?8 ]]
     then
-        export LC_CTYPE
-
         if [[ $OSTYPE == *linux* ]]
         then
             LC_CTYPE='C.UTF-8'
