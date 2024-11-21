@@ -797,6 +797,7 @@ kubectl get pods --namespace=istio-system --selector=app=istio-ingressgateway --
 kubectl get pods --namespace=istio-system --selector=app=istio-ingressgateway --output=jsonpath='{.items..metadata.name}' | sed --regexp-extended 's/ |$/\n/g'
 kubectl get pods --namespace=istio-system --selector=app=istiod
 kubectl get pods --output=custom-columns=pods:.metadata.name | grep deployment_name | sort --version-sort | while read -r pod; do kubectl top pod/"$pod" --no-headers; done
+kubectl get pods --output=json | jq --raw-output '[.items[].spec.containers[].image] | unique[]'
 kubectl get pods --selector="$(kubectl get service/service_name --output=yaml | yq .spec.selector | sed 's/: /=/')"
 kubectl get pods --selector=app.kubernetes.io/name=app_name --output=json | jq --raw-output '.items[].spec.nodeName' | sort --unique | while read -r node_name; do printf '%s,' "$node_name"; kubectl get "node/$node_name" --output=json | jq --raw-output '[.status.nodeInfo.kubeProxyVersion, .status.nodeInfo.kubeletVersion] | join(",")'; done
 kubectl get pods --selector=app=app_name
@@ -888,6 +889,7 @@ massren -u
 massren -u path/to/directory
 mdfind -name '.csv'
 mdfind -name 'log4j' | ack -i '(?<!\.)2\..*\.jar$'
+mergiraf languages --gitattributes | sort --unique >> ~/.gitattributes
 meson x --buildtype release --strip -Db_lto=true
 microk8s kubectl get all --all-namespaces
 microk8s status --wait-ready
