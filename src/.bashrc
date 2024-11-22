@@ -350,12 +350,15 @@ function set_prompt {
     local short_prompt=$SHORT_PROMPT
     local shortest_prompt=$SHORTEST_PROMPT
 
-    # For `git-sh`. Set `ADD_ON_PS1` in `~/.gitshrc`.
-    if [[ -n $ADD_ON_PS1 ]]
+    if [[ -n $GITSH_MAIN_SOURCED ]]
     then
-        long_prompt="$LONG_COMMON_PROMPT $ADD_ON_PS1"
-        short_prompt="$SHORT_COMMON_PROMPT $ADD_ON_PS1"
-        shortest_prompt="$SHORTEST_COMMON_PROMPT$ADD_ON_PS1"
+        local add_on_ps1
+
+        gitsh_prompt add_on_ps1
+
+        long_prompt="$LONG_COMMON_PROMPT $add_on_ps1"
+        short_prompt="$SHORT_COMMON_PROMPT $add_on_ps1"
+        shortest_prompt="$SHORTEST_COMMON_PROMPT$add_on_ps1"
     fi
 
     long_prompt=${long_prompt/'%coloured_exit_code%'/$coloured_exit_code}
