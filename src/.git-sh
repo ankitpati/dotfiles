@@ -166,13 +166,13 @@ function gitsh_load_completions {
 }
 
 function gitsh_headname {
-    git symbolic-ref --quiet HEAD 2>/dev/null | IFS= read -r headname
+    headname=$(git symbolic-ref --quiet HEAD 2>/dev/null)
 
     if [[ -n $headname ]]
     then
         headname=${headname#refs/heads/}
     else
-        git rev-parse --short HEAD 2>/dev/null | IFS= read -r headname
+        headname=$(git rev-parse --short HEAD 2>/dev/null)
     fi
 
     gitsh_apply_color headname 'yellow reverse'
@@ -180,8 +180,7 @@ function gitsh_headname {
 
 function gitsh_upstream_state {
     # find how many commits we are ahead/behind our upstream
-    local count
-    git rev-list --count --left-right '@{upstream}'...HEAD 2>/dev/null | IFS= read -r count
+    local count=$(git rev-list --count --left-right '@{upstream}'...HEAD 2>/dev/null)
     count=${count//$'\t'/ }
 
     case $count in
@@ -211,9 +210,7 @@ function gitsh_upstream_state {
 }
 
 function gitsh_repo_state {
-    local git_dir
-    git rev-parse --git-dir 2>/dev/null | IFS= read -r git_dir
-    readonly git_dir
+    local -r git_dir=$(git rev-parse --git-dir 2>/dev/null)
 
     if [[ -d $git_dir/rebase-merge || -d $git_dir/rebase-apply ]]
     then
@@ -232,8 +229,7 @@ function gitsh_repo_state {
 }
 
 function gitsh_workdir {
-    local subdir
-    git rev-parse --show-prefix 2>/dev/null | IFS= read -r subdir
+    local subdir=$(git rev-parse --show-prefix 2>/dev/null)
     subdir=${subdir%/}
 
     workdir=${PWD%/"$subdir"}
@@ -329,9 +325,6 @@ function gitsh_main {
     fi
 
     readonly GITSH_MAIN_SOURCED=1
-
-    # This is set in `~/.bashrc` already; repeating here to satisfy the linter.
-    shopt -s lastpipe
 
     if ! command -v __git_complete &>/dev/null
     then
