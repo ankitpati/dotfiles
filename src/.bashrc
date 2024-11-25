@@ -441,8 +441,6 @@ function main {
         TNS_ADMIN \
     ;
 
-    shopt -s lastpipe
-
     if [[ $OSTYPE == *darwin* && $UID == 0 ]]
     then
         # Clear out `$PATH` before sourcing `/etc/profile` for root.
