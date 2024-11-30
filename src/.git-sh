@@ -328,7 +328,18 @@ function gitsh_main {
 
     if ! command -v __git_complete &>/dev/null
     then
-        _comp_load -D -- git
+        if command -v _comp_load &>/dev/null
+        then
+            # For
+            # * Homebrew
+            # * openSUSE
+            _comp_load -D -- git &>/dev/null
+        elif command -v __load_completion &>/dev/null
+        then
+            # For
+            # * Ubuntu
+            __load_completion git &>/dev/null
+        fi
     fi
 
     gitsh_load_aliases
