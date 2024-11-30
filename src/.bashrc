@@ -630,7 +630,7 @@ function main {
         PATH="$HOME/.krew/bin:$PATH"
 
         # pyenv
-        if [[ -d $PYENV_ROOT ]]
+        if command -v pyenv &>/dev/null && [[ -d $PYENV_ROOT ]]
         then
             source <(pyenv init -)
         fi
