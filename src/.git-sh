@@ -166,8 +166,6 @@ function gitsh_load_completions {
 }
 
 function gitsh_headname {
-    headname=$(git symbolic-ref --quiet HEAD 2>/dev/null)
-
     if [[ -n $headname ]]
     then
         headname=${headname#refs/heads/}
@@ -180,13 +178,11 @@ function gitsh_headname {
 
 function gitsh_upstream_state {
     # find how many commits we are ahead/behind our upstream
-    local count=$(git rev-list --count --left-right '@{upstream}'...HEAD 2>/dev/null)
-    count=${count//$'\t'/ }
+    upstream_state=${upstream_state//$'\t'/ }
 
-    case $count in
+    case $upstream_state in
         '')
             # no upstream
-            upstream_state=''
             ;;
         '0 0')
             # equal to upstream
@@ -194,15 +190,15 @@ function gitsh_upstream_state {
             ;;
         '0 '*)
             # ahead of upstream
-            upstream_state=" u+${count#0 }"
+            upstream_state=" u+${upstream_state#0 }"
             ;;
         *' 0')
             # behind upstream
-            upstream_state=" u-${count% 0}"
+            upstream_state=" u-${upstream_state% 0}"
             ;;
         *)
             # diverged from upstream
-            upstream_state=" u+${count#* }-${count% *}"
+            upstream_state=" u+${upstream_state#* }-${upstream_state% *}"
             ;;
     esac
 
@@ -210,18 +206,17 @@ function gitsh_upstream_state {
 }
 
 function gitsh_repo_state {
-    local -r git_dir=$(git rev-parse --git-dir 2>/dev/null)
-
-    if [[ -d $git_dir/rebase-merge || -d $git_dir/rebase-apply ]]
+    if [[ -d $state_marker/rebase-merge || -d $state_marker/rebase-apply ]]
     then
         state_marker='(rebase)'
-    elif [[ -f $git_dir/MERGE_HEAD ]]
+    elif [[ -f $state_marker/MERGE_HEAD ]]
     then
         state_marker='(merge)'
-    elif [[ -f $git_dir/CHERRY_PICK_HEAD ]]
+    elif [[ -f $state_marker/CHERRY_PICK_HEAD ]]
     then
         state_marker='(cherry-pick)'
     else
+        state_marker=''
         return 0
     fi
 
@@ -229,7 +224,7 @@ function gitsh_repo_state {
 }
 
 function gitsh_workdir {
-    local subdir=$(git rev-parse --show-prefix 2>/dev/null)
+    local subdir=$workdir
     subdir=${subdir%/}
 
     workdir=${PWD%/"$subdir"}
@@ -297,16 +292,24 @@ function gitsh_apply_color {
 function gitsh_prompt {
     local -n output=$1
 
-    local headname
+    local -a gitsh_details
+    mapfile -t gitsh_details < <(
+        git symbolic-ref --quiet HEAD 2>/dev/null
+        git rev-list --count --left-right '@{upstream}'...HEAD 2>/dev/null
+        git rev-parse --git-dir 2>/dev/null
+        git rev-parse --show-prefix 2>/dev/null
+    )
+
+    local headname=${gitsh_details[0]}
     gitsh_headname
 
-    local upstream_state
+    local upstream_state=${gitsh_details[1]}
     gitsh_upstream_state
 
-    local state_marker
+    local state_marker=${gitsh_details[2]}
     gitsh_repo_state
 
-    local workdir
+    local workdir=${gitsh_details[3]}
     gitsh_workdir
 
     local dirty_marker
