@@ -294,10 +294,10 @@ function gitsh_prompt {
 
     local -a gitsh_details
     mapfile -t gitsh_details < <(
-        git symbolic-ref --quiet HEAD 2>/dev/null
-        git rev-list --count --left-right '@{upstream}'...HEAD 2>/dev/null
-        git rev-parse --git-dir 2>/dev/null
-        git rev-parse --show-prefix 2>/dev/null
+        git symbolic-ref --quiet HEAD 2>/dev/null || echo
+        git rev-list --count --left-right '@{upstream}'...HEAD 2>/dev/null || echo
+        git rev-parse --git-dir 2>/dev/null || echo
+        git rev-parse --show-prefix 2>/dev/null || echo
     )
 
     local headname=${gitsh_details[0]}
