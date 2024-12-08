@@ -93,3 +93,25 @@ augroup vimrc
     autocmd!
     autocmd BufNew,BufRead * :syntax sync fromstart
 augroup end
+
+# Traditional/Hard Mode
+    # Disable Backspace
+    inoremap <BS> <Nop>
+    nnoremap <BS> <Nop>
+
+    # Disable Arrow Keys
+    inoremap <Up> <Nop>
+    inoremap <Down> <Nop>
+    inoremap <Left> <Nop>
+    inoremap <Right> <Nop>
+    nnoremap <Up> <Nop>
+    nnoremap <Down> <Nop>
+    nnoremap <Left> <Nop>
+    nnoremap <Right> <Nop>
+
+    # Disable Page Up/Down
+    inoremap <PageUp> <Nop>
+    inoremap <PageDown> <Nop>
+    nnoremap <PageUp> <Nop>
+    nnoremap <PageDown> <Nop>
+# End of Traditional/Hard Mode
