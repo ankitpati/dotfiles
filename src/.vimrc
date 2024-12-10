@@ -117,4 +117,5 @@ augroup end
 
     # Smart Command Mode
     nnoremap : q:i
+    vnoremap : q:i
 # End of Keybinding Overrides
