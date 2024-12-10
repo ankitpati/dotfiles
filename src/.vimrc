@@ -94,7 +94,7 @@ augroup vimrc
     autocmd BufNew,BufRead * :syntax sync fromstart
 augroup end
 
-# Traditional/Hard Mode
+# Keybinding Overrides
     # Disable Backspace
     inoremap <BS> <Nop>
     nnoremap <BS> <Nop>
@@ -114,4 +114,7 @@ augroup end
     inoremap <PageDown> <Nop>
     nnoremap <PageUp> <Nop>
     nnoremap <PageDown> <Nop>
-# End of Traditional/Hard Mode
+
+    # Smart Command Mode
+    nnoremap : q:i
+# End of Keybinding Overrides
