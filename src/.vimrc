@@ -114,8 +114,4 @@ augroup end
     inoremap <PageDown> <Nop>
     nnoremap <PageUp> <Nop>
     nnoremap <PageDown> <Nop>
-
-    # Smart Command Mode
-    nnoremap : q:i
-    vnoremap : q:i
 # End of Keybinding Overrides
