@@ -361,8 +361,6 @@ fdupes -rNd .
 fdupes .
 figlet Type your message here.
 file -i filename
-find "$HOME/.local/share/gem/ruby" -mindepth 1 -maxdepth 1 -type d | sort -V
-find "$HOME/Pictures/Photos Library.photoslibrary/originals/" -type f \( -name '*.heic' -o -name '*.mov' \) -exec cp --target-directory="$HOME/Pictures/Exported/" {} +
 find . -exec sha256sum {} + 2>/dev/null | cut -d' ' -f1 | paste -sd' ' | sed 's/ //g' | perl -pi -E 'chomp if eof' | sha256sum
 find . -maxdepth 1 -print0 | xargs --null --max-args 1 du --human-readable --summarize | sort --human-numeric-sort
 find . -maxdepth 1 -type d -mtime 0
@@ -378,6 +376,8 @@ find . -type f -name '*.expanded-csr' -exec openssl req -noout -text -in {} \; |
 find . -type f -name '*.lastUpdated' -delete
 find . -type f -name 'filename_with_ip_addresses' -exec grep --perl-regexp --only-matching --no-filename '(?:[0-9]+\.){3}[0-9]+/[0-9]+' {} + | sort --unique | while read -r subnet; do subnetcalc "$subnet" -n; done
 find . -type f -name requirements.txt -exec pip install -r {} \;
+find ~/.local/share/gem/ruby -mindepth 1 -maxdepth 1 -type d | sort -V
+find ~/Pictures/Photos Library.photoslibrary/originals/ -type f \( -name '*.heic' -o -name '*.mov' \) -exec cp --target-directory="$HOME/Pictures/Exported/" {} +
 firewall-cmd --add-forward-port=port=443:proto=tcp:toport=8443
 firewall-cmd --add-masquerade
 firewall-cmd --add-protocol=ssh
