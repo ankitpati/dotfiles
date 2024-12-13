@@ -437,6 +437,7 @@ function main {
         SDKMAN_DIR \
         SRC_DISABLE_USER_AGENT_TELEMETRY \
         SRC_ENDPOINT \
+        SSH_AUTH_SOCK \
         TFENV_AUTO_INSTALL \
         TNS_ADMIN \
     ;
@@ -623,6 +624,16 @@ function main {
 
     if ((UID != 0))
     then
+        # 1Password SSH Agent
+        if [[ $OSTYPE == *darwin* ]]
+        then
+            local op_ssh_agent_socket="$HOME/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
+            if [[ -S $op_ssh_agent_socket ]]
+            then
+                SSH_AUTH_SOCK=$op_ssh_agent_socket
+            fi
+        fi
+
         # arkade
         PATH="$HOME/.arkade/bin:$PATH"
 
