@@ -98,6 +98,7 @@ augroup end
     # Disable Backspace
     inoremap <BS> <Nop>
     nnoremap <BS> <Nop>
+    vnoremap <BS> <Nop>
 
     # Disable Arrow Keys
     inoremap <Up> <Nop>
@@ -108,10 +109,16 @@ augroup end
     nnoremap <Down> <Nop>
     nnoremap <Left> <Nop>
     nnoremap <Right> <Nop>
+    vnoremap <Up> <Nop>
+    vnoremap <Down> <Nop>
+    vnoremap <Left> <Nop>
+    vnoremap <Right> <Nop>
 
     # Disable Page Up/Down
     inoremap <PageUp> <Nop>
     inoremap <PageDown> <Nop>
     nnoremap <PageUp> <Nop>
     nnoremap <PageDown> <Nop>
+    vnoremap <PageUp> <Nop>
+    vnoremap <PageDown> <Nop>
 # End of Keybinding Overrides
