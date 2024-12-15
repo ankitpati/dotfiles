@@ -95,30 +95,31 @@ augroup vimrc
 augroup end
 
 # Keybinding Overrides
-    # Disable Backspace
-    inoremap <BS> <Nop>
-    nnoremap <BS> <Nop>
-    vnoremap <BS> <Nop>
+    for mode in [
+        'c', # command
+        'i', # insert
+        'n', # normal
+        'v', # visual, select
+    ]
+        for key1 in [
+            '<',  # none
+            'C-', # Ctrl
+            'S-', # Shift
+        ]
+            for key2 in [
+                'BS>', # Backspace
 
-    # Disable Arrow Keys
-    inoremap <Up> <Nop>
-    inoremap <Down> <Nop>
-    inoremap <Left> <Nop>
-    inoremap <Right> <Nop>
-    nnoremap <Up> <Nop>
-    nnoremap <Down> <Nop>
-    nnoremap <Left> <Nop>
-    nnoremap <Right> <Nop>
-    vnoremap <Up> <Nop>
-    vnoremap <Down> <Nop>
-    vnoremap <Left> <Nop>
-    vnoremap <Right> <Nop>
+                # Arrow Keys
+                'Up>',
+                'Down>',
+                'Left>',
+                'Right',
 
-    # Disable Page Up/Down
-    inoremap <PageUp> <Nop>
-    inoremap <PageDown> <Nop>
-    nnoremap <PageUp> <Nop>
-    nnoremap <PageDown> <Nop>
-    vnoremap <PageUp> <Nop>
-    vnoremap <PageDown> <Nop>
+                'PageUp>',
+                'PageDown>',
+            ]
+                execute mode .. 'noremap' key1 .. key2 '<Nop>'
+            endfor
+        endfor
+    endfor
 # End of Keybinding Overrides
