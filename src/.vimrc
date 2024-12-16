@@ -122,4 +122,8 @@ augroup end
             endfor
         endfor
     endfor
+
+    # Easing these until C-p takes already-typed text into account.
+    cunmap <Up>
+    cunmap <Down>
 # End of Keybinding Overrides
