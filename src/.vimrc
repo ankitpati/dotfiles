@@ -113,10 +113,12 @@ augroup end
                 'Up>',
                 'Down>',
                 'Left>',
-                'Right',
+                'Right>',
 
                 'PageUp>',
                 'PageDown>',
+                'Home>',
+                'End>',
             ]
                 execute mode .. 'noremap' key1 .. key2 '<Nop>'
             endfor
