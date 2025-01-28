@@ -4,6 +4,7 @@ set nocompatible
 # Plugin Config
     call plug#begin()
         Plug 'APZelos/blamer.nvim'
+        Plug 'AndrewRadev/linediff.vim'
         Plug 'airblade/vim-gitgutter'
         Plug 'dense-analysis/ale'
         Plug 'godlygeek/tabular'
