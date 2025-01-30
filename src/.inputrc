@@ -1,9 +1,14 @@
-set editing-mode vi
 $include /etc/inputrc
+
+TAB:menu-complete
 
 set bell-style none
 set colored-completion-prefix
 set colored-stats
-set completion-query-items -1
+set completion-query-items 0
 set echo-control-characters off
+set editing-mode vi
 set mark-symlinked-directories
+set menu-complete-display-prefix
+set page-completions off
+set show-all-if-ambiguous
