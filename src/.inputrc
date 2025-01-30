@@ -1,7 +1,8 @@
 set editing-mode vi
 $include /etc/inputrc
 
-TAB:menu-complete
+"\e[Z": menu-complete-backward
+"\t": menu-complete
 
 set bell-style none
 set colored-completion-prefix
