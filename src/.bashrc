@@ -599,6 +599,7 @@ function main {
     alias git-sh='source "$HOME/.git-sh"; unalias git-sh'
     alias grep='grep --color=auto'
     alias grepp='grep -P'
+    alias k9s='exec k9s'
     alias l.='ls -d .*'
     alias l='ls -CF'
     alias la='ls -A'
