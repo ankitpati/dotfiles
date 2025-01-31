@@ -395,6 +395,7 @@ function main {
 
     export \
         ANDROID_HOME \
+        BUILDFARM_HOME \
         CLASSPATH \
         DOCKER_HOST \
         DOTNET_CLI_TELEMETRY_OPTOUT \
@@ -693,6 +694,9 @@ function main {
 
         # Android
         PATH="$HOME/Android/Sdk/platform-tools:$PATH"
+
+        # Buildfarm
+        BUILDFARM_HOME="$HOME/src/github.com/buildfarm/buildfarm"
 
         # User-installed tools
         CLASSPATH="$HOME/jar:$HOME/.local/jar:$CLASSPATH"
