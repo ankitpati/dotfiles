@@ -3,7 +3,6 @@
         "editor.wordWrap": "off"
     },
     "comments.useRelativeTime": false,
-    "connections.tnsConfiguration.path": "/home/ankitpati/.tnsadmin/",
     "diffEditor.ignoreTrimWhitespace": false,
     "editor.acceptSuggestionOnEnter": "off",
     "editor.accessibilitySupport": "off",
