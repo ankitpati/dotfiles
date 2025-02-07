@@ -312,17 +312,17 @@ function gitsh_prompt {
     local workdir=${gitsh_details[3]}
     gitsh_workdir
 
-    local dirty_marker
+    local dirty_marker=''
     gitsh_dirty
 
-    local dirty_stash_marker
+    local dirty_stash_marker=''
     gitsh_dirty_stash
 
     output="$headname$upstream_state"'!'"$state_marker$workdir$dirty_marker$dirty_stash_marker> "
 }
 
 function gitsh_main {
-    if [[ -n $GITSH_MAIN_SOURCED ]]
+    if [[ -n ${GITSH_MAIN_SOURCED:-} ]]
     then
         return 0
     fi
