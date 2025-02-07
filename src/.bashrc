@@ -350,7 +350,7 @@ function set_prompt {
     local short_prompt=$SHORT_PROMPT
     local shortest_prompt=$SHORTEST_PROMPT
 
-    if [[ -n $GITSH_MAIN_SOURCED ]]
+    if [[ -n ${GITSH_MAIN_SOURCED:-} ]]
     then
         local add_on_ps1
 
