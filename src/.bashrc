@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-set -o nounset
-
 function sanitize_path {
     local -n input=$1
     local IFS=':'
