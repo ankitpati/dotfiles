@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -o nounset
+
 function sanitize_path {
     local -n input=$1
     local IFS=':'
@@ -62,7 +64,7 @@ function B-tmpbin {
 }
 
 function add_brewed_items_to_env {
-    if [[ -z $brew_prefix ]]
+    if [[ -z ${brew_prefix:-} ]]
     then
         return
     fi
@@ -246,14 +248,14 @@ function add_brewed_items_to_env {
             local extra_manpages="$admin_user_home/man:$admin_user_home/.local/share/man:$extra_manpages"
         fi
 
-        CLASSPATH="$extra_claspath:$CLASSPATH"
-        DYLD_LIBRARY_PATH="$extra_dyldpath:$DYLD_LIBRARY_PATH"
-        if [[ -n $MANPATH ]]
+        CLASSPATH="$extra_claspath:${CLASSPATH:-}"
+        DYLD_LIBRARY_PATH="$extra_dyldpath:${DYLD_LIBRARY_PATH:-}"
+        if [[ -n ${MANPATH:-} ]]
         then
             MANPATH="$extra_manpages:$MANPATH"
         fi
         PATH="$extra_binaries:$PATH"
-        PKG_CONFIG_PATH="$extra_pkgpaths:$PKG_CONFIG_PATH"
+        PKG_CONFIG_PATH="$extra_pkgpaths:${PKG_CONFIG_PATH:-}"
 
         # Google Cloud SDK
         if ((UID != 0))
@@ -386,7 +388,7 @@ function set_prompt {
 }
 
 function main {
-    if [[ -n $BASHRC_MAIN_SOURCED ]]
+    if [[ -n ${BASHRC_MAIN_SOURCED:-} ]]
     then
         return 0
     fi
@@ -457,7 +459,7 @@ function main {
     # Source global definitions
     local global_profile='/etc/profile'
     # `$PROFILEREAD` is openSUSE-specific at the time of writing.
-    if [[ -z $PROFILEREAD && -f $global_profile ]]
+    if [[ -z ${PROFILEREAD:-} && -f $global_profile ]]
     then
         source "$global_profile"
     fi
@@ -493,7 +495,7 @@ function main {
     local brew_prefix=$(command -v brew &>/dev/null && brew --prefix)
 
     # Ensure `source`s below this see the correct `$MANPATH`.
-    local manpath=$MANPATH
+    local manpath=${MANPATH:-}
     if command -v manpath &>/dev/null
     then
         MANPATH="$manpath:$(manpath 2>/dev/null)"
@@ -516,9 +518,9 @@ function main {
     HISTCONTROL='ignoreboth'
     HISTFILESIZE=''
     HISTSIZE=''
-    if [[ $PROMPT_COMMAND != *history* ]]
+    if [[ ${PROMPT_COMMAND:-} != *history* ]]
     then
-        local prompt_command="set_prompt; history -a; history -n; $PROMPT_COMMAND"
+        local prompt_command="set_prompt; history -a; history -n; ${PROMPT_COMMAND:-}"
         PROMPT_COMMAND=${prompt_command//__vte_prompt_command}
     fi
 
@@ -559,11 +561,11 @@ function main {
     PYENV_ROOT="$HOME/.pyenv/"
 
     # Perl
-    PERL5LIB="$HOME/perl5/lib/perl5:$PERL5LIB"
+    PERL5LIB="$HOME/perl5/lib/perl5:${PERL5LIB:-}"
     PERLBREW_CPAN_MIRROR='https://www.cpan.org/'
     PERLCRITIC="$HOME/.perlcriticrc"
     PERL_CPANM_OPT='--from https://www.cpan.org/ --verify'
-    PERL_LOCAL_LIB_ROOT="$HOME/perl5:$PERL_LOCAL_LIB_ROOT"
+    PERL_LOCAL_LIB_ROOT="$HOME/perl5:${PERL_LOCAL_LIB_ROOT:-}"
     PERL_MB_OPT="--install_base '$HOME/perl5'"
     PERL_MM_OPT="INSTALL_BASE=$HOME/perl5"
 
@@ -571,7 +573,7 @@ function main {
     if command -v podman &>/dev/null
     then
         local podman_socket_runtime_dir
-        if [[ -n $XDG_RUNTIME_DIR ]]
+        if [[ -n ${XDG_RUNTIME_DIR:-} ]]
         then
             podman_socket_runtime_dir=$XDG_RUNTIME_DIR
         else
@@ -657,7 +659,7 @@ function main {
 
         # Perl local::lib
         PATH="$HOME/perl5/bin:$PATH"
-        if [[ -n $MANPATH ]]
+        if [[ -n ${MANPATH:-} ]]
         then
             MANPATH="$HOME/perl5/man:$MANPATH"
         fi
@@ -700,17 +702,17 @@ function main {
         BUILDFARM_HOME="$HOME/src/github.com/buildfarm/buildfarm"
 
         # User-installed tools
-        CLASSPATH="$HOME/jar:$HOME/.local/jar:$CLASSPATH"
+        CLASSPATH="$HOME/jar:$HOME/.local/jar:${CLASSPATH:-}"
         if [[ $OSTYPE == *darwin* ]]
         then
-            DYLD_LIBRARY_PATH="$HOME/lib:$HOME/.local/lib:$DYLD_LIBRARY_PATH"
+            DYLD_LIBRARY_PATH="$HOME/lib:$HOME/.local/lib:${DYLD_LIBRARY_PATH:-}"
         fi
-        if [[ -n $MANPATH ]]
+        if [[ -n ${MANPATH:-} ]]
         then
             MANPATH="$HOME/man:$HOME/.local/share/man:$MANPATH"
         fi
         PATH="$HOME/bin:$HOME/.local/bin:$PATH"
-        PERL5LIB="$HOME/lib/perl5:$HOME/.local/lib/perl5:$PERL5LIB"
+        PERL5LIB="$HOME/lib/perl5:$HOME/.local/lib/perl5:${PERL5LIB:-}"
     fi
 
     # Colours for `tree`
