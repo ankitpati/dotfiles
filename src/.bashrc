@@ -441,6 +441,7 @@ function main {
         SSH_AUTH_SOCK \
         TFENV_AUTO_INSTALL \
         TNS_ADMIN \
+        USE_BAZEL_VERSION \
     ;
 
     if [[ $OSTYPE == *darwin* && $UID == 0 ]]
@@ -593,6 +594,9 @@ function main {
 
     # No `man` Prompts on Namesake Pages
     MAN_POSIXLY_CORRECT=1
+
+    # Bazelisk
+    USE_BAZEL_VERSION='latest'
 
     alias chomp='perl -pi -E "chomp if eof"'
     alias cpan-outdated='cpan-outdated --mirror="$PERLBREW_CPAN_MIRROR"'
