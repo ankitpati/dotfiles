@@ -37,6 +37,8 @@ function gitsh_load_aliases {
         [peek]='log --patch --max-count=1'
         [pr]='pull --rebase'
         [r]='remote'
+        [s]='commit --dry-run --short'
+        [t]='diff --staged'
         [wt]='worktree'
     )
 
