@@ -133,6 +133,7 @@ function add_brewed_items_to_env {
             gnu-time \
             gnu-sed \
             gnu-tar \
+            gpatch \
             openssl \
             gnu-getopt \
             gettext \
