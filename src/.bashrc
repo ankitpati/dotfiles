@@ -216,8 +216,9 @@ function add_brewed_items_to_env {
 
         if ((UID != 0))
         then
+            local sqlclversion
             # shellcheck disable=2012
-            local sqlclversion=$(ls -vr "$brew_prefix/Caskroom/sqlcl" | head -1)
+            sqlclversion=$(ls -vr "$brew_prefix/Caskroom/sqlcl" | head -1)
             local sqlclpath="$brew_prefix/Caskroom/sqlcl/$sqlclversion/sqlcl/bin"
             if [[ -d $sqlclpath ]]
             then
@@ -469,7 +470,8 @@ function main {
         mesg n || :
     fi
 
-    local lc_ctype=$(command -v locale &>/dev/null && locale)
+    local lc_ctype
+    lc_ctype=$(command -v locale &>/dev/null && locale)
     lc_ctype=${lc_ctype##*LC_CTYPE=\"}
     lc_ctype=${lc_ctype%%\"*}
 
@@ -492,7 +494,8 @@ function main {
         PATH="/opt/homebrew/bin:$PATH"
     fi
 
-    local brew_prefix=$(command -v brew &>/dev/null && brew --prefix)
+    local brew_prefix
+    brew_prefix=$(command -v brew &>/dev/null && brew --prefix)
 
     # Ensure `source`s below this see the correct `$MANPATH`.
     local manpath=${MANPATH:-}
