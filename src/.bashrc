@@ -218,7 +218,7 @@ function add_brewed_items_to_env {
         then
             local sqlclversion
             # shellcheck disable=2012
-            sqlclversion=$(ls --reverse -v "$brew_prefix/Caskroom/sqlcl" | head --lines=1)
+            sqlclversion=$(ls -rv "$brew_prefix/Caskroom/sqlcl" | head --lines=1)
             local sqlclpath="$brew_prefix/Caskroom/sqlcl/$sqlclversion/sqlcl/bin"
             if [[ -d $sqlclpath ]]
             then
