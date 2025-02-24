@@ -599,6 +599,14 @@ function main {
     # Bazelisk
     USE_BAZEL_VERSION='latest'
 
+    # JetBrains
+    if [[ $OSTYPE == *darwin* ]]
+    then
+        PATH="$HOME/Library/Application Support/JetBrains/Toolbox/scripts:$PATH"
+    else
+        PATH="$HOME/.local/share/JetBrains/Toolbox/scripts:$PATH"
+    fi
+
     alias chomp='perl -pi -E "chomp if eof"'
     alias cpan-outdated='cpan-outdated --mirror="$PERLBREW_CPAN_MIRROR"'
     alias git-sh='source "$HOME/.git-sh"; unalias git-sh'
