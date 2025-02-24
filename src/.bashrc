@@ -218,7 +218,7 @@ function add_brewed_items_to_env {
         then
             local sqlclversion
             # shellcheck disable=2012
-            sqlclversion=$(ls -vr "$brew_prefix/Caskroom/sqlcl" | head -1)
+            sqlclversion=$(ls --reverse -v "$brew_prefix/Caskroom/sqlcl" | head --lines=1)
             local sqlclpath="$brew_prefix/Caskroom/sqlcl/$sqlclversion/sqlcl/bin"
             if [[ -d $sqlclpath ]]
             then
@@ -703,7 +703,7 @@ function main {
         if [[ -n $(ls "$ruby_gems" 2>/dev/null) ]]
         then
             # shellcheck disable=2012
-            PATH="$ruby_gems/$(ls -vr "$ruby_gems" | head -1)/bin:$PATH"
+            PATH="$ruby_gems/$(ls --reverse -v "$ruby_gems" | head --lines=1)/bin:$PATH"
         fi
 
         # .NET
