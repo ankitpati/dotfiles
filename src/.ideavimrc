@@ -1,3 +1,18 @@
 set ideajoin
 set ideastatusicon=gray
 set incsearch
+
+sethandler <C-B> a:vim
+sethandler <C-D> a:vim
+sethandler <C-E> a:vim
+sethandler <C-F> a:vim
+sethandler <C-G> a:vim
+sethandler <C-H> a:vim
+sethandler <C-I> a:vim
+sethandler <C-J> a:vim
+sethandler <C-N> a:vim
+sethandler <C-O> a:vim
+sethandler <C-P> a:vim
+sethandler <C-R> a:vim
+sethandler <C-V> a:vim
+sethandler <C-W> a:vim
