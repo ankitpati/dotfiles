@@ -17,14 +17,14 @@
 [delta]
     max-line-distance = 1.0
     max-line-length = 0
-[diff-so-fancy]
-    markEmptyLines = false
 [diff]
     algorithm = histogram
     colorMoved = plain
     mnemonicPrefix = true
     renames = true
     tool = vimdiff
+[diff-so-fancy]
+    markEmptyLines = false
 [difftool]
     prompt = false
 [fetch]
@@ -36,21 +36,21 @@
     process = git-lfs filter-process
     required = true
     smudge = git-lfs smudge -- %f
-[gpg "ssh"]
-    allowedSignersFile = ~/.ssh/allowed_signers
 [gpg]
     format = ssh
     program = gpg2
+[gpg "ssh"]
+    allowedSignersFile = ~/.ssh/allowed_signers
 [init]
     defaultBranch = main
 [log]
     date = iso-strict
     showSignature = false
+[merge]
+    tool = vimdiff
 [merge "mergiraf"]
     driver = mergiraf merge --git %O %A %B -s %S -x %X -y %Y -p %P
     name = mergiraf
-[merge]
-    tool = vimdiff
 [pull]
     ff = only
     rebase = false
