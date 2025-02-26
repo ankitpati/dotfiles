@@ -2,8 +2,13 @@
     detachedHead = false
 [alias]
     patch = !git --no-pager diff --no-color
+[branch]
+    sort = -committerdate
+[column]
+    ui = auto
 [commit]
     gpgSign = false
+    verbose = true
 [core]
     attributesfile = ~/.gitattributes
     editor = vim
@@ -15,9 +20,17 @@
 [diff-so-fancy]
     markEmptyLines = false
 [diff]
+    algorithm = histogram
+    colorMoved = plain
+    mnemonicPrefix = true
+    renames = true
     tool = vimdiff
 [difftool]
     prompt = false
+[fetch]
+    all = true
+    prune = true
+    pruneTags = true
 [filter "lfs"]
     clean = git-lfs clean -- %f
     process = git-lfs filter-process
@@ -41,10 +54,16 @@
 [pull]
     ff = only
     rebase = false
+[push]
+    autoSetupRemote = true
 [receive]
     denyCurrentBranch = updateInstead
+[rerere]
+    autoupdate = true
+    enabled = true
 [tag]
     gpgSign = true
+    sort = -version:refname
 [user]
     email = contact@ankitpati.in
     name = Ankit Pati
