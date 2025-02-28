@@ -421,7 +421,7 @@ gcloud components install gke-gcloud-auth-plugin
 gcloud components list
 gcloud components repositories list
 gcloud compute addresses list --project=project_id --filter='name:instance_name' --format='table(name,address)'
-gcloud compute backend-services list --filter=name="($(gcloud compute forwarding-rules list --filter=IPAddress='(10.10.10.10)' --format=json'(name)' | jq --raw-output .[0].name))" --format=json'(backends)' | jq .[0].backends[]
+gcloud compute backend-services list --filter=name="($(gcloud compute forwarding-rules list --filter=IPAddress='(10.10.10.10)' --format=json'(name)' | jq --raw-output .[0].name))" --format=json'(backends)' | jq '.[0].backends[]'
 gcloud compute connect-to-serial-port instance_name --project=project_id --zone=us-west1-a --port=1
 gcloud compute disks resize instance_name --project=project_id --zone=us-west1-a --size=25GB
 gcloud compute firewall-rules list --format=json --filter='allowed.ports[0] = ("1234") AND allowed.ports[1] = ("2345")' | jq .
@@ -1200,7 +1200,7 @@ podman inspect image_name | jq .
 podman list
 podman ps
 podman ps --no-trunc --all
-podman pull "kindest/node:$(skopeo list-tags docker://kindest/node | jq --raw-output .Tags[] | sort --version-sort | tail --lines=1)"
+podman pull "kindest/node:$(skopeo list-tags docker://kindest/node | jq --raw-output '.Tags[]' | sort --version-sort | tail --lines=1)"
 podman pull fedora
 podman pull fedora-toolbox
 podman pull registry.fedoraproject.org/f34
@@ -1346,9 +1346,9 @@ skopeo inspect --daemon-host="$DOCKER_HOST" docker-daemon:image_name:tag_name | 
 skopeo inspect --no-tags docker://quay.io/namespace/image_name:tag_name | jq .
 skopeo inspect --raw docker://quay.io/namespace/image_name:tag_name | jq .
 skopeo inspect docker://quay.io/ankitpati/tigress | jq .
-skopeo list-tags --override-arch amd64 --override-os linux docker://kindest/node | jq --raw-output .Tags[] | sort -V
-skopeo list-tags docker://hashicorp/terraform | jq --raw-output .Tags[] | while read -r tag; do skopeo inspect docker://hashicorp/terraform:"$tag" | jq --join-output '[.Created,.Labels."com.hashicorp.terraform.version"] | join(" ")'; printf ' %s\n' "$tag"; done | sort -V
-skopeo list-tags docker://quay.io/ankitpati/tigress | jq --raw-output .Tags[]
+skopeo list-tags --override-arch amd64 --override-os linux docker://kindest/node | jq --raw-output '.Tags[]' | sort -V
+skopeo list-tags docker://hashicorp/terraform | jq --raw-output '.Tags[]' | while read -r tag; do skopeo inspect docker://hashicorp/terraform:"$tag" | jq --join-output '[.Created,.Labels."com.hashicorp.terraform.version"] | join(" ")'; printf ' %s\n' "$tag"; done | sort -V
+skopeo list-tags docker://quay.io/ankitpati/tigress | jq --raw-output '.Tags[]'
 skopeo sync --all --src docker --dest docker gcr.io/project_id/namespace/image_name quay.io/namespace/image_name
 skopeo sync --dry-run --all --src docker --dest docker gcr.io/project_id/namespace/image_name quay.io/namespace/image_name
 skopeo sync --override-arch amd64 --override-os linux --src docker --dest docker gcr.io/project_id/namespace/image_name:tag_name quay.io/namespace/
