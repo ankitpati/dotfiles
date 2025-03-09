@@ -57,6 +57,7 @@ set nocompatible
     g:blamer_show_in_insert_modes = 0
     g:blamer_show_in_visual_modes = 0
     g:blamer_template = '<committer-mail> <committer-time> <summary>'
+    g:java_ignore_markdown = true
 
     highlight Blamer ctermfg=lightgray
 # End of Plugin Config
