@@ -53,9 +53,9 @@ set nocompatible
     g:ale_virtualtext_cursor = 'disabled'
     g:blamer_date_format = '%Y-%m-%dT%H:%M:%S%Z'
     g:blamer_delay = 300
-    g:blamer_enabled = 0
-    g:blamer_show_in_insert_modes = 0
-    g:blamer_show_in_visual_modes = 0
+    g:blamer_enabled = false
+    g:blamer_show_in_insert_modes = false
+    g:blamer_show_in_visual_modes = false
     g:blamer_template = '<committer-mail> <committer-time> <summary>'
     g:java_ignore_markdown = true
 
