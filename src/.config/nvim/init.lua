@@ -1,14 +1,13 @@
-vim.cmd [[
-call plug#begin()
-    Plug 'APZelos/blamer.nvim'
-    Plug 'AndrewRadev/linediff.vim'
-    Plug 'airblade/vim-gitgutter'
-    Plug 'dense-analysis/ale'
-    Plug 'godlygeek/tabular'
-    Plug 'gregsexton/MatchTag'
-    Plug 'sheerun/vim-polyglot'
-call plug#end()
-]]
+require('packer').startup(function(use)
+    use 'wbthomason/packer.nvim'
+    use 'APZelos/blamer.nvim'
+    use 'AndrewRadev/linediff.vim'
+    use 'airblade/vim-gitgutter'
+    use 'dense-analysis/ale'
+    use 'godlygeek/tabular'
+    use 'gregsexton/MatchTag'
+    use 'sheerun/vim-polyglot'
+end)
 
 vim.g.ale_fixers = {
     c          = {'astyle'},
@@ -52,10 +51,8 @@ vim.g.blamer_show_in_visual_modes = false
 vim.g.blamer_template = '<committer-mail> <committer-time> <summary>'
 vim.g.java_ignore_markdown = true
 
-vim.cmd [[
-syntax on
-filetype plugin indent on
-]]
+vim.opt.syntax = 'on'
+vim.cmd('filetype plugin indent on')
 
 vim.opt.autoindent = true
 vim.opt.background = 'dark'
@@ -64,7 +61,7 @@ vim.opt.belloff = 'all'
 vim.opt.colorcolumn = '73,81,101,121'
 vim.opt.directory = '~/.vim/swapfiles//'
 vim.opt.expandtab = true
-vim.opt.fileformats = 'unix'
+vim.opt.fileformats = {'unix'}
 vim.opt.hlsearch = true
 vim.opt.incsearch = true
 vim.opt.modeline = false
@@ -75,25 +72,29 @@ vim.opt.synmaxcol = 0
 vim.opt.tabstop = 4
 vim.opt.updatetime = 250
 
-vim.cmd [[
-highlight Blamer          ctermfg=lightgray
-highlight GitGutterAdd    ctermfg=darkgreen
-highlight GitGutterChange ctermfg=darkyellow
-highlight GitGutterDelete ctermfg=darkred
-highlight ColorColumn     ctermbg=darkgray
-highlight StatusLine      ctermbg=darkgray ctermfg=black
-highlight StatusLineNC    ctermbg=darkgray ctermfg=black
-highlight TabLine         cterm=NONE ctermbg=black ctermfg=darkgray
-highlight TabLineFill     ctermfg=black
-highlight TabLineSel      ctermbg=black
-highlight VertSplit       ctermbg=darkgray ctermfg=black
-]]
+local highlight_groups = {
+    Blamer = {ctermfg = 'lightgray'},
+    GitGutterAdd = {ctermfg = 'darkgreen'},
+    GitGutterChange = {ctermfg = 'darkyellow'},
+    GitGutterDelete = {ctermfg = 'darkred'},
+    ColorColumn = {ctermbg = 'darkgray'},
+    StatusLine = {ctermbg = 'darkgray', ctermfg = 'black'},
+    StatusLineNC = {ctermbg = 'darkgray', ctermfg = 'black'},
+    TabLine = {cterm = 'NONE', ctermbg = 'black', ctermfg = 'darkgray'},
+    TabLineFill = {ctermfg = 'black'},
+    TabLineSel = {ctermbg = 'black'},
+    VertSplit = {ctermbg = 'darkgray', ctermfg = 'black'},
+}
 
-vim.api.nvim_create_augroup("vimrc", { clear = true })
+for group, attrs in pairs(highlight_groups) do
+    vim.api.nvim_set_hl(0, group, attrs)
+end
+
+local group = vim.api.nvim_create_augroup("vimrc", { clear = true })
 vim.api.nvim_create_autocmd({"BufNew", "BufRead"}, {
     pattern = "*",
     command = "syntax sync fromstart",
-    group = "vimrc",
+    group = group,
 })
 
 -- Keybinding Overrides
@@ -110,8 +111,6 @@ vim.api.nvim_create_autocmd({"BufNew", "BufRead"}, {
     end
 
     -- Easing these until C-p takes already-typed text into account.
-    vim.cmd [[
-    cunmap <Up>
-    cunmap <Down>
-    ]]
+    vim.api.nvim_del_keymap('c', '<Up>')
+    vim.api.nvim_del_keymap('c', '<Down>')
 -- End of Keybinding Overrides
