@@ -19,8 +19,14 @@ install:
 		"$$HOME/.pgpass" \
 		"$$HOME/.ssh/"* \
 	;
-	mkdir -p "$$HOME"/.vim/autoload/ "$$HOME"/.vim/swapfiles/
+	mkdir -p \
+		"$$HOME"/.local/share/nvim/site/autoload/ \
+		"$$HOME"/.vim/autoload/ \
+		"$$HOME"/.vim/swapfiles/ \
+	;
 	git clone --depth 1 https://github.com/junegunn/vim-plug.git
-	mv vim-plug/plug.vim "$$HOME"/.vim/autoload/
+	cp vim-plug/plug.vim "$$HOME"/.local/share/nvim/site/autoload/
+	cp vim-plug/plug.vim "$$HOME"/.vim/autoload/
 	rm -rf vim-plug/
+	nvim +PlugUpdate +qa
 	vim +PlugUpdate +qa
