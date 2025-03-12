@@ -1,58 +1,58 @@
-require('packer').startup(function(use)
-    use 'wbthomason/packer.nvim'
-    use 'APZelos/blamer.nvim'
-    use 'AndrewRadev/linediff.vim'
-    use 'airblade/vim-gitgutter'
-    use 'dense-analysis/ale'
-    use 'godlygeek/tabular'
-    use 'gregsexton/MatchTag'
-    use 'sheerun/vim-polyglot'
-end)
+-- Plugin Config
+    local Plug = vim.fn['plug#']
 
-vim.g.ale_fixers = {
-    c          = {'astyle'},
-    cpp        = {'astyle'},
-    css        = {'prettier'},
-    hcl        = {'packer'},
-    html       = {'prettier'},
-    java       = {'google_java_format'},
-    javascript = {'prettier'},
-    json       = {'jq'},
-    markdown   = {'prettier'},
-    perl       = {'perltidy'},
-    python     = {'isort', 'black'},
-    ruby       = {'prettier'},
-    sh         = {'shfmt'},
-    sql        = {'sqlfluff'},
-    terraform  = {'terraform'},
-    typescript = {'prettier'},
-    xml        = {'xmllint'},
-    yaml       = {'prettier'},
-}
+    vim.call('plug#begin')
+        Plug('APZelos/blamer.nvim')
+        Plug('AndrewRadev/linediff.vim')
+        Plug('airblade/vim-gitgutter')
+        Plug('dense-analysis/ale')
+        Plug('godlygeek/tabular')
+        Plug('gregsexton/MatchTag')
+        Plug('sheerun/vim-polyglot')
+    vim.call('plug#end')
 
-vim.g.ale_linters_ignore = {
-    java   = {'checkstyle'},
-    python = {'pyright', 'ruff'},
-}
+    vim.g.ale_fixers = {
+        c          = {'astyle'            },
+        cpp        = {'astyle'            },
+        css        = {'prettier'          },
+        hcl        = {'packer'            },
+        html       = {'prettier'          },
+        java       = {'google_java_format'},
+        javascript = {'prettier'          },
+        json       = {'jq'                },
+        markdown   = {'prettier'          },
+        perl       = {'perltidy'          },
+        python     = {'isort', 'black'    },
+        ruby       = {'prettier'          },
+        sh         = {'shfmt'             },
+        sql        = {'sqlfluff'          },
+        terraform  = {'terraform'         },
+        typescript = {'prettier'          },
+        xml        = {'xmllint'           },
+        yaml       = {'prettier'          },
+    }
 
-vim.g.ale_java_google_java_format_options = '--aosp'
-vim.g.ale_json_jq_options = '-S --indent 4'
-vim.g.ale_python_flake8_options = '--ignore=E501'
-vim.g.ale_python_isort_options = '--profile=black'
-vim.g.ale_python_ruff_options = '--ignore=E501'
-vim.g.ale_sql_sqlfluff_options = '--dialect postgres'
-vim.g.ale_virtualtext_cursor = 'disabled'
+    vim.g.ale_linters_ignore = {
+        java   = {'checkstyle'     },
+        python = {'pyright', 'ruff'},
+    }
 
-vim.g.blamer_date_format = '%Y-%m-%dT%H:%M:%S%Z'
-vim.g.blamer_delay = 300
-vim.g.blamer_enabled = false
-vim.g.blamer_show_in_insert_modes = false
-vim.g.blamer_show_in_visual_modes = false
-vim.g.blamer_template = '<committer-mail> <committer-time> <summary>'
-vim.g.java_ignore_markdown = true
+    vim.g.ale_java_google_java_format_options = '--aosp'
+    vim.g.ale_json_jq_options = '-S --indent 4'
+    vim.g.ale_python_flake8_options = '--ignore=E501'
+    vim.g.ale_python_isort_options = '--profile=black'
+    vim.g.ale_python_ruff_options = '--ignore=E501'
+    vim.g.ale_sql_sqlfluff_options = '--dialect postgres'
+    vim.g.ale_virtualtext_cursor = 'disabled'
 
-vim.opt.syntax = 'on'
-vim.cmd('filetype plugin indent on')
+    vim.g.blamer_date_format = '%Y-%m-%dT%H:%M:%S%Z'
+    vim.g.blamer_delay = 300
+    vim.g.blamer_enabled = false
+    vim.g.blamer_show_in_insert_modes = false
+    vim.g.blamer_show_in_visual_modes = false
+    vim.g.blamer_template = '<committer-mail> <committer-time> <summary>'
+    vim.g.java_ignore_markdown = true
+-- End of Plugin Config
 
 vim.opt.autoindent = true
 vim.opt.background = 'dark'
