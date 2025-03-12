@@ -59,7 +59,6 @@ vim.opt.background = 'dark'
 vim.opt.backspace = '2'
 vim.opt.belloff = 'all'
 vim.opt.colorcolumn = '73,81,101,121'
-vim.opt.directory = '~/.vim/swapfiles//'
 vim.opt.expandtab = true
 vim.opt.fileformats = {'unix'}
 vim.opt.hlsearch = true
