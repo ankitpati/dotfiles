@@ -71,23 +71,17 @@ vim.opt.synmaxcol = 0
 vim.opt.tabstop = 4
 vim.opt.updatetime = 250
 
-local highlight_groups = {
-    Blamer = {ctermfg = 'lightgray'},
-    GitGutterAdd = {ctermfg = 'darkgreen'},
-    GitGutterChange = {ctermfg = 'darkyellow'},
-    GitGutterDelete = {ctermfg = 'darkred'},
-    ColorColumn = {ctermbg = 'darkgray'},
-    StatusLine = {ctermbg = 'darkgray', ctermfg = 'black'},
-    StatusLineNC = {ctermbg = 'darkgray', ctermfg = 'black'},
-    TabLine = {cterm = 'NONE', ctermbg = 'black', ctermfg = 'darkgray'},
-    TabLineFill = {ctermfg = 'black'},
-    TabLineSel = {ctermbg = 'black'},
-    VertSplit = {ctermbg = 'darkgray', ctermfg = 'black'},
-}
-
-for group, attrs in pairs(highlight_groups) do
-    vim.api.nvim_set_hl(0, group, attrs)
-end
+vim.api.nvim_set_hl(0, 'Blamer', {fg = 'lightgray'})
+vim.api.nvim_set_hl(0, 'GitGutterAdd', {fg = 'darkgreen'})
+vim.api.nvim_set_hl(0, 'GitGutterChange', {fg = 'darkyellow'})
+vim.api.nvim_set_hl(0, 'GitGutterDelete', {fg = 'darkred'})
+vim.api.nvim_set_hl(0, 'ColorColumn', {bg = 'darkgray'})
+vim.api.nvim_set_hl(0, 'StatusLine', {bg = 'darkgray', fg = 'black'})
+vim.api.nvim_set_hl(0, 'StatusLineNC', {bg = 'darkgray', fg = 'black'})
+vim.api.nvim_set_hl(0, 'TabLine', {bg = 'black', fg = 'darkgray'})
+vim.api.nvim_set_hl(0, 'TabLineFill', {fg = 'black'})
+vim.api.nvim_set_hl(0, 'TabLineSel', {bg = 'black'})
+vim.api.nvim_set_hl(0, 'VertSplit', {bg = 'darkgray', fg = 'black'})
 
 local group = vim.api.nvim_create_augroup("vimrc", { clear = true })
 vim.api.nvim_create_autocmd({"BufNew", "BufRead"}, {
