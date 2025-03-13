@@ -61,8 +61,10 @@ vim.opt.belloff = 'all'
 vim.opt.colorcolumn = '73,81,101,121'
 vim.opt.expandtab = true
 vim.opt.fileformats = {'unix'}
+vim.opt.guicursor = ''
 vim.opt.hlsearch = true
 vim.opt.incsearch = true
+vim.opt.laststatus = 0
 vim.opt.modeline = false
 vim.opt.redrawtime = 10000
 vim.opt.scrolloff = 5
@@ -75,7 +77,8 @@ vim.api.nvim_set_hl(0, 'Blamer', {fg = 'lightgray'})
 vim.api.nvim_set_hl(0, 'GitGutterAdd', {fg = 'darkgreen'})
 vim.api.nvim_set_hl(0, 'GitGutterChange', {fg = 'darkyellow'})
 vim.api.nvim_set_hl(0, 'GitGutterDelete', {fg = 'darkred'})
-vim.api.nvim_set_hl(0, 'ColorColumn', {bg = 'darkgray'})
+vim.api.nvim_set_hl(0, 'Normal', {bg = 'black'})
+vim.api.nvim_set_hl(0, 'SignColumn', {bg = 'NvimDarkGrey4'})
 vim.api.nvim_set_hl(0, 'StatusLine', {bg = 'darkgray', fg = 'black'})
 vim.api.nvim_set_hl(0, 'StatusLineNC', {bg = 'darkgray', fg = 'black'})
 vim.api.nvim_set_hl(0, 'TabLine', {bg = 'black', fg = 'darkgray'})
