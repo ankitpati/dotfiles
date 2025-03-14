@@ -1,0 +1,18 @@
+---
+rules:
+    comments:
+        level: warning
+        min-spaces-from-content: 1
+    empty-values: enable
+    float-values:
+        require-numeral-before-decimal: true
+    line-length: disable
+    quoted-strings:
+        check-keys: true
+        quote-type: any
+        required: only-when-needed
+
+yaml-files:
+    - "*.yaml"
+    - "*.yml"
+    - .yamllint
