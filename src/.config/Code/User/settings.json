@@ -33,6 +33,7 @@
     "editor.scrollBeyondLastLine": false,
     "editor.scrollPredominantAxis": false,
     "editor.suggest.preview": true,
+    "editor.wordBasedSuggestions": "allDocuments",
     "explorer.confirmDelete": false,
     "explorer.confirmDragAndDrop": false,
     "files.enableTrash": false,
