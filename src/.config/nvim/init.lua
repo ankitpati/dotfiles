@@ -1,58 +1,58 @@
 -- Plugin Config
-    local Plug = vim.fn['plug#']
+local Plug = vim.fn['plug#']
 
-    vim.call('plug#begin')
-        Plug('APZelos/blamer.nvim')
-        Plug('AndrewRadev/linediff.vim')
-        Plug('airblade/vim-gitgutter')
-        Plug('dense-analysis/ale')
-        Plug('godlygeek/tabular')
-        Plug('gregsexton/MatchTag')
-        Plug('sheerun/vim-polyglot')
-    vim.call('plug#end')
+vim.call('plug#begin')
+    Plug('APZelos/blamer.nvim')
+    Plug('AndrewRadev/linediff.vim')
+    Plug('airblade/vim-gitgutter')
+    Plug('dense-analysis/ale')
+    Plug('godlygeek/tabular')
+    Plug('gregsexton/MatchTag')
+    Plug('sheerun/vim-polyglot')
+vim.call('plug#end')
 
-    vim.g.ale_fixers = {
-        c          = {'astyle'            },
-        cpp        = {'astyle'            },
-        css        = {'prettier'          },
-        hcl        = {'packer'            },
-        html       = {'prettier'          },
-        java       = {'google_java_format'},
-        javascript = {'prettier'          },
-        json       = {'jq'                },
-        lua        = {'stylua'            },
-        markdown   = {'prettier'          },
-        perl       = {'perltidy'          },
-        python     = {'isort', 'black'    },
-        ruby       = {'prettier'          },
-        sh         = {'shfmt'             },
-        sql        = {'sqlfluff'          },
-        terraform  = {'terraform'         },
-        typescript = {'prettier'          },
-        xml        = {'xmllint'           },
-        yaml       = {'prettier'          },
-    }
+vim.g.ale_fixers = {
+    c          = {'astyle'            },
+    cpp        = {'astyle'            },
+    css        = {'prettier'          },
+    hcl        = {'packer'            },
+    html       = {'prettier'          },
+    java       = {'google_java_format'},
+    javascript = {'prettier'          },
+    json       = {'jq'                },
+    lua        = {'stylua'            },
+    markdown   = {'prettier'          },
+    perl       = {'perltidy'          },
+    python     = {'isort', 'black'    },
+    ruby       = {'prettier'          },
+    sh         = {'shfmt'             },
+    sql        = {'sqlfluff'          },
+    terraform  = {'terraform'         },
+    typescript = {'prettier'          },
+    xml        = {'xmllint'           },
+    yaml       = {'prettier'          },
+}
 
-    vim.g.ale_linters_ignore = {
-        java   = {'checkstyle'     },
-        python = {'pyright', 'ruff'},
-    }
+vim.g.ale_linters_ignore = {
+    java   = {'checkstyle'     },
+    python = {'pyright', 'ruff'},
+}
 
-    vim.g.ale_java_google_java_format_options = '--aosp'
-    vim.g.ale_json_jq_options = '-S --indent 4'
-    vim.g.ale_python_flake8_options = '--ignore=E501'
-    vim.g.ale_python_isort_options = '--profile=black'
-    vim.g.ale_python_ruff_options = '--ignore=E501'
-    vim.g.ale_sql_sqlfluff_options = '--dialect postgres'
-    vim.g.ale_virtualtext_cursor = 'disabled'
+vim.g.ale_java_google_java_format_options = '--aosp'
+vim.g.ale_json_jq_options = '-S --indent 4'
+vim.g.ale_python_flake8_options = '--ignore=E501'
+vim.g.ale_python_isort_options = '--profile=black'
+vim.g.ale_python_ruff_options = '--ignore=E501'
+vim.g.ale_sql_sqlfluff_options = '--dialect postgres'
+vim.g.ale_virtualtext_cursor = 'disabled'
 
-    vim.g.blamer_date_format = '%Y-%m-%dT%H:%M:%S%Z'
-    vim.g.blamer_delay = 300
-    vim.g.blamer_enabled = true
-    vim.g.blamer_show_in_insert_modes = false
-    vim.g.blamer_show_in_visual_modes = false
-    vim.g.blamer_template = '<committer-mail> <committer-time> <summary>'
-    vim.g.java_ignore_markdown = true
+vim.g.blamer_date_format = '%Y-%m-%dT%H:%M:%S%Z'
+vim.g.blamer_delay = 300
+vim.g.blamer_enabled = true
+vim.g.blamer_show_in_insert_modes = false
+vim.g.blamer_show_in_visual_modes = false
+vim.g.blamer_template = '<committer-mail> <committer-time> <summary>'
+vim.g.java_ignore_markdown = true
 -- End of Plugin Config
 
 vim.opt.autoindent = true
@@ -98,19 +98,19 @@ vim.api.nvim_create_autocmd({"BufNew", "BufRead"}, {
 })
 
 -- Keybinding Overrides
-    local modes = {'c', 'i', 'n', 'v'}
-    local keys1 = {'<', '<C-', '<S-'}
-    local keys2 = {'BS>', 'Up>', 'Down>', 'Left>', 'Right>', 'PageUp>', 'PageDown>', 'Home>', 'End>'}
+local modes = {'c', 'i', 'n', 'v'}
+local keys1 = {'<', '<C-', '<S-'}
+local keys2 = {'BS>', 'Up>', 'Down>', 'Left>', 'Right>', 'PageUp>', 'PageDown>', 'Home>', 'End>'}
 
-    for _, mode in ipairs(modes) do
-        for _, key1 in ipairs(keys1) do
-            for _, key2 in ipairs(keys2) do
-                vim.api.nvim_set_keymap(mode, key1 .. key2, '<Nop>', { noremap = true, silent = true })
-            end
+for _, mode in ipairs(modes) do
+    for _, key1 in ipairs(keys1) do
+        for _, key2 in ipairs(keys2) do
+            vim.api.nvim_set_keymap(mode, key1 .. key2, '<Nop>', { noremap = true, silent = true })
         end
     end
+end
 
-    -- Easing these until C-p takes already-typed text into account.
-    vim.api.nvim_del_keymap('c', '<Up>')
-    vim.api.nvim_del_keymap('c', '<Down>')
+-- Easing these until C-p takes already-typed text into account.
+vim.api.nvim_del_keymap('c', '<Up>')
+vim.api.nvim_del_keymap('c', '<Down>')
 -- End of Keybinding Overrides
