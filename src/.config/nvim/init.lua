@@ -3,13 +3,15 @@ do
     local Plug = vim.fn["plug#"]
 
     vim.call("plug#begin")
-    Plug("APZelos/blamer.nvim")
-    Plug("AndrewRadev/linediff.vim")
-    Plug("airblade/vim-gitgutter")
-    Plug("dense-analysis/ale")
-    Plug("godlygeek/tabular")
-    Plug("gregsexton/MatchTag")
-    Plug("sheerun/vim-polyglot")
+    do
+        Plug("APZelos/blamer.nvim")
+        Plug("AndrewRadev/linediff.vim")
+        Plug("airblade/vim-gitgutter")
+        Plug("dense-analysis/ale")
+        Plug("godlygeek/tabular")
+        Plug("gregsexton/MatchTag")
+        Plug("sheerun/vim-polyglot")
+    end
     vim.call("plug#end")
 
     vim.g.ale_fixers = {
