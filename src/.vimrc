@@ -12,11 +12,6 @@ set nocompatible
         Plug 'sheerun/vim-polyglot'
     call plug#end()
 
-    highlight Blamer          ctermfg=lightgray
-    highlight GitGutterAdd    ctermfg=darkgreen
-    highlight GitGutterChange ctermfg=darkyellow
-    highlight GitGutterDelete ctermfg=darkred
-
     runtime macros/matchit.vim
 
     g:ale_fixers = {
@@ -58,12 +53,15 @@ set nocompatible
     g:blamer_show_in_visual_modes = false
     g:blamer_template = '<committer-mail> <committer-time> <summary>'
     g:java_ignore_markdown = true
-
-    highlight Blamer ctermfg=lightgray
 # End of Plugin Config
 
 syntax on
 filetype plugin indent on
+
+highlight Blamer ctermfg=lightgray
+highlight GitGutterAdd ctermfg=darkgreen
+highlight GitGutterChange ctermfg=darkyellow
+highlight GitGutterDelete ctermfg=darkred
 
 highlight ColorColumn ctermbg=darkgray
 highlight StatusLine ctermbg=darkgray ctermfg=black
