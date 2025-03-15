@@ -23,6 +23,7 @@ set nocompatible
         java:       ['google_java_format'],
         javascript: ['prettier'          ],
         json:       ['jq'                ],
+        lua:        ['stylua'            ],
         markdown:   ['prettier'          ],
         perl:       ['perltidy'          ],
         python:     ['isort', 'black'    ],
