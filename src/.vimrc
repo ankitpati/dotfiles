@@ -83,6 +83,7 @@ set fileformats=unix
 set hlsearch
 set incsearch
 set nomodeline
+set notermguicolors
 set redrawtime=10000
 set scrolloff=5
 set shiftwidth=4
