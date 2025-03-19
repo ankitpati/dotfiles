@@ -81,7 +81,7 @@
     "schemeVersion": 2,
     "siteList": [],
     "siteListEnabled": [],
-    "syncSettings": true,
+    "syncSettings": false,
     "syncSitesFixes": true,
     "theme": {
         "brightness": 100,
