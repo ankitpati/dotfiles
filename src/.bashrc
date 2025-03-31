@@ -100,6 +100,7 @@ function add_brewed_items_to_env {
             wildfly-as \
             artifactory \
             swift \
+            llvm \
             sphinx-doc \
             jpeg-turbo \
             sqlite \
