@@ -442,6 +442,7 @@ function main {
         SRC_DISABLE_USER_AGENT_TELEMETRY \
         SRC_ENDPOINT \
         SSH_AUTH_SOCK \
+        SWARM_HOST \
         TFENV_AUTO_INSTALL \
         TNS_ADMIN \
         USE_BAZEL_VERSION \
