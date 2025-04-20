@@ -38,8 +38,33 @@ function sanitize_path {
 function highest_version_path {
     local -n input=$1
 
-    # shellcheck disable=2012
-    input=$(ls -rv "$input" | head --lines=1)
+    local was_nullglob_set=0
+    if shopt -q nullglob
+    then
+        was_nullglob_set=1
+    else
+        shopt -s nullglob
+    fi
+
+    local -a entries=("$input"/*)
+
+    local highest_version=${entries[0]:-}
+
+    local entry
+    for entry in "${entries[@]:1}"
+    do
+        if [[ $entry > $highest_version ]]
+        then
+            highest_version=$entry
+        fi
+    done
+
+    input=${highest_version##*/}
+
+    if ((was_nullglob_set == 0))
+    then
+        shopt -u nullglob
+    fi
 }
 
 function discolour_enclosed_ansi {
