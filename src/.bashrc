@@ -35,6 +35,13 @@ function sanitize_path {
     input=${sanitized_paths[*]}
 }
 
+function highest_version_path {
+    local -n input=$1
+
+    # shellcheck disable=2012
+    input=$(ls -rv "$input" | head --lines=1)
+}
+
 function discolour_enclosed_ansi {
     # Utility function to remove ANSI colours from strings with correctly
     # enclosed colours.
@@ -217,19 +224,19 @@ function add_brewed_items_to_env {
 
         if ((UID != 0))
         then
-            local sqlclversion
-            # shellcheck disable=2012
-            sqlclversion=$(ls -rv "$brew_prefix/Caskroom/sqlcl" | head --lines=1)
-            local sqlclpath="$brew_prefix/Caskroom/sqlcl/$sqlclversion/sqlcl/bin"
+            local sqlclcask="$brew_prefix/Caskroom/sqlcl"
+            local sqlclversion=$sqlclcask
+            highest_version_path sqlclversion
+            local sqlclpath="$sqlclcask/$sqlclversion/sqlcl/bin"
             if [[ -d $sqlclpath ]]
             then
                 extra_binaries="$sqlclpath:$extra_binaries"
             fi
 
-            local headlampversion
-            # shellcheck disable=2012
-            headlampversion=$(ls -rv "$brew_prefix/Caskroom/headlamp" | head --lines=1)
-            local headlamppath="$brew_prefix/Caskroom/headlamp/$headlampversion/Headlamp.app/Contents/MacOS"
+            local headlampcask="$brew_prefix/Caskroom/headlamp"
+            local headlampversion=$headlampcask
+            highest_version_path headlampversion
+            local headlamppath="$headlampcask/$headlampversion/Headlamp.app/Contents/MacOS"
             if [[ -d $headlamppath ]]
             then
                 extra_binaries="$headlamppath:$extra_binaries"
@@ -710,11 +717,13 @@ function main {
         fi
 
         # Ruby
-        local ruby_gems="$HOME/.local/share/gem/ruby"
-        if [[ -n $(ls "$ruby_gems" 2>/dev/null) ]]
+        local rubygems="$HOME/.local/share/gem/ruby"
+        local rubygemsversion=$rubygems
+        highest_version_path rubygemsversion
+        local rubygemspath="$rubygems/$rubygemsversion/bin"
+        if [[ -d $rubygemspath ]]
         then
-            # shellcheck disable=2012
-            PATH="$ruby_gems/$(ls --reverse -v "$ruby_gems" | head --lines=1)/bin:$PATH"
+            PATH="$rubygemspath:$PATH"
         fi
 
         # .NET
