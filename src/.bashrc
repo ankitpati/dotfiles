@@ -226,6 +226,15 @@ function add_brewed_items_to_env {
                 extra_binaries="$sqlclpath:$extra_binaries"
             fi
 
+            local headlampversion
+            # shellcheck disable=2012
+            headlampversion=$(ls -rv "$brew_prefix/Caskroom/headlamp" | head --lines=1)
+            local headlamppath="$brew_prefix/Caskroom/headlamp/$headlampversion/Headlamp.app/Contents/MacOS"
+            if [[ -d $headlamppath ]]
+            then
+                extra_binaries="$headlamppath:$extra_binaries"
+            fi
+
             local flutterpath="$HOME/flutter/bin"
             if [[ -d $flutterpath ]]
             then
