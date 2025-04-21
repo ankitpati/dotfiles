@@ -35,6 +35,39 @@ function sanitize_path {
     input=${sanitized_paths[*]}
 }
 
+function version_cmp {
+    local version_a=$1
+    local version_b=$2
+    local -n output=$3
+
+    local -a version_a_parts
+    IFS='.' read -ra version_a_parts <<<"$version_a"
+
+    local -a version_b_parts
+    IFS='.' read -ra version_b_parts <<<"$version_b"
+
+    local -i maximum_parts=10#$((
+        ${#version_a_parts[@]} > ${#version_b_parts[@]} ?
+            ${#version_a_parts[@]} : ${#version_b_parts[@]}
+    ))
+
+    local -i part_index
+    local -i version_a_part
+    local -i version_b_part
+    for (( part_index=0; part_index < maximum_parts; ++part_index ))
+    do
+        version_a_part=${version_a_parts[part_index]:-0}
+        version_b_part=${version_b_parts[part_index]:-0}
+
+        output=$((version_a_part - version_b_part))
+
+        if ((output != 0))
+        then
+            break
+        fi
+    done
+}
+
 function highest_version_path {
     local -n input=$1
 
