@@ -16,7 +16,7 @@ src="$mydir/../src"
 cd "$src"
 
 username=$USER
-displayname=$(finger "$USER" | grep --only-matching --perl-regexp '(?<=Name: ).*$')
+displayname=${DISPLAYNAME:-$(finger "$USER" | grep --only-matching --perl-regexp '(?<=Name: ).*$')}
 
 grep --files-with-matches --fixed-strings --null --recursive 'Ankit Pati' . | xargs --null --no-run-if-empty sed --in-place "s/Ankit Pati/$displayname/g"
 grep --files-with-matches --fixed-strings --null --recursive ankit.pati . | xargs --null --no-run-if-empty sed --in-place "s/ankit\\.pati/$username/g"
