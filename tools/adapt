@@ -18,6 +18,22 @@ cd "$src"
 username=$USER
 displayname=${DISPLAYNAME:-$(finger "$USER" | grep --only-matching --perl-regexp '(?<=Name: ).*$')}
 
-grep --files-with-matches --fixed-strings --null --recursive 'Ankit Pati' . | xargs --null --no-run-if-empty sed --in-place "s/Ankit Pati/$displayname/g"
-grep --files-with-matches --fixed-strings --null --recursive ankit.pati . | xargs --null --no-run-if-empty sed --in-place "s/ankit\\.pati/$username/g"
-grep --files-with-matches --fixed-strings --null --recursive ankitpati . | xargs --null --no-run-if-empty sed --in-place "s/ankitpati/${username//.}/g"
+declare -a grep_command=(
+    grep
+        --files-with-matches
+        --fixed-strings
+        --null
+        --recursive
+)
+
+declare -a xargs_sed_command=(
+    xargs
+        --no-run-if-empty
+        --null
+            sed
+                --in-place
+)
+
+"${grep_command[@]}" 'Ankit Pati' . | "${xargs_sed_command[@]}" "s/Ankit Pati/$displayname/g"
+"${grep_command[@]}" ankit.pati . | "${xargs_sed_command[@]}" "s/ankit\\.pati/$username/g"
+"${grep_command[@]}" ankitpati . | "${xargs_sed_command[@]}" "s/ankitpati/${username//.}/g"
