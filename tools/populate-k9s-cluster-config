@@ -1,0 +1,59 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+shopt -s nullglob
+
+me=${0##*/}
+
+if (($# != 0))
+then
+    printf 'Usage:\n\t%s\n' "$me"
+    exit 1
+fi
+
+mydir=${0%/*}
+src="$mydir/../src"
+
+case $OSTYPE in
+    *linux*)
+        config_dir='.config'
+        ;;
+    *darwin*)
+        config_dir='Library/Application Support'
+        ;;
+esac
+
+k9s_cluster_config="$src/$config_dir/k9s/clusters"
+
+declare -a clusters
+readarray -t clusters < <(yq '.clusters[].name' < "$src/.kube/config")
+
+cd "$k9s_cluster_config"
+
+declare -a cluster_dirs_to_delete=()
+
+for cluster_dir in *
+do
+    if [[ $cluster_dir == 'default' ]]
+    then
+        continue
+    fi
+
+    cluster_dirs_to_delete+=("$cluster_dir")
+done
+
+if ((${#cluster_dirs_to_delete[@]} != 0))
+then
+    rm --force --recursive -- "${cluster_dirs_to_delete[@]}"
+fi
+
+for cluster in "${clusters[@]}"
+do
+    cp --recursive -- default "$cluster"
+
+    nested_cluster_dir="$cluster/$cluster"
+    mv -- "$cluster/default" "$nested_cluster_dir"
+
+    yq_safe_cluster_name=${cluster//\"}
+    yq --inplace ".k9s.cluster = \"$yq_safe_cluster_name\"" "$nested_cluster_dir/config.yaml"
+done
