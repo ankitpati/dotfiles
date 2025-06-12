@@ -55,5 +55,8 @@ do
     mv -- "$cluster/default" "$nested_cluster_dir"
 
     yq_safe_cluster_name=${cluster//\"}
-    yq --inplace ".k9s.cluster = \"$yq_safe_cluster_name\"" "$nested_cluster_dir/config.yaml"
+    config_yaml_file="$nested_cluster_dir/config.yaml"
+    yq --inplace ".k9s.cluster = \"$yq_safe_cluster_name\"" "$config_yaml_file"
+
+    prettier --log-level=silent --parser=yaml --write "$config_yaml_file"
 done
