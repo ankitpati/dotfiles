@@ -5,9 +5,3 @@ endOfLine: lf
 proseWrap: always
 tabWidth: 4
 vueIndentScriptAndStyle: true
-overrides:
-  - files:
-      - '*.yml'
-      - '*.yaml'
-    options:
-      tabWidth: 2
