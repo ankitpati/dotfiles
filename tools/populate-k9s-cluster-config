@@ -21,29 +21,13 @@ then
     config_dir='Library/Application Support'
 fi
 
-k9s_cluster_config="$src/$config_dir/k9s/clusters"
+src_k9s_cluster_config="$src/$config_dir/k9s/clusters"
+home_k9s_cluster_config="$HOME/$config_dir/k9s/clusters"
 
 declare -a clusters
 readarray -t clusters < <(yq '.clusters[].name' < "$src/.kube/config")
 
-cd "$k9s_cluster_config"
-
-declare -a cluster_dirs_to_delete=()
-
-for cluster_dir in *
-do
-    if [[ $cluster_dir == 'default' ]]
-    then
-        continue
-    fi
-
-    cluster_dirs_to_delete+=("$cluster_dir")
-done
-
-if ((${#cluster_dirs_to_delete[@]} != 0))
-then
-    rm --force --recursive -- "${cluster_dirs_to_delete[@]}"
-fi
+cd "$src_k9s_cluster_config"
 
 for cluster in "${clusters[@]}"
 do
@@ -58,3 +42,8 @@ do
 
     prettier --log-level=silent --parser=yaml --write "$config_yaml_file"
 done
+
+rm --force --recursive -- "$home_k9s_cluster_config"
+cp --recursive -- . "$home_k9s_cluster_config"
+
+git clean --force --force -x .
