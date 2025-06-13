@@ -14,14 +14,12 @@ fi
 mydir=${0%/*}
 src="$mydir/../src"
 
-case $OSTYPE in
-    *linux*)
-        config_dir='.config'
-        ;;
-    *darwin*)
-        config_dir='Library/Application Support'
-        ;;
-esac
+config_dir='.config'
+
+if [[ $OSTYPE == *darwin* ]]
+then
+    config_dir='Library/Application Support'
+fi
 
 k9s_cluster_config="$src/$config_dir/k9s/clusters"
 
