@@ -14,6 +14,9 @@ fi
 mydir=${0%/*}
 src="$mydir/../src"
 
+declare -a clusters
+readarray -t clusters < <(yq '.clusters[].name' < "$src/.kube/config")
+
 config_dir='.config'
 
 if [[ $OSTYPE == *darwin* ]]
@@ -24,10 +27,14 @@ fi
 src_k9s_cluster_config="$src/$config_dir/k9s/clusters"
 home_k9s_cluster_config="$HOME/$config_dir/k9s/clusters"
 
-declare -a clusters
-readarray -t clusters < <(yq '.clusters[].name' < "$src/.kube/config")
+rm --force --recursive -- "$home_k9s_cluster_config"
+mkdir --parents -- "$home_k9s_cluster_config"
 
-cd "$src_k9s_cluster_config"
+cp --recursive -- "$src_k9s_cluster_config/default" "$home_k9s_cluster_config/"
+
+cd "$home_k9s_cluster_config"
+
+declare -a config_yaml_files=()
 
 for cluster in "${clusters[@]}"
 do
@@ -36,14 +43,11 @@ do
     nested_cluster_dir="$cluster/$cluster"
     mv -- "$cluster/default" "$nested_cluster_dir"
 
-    yq_safe_cluster_name=${cluster//\"}
+    yq_safe_cluster_name=${cluster//\'}
     config_yaml_file="$nested_cluster_dir/config.yaml"
     yq --inplace ".k9s.cluster = \"$yq_safe_cluster_name\"" "$config_yaml_file"
 
-    prettier --log-level=silent --parser=yaml --write "$config_yaml_file"
+    config_yaml_files+=("$config_yaml_file")
 done
 
-rm --force --recursive -- "$home_k9s_cluster_config"
-cp --recursive -- . "$home_k9s_cluster_config"
-
-git clean --force --force -x .
+prettier --log-level=silent --parser=yaml --write -- "${config_yaml_file[@]}"
