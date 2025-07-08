@@ -12,4 +12,5 @@ set echo-control-characters off
 set mark-symlinked-directories
 set menu-complete-display-prefix
 set page-completions off
+set search-ignore-case
 set show-all-if-ambiguous
