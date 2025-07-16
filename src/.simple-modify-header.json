@@ -1,0 +1,36 @@
+{
+    "debug_mode": false,
+    "format_version": "1.2",
+    "headers": [
+        {
+            "action": "add",
+            "apply_on": "req",
+            "comment": "HP DeskJet Bug Workaround",
+            "header_name": "Host",
+            "header_value": "192.168.1.201",
+            "status": "on",
+            "url_contains": ""
+        },
+        {
+            "action": "add",
+            "apply_on": "req",
+            "comment": "HP DeskJet Bug Workaround",
+            "header_name": "Origin",
+            "header_value": "https://192.168.1.201",
+            "status": "on",
+            "url_contains": ""
+        },
+        {
+            "action": "add",
+            "apply_on": "req",
+            "comment": "HP DeskJet Bug Workaround",
+            "header_name": "Referer",
+            "header_value": "https://192.168.1.201/",
+            "status": "on",
+            "url_contains": ""
+        }
+    ],
+    "show_comments": true,
+    "target_page": "https://printer.tiger.ankitpati.in/*",
+    "use_url_contains": false
+}
