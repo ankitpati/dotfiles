@@ -698,7 +698,6 @@ function main {
     alias l='ls -CF'
     alias la='ls -A'
     alias ll='ls -alF'
-    # shellcheck disable=SC2262
     alias ls='ls --color=auto'
     alias mosh='exec mosh'
     alias ncdu='ncdu --color dark'
