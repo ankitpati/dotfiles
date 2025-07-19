@@ -547,10 +547,13 @@ function main {
         mesg n || :
     fi
 
-    local lc_ctype
-    lc_ctype=$(command -v locale &>/dev/null && locale)
-    lc_ctype=${lc_ctype##*LC_CTYPE=\"}
-    lc_ctype=${lc_ctype%%\"*}
+    local lc_ctype=''
+    if command -v locale &>/dev/null
+    then
+        lc_ctype=$(locale)
+        lc_ctype=${lc_ctype##*LC_CTYPE=\"}
+        lc_ctype=${lc_ctype%%\"*}
+    fi
 
     if ! [[ ${lc_ctype^^} =~ UTF-?8 ]]
     then
@@ -571,8 +574,11 @@ function main {
         PATH="/opt/homebrew/bin:$PATH"
     fi
 
-    local brew_prefix
-    brew_prefix=$(command -v brew &>/dev/null && brew --prefix)
+    local brew_prefix=''
+    if command -v brew &>/dev/null
+    then
+        brew_prefix=$(brew --prefix)
+    fi
 
     # Ensure `source`s below this see the correct `$MANPATH`.
     local manpath=${MANPATH:-}
