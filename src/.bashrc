@@ -146,7 +146,7 @@ function add_brewed_items_to_env {
         fi
     elif [[ $OSTYPE == *darwin* ]]
     then
-        local brew_postgresql_latest_formula=("$(brew formulae | grep '^postgresql@' | sort -rV | head -n 1)")
+        local brew_postgresql_latest_formula=("${ brew formulae | grep '^postgresql@' | sort -rV | head -n 1; }")
         if [[ -z ${brew_postgresql_latest_formula[0]} ]]
         then
             brew_postgresql_latest_formula=()
@@ -550,7 +550,7 @@ function main {
     local lc_ctype=''
     if command -v locale &>/dev/null
     then
-        lc_ctype=$(locale)
+        lc_ctype=${ locale; }
         lc_ctype=${lc_ctype##*LC_CTYPE=\"}
         lc_ctype=${lc_ctype%%\"*}
     fi
@@ -577,14 +577,14 @@ function main {
     local brew_prefix=''
     if command -v brew &>/dev/null
     then
-        brew_prefix=$(brew --prefix)
+        brew_prefix=${ brew --prefix; }
     fi
 
     # Ensure `source`s below this see the correct `$MANPATH`.
     local manpath=${MANPATH:-}
     if command -v manpath &>/dev/null
     then
-        MANPATH="$manpath:$(manpath 2>/dev/null)"
+        MANPATH="$manpath:${ manpath 2>/dev/null; }"
         sanitize_path MANPATH
     fi
 
@@ -829,7 +829,7 @@ function main {
     # Buildpacks.io
     if command -v pack &>/dev/null
     then
-        source "$(pack completion)"
+        source "${ pack completion; }"
     fi
 
     sanitize_path CLASSPATH
