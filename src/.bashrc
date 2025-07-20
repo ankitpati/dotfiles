@@ -100,6 +100,38 @@ function highest_version_path {
     fi
 }
 
+function highest_brew_formula_version {
+    local -n formula=$1
+
+    local highest_version=-1
+
+    local -a brew_formulae
+    readarray -t brew_formulae < <(brew formulae)
+
+    local brew_formula
+    local current_version
+    local highest_minus_current
+    for brew_formula in "${brew_formulae[@]}"
+    do
+        if [[ $brew_formula == "$formula@"* ]]
+        then
+            current_version=${brew_formula##"$formula@"}
+            version_cmp "$highest_version" "$current_version" highest_minus_current
+            if ((highest_minus_current < 0))
+            then
+                highest_version=$current_version
+            fi
+        fi
+    done
+
+    if ((highest_version == -1))
+    then
+        formula=''
+    else
+        formula+="@$highest_version"
+    fi
+}
+
 function discolour_enclosed_ansi {
     # Utility function to remove ANSI colours from strings with correctly
     # enclosed colours.
@@ -146,7 +178,9 @@ function add_brewed_items_to_env {
         fi
     elif [[ $OSTYPE == *darwin* ]]
     then
-        local brew_postgresql_latest_formula=("${ brew formulae | grep '^postgresql@' | sort -rV | head -n 1; }")
+        local brew_postgresql='postgresql'
+        highest_brew_formula_version brew_postgresql
+        local brew_postgresql_latest_formula=("$brew_postgresql")
         if [[ -z ${brew_postgresql_latest_formula[0]} ]]
         then
             brew_postgresql_latest_formula=()
