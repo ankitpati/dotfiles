@@ -866,6 +866,14 @@ function main {
         source "${ pack completion; }"
     fi
 
+    # Perforce
+    local p4enviro="$HOME/.p4enviro"
+    if [[ -f $p4enviro ]]
+    then
+        source <(grep -E '^P4[A-Z0-9_]+=' "$p4enviro" \
+                 | sed "s/^/export /;s/=/='/;s/\$/'/")
+    fi
+
     sanitize_path CLASSPATH
     sanitize_path DYLD_LIBRARY_PATH
     sanitize_path MANPATH
