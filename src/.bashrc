@@ -802,7 +802,7 @@ function main {
         # pyenv
         if command -v pyenv &>/dev/null && [[ -d $PYENV_ROOT ]]
         then
-            source <(pyenv init -)
+            eval "${ pyenv init -; }"
         fi
 
         # Perlbrew
@@ -875,13 +875,13 @@ function main {
     # Colours for `tree`
     if command -v dircolors &>/dev/null
     then
-        source <(dircolors --bourne-shell)
+        eval "${ dircolors --bourne-shell; }"
     fi
 
     # PMD Source Code Analyzer
     if command -v pmd &>/dev/null
     then
-        source <(pmd generate-completion)
+        eval "${ pmd generate-completion; }"
     fi
 
     # Buildpacks.io
