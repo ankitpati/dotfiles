@@ -132,6 +132,30 @@ function highest_brew_formula_version {
     fi
 }
 
+function p4enviro_to_exports {
+    local -n p4_exports=$1
+    p4_exports=''
+
+    local p4enviro="$HOME/.p4enviro"
+
+    if [[ ! -f $p4enviro ]]
+    then
+        return
+    fi
+
+    local -a p4enviro_lines
+    readarray -t p4enviro_lines <"$p4enviro"
+
+    local p4enviro_line
+    for p4enviro_line in "${p4enviro_lines[@]}"
+    do
+        if [[ $p4enviro_line =~ ^P4[A-Z0-9_]+= ]]
+        then
+            p4_exports+="export ${p4enviro_line/=/=\'}'"$'\n'
+        fi
+    done
+}
+
 function discolour_enclosed_ansi {
     # Utility function to remove ANSI colours from strings with correctly
     # enclosed colours.
@@ -867,12 +891,9 @@ function main {
     fi
 
     # Perforce
-    local p4enviro="$HOME/.p4enviro"
-    if [[ -f $p4enviro ]]
-    then
-        source <(grep -E '^P4[A-Z0-9_]+=' "$p4enviro" \
-                 | sed "s/^/export /;s/=/='/;s/\$/'/")
-    fi
+    local p4_export_list=''
+    p4enviro_to_exports p4_export_list
+    eval "$p4_export_list"
 
     sanitize_path CLASSPATH
     sanitize_path DYLD_LIBRARY_PATH
