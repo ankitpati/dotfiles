@@ -260,6 +260,7 @@ function add_brewed_items_to_env {
             gpatch \
             openssl \
             gnu-getopt \
+            libiconv \
             gettext \
             ncurses \
             libtool \
