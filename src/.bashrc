@@ -767,7 +767,7 @@ function main {
     alias mosh='exec mosh'
     alias ncdu='ncdu --color dark'
     alias podchecker='podchecker -warnings -warnings -warnings'
-    alias rg='rg --max-columns="$COLUMNS"'
+    alias rg='rg --max-columns=$((COLUMNS - 25))'
     alias ssh-copy-id='ssh-copy-id -oPasswordAuthentication=yes'
     alias ssh='exec ssh'
     alias telnet='exec telnet'
