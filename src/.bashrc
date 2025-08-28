@@ -172,14 +172,12 @@ function discolour_enclosed_ansi {
 function B-oldbin {
     PATH="$HOME/oldbin:$PATH"
     sanitize_path PATH
-    hash -r
 }
 
 # Prepend temporary binaries to PATH
 function B-tmpbin {
     PATH="$HOME/tmpbin:$PATH"
     sanitize_path PATH
-    hash -r
 }
 
 function add_brewed_items_to_env {
